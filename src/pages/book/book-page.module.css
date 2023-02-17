@@ -1,0 +1,537 @@
+.book_page {
+    width: 100%;
+}
+.path_section_outer {
+    background-color: #F9F9FA;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    margin-top: 42px;
+}
+
+.path_section_inner {
+    width: 100%;
+    margin: 0 auto;
+    max-width: 1110px;
+    color: #A7A7A7;
+    word-spacing: 4px;
+    line-height: 24px;
+}
+
+.slash {
+    font-size: 24px;
+    position: relative;
+    top: 5px;
+}
+
+.book_section {
+    max-width: 1110px;
+    width: 100%;
+    margin: 42px auto 0;
+    display: grid;
+    column-gap: 30px;
+    grid-template-rows: repeat(5, min-content);
+    grid-template-columns: 1fr 3.5fr;
+    grid-template-areas: 
+                'img name'
+                'img author'
+                'img button'
+                'img title'
+                'img description';
+                
+}
+
+.book_image_wrapper {
+    grid-area: img;
+    width: 445px;
+}
+
+.slide,
+.book_img {
+    width: 445px;
+    height: 594px;
+}
+
+.book_img_list {
+    max-width: 445px;
+    margin-top: 18px;
+}
+
+.book_img_preview {
+    width: 65px;
+    height: 86px;
+}
+
+.slide_pagination {
+    height: 20px;
+    background: none;
+}
+
+.name {
+    grid-area: name;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 40px;
+}
+
+.author {
+    grid-area: author;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 28px;
+    color: #A7A7A7;
+    margin-top: 24px;
+}
+
+.button {
+    grid-area: button;
+    border-radius: 30px;
+    width: 350px;
+    height: 52px;
+    margin-top: 32px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.title_about,
+.title_rating,
+.title_comments {
+    grid-area: title;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 28px;
+}
+
+.title_comments {
+    display: flex;
+    align-items: center;
+    column-gap: 6px;
+    background: none;
+    border: none;
+}
+
+.title_arrow {
+    margin-left: 22px;
+    transition: .2s ease-in-out;
+}
+
+.title_arrow_active {
+    transform: rotate(180deg);
+}
+
+.title_about {
+    padding-top: 62px;
+}
+
+.description {
+    grid-area: description;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    padding-top: 32px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 25px;
+}
+
+.rating_container_wrapper {
+    width: 100%;
+    max-width: 1110px;
+    margin: 41px auto 0;
+}
+.line {
+    margin: 16px 0 0 0;
+    width: 350px;
+}
+
+.comment_quantity {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #A7A7A7;
+}
+
+.rating_wrapper {
+    display: flex;
+    margin-top: 13px;
+    column-gap: 24px;
+}
+
+.rating_stars {
+    display: flex;
+    flex-direction: row;
+    column-gap: 12px;
+}
+
+.star {
+    width: 24px;
+    height: 24px;
+}
+
+.rating_value {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 28px;
+    color: #363636;
+    font-weight: 700;
+}
+
+
+.about_wrapper {
+    width: 100%;
+    max-width: 1110px;
+    margin: 62px auto 0;
+}
+
+.table_header_wrapper {
+    width: 350px;
+}
+
+.table_header {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 28px;
+    white-space: nowrap;
+}
+
+.table_body {
+    margin-top: 14px;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr 2.4fr;
+}
+
+.table_column {
+    display: flex;
+    flex-direction: column;
+    row-gap: 14px;
+}
+
+.table_name,
+.table_value {
+    font-size: 16px;
+    line-height: 24px;
+    color: #A7A7A7;
+}
+
+.table_name {
+    font-weight: 600;
+    color: #A7A7A7;
+}
+
+.table_value {
+    font-weight: 400;
+    color: #363636;
+}
+
+.commentaries_wrapper {
+    width: 100%;
+    max-width: 1110px;
+    margin: 58px auto 0;
+    padding-bottom: 37px;
+}
+
+.commentaries_inner {
+    max-width: 730px;
+    width: 100%;
+}
+
+.comments {
+    display: block;
+}
+
+.comments_hidden {
+    display: none;
+}
+
+.button_commentary {
+    width: 350px;
+    height: 52px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 150%;
+    background: linear-gradient(233.73deg, #F83600 -16.08%, #F9D423 327.37%);
+    border-radius: 30px;
+    border: none;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    margin-top: 11px;
+    cursor: pointer;
+}
+
+.button_commentary:hover {
+    border: 1px solid #FF740F;
+    box-shadow: 0px 2px 5px rgba(54, 54, 54, 0.1);
+}
+
+.button_commentary:active {
+    border: 1px solid #FF740F;
+    box-shadow: 0px 3px 4px rgba(222, 125, 11, 0.2), 0px 1px 10px rgba(249, 89, 8, 0.2);
+}
+
+@media (max-width: 900px) {
+    .path_section_outer {
+        height: 90px;
+        margin-top: 44px;
+    }
+
+    .path_section_inner {
+        max-width: 640px;
+    }
+
+    .book_section {
+        max-width: 640px;
+        margin: 50px auto 0;
+        column-gap: 33px;
+        grid-template-areas: 
+        'img name'
+        'img author'
+        'img button'
+        'title title'
+        'description description';
+    }
+
+    .book_image_wrapper {
+        width: 128px;
+    }
+
+    .slide,
+    .book_img {
+        width: 134px;
+        height: 240px;
+    }
+
+    .book_img {
+        padding-bottom: 45px;
+    }
+
+    .title_about,
+    .title_rating,
+    .table_header {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    .name {
+        font-size: 24px;
+        line-height: 30px;
+    }
+
+    .author {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 18px;
+        margin-top: 30px;
+    }
+
+    .button {
+        width: 306px;
+    }
+    
+    .title_about {
+        padding-top: 50px;
+    }
+    
+    .rating_container_wrapper {
+        max-width: 640px;
+        margin: 50px auto 0;
+    }
+
+    .about_wrapper {
+        max-width: 640px;
+        margin: 52px auto 0;
+    }
+
+    .table_name,
+    .table_value {
+        font-size: 14px;
+        line-height: 18px;
+    }
+
+    .table_body {
+        grid-template-columns: 1fr 2fr 1fr 2fr;
+    }
+
+    .commentaries_wrapper {
+        max-width: 640px;
+        margin: 83px auto 0;
+    }
+
+    .comment_quantity {
+        display: none;
+    }
+
+    .button_commentary {
+        width: 100%;
+        margin-top: 23px;
+    }
+
+    .commentaries_wrapper {
+        padding-bottom: 47px;
+    }
+}
+
+
+@media (max-width: 600px) {
+    .path_section_outer {
+        height: 92px;
+        margin-top: 21px;
+    }
+
+    .path_section_inner {
+        max-width: 288px;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+    }
+
+    .slash {
+        font-size: 16px;
+        top: 3px;
+    }
+
+    .book_section {
+        max-width: 288px;
+        margin-top: 25px;
+        grid-template-areas:
+        'img' 
+        'name'
+        'author'
+        'button'
+        'title'
+        'description';
+    }
+
+    .book_image_wrapper {
+        width: 188px;
+        justify-self: center;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .book_img,
+    .slide {
+        width: 188px;
+        height: 304px;
+    }
+
+    .name {
+        font-size: 18px;
+        line-height: 28px;
+        margin-top: 10px;
+    }
+
+    .author {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+        margin-top: 8px;
+    }
+
+    .button {
+        width: 288px;
+        height: 40px;
+        margin-top: 43px;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    .title_about,
+    .title_rating,
+    .table_header {
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 28px;
+    }
+
+    .title_about {
+        padding-top: 42px;
+    }
+
+    .description {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+        padding-top: 14px;
+        row-gap: 0;
+    }
+
+    .rating_container_wrapper {
+        max-width: 288px;
+        margin-top: 25px;
+    }
+
+    .rating_wrapper {
+        margin-top: 19px;
+    }
+
+    .rating_stars {
+        column-gap: 19px;
+    }
+
+    .star {
+        width: 28px;
+        height: 26px;
+    }
+
+    .about_wrapper {
+        max-width: 288px;
+        margin-top: 28px;
+    }
+
+    .table_body {
+        margin-top: 0;
+        grid-template-columns: 1fr 1.25fr;
+        grid-template-areas: 
+                    'name_col1 value_col1'
+                    'name_col2 value_col2';
+    }
+
+    .table_column {
+        row-gap: 0;
+    }
+    .name_col1 {
+        grid-area: name_col1;
+    }
+    .name_col2 {
+        grid-area: name_col2;
+        row-gap: 8px;
+    }
+
+    .value_col1 {
+        grid-area: value_col1;
+    }
+    .value_col2 {
+        grid-area: value_col2;
+    }
+
+    .table_name,
+    .table_value {
+        font-size: 12px;
+        line-height: 16px;
+        margin-top: 5px;
+    }
+
+    .table_name {
+        font-weight: 500;
+    }
+
+    .table_value {
+        font-weight: 400;
+    }
+
+    .commentaries_wrapper {
+        max-width: 288px;
+        margin-top: 106px;
+        padding-bottom: 20px;
+    }
+
+    .line{
+        margin: 10px 0 0;
+    }
+}

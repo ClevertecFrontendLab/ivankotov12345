@@ -1,0 +1,227 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    width: 190px;
+    height: 470px;
+    box-shadow: 0px 2px 4px rgba(191, 196, 201, 0.2), 0px 3px 4px rgba(191, 196, 201, 0.18), 0px 1px 5px rgba(191, 196, 201, 0.24);
+    border-radius: 10px;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.card_cover {
+    border: 1px solid #A7A7A7;
+    border-radius: 10px;
+    height: 242px;
+}
+
+.rating {
+    color: #A7A7A7;
+    font-size: 14px;
+    margin-top: 16px;
+    height: 24px;
+}
+
+.stars_wrapper {
+    display: flex;
+    flex-direction: row;
+    column-gap: 6px;
+}
+
+.star,
+.star_list {
+    width: 24px;
+    height: 24px;
+}
+
+.card_name_wrapper {
+    width: 174px;
+    height: 86px;
+    display: grid;
+    justify-content: space-between;
+    margin-top: 19px;
+}
+
+.card_name_text {
+    width: 174px;
+    height: 47px;
+    display: flex;
+    align-items: center;
+}
+
+.card_name {
+    font-weight: 600;
+    line-height: 18px;
+    color: #363636;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+
+.card_author {
+    color: #727272;
+}
+
+.button {
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.2px;
+    margin: auto 0 8px 0;
+    cursor: pointer;
+}
+
+.button:disabled {
+    background: #F9F9FA;
+    border: 1px solid #BFC4C9;
+    color: #A7A7A7;
+}
+
+.card_list {
+    width: 100%;
+    padding: 24px 0 24px 16px;
+    display: grid;
+    column-gap: 16px;
+    grid-template-columns: 120px 1fr 1fr;
+    grid-template-rows: max-content max-content 1fr;
+    box-shadow: 0px 2px 4px rgba(191, 196, 201, 0.2), 0px 3px 4px rgba(191, 196, 201, 0.18), 0px 1px 5px rgba(191, 196, 201, 0.24);
+    border-radius: 12px;
+}
+
+.card_cover_list {
+    width: 120px;
+    height: 170px;
+    align-self: center;
+    grid-column: 1 / 2;
+    grid-row: 1 / 4;
+    border: 1px solid #A7A7A7;
+}
+
+.card_name_wrapper_list {
+    display: grid;
+    justify-items: start;
+    grid-column: 2 / 4;
+    grid-row: 1 / 2;
+}
+
+.card_name_text_list {
+    width: 100%;
+}
+
+.card_name_list {
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 32px;
+    -webkit-line-clamp: 4;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card_author_list {
+    padding-top: 10px;
+    font-size: 16px;
+    line-height: 24px;
+    color: #a7a7a7;
+}
+
+.rating_list {
+    grid-column: 2 / 3;
+    grid-row: 3 / 4;
+    justify-self: start;
+    align-self: center;
+}
+
+.button_list {
+    width: 174px;
+    height: 40px;
+    margin-right: 23px;
+    margin-top: 10px;
+    border-radius: 20px;
+    grid-column: 3 / 4;
+    grid-row: 3 / 4;
+    align-self: center;
+    justify-self: end;
+}
+
+@media (max-width: 900px) {
+    .card_list {
+        padding: 16px 24px 16px 16px;
+    }
+
+    .card_cover_list {
+        grid-row: 1 / 3;
+    }
+
+    .button_list {
+        margin: 0;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .card {
+        width: 100%;
+        height: 466px;
+        padding: 4px 16px 8px;
+    }
+
+    .card_cover {
+        width: 174px;
+        align-self: center;
+    }
+    
+    .card_name_wrapper,
+    .card_name_text {
+        width: 100%;
+    }
+
+    .card_list {
+        padding: 12px 0 10px 8px;
+        column-gap: 8px;
+        grid-template-columns: 70px 1fr 1fr;
+        grid-template-rows: max-content max-content max-content max-content 1fr;
+    }
+
+    .card_cover_list {
+        grid-row: 1 / 4;
+        height: 100px;
+        align-self: start;
+    }
+
+    .rating_list {
+        grid-row: 2 / 3;
+        grid-column: 2 / 4;
+        font-size: 12px;
+    }
+
+    .star_list {
+        width: 13px;
+        height: 12px;
+    }
+
+    .card_name_list {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 18px;
+        -webkit-line-clamp: 3;
+    }
+
+    .card_author_list {
+        padding: 0;
+        font-weight: 400;
+        font-size: 12px;
+    }
+
+    .button_list {
+        grid-row: 3 / 5;
+        grid-column: 2 / 4;
+        justify-self: start;
+        width: 186px;
+    }
+}

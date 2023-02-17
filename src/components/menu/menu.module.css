@@ -1,0 +1,146 @@
+.nav_menu {
+   width: 279px;
+   background: #FFFFFF;
+   position: relative;
+}
+
+.nav_list,
+.nav_list_books
+ {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: flex-start;
+}
+
+.nav_list {
+   gap: 42px;
+   width: 279px;
+}
+
+.nav_list_books {
+   gap: 16px;
+}
+
+.nav_list_item,
+.books_item {
+   font-weight: 700;
+   font-size: 18px;
+   line-height: 28px;
+   background: #363636;
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+   background-clip: text;
+   display: flex;
+   flex-direction: column;
+   row-gap: 8px;
+}
+
+.books_item {
+   position: relative;
+}
+
+.books_arrow {
+   background: url(./assets/svg/arrow-active-collapse.svg);
+   width: 14px;
+   height: 8px;
+   position: absolute;
+   right: 17px;
+   bottom: 20px;
+   transition: .2s ease-in-out;
+}
+
+.books_arrow_not_active {
+   transform: rotate(180deg);
+}
+
+.books_arrow_none {
+   background: none;
+}
+
+.active_item,
+.active_books_item,
+.active_category {
+   background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+   background-clip: text;
+}
+
+.active_item::after,
+.active_books_item::after {
+   content: '';
+   width: 255px;
+   height: 1px;
+   background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
+   transform: rotate(180deg);
+}
+
+.book_list_items {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: flex-start;
+   padding: 0px 0px 0px 20px;
+   gap: 16px;
+   transition: .2s ease-in-out;
+}
+
+.books_list_items_hidden {
+   display: none;
+}
+
+.сategory_item {
+   width: 260px;
+}
+
+.panel_list {
+   transition: .2s ease-in-out;
+}
+
+.category_list_item {
+   font-weight: 400;
+   font-size: 16px;
+   line-height: 22px;
+   padding: 0 4px;
+   transition: .2s ease-in-out;
+}
+
+.category_list_item:hover {
+   color: #FF5253;
+}
+
+.active_category {
+   font-weight: 700;
+   font-size: 18px;
+   line-height: 28px;
+   padding: 0;
+}
+
+.quantity {
+   background: #A7A7A7;
+   padding-left: 6px;
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+   background-clip: text;
+   font-weight: 400;
+   font-size: 14px;
+   line-height: 24px;
+   position: relative;
+}
+
+@media (max-width: 900px) {
+ .nav_menu {
+   background: #F9F9FA;
+ }
+ 
+ .nav_list {
+   padding-bottom: 50px;
+ }
+}
+
+@media (max-width: 600px) {
+   .сategory_item {
+      width: 255px;
+   }
+}

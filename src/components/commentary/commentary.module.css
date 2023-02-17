@@ -1,0 +1,76 @@
+.comment_wrapper {
+    padding-top: 14px;
+    padding-bottom: 34px;
+}
+
+.comment_head {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 26px;
+    margin-bottom: 15px;
+}
+
+.user_name,
+.date {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #727272;
+}
+
+.rating {
+    display: flex;
+    flex-direction: row;
+    column-gap: 16px;
+}
+
+.commentary {
+    margin-top: 18px;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+@media (max-width: 900px) {
+    .commentary {
+        margin-top: 23px;
+    }
+}
+
+@media (max-width: 600px) {
+    .comment_head {
+        display: grid;
+        grid-template-columns: 1fr 5fr;
+        margin-bottom: 9px;
+        gap: 0;
+        grid-template-areas: 
+                    'img name'
+                    'img date';
+    }
+
+    .comment_wrapper {
+        padding-top: 18px;
+        padding-bottom: 15px;
+    }
+
+    .avatar {
+        grid-area: img;
+    }
+
+    .user_name {
+        font-size: 15px;
+        grid-area: name;
+    }
+    
+    .date {
+        font-size: 15px;
+        grid-area: date;
+    }
+
+    .commentary {
+        font-size: 15px;
+        margin-top: 12px;
+        line-height: 20px;
+    }
+}
+
