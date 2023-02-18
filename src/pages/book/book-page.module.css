@@ -1,6 +1,9 @@
 .book_page {
     width: 100%;
 }
+.error_msg_outer{
+    height: 100%;
+}
 .path_section_outer {
     background-color: #F9F9FA;
     height: 64px;

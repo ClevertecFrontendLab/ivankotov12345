@@ -1,6 +1,8 @@
-import { createSlice, PayloadAction, Action } from '@reduxjs/toolkit'
-import { RootState } from '..'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
 import { BookType } from '../../types/book-detailed-types'
+import { RootState } from '..'
+
 import { BookStateType } from './types'
 
 export const BookSelect = (state: RootState) => state.book

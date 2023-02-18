@@ -1,6 +1,6 @@
-import { BookType } from "../../types/book-detailed-types"
-import { BookCardType } from "../../types/book-types"
-import { NavListItemType } from "../../types/nav-list-type"
+import { BookType } from '../../types/book-detailed-types'
+import { BookCardType } from '../../types/book-types'
+import { NavListItemType } from '../../types/nav-list-type'
 
 
 export type BooksStateType = {

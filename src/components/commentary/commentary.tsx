@@ -1,22 +1,25 @@
 
-import styles from './commentary.module.css'
 import { CommentsType } from '../../types/book-detailed-types'
 import { Rating } from '../rating/rating'
 
+import styles from './commentary.module.css'
 
-export const Commentary = ({ id, rating, text, createdAt, user }: CommentsType) => {
+
+export const Commentary = ({ rating, text, createdAt, user }: CommentsType) => {
   const formatDate = (date: string) => {
     const dateComment = new Intl.DateTimeFormat('ru', {
       day: 'numeric',
       month: 'long',
       year: 'numeric',
     });
+
     return dateComment.format(Date.parse(date));
   }
+
   return (
   <div className={styles.comment_wrapper}>
     <div className={styles.comment_head}>
-      {user.avatarUrl !== null 
+      {user.avatarUrl 
       ? <img src={`https://strapi.cleverland.by/api/books${user.avatarUrl}`} alt={`${user.lastName}`} className={styles.avatar} />
       : null}
 

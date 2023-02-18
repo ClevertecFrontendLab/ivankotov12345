@@ -1,31 +1,37 @@
-import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
-import classNames from "classnames";
+import { useEffect, useState } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
+import classNames from 'classnames';
+import SwiperCore,{ FreeMode, Pagination,Thumbs } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore,{ FreeMode, Thumbs, Pagination } from 'swiper'
 
+import bookNoCover from '../../assets/img/no-cover-book.jpg'
+import { Breadcrumbs } from '../../components/breadcrumbs/breadcrumbs-book';
+import { Button } from '../../components/button/button';
+import { Commentary } from '../../components/commentary/commentary';
+import { ErrorMessage } from '../../components/error-message/error-message';
+import { Loader } from '../../components/loader/loader';
+import { Rating } from '../../components/rating/rating';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { BookSelect, getBookFetch } from '../../store/slices/book-slice';
+
+import arrow from './assets/svg/arrow.svg'
+
+import './swiper.css'
 import styles from './book-page.module.css';
+
 import 'swiper/css';
 import 'swiper/css/thumbs';
 import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
-import './swiper.css'
 
-import { Rating } from "../../components/rating/rating";
-import { Button } from "../../components/button/button";
-import { Commentary } from "../../components/commentary/commentary";
-import arrow from './assets/svg/arrow.svg'
-import bookNoCover from '../../assets/img/no-cover-book.jpg'
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { BookSelect, getBookFetch } from "../../store/slices/book-slice";
-import { Loader } from "../../components/loader/loader";
-import { ErrorMessage } from "../../components/error-message/error-message";
 
 
 export const BookPage = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperCore>();
   const [isCommentariesOpen, setIsCommentariesOpen] = useState<boolean>(true);
-    
+
+  const { pathname } = useLocation()
+  const categoryName = pathname.split('/')[2]
   const {bookId} = useParams();
   const dispatch = useAppDispatch();
   const { book: bookCurrent, error, isLoading } = useAppSelector(BookSelect)
@@ -43,17 +49,18 @@ export const BookPage = () => {
     return <Loader />
   }
   if(error) {
-    return <ErrorMessage error={error} />
+    return (
+    <div className={styles.error_msg_outer}>
+      <ErrorMessage error={error} />
+      <Breadcrumbs categoryName={categoryName} bookId={bookId} />
+    </div>
+    )
   }
+
   return (
   <section className={styles.book_page}>
 
-    <div className={styles.path_section_outer}>
-      <span className={styles.path_section_inner}>
-        {bookCurrent?.categories}
-        <span className={styles.slash}>/</span> {bookCurrent?.title}
-      </span>
-    </div>
+    <Breadcrumbs categoryName={categoryName} bookId={bookId} />
       
     <div className={styles.book_section}>
       <div className={styles.book_image_wrapper}>

@@ -1,22 +1,22 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { HashRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { HashRouter, Navigate,Route, Routes } from 'react-router-dom';
 
+import { Contract } from './components/contract/contract';
 import { Layout } from './components/layout/layout';
 import { LayoutMainPage } from './components/layout-main-page/layout-main-page';
-import { MainPage } from './pages/main';
 import { Terms } from './components/terms/terms';
+import { BookPage } from './pages/book';
+import { MainPage } from './pages/main';
+import { store } from './store';
 
 import './index.css';
-import { Contract } from './components/contract/contract';
-import { BookPage } from './pages/book';
-import { store } from './store';
 
 
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
     <Provider store={store}>
     <HashRouter>

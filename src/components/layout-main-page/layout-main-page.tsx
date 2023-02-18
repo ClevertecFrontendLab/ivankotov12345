@@ -1,4 +1,5 @@
 import { Outlet } from'react-router-dom'
+
 import { useScreenWidth } from '../../hooks/use-screen-width'
 import { Menu } from '../menu/menu'
 
@@ -11,6 +12,7 @@ export const LayoutMainPage = () => {
     const dataTestIdBooks = 'navigation-books';
     const dataTestIdTerms = 'navigation-terms';
     const dataTestIdContract = 'navigation-contract';
+
     return (
     <main className={styles.main}>
         {windowSize && windowSize > 900 && 

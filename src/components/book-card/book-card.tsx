@@ -1,12 +1,14 @@
 import { Link, useLocation } from 'react-router-dom'
-import { BookCardPropsType } from '../../types/prop-types'
-import { Rating } from '../rating/rating'
-import { Button } from '../button/button'
-import styles from './book-card.module.css'
-import { NAV_LIST, NAV_BOOKS_ALL } from '../../constants/paths'
-import NoCoverBook from '../../assets/img/no-cover-book.jpg'
 
-export const BookCard = ({ id, authors, booking, categories, delivery, histories, image, issueYear, rating, title, isTile }: BookCardPropsType) => {
+import NoCoverBook from '../../assets/img/no-cover-book.jpg'
+import { NAV_BOOKS_ALL, NAV_LIST } from '../../constants/paths'
+import { BookCardPropsType } from '../../types/prop-types'
+import { Button } from '../button/button'
+import { Rating } from '../rating/rating'
+
+import styles from './book-card.module.css'
+
+export const BookCard = ({ id, authors, booking, delivery, image, issueYear, rating, title, isTile }: BookCardPropsType) => {
   const location = useLocation();
 
   const classRatingText = isTile ? styles.rating : styles.rating_list;
@@ -18,6 +20,7 @@ export const BookCard = ({ id, authors, booking, categories, delivery, histories
   const coverImage = image ? `https://strapi.cleverland.by${image.url}` : NoCoverBook
 
   const authorsList = authors?.join(', ');
+
   return (
     <Link to={
       location.pathname.split('/')[2] 

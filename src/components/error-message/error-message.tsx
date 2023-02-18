@@ -1,7 +1,9 @@
 import { ErrorPropsType } from '../../types/prop-types'
-import styles from './error.module.css'
-import errorSvg from './assets/svg/error.svg'
+
 import closeError from './assets/svg/close.svg'
+import errorSvg from './assets/svg/error.svg'
+
+import styles from './error.module.css'
 
 export const ErrorMessage = ({error}: ErrorPropsType) =>  (
   <div className={styles.outer}>

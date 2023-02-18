@@ -1,7 +1,9 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "..";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import { NavListItemType } from '../../types/nav-list-type'
-import { NavListState } from "./types";
+import { RootState } from '..';
+
+import { NavListState } from './types';
 
 const initialState: NavListState = {
     navList: null,

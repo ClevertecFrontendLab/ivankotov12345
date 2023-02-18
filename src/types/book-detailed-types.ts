@@ -1,4 +1,4 @@
-import { BookingType, DeliveryType, HistoryType } from "./book-types"
+import { BookingType, DeliveryType, HistoryType } from './book-types'
 
 export type BookType = {
     id: number | null,

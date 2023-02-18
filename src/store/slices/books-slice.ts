@@ -1,7 +1,9 @@
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { RootState } from '..'
+
 import { BookCardType } from '../../types/book-types'
+import { RootState } from '..'
+
 import { BooksStateType } from './types'
 
 

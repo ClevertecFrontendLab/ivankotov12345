@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom'
-import logo from './assets/svg/logo.svg'
-import avatar from './assets/img/avatar.jpg'
-import styles from './header.module.css'
+
 import { BurgerMenu } from '../burger-menu/burger-menu'
+
+import avatar from './assets/img/avatar.jpg'
+import logo from './assets/svg/logo.svg'
+
+import styles from './header.module.css'
 
 export const Header = () => (
     <header className={styles.outer}>

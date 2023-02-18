@@ -1,5 +1,6 @@
-import styles from './loader.module.css'
 import spinnerThumb from './assets/svg/spinner-thumb.svg'
+
+import styles from './loader.module.css'
 
 export const Loader = () => (
     <div className={styles.loader} data-test-id='loader'>

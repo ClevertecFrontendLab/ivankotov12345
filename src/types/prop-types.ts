@@ -1,4 +1,5 @@
-import { BookCardType, BookingType, DeliveryType } from "./book-types"
+import { BookCardType, BookingType, DeliveryType } from './book-types'
+
 export interface BookCardPropsType extends BookCardType {
     isTile?: boolean
 }
@@ -21,4 +22,9 @@ export type ButtonPropsType = {
 
 export type ErrorPropsType = {
     error: string
+}
+
+export type BreadCrumbsPropsType = {
+    categoryName: string,
+    bookId: string | undefined,
 }

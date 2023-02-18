@@ -1,8 +1,10 @@
-import classNames from 'classnames'
-import { useState, useEffect, useRef } from 'react'
+import React,{ useEffect, useRef,useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { Menu } from '../menu/menu'
+import classNames from 'classnames'
+
 import { useScreenWidth } from '../../hooks/use-screen-width'
+import { Menu } from '../menu/menu'
+
 import styles from './burger-menu.module.css'
 
 export const BurgerMenu = () => {
@@ -46,7 +48,7 @@ export const BurgerMenu = () => {
   const dataTestIdContract = 'burger-contract';
   
   return(
-  <>
+  <React.Fragment>
     <button type='button' onClick={burgerHandler} className={classNames(styles.burger, isMenuOpen && styles.burger_active)} ref={btnBurger} data-test-id='button-burger'>
       <span />
     </button>
@@ -77,7 +79,7 @@ export const BurgerMenu = () => {
       </ul>
       </div>
     </div>}
-  </>
+  </React.Fragment>
 
   )
 }

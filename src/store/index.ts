@@ -1,9 +1,10 @@
-import { configureStore } from "@reduxjs/toolkit";
 import createSagaMiddleware from 'redux-saga'
-import { booksReducer } from "./slices/books-slice";
-import { rootSaga } from "./sagas/root-saga";
-import { navigationReducer } from "./slices/navigation-list-slice";
-import { bookReducer } from "./slices/book-slice";
+import { configureStore } from '@reduxjs/toolkit';
+
+import { rootSaga } from './sagas/root-saga';
+import { bookReducer } from './slices/book-slice';
+import { booksReducer } from './slices/books-slice';
+import { navigationReducer } from './slices/navigation-list-slice';
 
 const sagaMiddleware = createSagaMiddleware()
 

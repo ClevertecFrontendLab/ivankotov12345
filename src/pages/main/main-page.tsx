@@ -1,15 +1,17 @@
 
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useEffect,useRef, useState } from 'react'
 import classNames from 'classnames'
 
-import styles from './main-page.module.css'
-import icon_sort from './assets/svg/icon-sort-ascending.svg'
-import icon_close from './assets/svg/icon-close.svg'
 import { BookCard } from '../../components/book-card/book-card'
+import { ErrorMessage } from '../../components/error-message/error-message'
+import { Loader } from '../../components/loader/loader'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { BooksSelect, getBooksListFetch } from '../../store/slices/books-slice'
-import { Loader } from '../../components/loader/loader'
-import { ErrorMessage } from '../../components/error-message/error-message'
+
+import icon_close from './assets/svg/icon-close.svg'
+import icon_sort from './assets/svg/icon-sort-ascending.svg'
+
+import styles from './main-page.module.css'
 
 export const MainPage = () => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
@@ -67,6 +69,7 @@ export const MainPage = () => {
   if(error) {
     return <ErrorMessage error={error} />
   }
+
   return (
   <section className={styles.main_page}>
     

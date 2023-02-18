@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom'
 import classNames from 'classnames';
+
 import { NAV_BOOKS_ALL, NAV_LIST } from '../../constants/paths';
-import styles from './menu.module.css'
-import { MenuProps } from '../../types';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getNavListFetch, navListSelect } from '../../store/slices/navigation-list-slice';
+import { MenuProps } from '../../types';
 import { ErrorMessage } from '../error-message/error-message';
+
+import styles from './menu.module.css'
 
 
 
@@ -18,15 +20,22 @@ export const Menu = ({ closeMenu, dataTestIdShowcase, dataTestIdBooks, dataTestI
     const collapseHandler = () => {
         setIsmenuCollapsed(!isMenuCollapsed)
     }
-    const { navList: navListCategories, error, isLoading } = useAppSelector(navListSelect);
+    const { navList: navListCategories, error } = useAppSelector(navListSelect);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         const pathNameArr = pathname.split('/');
+
         if(+pathNameArr[pathNameArr.length -1] || pathNameArr[pathNameArr.length -1] === 'terms' || pathNameArr[pathNameArr.length -1] === 'contract') {
             setIsmenuCollapsed(false);
         }
     }, [pathname]);
+
+    const getRandomNum = (min: number, max: number) => {
+        const rand = min - 0.5 + Math.random() * (max - min + 1);
+
+        return Math.round(rand);
+    }
 
     useEffect(() => {
         dispatch(getNavListFetch())
@@ -35,6 +44,7 @@ export const Menu = ({ closeMenu, dataTestIdShowcase, dataTestIdBooks, dataTestI
     if(error) {
         return <ErrorMessage error={error}/>
     }
+
     return (
     <div className={styles.nav_menu}>
         <nav>
@@ -94,29 +104,11 @@ export const Menu = ({ closeMenu, dataTestIdShowcase, dataTestIdBooks, dataTestI
                                 >
                                  <span>
                                     {name}
+                                    <span className={styles.quantity}>{getRandomNum(1, 25)}</span>
                                 </span>
                                 </NavLink>
                             </li>
                         ))}
-{/*                         {NAV_BOOKS_LIST.map(({ name, category, quantity, dataTestId }) => (
-                            <li className={styles.сategory_item} key={category} data-test-id={dataTestId}>
-                                <NavLink 
-                                className={({ isActive }) => isActive 
-                                ? classNames(styles.category_list_item, styles.active_category)
-                                : styles.category_list_item}
-                                onClick={closeMenu}
-                                to={`/${NAV_LIST.books.path}/${category}`}
-                                >
-                                    <span>
-                                        {name}
-                                        {quantity !== undefined ? <span className={styles.quantity}>{quantity}</span> : null}
-                                    </span> 
-                                </NavLink>
-                              
-                            </li>
-                        ))} */}
-
-
                     </ul>
                 </ul>
                 <li className={styles.panel_list}>

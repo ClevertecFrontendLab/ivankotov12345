@@ -1,6 +1,7 @@
 import { RatingPropsType } from '../../types'
-import starFilled from './assets/svg/rating-filled.svg'
+
 import starEmpty from './assets/svg/rating-empty.svg'
+import starFilled from './assets/svg/rating-filled.svg'
 
 export const Rating = ({ ratingVal, classRating, classStars, classStar }: RatingPropsType) => {
   let positive = 0;
