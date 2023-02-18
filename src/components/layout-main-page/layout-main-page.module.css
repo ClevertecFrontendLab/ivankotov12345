@@ -1,0 +1,25 @@
+.main {
+    width: 100%;
+    max-width: 1110px;
+    margin: 0 auto;
+    padding-top: 62px;
+    display: flex;
+    gap: 6px;
+    padding-bottom: 62px;
+    flex: 1 1 auto;
+}
+
+@media (max-width: 900px) {
+    .main {
+        max-width: 640px;
+        padding-top: 55px;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 600px) {
+    .main {
+        max-width: 288px;
+        padding-top: 29px;
+    }
+}

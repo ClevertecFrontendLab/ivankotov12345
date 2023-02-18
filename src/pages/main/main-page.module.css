@@ -1,0 +1,247 @@
+.main_page {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.panel {
+    display: flex;
+}
+
+.panel_search_wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.panel_search,
+.button_sort,
+.button_display_tile,
+.button_display_list,
+.button_search {
+    background: #fff;
+    box-shadow: 0px 2px 4px rgba(191, 196, 201, 0.2), 0px 3px 4px rgba(191, 196, 201, 0.18), 0px 1px 5px rgba(191, 196, 201, 0.24);
+    border: none;
+    border-radius: 599px;
+}
+
+.panel_search {
+    width: 350px;
+    height: 38px;
+    background-image: url(./assets/svg/icon-search.svg);
+    background-repeat: no-repeat;
+    background-position: 16px;
+    caret-color: #F83600;
+    padding-left: 40px;
+    transition: .2s ease-in-out;
+}
+
+.panel_search::placeholder {
+    position: absolute;
+    left: 0;
+    top: 11px;
+    letter-spacing: 0.1px;
+}
+
+.panel_search:focus {
+    outline: none;
+    background-image: url(./assets/svg/icon-search-orange.svg);
+}
+
+.button_close {
+    position: absolute;
+    right: 16px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.button_search {
+    width: 32px;
+    height: 32px;
+    display: none;
+}
+
+.button_image_search {
+    background: url(./assets/svg/icon-search.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    width: 38px;
+    height: 38px;
+}
+
+.button_sort {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 16px;
+    gap: 8px;
+    margin-left: 16px;
+    cursor: pointer;
+    color: #A7A7A7;
+}
+
+.button_sort_text {
+    display: inline;
+}
+
+.button_display_tile,
+.button_display_list {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: .2s ease-in-out;
+}
+
+.button_display_tile:hover,
+.button_display_list:hover {
+    filter: drop-shadow(0px 2px 5px rgba(54, 54, 54, 0.1));
+}
+
+.button_display_tile:active,
+.button_display_list:active {
+    filter: drop-shadow(0px 3px 4px rgba(222, 125, 11, 0.2)) drop-shadow(0px 1px 10px rgba(249, 89, 8, 0.2));
+}
+
+.button_display_tile {
+    margin-left: auto;
+}
+
+.button_display_list {
+    margin-left: 16px;
+}
+
+.button_image_tile,
+.button_image_tile_active {
+    width: 38px;
+    height: 38px;
+}
+
+.button_image_tile {
+    background: url(./assets/svg/icon-display-tile.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.button_image_tile_active {
+    background: url(./assets/svg/icon-display-tile-white.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.button_image_list,
+.button_image_list_active {
+    width: 20px;
+    height: 20px;
+    transition: .2s ease-in-out;
+}
+
+.button_image_list{
+    background: url(./assets/svg/icon-display-list.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.button_image_list_active{
+    background: url(./assets/svg/icon-display-list-white.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.active {
+    background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
+}
+
+.panel_search::placeholder {
+    padding-left: 40px;
+}
+
+.panel_search_icon {
+    position: absolute;
+    padding-left: 16px;
+}
+
+.content_wrapper {
+    margin-top: 32px;
+}
+
+.content_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 190px);
+    justify-content: space-between;
+    row-gap: 24px;
+}
+
+.content_list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+}
+
+@media (max-width: 900px) {
+    .panel_search {
+        width: 274px;
+    }
+
+    .content_wrapper {
+        margin-top: 23px;
+    }
+
+    .content_grid {
+        row-gap: 32px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .panel_search {
+        display: none;
+    }
+
+    .panel_search_active {
+        display: block;
+    }
+
+    .button_sort {
+        width: 32px;
+        height: 32px;
+        display: flex;
+    }
+
+    .button_sort_image {
+        width: 32px;
+        height: 32px;
+        position: absolute;
+        padding: 10px;
+    }
+
+    .button_display_tile,
+    .button_display_list {
+        width: 32px;
+        height: 32px;
+    }
+
+    .button_display_hidden {
+        display: none;
+    }
+
+    .button_sort_text {
+        display: none;
+    }
+
+    .button_search {
+        display: flex;
+    }
+    .button_search_clicked {
+        display: none;
+    }
+
+    .content_grid {
+        grid-template-columns: repeat(auto-fit, 288px);
+        row-gap: 20px;
+    }
+}

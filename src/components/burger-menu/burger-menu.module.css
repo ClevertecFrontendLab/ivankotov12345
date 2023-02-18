@@ -1,0 +1,151 @@
+.burger_wrapper {
+    width: 24px;
+}
+
+.burger {
+    width: 24px;
+    height: 20px;
+    position: relative;
+    border: none;
+    background: none;
+    display: none;
+    cursor: pointer;
+    transition: .2s ease-in-out;
+}
+
+.burger span {
+    background: #363636;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    top: 9px;
+    left: 0;
+}
+
+.burger::before,
+.burger::after {
+    content: '';
+    background: #363636;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    left: 0;
+}
+
+.burger::before {
+    top: 0;
+}
+
+.burger::after {
+    bottom: 0;
+}
+
+.burger_active span {
+    display: none;
+}
+
+.burger_active::before,
+.burger_active::after {
+    background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
+}
+
+.burger_active::before {
+    transform: rotate(45deg);
+    top: 9px;
+}
+
+.burger_active::after {
+    transform: rotate(-45deg);
+    bottom: 9px;
+}
+
+.navigation {
+    position: absolute;
+    width: 502px;
+    top: 89px;
+    display: none;
+    background: #F9F9FA;
+    box-shadow: 0px 2px 4px rgba(191, 196, 201, 0.2), 0px 3px 4px rgba(191, 196, 201, 0.18), 0px 1px 5px rgba(191, 196, 201, 0.24);
+    border-radius: 10px;
+    z-index: 2;
+}
+
+.navigation_inner {
+    overflow-y: scroll;
+    height: 90vh;
+    padding: 32px;
+    overflow-x: hidden;
+}
+
+.navigation_active {
+    display: block;
+}
+
+.profile_line {
+    margin: 0;
+}
+
+.profile_nav {
+    display: flex;
+    flex-direction: column;
+    padding-top: 32px;
+    padding-bottom: 32px;
+    row-gap: 42px;
+}
+
+.nav_list_item {
+   font-weight: 700;
+   font-size: 18px;
+   line-height: 28px;
+   background: #363636;
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+   background-clip: text;
+   display: flex;
+   flex-direction: column;
+   row-gap: 8px;
+}
+
+.active_category {
+    background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+ }
+
+@media (max-width: 900px) {
+    .burger {
+        display: block;
+    }
+}
+
+@media (max-width: 600px) {
+    .navigation {
+        width: 288px;
+        top: 76px;
+    }
+
+    .navigation_inner {
+        padding: 32px 5px 0 16px;
+    }
+
+    .burger {
+        width: 18px;
+        height: 14px;
+        left: -5px;
+    }
+
+    .burger span {
+        top: 6px;
+    }
+
+    .burger_active::before {
+        transform: rotate(45deg);
+        top: 6px;
+    }
+    
+    .burger_active::after {
+        transform: rotate(-45deg);
+        bottom: 6px;
+    }
+}
