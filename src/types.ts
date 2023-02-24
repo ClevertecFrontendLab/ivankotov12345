@@ -1,3 +1,6 @@
+import { BookCardType } from './types/book-types'
+import { NavListItemType } from './types/nav-list-type'
+
 export type RatingPropsType = {
     ratingVal?: number | null,
     classRating?: string,
@@ -11,4 +14,8 @@ export type MenuProps = {
     dataTestIdBooks?: string,
     dataTestIdTerms?: string,
     dataTestIdContract?: string,
+    dataTestIdCategory?: string,
+    dataTestIdQuantity?: string,
+    navListCategories: NavListItemType[] | null
+    booksListAll: BookCardType[] | null,
 }

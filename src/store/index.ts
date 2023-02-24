@@ -5,6 +5,7 @@ import { rootSaga } from './sagas/root-saga';
 import { bookReducer } from './slices/book-slice';
 import { booksReducer } from './slices/books-slice';
 import { navigationReducer } from './slices/navigation-list-slice';
+import { sortReducer } from './slices/sort-slice';
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -13,6 +14,7 @@ export const store = configureStore({
         books: booksReducer,
         navList: navigationReducer,
         book: bookReducer,
+        sort: sortReducer,
     },
     middleware: [sagaMiddleware],
     devTools: true,

@@ -1,25 +1,38 @@
 
-import React, { useEffect,useRef, useState } from 'react'
-import classNames from 'classnames'
+import { ChangeEvent, useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 
 import { BookCard } from '../../components/book-card/book-card'
 import { ErrorMessage } from '../../components/error-message/error-message'
 import { Loader } from '../../components/loader/loader'
+import { Panel } from '../../components/panel/panel'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { BooksSelect, getBooksListFetch } from '../../store/slices/books-slice'
-
-import icon_close from './assets/svg/icon-close.svg'
-import icon_sort from './assets/svg/icon-sort-ascending.svg'
+import { navListSelect } from '../../store/slices/navigation-list-slice'
+import { sortSelect } from '../../store/slices/sort-slice'
+import { SortType } from '../../store/slices/types'
+import { BookCardType } from '../../types/book-types'
 
 import styles from './main-page.module.css'
 
+
 export const MainPage = () => {
-  const [isFocused, setIsFocused] = useState<boolean>(false);
+  const { pathname } = useLocation()
+  const categoryPathName = pathname.split('/')[2]
+
   const [isTile, setIsTile] = useState<boolean>(true);
-  const [isBtnSearchClicked, setIsBtnSearchClicked] = useState<boolean>(false);
+  const [bookName, setBookName] = useState<string>('');
+
+  const searchPanelChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setBookName(event.target.value)
+  }
 
   const dispatch = useAppDispatch();
-  const { books: booksListAll, error, isLoading } = useAppSelector(BooksSelect)
+
+  const { books: booksListAll, error, isLoading } = useAppSelector(BooksSelect);
+  const { navList: navListCategories } = useAppSelector(navListSelect);
+  const { sortingType } = useAppSelector(sortSelect);
+  const [booksList, setBooksList] = useState<BookCardType[]>([]);
 
   useEffect(() => {
     if(!booksListAll) {
@@ -27,41 +40,50 @@ export const MainPage = () => {
     }
   }, [booksListAll, dispatch])
 
-  const inputEl = useRef<HTMLInputElement>(null);
-
-  const focusSearch = (e: React.FocusEvent) => {
-    e.preventDefault();
-    setIsFocused(true);
-  };
-
-  const blurSearch = (e: React.FocusEvent) => {
-    e.preventDefault();
-    setIsFocused(false);
-    setIsBtnSearchClicked(false)
-  };
-
-  const changeBookViewTile = () => {
-    setIsTile(true);
-  };
-
-  const changeBookViewList = () => {
-    setIsTile(false);
-  };
-
-  const searchHandler = () => {
-    setIsBtnSearchClicked(true);
-  };
-
-  const searchClose = () => {
-    setIsBtnSearchClicked(false);
-    setIsFocused(false);
-  };
-
   useEffect(() => {
-    if(isBtnSearchClicked) {
-      inputEl.current?.focus();
-    };
-  }, [isBtnSearchClicked]);
+    let sortedBooksAll
+
+    if(sortingType === SortType.RATING_LOW_FIRST) {
+      sortedBooksAll = booksListAll && [...booksListAll].sort((a, b) => 
+                          !a.rating && !b.rating
+                          ? -1
+                          : !a.rating
+                          ? -1
+                          : !b.rating
+                          ? 1
+                          : a.rating - b.rating
+                          ? a.rating - b.rating
+                          : -1)
+    } else {
+      sortedBooksAll = booksListAll && [...booksListAll].sort((a, b) => 
+                          !a.rating && !b.rating
+                          ? -1
+                          : !a.rating
+                          ? 1
+                          : !b.rating
+                          ? -1
+                          : a.rating - b.rating
+                          ? b.rating - a.rating
+                          : -1)
+    }
+    if(sortedBooksAll) {
+      setBooksList(sortedBooksAll)
+    }
+  }, [sortingType, booksListAll])
+
+  const currCategory = navListCategories?.filter(category => category.path === categoryPathName)[0];
+
+  const filterCategory = categoryPathName === 'all' ? booksList : booksList?.filter(book => 
+  book.categories?.includes(currCategory?.name as string));
+
+  const booksFiltered = categoryPathName === 'all'
+                                  ? booksList?.filter(book => 
+                                      book.title.toLowerCase().includes(bookName.toLowerCase()))
+                                  : booksList?.filter(book => 
+                                      book.categories?.includes(currCategory?.name as string) &&
+                                      book.title.toLowerCase().includes(bookName.toLowerCase()));
+  
+
 
   if(isLoading) {
     return <Loader />
@@ -74,45 +96,12 @@ export const MainPage = () => {
   <section className={styles.main_page}>
     
     <div>
-      <div className={styles.panel}>
-        <div className={styles.panel_search_wrapper }>
-          <input type='search' placeholder='Поиск книги или автора…' className={classNames(styles.panel_search, isBtnSearchClicked && styles.panel_search_active)} onFocus={focusSearch} onBlur={blurSearch} ref={inputEl} data-test-id='input-search' />
-
-          {isFocused && 
-          <button type='button' className={styles.button_close} onClick={searchClose} data-test-id='button-search-close'>
-            <img src={icon_close} alt='close button' />
-          </button>}
-
-          <button type='button' className={classNames(styles.button_search, isBtnSearchClicked && styles.button_search_clicked)} onClick={searchHandler} data-test-id='button-search-open'>
-            <span className={styles.button_image_search} />
-          </button>
-        </div>
-
-        <button type='button' className={classNames(styles.button_sort, isFocused && styles.button_display_hidden)}>
-          <img src={icon_sort} alt="icon sort" className={styles.button_sort_image} />
-          <span className={styles.button_sort_text}>По рейтингу</span>
-        </button>
-        
-        <button type='button' data-test-id='button-menu-view-window' className={classNames(styles.button_display_tile, isTile && styles.active, isFocused && styles.button_display_hidden)} onClick={changeBookViewTile}>
-          <span className={
-          isTile === true  
-            ? styles.button_image_tile_active
-            : styles.button_image_tile
-          } />
-        </button>
-
-        <button type='button' data-test-id='button-menu-view-list' className={classNames(styles.button_display_list, !isTile && styles.active, isFocused && styles.button_display_hidden)} onClick={changeBookViewList}>
-        <span className={
-          isTile === false  
-            ? styles.button_image_list_active
-            : styles.button_image_list
-          } />
-        </button>
-      </div>
+      <Panel isTile={isTile} setIsTile={setIsTile} searchPanelChange={searchPanelChange} />
 
       <div className={styles.content_wrapper}>
         <ul className={ isTile === true ? styles.content_grid : styles.content_list}>
-          {booksListAll?.map(({id, authors, booking, categories, delivery, histories, image, issueYear, rating, title}) => <BookCard key={id} 
+          {booksFiltered?.length
+            ? booksFiltered?.map(({id, authors, booking, categories, delivery, histories, image, issueYear, rating, title}) => <BookCard key={id} 
                 id={id} 
                 image={image} 
                 rating={rating} 
@@ -123,7 +112,13 @@ export const MainPage = () => {
                 booking={booking}
                 isTile={isTile}
                 categories={categories}
-                histories={histories} />)}
+                histories={histories}
+                bookName={bookName} />)
+            : filterCategory.length > 0
+            ? <div className={styles.empty_book_list}  data-test-id='search-result-not-found'>По запросу ничего не найдено</div> 
+            : <div className={styles.empty_book_list}  data-test-id='empty-category'>
+                В этой категории книг ещё нет
+              </div>}
         </ul>
       </div>
     </div>

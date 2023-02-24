@@ -101,7 +101,7 @@ export const BookPage = () => {
           ))}
         </Swiper>}
       </div>
-        <h1 className={styles.name}>{bookCurrent?.title}</h1>
+        <h1 className={styles.name} data-test-id='book-title'>{bookCurrent?.title}</h1>
 
         <span className={styles.author}>{bookCurrent?.authors?.join(', ')}, {bookCurrent?.issueYear}</span>
 
