@@ -35,10 +35,8 @@ export const MainPage = () => {
   const [booksList, setBooksList] = useState<BookCardType[]>([]);
 
   useEffect(() => {
-    if(!booksListAll) {
-      dispatch(getBooksListFetch())
-    }
-  }, [booksListAll, dispatch])
+    dispatch(getBooksListFetch())
+  }, [dispatch])
 
   useEffect(() => {
     let sortedBooksAll

@@ -11,12 +11,6 @@ export const Breadcrumbs = ({ categoryName, bookId } : BreadCrumbsPropsType) => 
     const { navList: navListCategories } = useAppSelector(navListSelect);
     const { books: booksListAll } = useAppSelector(BooksSelect);
 
-    const dispatch = useAppDispatch();
-
-    const getBooksOnBreadcrumbs = () => {
-      dispatch(getBooksListFetch());
-    }
-
     const category = navListCategories?.find(categ => categ.path === categoryName)
     const bookName = booksListAll?.find(name => name.id.toString() === bookId)
 
@@ -24,7 +18,7 @@ export const Breadcrumbs = ({ categoryName, bookId } : BreadCrumbsPropsType) => 
     <div className={styles.path_section_outer}>
       <span className={styles.path_section_inner}>
 
-          <Link onClick={getBooksOnBreadcrumbs} to={ categoryName === 'all'
+          <Link to={ categoryName === 'all'
           ? '/books/all' 
           : `/books/${categoryName}` }  
           data-test-id='breadcrumbs-link'>
