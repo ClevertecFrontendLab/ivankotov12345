@@ -24,8 +24,6 @@ import 'swiper/css/thumbs';
 import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
 
-
-
 export const BookPage = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperCore>();
   const [isCommentariesOpen, setIsCommentariesOpen] = useState<boolean>(true);
@@ -37,9 +35,11 @@ export const BookPage = () => {
   const { book: bookCurrent, error, isLoading } = useAppSelector(BookSelect)
 
 
+
   useEffect(() => {
       dispatch(getBookFetch(bookId as unknown as string))
   }, [dispatch, bookId])
+  
 
   const commentSectionHandler = () => {
     setIsCommentariesOpen(!isCommentariesOpen);
@@ -101,7 +101,7 @@ export const BookPage = () => {
           ))}
         </Swiper>}
       </div>
-        <h1 className={styles.name}>{bookCurrent?.title}</h1>
+        <h1 className={styles.name} data-test-id='book-title'>{bookCurrent?.title}</h1>
 
         <span className={styles.author}>{bookCurrent?.authors?.join(', ')}, {bookCurrent?.issueYear}</span>
 

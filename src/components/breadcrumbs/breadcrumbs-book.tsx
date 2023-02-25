@@ -1,5 +1,7 @@
-import { useAppSelector } from '../../store/hooks';
-import { BooksSelect } from '../../store/slices/books-slice';
+import { Link } from 'react-router-dom';
+
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { BooksSelect, getBooksListFetch } from '../../store/slices/books-slice';
 import { navListSelect } from '../../store/slices/navigation-list-slice';
 import { BreadCrumbsPropsType } from '../../types/prop-types';
 
@@ -15,9 +17,17 @@ export const Breadcrumbs = ({ categoryName, bookId } : BreadCrumbsPropsType) => 
   return (
     <div className={styles.path_section_outer}>
       <span className={styles.path_section_inner}>
-      {categoryName === 'all' ? 'Все книги' : category?.name}
-      <span className={styles.slash}>/</span> 
-      {bookName?.title}
+
+          <Link to={ categoryName === 'all'
+          ? '/books/all' 
+          : `/books/${categoryName}` }  
+          data-test-id='breadcrumbs-link'>
+            {categoryName === 'all' ? 'Все книги': category?.name}
+            </Link> 
+
+        <span className={styles.slash}>/</span> 
+
+        <span data-test-id='book-name'>{bookName?.title}</span>
       </span>
   </div>
   )

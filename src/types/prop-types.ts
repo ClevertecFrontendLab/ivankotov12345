@@ -1,7 +1,10 @@
+import { ChangeEvent } from 'react'
+
 import { BookCardType, BookingType, DeliveryType } from './book-types'
 
 export interface BookCardPropsType extends BookCardType {
-    isTile?: boolean
+    isTile?: boolean,
+    bookName: string
 }
 
 export type CommentPropsType = {
@@ -27,4 +30,15 @@ export type ErrorPropsType = {
 export type BreadCrumbsPropsType = {
     categoryName: string,
     bookId: string | undefined,
+}
+
+export type PanelPropsType = {
+    isTile: boolean,
+    setIsTile: React.Dispatch<React.SetStateAction<boolean>>,
+    searchPanelChange: (event: ChangeEvent<HTMLInputElement>) => void
+}
+
+export type HighlightsPropsType = {
+    title: string,
+    bookName: string,
 }

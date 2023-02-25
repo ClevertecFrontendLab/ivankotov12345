@@ -3,16 +3,16 @@ import { NavLink, useLocation } from 'react-router-dom'
 import classNames from 'classnames';
 
 import { NAV_BOOKS_ALL, NAV_LIST } from '../../constants/paths';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { getNavListFetch, navListSelect } from '../../store/slices/navigation-list-slice';
+import { useAppSelector } from '../../store/hooks';
+import { BooksSelect } from '../../store/slices/books-slice';
 import { MenuProps } from '../../types';
-import { ErrorMessage } from '../error-message/error-message';
+import { BookCardType } from '../../types/book-types';
 
 import styles from './menu.module.css'
 
 
 
-export const Menu = ({ closeMenu, dataTestIdShowcase, dataTestIdBooks, dataTestIdTerms, dataTestIdContract }: MenuProps) => {
+export const Menu = ({ closeMenu, dataTestIdShowcase, dataTestIdBooks, dataTestIdTerms, dataTestIdContract, dataTestIdCategory, dataTestIdQuantity, navListCategories }: MenuProps) => {
     const { pathname } = useLocation();
 
     const [isMenuCollapsed, setIsmenuCollapsed] = useState<boolean>(true);
@@ -20,44 +20,45 @@ export const Menu = ({ closeMenu, dataTestIdShowcase, dataTestIdBooks, dataTestI
     const collapseHandler = () => {
         setIsmenuCollapsed(!isMenuCollapsed)
     }
-    const { navList: navListCategories, error } = useAppSelector(navListSelect);
-    const dispatch = useAppDispatch();
+    
+    const { books: booksListAll } = useAppSelector(BooksSelect);
+
+    const getBoooksCategoryQuantity = (books: BookCardType[], category: string) => {
+        let quantity = 0
+
+        books?.forEach(book => {
+            if (book.categories?.includes(category)) {
+                quantity+=1
+            }
+        })
+
+        return quantity
+    }
+    
 
     useEffect(() => {
         const pathNameArr = pathname.split('/');
 
         if(+pathNameArr[pathNameArr.length -1] || pathNameArr[pathNameArr.length -1] === 'terms' || pathNameArr[pathNameArr.length -1] === 'contract') {
             setIsmenuCollapsed(false);
+        } else {
+            setIsmenuCollapsed(true)
         }
     }, [pathname]);
-
-    const getRandomNum = (min: number, max: number) => {
-        const rand = min - 0.5 + Math.random() * (max - min + 1);
-
-        return Math.round(rand);
-    }
-
-    useEffect(() => {
-        dispatch(getNavListFetch())
-    }, [dispatch])
-
-    if(error) {
-        return <ErrorMessage error={error}/>
-    }
 
     return (
     <div className={styles.nav_menu}>
         <nav>
             <ul className={styles.nav_list}>
                 <ul className={styles.nav_list_books}>
-                    <li className={styles.panel_list} data-test-id={dataTestIdShowcase}>
-                       <NavLink 
+                    <li className={styles.panel_list} >
+                       <NavLink data-test-id={dataTestIdShowcase}
                        className={({ isActive }) => isActive 
                        ? classNames(styles.books_item, styles.active_books_item)
                        : styles.books_item} 
                         
                        onClick={collapseHandler}
-
+ 
                        to={ 
                         pathname.split('/')[1] === NAV_LIST.books.path && 
                         pathname.split('/')[2] !== NAV_BOOKS_ALL.path 
@@ -79,8 +80,9 @@ export const Menu = ({ closeMenu, dataTestIdShowcase, dataTestIdBooks, dataTestI
                     <ul className={classNames(styles.book_list_items, 
                         !isMenuCollapsed && styles.books_list_items_hidden)}>
 
-                    <li className={styles.сategory_item} key={NAV_BOOKS_ALL.id} data-test-id={dataTestIdBooks}>
+                    <li className={styles.сategory_item} key={NAV_BOOKS_ALL.id}>
                                 <NavLink 
+                                data-test-id={dataTestIdBooks}
                                 className={({ isActive }) => isActive 
                                 ? classNames(styles.category_list_item, styles.active_category)
                                 : styles.category_list_item}
@@ -103,8 +105,8 @@ export const Menu = ({ closeMenu, dataTestIdShowcase, dataTestIdBooks, dataTestI
                                 to={`/${NAV_LIST.books.path}/${path}`}
                                 >
                                  <span>
-                                    {name}
-                                    <span className={styles.quantity}>{getRandomNum(1, 25)}</span>
+                                    <span data-test-id={`${dataTestIdCategory}${path}`}>{name}</span>
+                                    <span className={styles.quantity} data-test-id={`${dataTestIdQuantity}${path}`}>{getBoooksCategoryQuantity(booksListAll as BookCardType[], name as string)}</span>
                                 </span>
                                 </NavLink>
                             </li>
