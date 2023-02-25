@@ -83,11 +83,6 @@ export const MainPage = () => {
                                       book.categories?.includes(currCategory?.name as string) &&
                                       book.title.toLowerCase().includes(bookName.toLowerCase()));
   
-
-
-  if(isLoading) {
-    return <Loader />
-  }
   if(error) {
     return <ErrorMessage error={error} />
   }

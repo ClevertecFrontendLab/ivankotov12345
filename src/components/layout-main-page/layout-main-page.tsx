@@ -18,7 +18,7 @@ export const LayoutMainPage = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-      dispatch(getNavListFetch())
+        dispatch(getNavListFetch())
   }, [dispatch])
     
     const dataTestIdShowcase = 'navigation-showcase';

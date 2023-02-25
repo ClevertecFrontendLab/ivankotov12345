@@ -17,11 +17,6 @@ export const BurgerMenu = () => {
 
   const { navList: navListCategories, error } = useAppSelector(navListSelect);
   const { books: booksListAll } = useAppSelector(BooksSelect);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(getNavListFetch())
-}, [dispatch])
 
   const nav = useRef<HTMLDivElement>(null);
   const btnBurger = useRef<HTMLButtonElement>(null);

@@ -25,7 +25,7 @@
     position: absolute;
     align-self: center;
     justify-self: center;
-    margin-top: 200px;
+    margin-top: 375px;
     font-weight: 700;
     font-size: 32px;
     line-height: 40px;
@@ -43,6 +43,10 @@
     .content_grid {
         row-gap: 32px;
     }
+
+    .empty_book_list {
+        margin-top: 445px;
+    }
 }
 
 @media (max-width: 600px) {
@@ -52,4 +56,10 @@
         row-gap: 20px;
     }
 
+    .empty_book_list {
+        font-size: 18px;
+        line-height: 28px;
+        margin-top: 280px;
+        width: 200px;
+    }
 }

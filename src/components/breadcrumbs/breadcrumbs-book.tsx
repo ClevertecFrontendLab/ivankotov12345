@@ -24,7 +24,12 @@ export const Breadcrumbs = ({ categoryName, bookId } : BreadCrumbsPropsType) => 
     <div className={styles.path_section_outer}>
       <span className={styles.path_section_inner}>
 
-          <Link to={ categoryName === 'all' ? '/books/all' : `/books/${categoryName}`} onClick={getBooksOnBreadcrumbs} data-test-id='breadcrumbs-link'>{categoryName === 'all' ? 'Все книги': category?.name}</Link> 
+          <Link onClick={getBooksOnBreadcrumbs} to={ categoryName === 'all'
+          ? '/books/all' 
+          : `/books/${categoryName}` }  
+          data-test-id='breadcrumbs-link'>
+            {categoryName === 'all' ? 'Все книги': category?.name}
+            </Link> 
 
         <span className={styles.slash}>/</span> 
 
