@@ -1,0 +1,1 @@
+export { SidemenuSwitcher } from './sidemenu-switcher';
