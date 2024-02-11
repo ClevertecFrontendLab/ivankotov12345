@@ -1,0 +1,68 @@
+@use '../../scss/index' as *;
+
+.mainPageWrapper {
+    max-width: 752px;
+    display: flex;
+    flex-direction: column;
+}
+
+.featuresList,
+.mainTitleWrapper {
+    @include light-container;
+}
+
+.mainTitleWrapper {
+    margin-top: 24px;
+}
+
+.featuresList {
+    margin: 0;
+    font-size: $size-basic;
+    font-weight: $font-weight-regular;
+    line-height: 130%;
+    color: $primary-light-9;
+    list-style-type: none;
+
+    li {
+        ul {
+            padding: 0;
+            list-style-type: none;
+        }
+    }
+}
+
+h4 {
+    &.mainTitle {
+        margin: 0;
+        line-height: 130%;
+        font-weight: $font-weight-bold-mobile;
+    }
+}
+
+.cardsWrapper {
+    margin-top: 18px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    gap: 16px;
+
+    .iconFilled {
+        font-size: 14px;
+        svg{
+            path {
+                fill: $primary-light-6;
+            }
+        }
+    }
+    
+    .iconId {
+        svg {
+            fill: $primary-light-6;
+        }
+    }
+
+    @media (max-width: 675px) {
+        flex-direction: column;
+        gap: 8px;
+    }
+}

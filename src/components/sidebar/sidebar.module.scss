@@ -1,0 +1,126 @@
+@use '../../scss/index' as *;
+
+.sideBar {
+    padding-top: 34px;
+
+    @media (max-width: 675px) {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 1;
+        padding-top: 0;
+    }
+}
+
+.logo,
+.logo_hidden {
+    height: 64px;
+    padding: 14px 46px 17px 29px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .logoFit {
+        filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
+    }
+
+    @media (max-width: 675px) {
+        padding: 0;
+        margin-top: 18px;
+        height: 18px;
+        .logoClever {
+            width: 52px;
+            height: 13px;
+        }
+
+        .logoFit {
+            width: 19px;
+            height: 17px;
+        }
+    }
+}
+
+.logo {
+    &_hidden {
+        .logoClever {
+            display: none;
+        }
+        .logoFit {
+            width: 29px;
+            height: 26px;
+            filter: none;
+        }
+    }
+}
+
+.sidebarMenu {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+
+    .menuItem.menuItem {
+        margin: 0;
+
+        @media (max-width: 675px) {
+            padding: 0;
+
+            span {
+                margin-left: 8px;
+            }
+        }
+    }
+
+    .exitButtonWrapper.exitButtonWrapper.exitButtonWrapper {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        margin: 0;
+        padding: 0 16px 4px;
+        box-shadow: inset 0 1px 0 0 $charactre-light-dividers;
+        :last-child {
+            margin-right: 16px;
+        }
+        .iconOutlined {
+            @media (max-width: 675px) {
+                display: none;
+            }
+        }
+
+        @media (max-width: 675px) {
+            :last-child {
+                margin-right: 0;
+                margin-left: 15px;
+            }
+        }
+    }
+
+    @media (max-width: 675px) {
+        margin-top: 21px;
+        gap: 10px;
+    }
+}
+
+.iconFilled {
+    font-size: 16px;
+    svg{
+        path {
+            fill: $primary-light-9;
+        }
+    }
+}
+
+.iconOutlined {
+    svg {
+        fill: $primary-light-9;
+    }
+}
+
+.iconFilled,
+.iconOutlined {
+    @media (max-width: 675px) {
+        display: none;
+    }
+}
+
