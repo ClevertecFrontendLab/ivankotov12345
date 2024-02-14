@@ -1,0 +1,69 @@
+@use '../../scss/index' as *;
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    background: transparent;
+    height: auto;
+    padding: 24px 24px 42px;
+
+    .reviewsButton {
+        margin-bottom: 6px;
+        font-size: $size-basic;
+        color: $primary-light-6;
+    }
+
+    .footerCard {
+        @include light-container;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+
+        .textWrapper {
+            padding: 12px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+
+            .textLink {
+                color: $primary-light-6;
+                font-size: $size-basic;
+                line-height: 130%;
+            }
+        }
+
+        .buttonsWrapper {
+            padding: 16px 4px;
+            display: flex;
+            gap: 15px;
+            box-shadow: inset 0 1px 0 0 $charactre-light-dividers;
+        }
+    }
+
+    @media (max-width: 675px) {
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+        padding: 24px 16px 44px;
+
+        .reviewsButton {
+            order: 2;
+        }
+
+        .footerCard {
+            width: 100%;
+            align-items: center;
+            padding: 0;
+            .buttonsWrapper {
+                width: 100%;
+                justify-content: space-around;
+            }
+
+            .textWrapper {
+                width: 100%;
+                align-items: center;
+            }
+        }
+    }
+}

@@ -1,0 +1,26 @@
+.layout {
+    height: 100%;
+    background: transparent;
+}
+
+:global {
+    .ant-layout {
+        background: transparent;
+    }
+}
+:global {
+    .ant-layout.ant-layout-has-sider {
+        background: url('./assets/img/background.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+}
+:global {
+    .ant-layout-content {
+        padding: 24px;
+
+        @media (max-width: 675px) {
+            padding: 24px 18px;
+        }
+    }
+}

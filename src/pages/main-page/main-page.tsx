@@ -1,34 +1,65 @@
-import React, { useState } from 'react';
+import { Typography } from 'antd';
+import { CalendarTwoTone, HeartTwoTone, IdcardOutlined } from '@ant-design/icons';
 
-import reactLogo from '/react.svg';
-import viteLogo from '/vite.svg';
-import tsLogo from '/ts.svg';
-import './main-page.css';
+import { ActionCard } from '@components/action-card';
+
+import 'antd/dist/antd.css';
+import styles from './main-page.module.scss';
 
 export const MainPage: React.FC = () => {
-    const [count, setCount] = useState(0);
+  const cardsData = [
+    {
+      key: '1',
+      cardLogo: <HeartTwoTone className={styles.iconFilled} />,
+      cardName: 'Расписать тренировки',
+      buttonText: 'Тренировки',
+    },
+    {
+      key: '2',
+      cardLogo: <CalendarTwoTone className={styles.iconFilled} />,
+      cardName: 'Назначить календарь',
+      buttonText: 'Календарь',
+    },
+    {
+      key: '3',
+      cardLogo: <IdcardOutlined className={styles.iconID} />,
+      cardName: 'Заполнить профиль',
+      buttonText: 'Профиль',
+    },
+  ];
+  const { Title } = Typography;
+  return (
+    <div className={styles.mainPageWrapper}>
+      <ul className={styles.featuresList}>
+        <li>
+          С CleverFit ты сможешь:
+          <ul>
+            <li>— планировать свои тренировки на календаре, выбирая тип и уровень нагрузки</li>
+            <li>— отслеживать свои достижения в разделе статистики, сравнивая свои результаты с нормами и рекордами</li>
+            <li>— создавать свой профиль, где ты можешь загружать свои фото, видео и отзывы о тренировках</li>
+            <li>— выполнять расписанные тренировки для разных частей тела, следуя подробным инструкциям и советам профессиональных тренеров</li>
+          </ul>
+        </li>
+      </ul>
+      
+      <div className={styles.mainTitleWrapper}>
+        <Title level={4} className={styles.mainTitle}>
+          CleverFit — это не просто приложение, а твой личный помощник в мире фитнеса. Не откладывай на завтра — начни тренироваться уже сегодня!
+        </Title>
+      </div>
 
-    return (
-        <>
-            <div>
-                <a href='https://vitejs.dev' target='_blank'>
-                    <img src={viteLogo} className='logo' alt='Vite logo' />
-                </a>
-                <a href='https://react.dev' target='_blank'>
-                    <img src={reactLogo} className='logo react' alt='React logo' />
-                </a>
-                <a href='https://www.typescriptlang.org/' target='_blank'>
-                    <img src={tsLogo} className='logo' alt='TS logo' />
-                </a>
-            </div>
-            <h1>Vite + React + TS</h1>
-            <div className='card'>
-                <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-                <p>
-                    Edit <code>src/pages/main-page.tsx</code> and save to test HMR
-                </p>
-            </div>
-            <p className='read-the-docs'>Click on the Vite and React logos to learn more</p>
-        </>
-    );
+      <ul className={styles.cardsWrapper}>
+      {
+        cardsData.map(({key, cardLogo, cardName, buttonText}) => (
+          <ActionCard 
+            key={key}
+            cardLogo={cardLogo}
+            cardName={cardName}
+            buttonText={buttonText}
+            />
+        ))
+      }
+      </ul>
+    </div>
+  );
 };

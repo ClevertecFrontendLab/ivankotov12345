@@ -1,0 +1,21 @@
+@use '../../scss/index' as *;
+
+.sideMenuButton {
+    position: absolute;
+    top: calc(50% - 33px);
+    left: 100%;
+    padding: 0;
+    width: 20px;
+    height: 66px;
+    border: none;
+    background-color: $character-light-primary-inverse;
+    clip-path: polygon(0 0, 100% 12%, 100% 88%, 0 100%);
+    cursor: pointer;
+
+    @media (max-width:675px) {
+        top: 24px;
+        width: 32px;
+        height: 48px;
+        clip-path: polygon(0% 0%, 100% 12%, 100% 88%, 0% 100%);
+    }
+}
