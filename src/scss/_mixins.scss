@@ -10,3 +10,13 @@
         padding: 16px;
     }
 }
+
+@mixin color-button-primary {
+    border-color: $primary-light-6;
+    background: $primary-light-6;
+
+    &:disabled {
+        border: 1px solid $character-light-border;
+        background: $character-light-background;
+    }
+}
