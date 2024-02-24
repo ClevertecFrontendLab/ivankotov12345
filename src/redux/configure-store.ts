@@ -5,12 +5,16 @@ import { createBrowserHistory } from 'history';
 import { registrationReducer } from './slices/registration';
 import { rootSaga } from './sagas/root-saga';
 import { authReducer } from './slices/auth';
+import { recoveryReducer } from './slices/recovery';
 
 const {
     createReduxHistory,
     routerMiddleware,
     routerReducer
-  } = createReduxHistoryContext({ history: createBrowserHistory() });
+  } = createReduxHistoryContext({
+    history: createBrowserHistory(),
+    savePreviousLocations: 1,
+  });
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -19,6 +23,7 @@ export const store = configureStore({
     router: routerReducer,
     auth: authReducer,
     registration: registrationReducer,
+    recovery: recoveryReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware()
     .concat(sagaMiddleware, routerMiddleware),

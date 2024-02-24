@@ -14,3 +14,21 @@ export enum RegistrationMessages {
   registrationErrorButton = 'Назад к регистрации',
   registrationErrorButtonTryAgain = 'Повторить',
 }
+
+export enum ChangePasswordEmailExist {
+  title = 'Такой e-mail не зарегистрирован',
+  text = 'Мы не нашли в базе вашего e-mail. Попробуйте войти с другим e-mail.',
+  buttonText = 'Попробовать снова'
+}
+
+export enum ChangePasswordSomethingGoesWrong {
+  title = 'Что-то пошло не так',
+  text = 'Произошла ошибка, попробуйте отправить форму ещё раз.',
+  buttonText = 'Назад'
+}
+
+export enum ChangePasswordSuccessMessage {
+  title = 'Пароль успешно изменен',
+  text = 'Теперь можно войти в аккаунт, используя свой логин и новый пароль',
+  buttonText = 'Вход',
+}

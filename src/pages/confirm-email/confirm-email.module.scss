@@ -1,0 +1,94 @@
+@use '../../scss/index' as *;
+
+.confirmCard {
+    max-width: 539px;
+    width: 100%;
+    padding: 0;
+
+    .cardLogo,
+    .cardLogoError {
+        svg {
+            width: 71px;
+            height: 70px;
+        }
+    }
+
+    .cardLogo {
+        svg {
+            fill: $primary-light-6;
+        }
+    }
+
+    .cardLogoError {
+        svg {
+
+            fill: $character-light-error;
+        }
+    }
+
+
+
+    .textWrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .title,
+        .text {
+            text-align: center;
+            line-height: 130%;
+            margin: 0;
+        }
+
+        .title {
+            max-width: 400px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .text {
+            display: block;
+        }
+    }
+
+    .verificationContainer {
+        height: 40px;
+        display: flex;
+        align-items: start;
+        gap: 12px;
+    }
+
+    .characterError {
+        border-color: $character-light-error;
+    }
+
+    .character,
+    .caracterFilled {
+        border: 1px solid $character-light-border;
+    }
+
+    .character,
+    .characterError {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        font-weight: $font-weight-regular;
+        font-size: $size-semi-small;
+        color: $character-light-title-85;
+    }
+
+    :global {
+        .ant-card-body {
+            padding: 64px 32px 56px 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+
+            ::before,
+            ::after {
+                display: none;
+            }
+        }
+    }
+}

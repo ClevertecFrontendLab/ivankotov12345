@@ -1,10 +1,13 @@
 import { Button, Card, Typography } from 'antd';
 import { CheckCircleFilled, CloseCircleFilled, WarningFilled } from '@ant-design/icons';
-import { clearRegistration, registrationSelect } from '@redux/slices/registration';
-import { goBack, push } from 'redux-first-history';
+import { push } from 'redux-first-history';
 
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
+import { clearRegistration, registrationSelect } from '@redux/slices/registration';
+import { recoverySelect } from '@redux/slices/recovery';
 import { authSelect, clearAuth } from '@redux/slices/auth';
+
+import somethingGoesWrong from './assets/png/something-goes-wrong.png'
 
 import styles from './message-page.module.scss';
 
@@ -14,7 +17,17 @@ export const MessagePage: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const { message: authMessage } = useAppSelector(authSelect);
-  const { message: registrationMesage, isSuccess, submittedData } = useAppSelector(registrationSelect);
+  const {
+    message: registrationMesage,
+    isSuccess,
+    submittedData
+  } = useAppSelector(registrationSelect);
+
+  const { 
+    message: recoveryMessage,
+    isForgotSuccess,
+    isResetSuccess,
+  } = useAppSelector(recoverySelect);
 
   const clearMessageField = () => {
     dispatch(clearAuth());
@@ -27,6 +40,9 @@ export const MessagePage: React.FC = () => {
     }
     if(registrationMesage) {
       dispatch(push(registrationMesage.buttonLink));
+    }
+    if(recoveryMessage) {
+      dispatch(push(recoveryMessage.buttonLink))
     }
     clearMessageField();
   };
@@ -41,22 +57,30 @@ export const MessagePage: React.FC = () => {
     <Card className={styles.messageCard}>
       {authMessage && <WarningFilled className={styles.messageCard_logoAuth} />}
 
-      {registrationMesage
-        && isSuccess
+      {(registrationMesage || recoveryMessage?.resultLabel === 'success')
+        && (isSuccess || isResetSuccess)
         && <CheckCircleFilled className={styles.messageCard_logoSuccess} />}
 
-      {registrationMesage
-        && !isSuccess
+      {(registrationMesage
+        || recoveryMessage?.resultLabel === 'error not found'
+        || recoveryMessage?.resultLabel === 'change password error')
+        && (!isSuccess || !isForgotSuccess || !isResetSuccess)
         && <CloseCircleFilled className={styles.messageCard_logoError} />}
+
+      {recoveryMessage?.resultLabel === 'something goes wrong'
+      && !isForgotSuccess
+      && <img src={somethingGoesWrong} alt='Something goes wrong' />}
 
       <div>
         <Title level={3} className={styles.messageHeader}>
           {authMessage && authMessage.title}
           {registrationMesage && registrationMesage.title}
+          {recoveryMessage && recoveryMessage.title}
         </Title>
         <Text className={styles.messageText}>
           {authMessage && authMessage.message}
           {registrationMesage && registrationMesage.message}
+          {recoveryMessage && recoveryMessage.message}
         </Text>
       </div>
 
@@ -73,6 +97,7 @@ export const MessagePage: React.FC = () => {
       >
         {authMessage && authMessage.buttonText}
         {registrationMesage && registrationMesage.buttonText}
+        {recoveryMessage && recoveryMessage.buttonText}
       </Button>
     </Card>
   )

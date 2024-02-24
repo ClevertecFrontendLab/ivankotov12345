@@ -5,3 +5,9 @@ export type MessageType = {
   buttonLink: string,
   buttonText: string,
 }
+
+export type MessageResponse = {
+  error: string,
+  message: string,
+  statusCode: number
+}

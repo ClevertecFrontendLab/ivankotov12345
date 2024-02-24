@@ -41,10 +41,11 @@ export const InputPassword: React.FC<PropsType> = ({ passwordValue, status, setS
       rules={[
         {
           required: true,
+          message: ''
         },
       ]}
       name={name}
-      help={help}
+      help={status === 'error' && name === 'confirmPassword' ? 'Пароли не совпадают' : help}
       validateTrigger='onChange'
       validateStatus={status}
       className={styles.inputPassword}

@@ -10,12 +10,14 @@ import { FormInputValues } from '@typing/types/form-input-values';
 import { getAuthFetch } from '@redux/slices/auth';
 
 import styles from './auth-page.module.scss';
+import { getForgotPassFetch } from '@redux/slices/recovery';
 
 export const AuthPage: React.FC = () => {
   const [emailStatus, setEmailStatus] = useState<ValidateStatus>('');
   const [passwordStatus, setPasswordStatus] = useState<ValidateStatus>('');
   const [isFormValid, setIsFormValid] = useState<boolean>(false);
   const [isChecked, setIsChecked] = useState<boolean>(true);
+  const [isForgotPassDispabled, setIsForgotPassDispabled] = useState<boolean>(true);
 
   const formRef = useRef(null);
   const [form] = Form.useForm();
@@ -30,12 +32,29 @@ export const AuthPage: React.FC = () => {
       && passwordStatus === ''
       && form.isFieldsTouched(['email', 'password'], true)
     );
-  }, [emailStatus, passwordStatus, form])
+  }, [emailStatus, passwordStatus, form]);
+
+  useEffect(() => {
+    if(
+      form.isFieldsTouched(['email'], true)
+      && emailStatus === ''
+      ) {
+        setIsForgotPassDispabled(false);
+      } else {
+        setIsForgotPassDispabled(true);
+      }
+  }, [form, emailStatus]);
 
   const dispatch = useAppDispatch();
 
   const onSubmit = (data: FormInputValues) => {
     dispatch(getAuthFetch(data));
+  }
+
+  const onForgetPass = () => {
+    const emailValue: string = form.getFieldValue('email');
+    console.log(emailValue)
+    dispatch(getForgotPassFetch({email: emailValue}))
   }
   return (
     <Form
@@ -61,6 +80,8 @@ export const AuthPage: React.FC = () => {
           type='link'
           size='large'
           className={styles.buttonForgotPass}
+          disabled={isForgotPassDispabled}
+          onClick={onForgetPass}
         >
           Забыли пароль?
         </Button>
