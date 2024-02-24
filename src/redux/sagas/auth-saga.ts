@@ -9,7 +9,7 @@ import { AxiosPaths } from '@typing/enums/axios-paths';
 import { Paths } from '@typing/enums/paths';
 import { FormInputValues } from '@typing/types/form-input-values';
 import { AuthResponseType } from '@typing/types/response-types';
-import { AuthMessages } from '@typing/enums/result-messages';
+import { AuthMessage } from '@typing/enums/result-messages';
 
 
 
@@ -26,11 +26,11 @@ export function* authWorker(action: PayloadAction<FormInputValues>) {
   } catch(error) {
     if(error) {
       yield put(getAuthError({
-        resultLabel: 'Auth error',
-        title: AuthMessages.authErrorHeader,
-        message: AuthMessages.somethingGoesWrong,
-        buttonLink: Paths.AUTH,
-        buttonText: AuthMessages.authButtontext,
+        status: AuthMessage.status,
+        title: AuthMessage.title,
+        subTitle: AuthMessage.subTitle,
+        buttonText: AuthMessage.buttonText,
+        buttonLink: Paths.AUTH
       }));
       yield put(push(`${Paths.RESULT}${Paths.ERROR_LOG_IN}`));
     }

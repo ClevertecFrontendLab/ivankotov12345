@@ -1,68 +1,17 @@
 @use '../../scss/index' as *;
 
 .messageCard {
-    padding: 0;
-    text-align: center;
-
-    .messageCard_logoAuth {
-        svg {
-            width: 81px;
-            height: 80px;
-            fill: $character-light-warning;
-        }
-    }
-    
-    .messageCard_logoSuccess,
-    .messageCard_logoError {
-        svg {
-            width: 71px;
-            height: 78px;
-            fill: $character-light-success;
-        }
-    }
-
-    .messageCard_logoSuccess {
-        svg {
-            fill: $character-light-success;
-        }
-    }
-
-    .messageCard_logoError {
-        svg {
-            fill: $character-light-error;
-        }
-    }
-
-    .messageHeader,
-    .messageText {
-        display: block;
-        margin: 0;
-    }
-
-    .messageText {
-        width: 368px;
-    }
-
-    .messageText {
-        line-height: 130%;
-    }
-
-    .messageButton {
-        @include color-button-primary;
-    }
-
-    ::before,
-    ::after {
-        display: none;
-    }
+    background: $character-light-primary-inverse;
+    padding: 64px 32px;
+    max-width: 539px;
+    width: 100%;
 
     :global {
-        .ant-card-body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 24px;
-            padding: 64px 85.5px;
+        .ant-result-title {
+            font-weight: $font-weight-bold-mobile;
         }
+    }
+    .messageButton {
+        @include color-button-primary;
     }
 }

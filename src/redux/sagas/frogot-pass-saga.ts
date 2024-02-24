@@ -15,7 +15,7 @@ export function* forgotPassWorker(action: PayloadAction<FormRecoveryInputEmail>)
   try {
     yield call(
       instance.post,
-      `${AxiosPaths.CHECK_EMAIL}`,
+      `${AxiosPaths.CHECK_EMAIL}1`,
       { ...action.payload },
       {
         withCredentials: true,
@@ -28,20 +28,21 @@ export function* forgotPassWorker(action: PayloadAction<FormRecoveryInputEmail>)
     const responseData = response?.data as MessageResponse
     if(responseData.message === 'Email не найден') {
       yield put(getForgotPassError({
-        resultLabel: 'error not found',
+        status: ChangePasswordEmailExist.status,
         title: ChangePasswordEmailExist.title,
-        message: ChangePasswordEmailExist.text,
-        buttonLink: `${Paths.AUTH}`,
+        subTitle: ChangePasswordEmailExist.subTitle,
         buttonText: ChangePasswordEmailExist.buttonText,
+        buttonLink: Paths.AUTH,
       }));
       yield put(push(`${Paths.RESULT}${Paths.ERROR_EMAIL_NO_EXIST}`));
     } else {
       yield put(getForgotPassError({
-        resultLabel: 'something goes wrong',
+        status: ChangePasswordSomethingGoesWrong.status,
         title: ChangePasswordSomethingGoesWrong.title,
-        message: ChangePasswordSomethingGoesWrong.text,
-        buttonLink: `${Paths.AUTH}`,
+        subTitle: ChangePasswordSomethingGoesWrong.subTitle,
         buttonText: ChangePasswordSomethingGoesWrong.buttonText,
+        buttonLink: Paths.AUTH,
+        retry: true,
       }));
       yield put(push(`${Paths.RESULT}${Paths.ERROR_CHECK_EMAIL}`))
     }

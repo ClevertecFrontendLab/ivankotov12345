@@ -7,14 +7,13 @@ import { AuthResponseType } from '@typing/types/response-types';
 type AuthStateType = {
   isLoading: boolean,
   token: AuthResponseType | null,
-  message: MessageType | null,
+  message?: MessageType,
   submittedData?: FormInputValues,
 }
 
 const initialState: AuthStateType = {
   isLoading: false,
   token: null,
-  message: null,
 };
 
 export const authSlice = createSlice({
@@ -24,13 +23,11 @@ export const authSlice = createSlice({
     getAuthFetch: (state, action: PayloadAction<FormInputValues>) => {
       state.isLoading = true;
       state.token = null;
-      state.message = null;
       state.submittedData = action.payload;
     },
     getAuthSuccess: (state, action: PayloadAction<AuthResponseType>) => {
       state.isLoading = false;
       state.token = action.payload;
-      state.message = null;
     },
     getAuthError: (state, action: PayloadAction<MessageType>) => {
       state.isLoading = false;
@@ -40,7 +37,8 @@ export const authSlice = createSlice({
     clearAuth: (state) => {
       state.isLoading = false;
       state.token = null;
-      state.message = null;
+      state.message = undefined;
+      state.submittedData = undefined;
     }
   }
 });

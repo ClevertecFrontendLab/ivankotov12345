@@ -2,13 +2,12 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { instance } from '@axios/axios';
 
-import { getResetPasswordFetch, getResetPasswordSuccess } from '@redux/slices/recovery';
+import { getResetPasswordError, getResetPasswordFetch, getResetPasswordSuccess } from '@redux/slices/recovery';
 import { AxiosPaths } from '@typing/enums/axios-paths';
 import { FormRecoveryInputValues } from '@typing/types/form-input-values';
 import { goForward, replace } from 'redux-first-history';
 import { Paths } from '@typing/enums/paths';
-import { ChangePasswordSomethingGoesWrong, ChangePasswordSuccessMessage } from '@typing/enums/result-messages';
-import { getRegistrationError } from '@redux/slices/registration';
+import { ChangePasswordErrorMessage, ChangePasswordSuccessMessage } from '@typing/enums/result-messages';
 
 
 export function* changePasswordWorker(action: PayloadAction<FormRecoveryInputValues>) {
@@ -20,22 +19,23 @@ export function* changePasswordWorker(action: PayloadAction<FormRecoveryInputVal
       { withCredentials: true },
     )
     yield put(getResetPasswordSuccess({
-      resultLabel: 'success',
+      status: ChangePasswordSuccessMessage.status,
       title: ChangePasswordSuccessMessage.title,
-      message: ChangePasswordSuccessMessage.text,
-      buttonLink: Paths.AUTH,
+      subTitle: ChangePasswordSuccessMessage.subTitle,
       buttonText: ChangePasswordSuccessMessage.buttonText,
+      buttonLink: Paths.AUTH,
     }))
     yield put(replace(`${Paths.RESULT}${Paths.CHANGE_PASSWORD_SUCCESS}`));
     yield put(goForward());
   }
   catch(error) {
-    yield put(getRegistrationError({
-      resultLabel: 'change password error',
-      title: ChangePasswordSomethingGoesWrong.title,
-      message: ChangePasswordSomethingGoesWrong.text,
+    yield put(getResetPasswordError({
+      status: ChangePasswordErrorMessage.status,
+      title: ChangePasswordErrorMessage.title,
+      subTitle: ChangePasswordErrorMessage.subTitle,
+      buttonText: ChangePasswordErrorMessage.buttonText,
       buttonLink: `${Paths.AUTH}${Paths.CHANGE_PASSWORD}`,
-      buttonText: ChangePasswordSomethingGoesWrong.buttonText,
+      retry: true,
     }));
     yield put(replace(`${Paths.RESULT}${Paths.ERROR_CHANGE_PASSWORD}`));
     yield put(goForward())

@@ -1,9 +1,12 @@
+import { ResultStatusType } from "antd/lib/result"
+
 export type MessageType = {
-  resultLabel: string,
+  status: ResultStatusType,
   title: string,
-  message: string,
+  subTitle: string,
   buttonLink: string,
   buttonText: string,
+  retry?: boolean,
 }
 
 export type MessageResponse = {

@@ -5,34 +5,27 @@ import { ValidateStatus } from 'antd/es/form/FormItem';
 
 import { InputEmail } from '@components/input-email';
 import { InputPassword } from '@components/input-password';
-import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
+import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { FormInputValues } from '@typing/types/form-input-values';
 import { getAuthFetch } from '@redux/slices/auth';
 
 import styles from './auth-page.module.scss';
-import { getForgotPassFetch } from '@redux/slices/recovery';
+import { getForgotPassFetch, recoverySelect } from '@redux/slices/recovery';
 
 export const AuthPage: React.FC = () => {
   const [emailStatus, setEmailStatus] = useState<ValidateStatus>('');
   const [passwordStatus, setPasswordStatus] = useState<ValidateStatus>('');
-  const [isFormValid, setIsFormValid] = useState<boolean>(false);
   const [isChecked, setIsChecked] = useState<boolean>(true);
   const [isForgotPassDispabled, setIsForgotPassDispabled] = useState<boolean>(true);
 
   const formRef = useRef(null);
   const [form] = Form.useForm();
 
+  const { submittedEmail } = useAppSelector(recoverySelect)
+
   const onRememberCheckBox = () => {
     setIsChecked(!isChecked);
   }
-
-  useEffect(() => {
-    setIsFormValid(
-      emailStatus === ''
-      && passwordStatus === ''
-      && form.isFieldsTouched(['email', 'password'], true)
-    );
-  }, [emailStatus, passwordStatus, form]);
 
   useEffect(() => {
     if(
@@ -51,16 +44,27 @@ export const AuthPage: React.FC = () => {
     dispatch(getAuthFetch(data));
   }
 
+  const onFinishFailed = () => {
+    setEmailStatus('error');
+    setPasswordStatus('error');
+  }
+
   const onForgetPass = () => {
     const emailValue: string = form.getFieldValue('email');
-    console.log(emailValue)
-    dispatch(getForgotPassFetch({email: emailValue}))
+    dispatch(getForgotPassFetch({email: emailValue}));
   }
+
+  useEffect(() => {
+    if(submittedEmail) {
+      dispatch(getForgotPassFetch(submittedEmail));
+    }
+  })
   return (
     <Form
       className={styles.form}
       form={form} ref={formRef}
       onFinish={onSubmit}
+      onFinishFailed={onFinishFailed}
     >
       <InputEmail
         name='email'
@@ -91,7 +95,7 @@ export const AuthPage: React.FC = () => {
         <Button
           type='primary'
           htmlType='submit' 
-          block disabled={!isFormValid}
+          block
           size='large'
           className={styles.buttonEnter}
         >

@@ -7,14 +7,13 @@ import { FormInputValues } from '@typing/types/form-input-values';
 type RegistrationStateType = {
   isLoading: boolean,
   isSuccess: boolean,
-  message: MessageType | null,
+  message?: MessageType,
   submittedData?: FormInputValues,
 };
 
 const initialState: RegistrationStateType = {
     isLoading: false,
     isSuccess: false,
-    message: null,
 };
 
 export const registrationSlice = createSlice({
@@ -24,7 +23,6 @@ export const registrationSlice = createSlice({
     getRegistrationFetch: (state, action: PayloadAction<FormInputValues>) => {
       state.isLoading = true;
       state.isSuccess = false;
-      state.message = null;
       state.submittedData = action.payload;
     },
     getRegistrationSuccess: (state, action: PayloadAction<MessageType>) => {
@@ -40,7 +38,8 @@ export const registrationSlice = createSlice({
     clearRegistration: (state) => {
       state.isLoading = false;
       state.isSuccess = false;
-      state.message = null;
+      state.message = undefined;
+      state.submittedData = undefined;
     }
   }
 });
