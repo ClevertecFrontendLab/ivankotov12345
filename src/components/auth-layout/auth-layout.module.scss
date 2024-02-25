@@ -3,6 +3,8 @@
     height: 100%;
     background: url('./assets/img/auth-background.jpg');
     background-size: cover;
+    background-position: center;
+    min-height: 1024px;
 
     .authWrapper {
         display: grid;
@@ -12,5 +14,13 @@
         height: 100%;
         background: rgba(121, 156, 212, 0.5);
         backdrop-filter: blur(6px);
+    }
+
+    @media (max-width: 834px) {
+        min-height: 1194px;
+    }
+
+    @media (max-width: 675px) {
+        min-height: 800px;
     }
 }

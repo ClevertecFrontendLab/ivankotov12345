@@ -32,7 +32,7 @@ export const AuthForm: React.FC = () => {
   };
   return (
     <Card 
-      title={<img alt='Cleverfit' src={formLogo} />}
+      title={<img alt='Cleverfit' src={formLogo} className={styles.logo} />}
       activeTabKey={activeTab}
       tabList={tabList}
       onTabChange={onTabChange}

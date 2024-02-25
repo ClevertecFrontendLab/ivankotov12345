@@ -8,15 +8,19 @@ import { InputPassword } from '@components/input-password';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { FormInputValues } from '@typing/types/form-input-values';
 import { getAuthFetch } from '@redux/slices/auth';
+import { getForgotPassFetch, recoverySelect } from '@redux/slices/recovery';
+import { useScreenWidth } from '@hooks/use-screen-width-hook';
 
 import styles from './auth-page.module.scss';
-import { getForgotPassFetch, recoverySelect } from '@redux/slices/recovery';
+
 
 export const AuthPage: React.FC = () => {
   const [emailStatus, setEmailStatus] = useState<ValidateStatus>('');
   const [passwordStatus, setPasswordStatus] = useState<ValidateStatus>('');
   const [isChecked, setIsChecked] = useState<boolean>(true);
   const [isForgotPassDispabled, setIsForgotPassDispabled] = useState<boolean>(true);
+
+  const screenWidth = useScreenWidth()
 
   const formRef = useRef(null);
   const [form] = Form.useForm();
@@ -83,7 +87,7 @@ export const AuthPage: React.FC = () => {
         <Checkbox checked={isChecked} onChange={onRememberCheckBox}>Запомнить меня</Checkbox>
         <Button
           type='link'
-          size='large'
+          size={screenWidth && screenWidth > 675 ? 'large' : 'middle'}
           className={styles.buttonForgotPass}
           disabled={isForgotPassDispabled}
           onClick={onForgetPass}
