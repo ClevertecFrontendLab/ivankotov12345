@@ -1,5 +1,5 @@
 import { instance } from '@axios/axios';
-import { getConfirmEmailError, getConfirmEmailFetch } from '@redux/slices/recovery'
+import { getConfirmEmailError, getConfirmEmailFetch, getConfirmEmailSuccess } from '@redux/slices/recovery'
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, takeLatest } from 'redux-saga/effects';
 
@@ -16,6 +16,7 @@ export function* confirmEmailWorker(action: PayloadAction<FromRecoveryConfirmEma
       { ...action.payload },
       { withCredentials: true },
     );
+    yield put(getConfirmEmailSuccess())
     yield put(replace(`${Paths.AUTH}${Paths.CHANGE_PASSWORD}`));
     yield put(goForward());
   } catch(error) {

@@ -60,6 +60,7 @@ export const AuthPage: React.FC = () => {
     }
   })
   return (
+    <>
     <Form
       className={styles.form}
       form={form} ref={formRef}
@@ -110,5 +111,6 @@ export const AuthPage: React.FC = () => {
         </Button>
       </div>
     </Form>
+    </>
   )
 }

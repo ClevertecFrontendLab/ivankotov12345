@@ -1,6 +1,17 @@
 .layout {
     height: 100%;
     background: transparent;
+
+    min-height: 1024px;
+
+
+    @media (max-width: 834px) {
+        min-height: 1194px;
+    }
+
+    @media (max-width: 675px) {
+        min-height: 1362px;
+    }
 }
 
 :global {
