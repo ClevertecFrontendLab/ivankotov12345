@@ -16,6 +16,9 @@ export const RegisterPage: React.FC = () => {
   const [passwordStatus, setPasswordStatus] = useState<ValidateStatus>('');
   const [confirmPasswordStatus, setConfirmPasswordStatus] = useState<ValidateStatus>('');
   const [isFormValid, setIsFormValid] = useState<boolean>(false);
+  const testIdEmail = 'registration-email';
+  const testIdPassword = 'registration-password';
+  const testIdConfirmPassword = 'registration-confirm-password';
 
   const [form] = Form.useForm();
 
@@ -49,6 +52,7 @@ export const RegisterPage: React.FC = () => {
           name='email'
           emailStatus={emailStatus}
           setEmailStatus={setEmailStatus}
+          testId={testIdEmail}
         />
         <InputPassword 
           status={passwordStatus} 
@@ -56,6 +60,7 @@ export const RegisterPage: React.FC = () => {
           placeholder='Пароль'
           name='password'
           help='Пароль не менее 8 символов, с заглавной буквой и цифрой'
+          testId={testIdPassword}
         />
         <InputPassword
           passwordValue={form.getFieldValue('password')}
@@ -63,6 +68,7 @@ export const RegisterPage: React.FC = () => {
           setStatus={setConfirmPasswordStatus}
           placeholder='Повторите пароль'
           name='confirmPassword'
+          testId={testIdConfirmPassword}
         />
       </div>
 
@@ -74,6 +80,7 @@ export const RegisterPage: React.FC = () => {
           size='large'
           disabled={!isFormValid}
           className={styles.buttonRegister}
+          data-test-id='registration-submit-button'
         >
           Вход
         </Button>

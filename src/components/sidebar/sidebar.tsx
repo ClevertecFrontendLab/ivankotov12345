@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { Layout, Menu } from 'antd';
 import { CalendarTwoTone, HeartTwoTone, IdcardOutlined, TrophyTwoTone } from '@ant-design/icons';
+import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
+import { push } from 'redux-first-history';
 
 import { useScreenWidth } from '@hooks/use-screen-width-hook';
 
 import { ExitOutlined } from '@components/exit-icon-outlined/exit-icon-outlined';
 import { SidemenuSwitcher } from '@components/sidemenu-switcher';
+import { Paths } from '@typing/enums/paths';
 
 import clever from './assets/svg/clever.svg';
 import logo from './assets/svg/fit.svg';
@@ -18,6 +21,14 @@ export const Sidebar: React.FC = () => {
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const { Sider } = Layout;
   const screenWidth = useScreenWidth();
+
+  const dispatch = useAppDispatch();
+
+  const handleLogOut = () => {
+    localStorage.removeItem('token');
+    dispatch(push(Paths.AUTH));
+    console.log('1')
+  }
 
   const toneColor = '#061178';
   const testId = screenWidth && screenWidth > 675 ? 'sider-switch' : 'sider-switch-mobile';
@@ -62,6 +73,7 @@ export const Sidebar: React.FC = () => {
       key: '5',
       icon: <ExitOutlined className={styles.iconOutlined} />,
       label: 'Выход',
+      onClick: handleLogOut,
       className: styles.exitButtonWrapper,
     }
   ];

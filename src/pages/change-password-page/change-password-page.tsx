@@ -11,6 +11,8 @@ import styles from './change-password-page.module.scss';
 export const ChangePasswordPage: React.FC = () => {
   const [newPasswordStatus, setNewPasswordStatus] = useState<ValidateStatus>('');
   const [confirmNewPasswordStatus, setConfirmNewPasswordStatus] = useState<ValidateStatus>('');
+  const testIdPassword = 'change-password';
+  const testIdConfirmPassword = 'change-confirm-password';
 
   const { Title } = Typography;
 
@@ -45,12 +47,14 @@ export const ChangePasswordPage: React.FC = () => {
             placeholder='Новый пароль'
             name='password'
             help='Пароль не менее 8 символов, с заглавной буквой и цифрой'
+            testId={testIdPassword}
           />
           <InputPassword
             status={confirmNewPasswordStatus}
             setStatus={setConfirmNewPasswordStatus}
             placeholder='Повторите пароль'
             name='confirmPassword'
+            testId={testIdConfirmPassword}
           />
         </div>
 
@@ -60,6 +64,7 @@ export const ChangePasswordPage: React.FC = () => {
           size='large'
           block
           className={styles.buttonSavePassword}
+          data-test-id='change-submit-button'
         >
           Сохранить
         </Button>

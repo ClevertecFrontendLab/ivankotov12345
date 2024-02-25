@@ -1,5 +1,7 @@
 import { Button, Result } from 'antd';
 import { goBack, push } from 'redux-first-history';
+import { useEffect } from 'react';
+import { history } from '@redux/configure-store';
 
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { clearRegistration, registrationSelect } from '@redux/slices/registration';
@@ -7,7 +9,6 @@ import { clearRecovery, recoverySelect } from '@redux/slices/recovery';
 import { authSelect, clearAuth } from '@redux/slices/auth';
 
 import styles from './message-page.module.scss';
-import { useEffect } from 'react';
 
 export const MessagePage: React.FC = () => {
 
@@ -18,6 +19,16 @@ export const MessagePage: React.FC = () => {
     message: registrationMesage,
     submittedData,
   } = useAppSelector(registrationSelect);
+
+  const urlToTestId: { [key: string]: string } = {
+    '/result/success': 'registration-enter-button',
+    '/result/error': 'registration-retry-button',
+    '/result/error-user-exist': 'registration-back-button',
+    '/result/error-login': 'login-retry-button',
+    '/result/error-check-email-no-exist': 'check-retry-button',
+    '/result/error-check-email': 'check-back-button',
+    '/result/error-change-password': 'change-retry-button',
+  };
 
   const { 
     message: recoveryMessage,
@@ -84,6 +95,7 @@ export const MessagePage: React.FC = () => {
             ? onRetryButtonClick
             : onButtonClick
           }
+          data-test-id={urlToTestId[history.location.pathname]}
         >
           {authMessage?.buttonText || registrationMesage?.buttonText || recoveryMessage?.buttonText}
         </Button>

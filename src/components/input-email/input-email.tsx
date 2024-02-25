@@ -7,9 +7,14 @@ type PropsType = {
   name: string,
   emailStatus: ValidateStatus,
   setEmailStatus: (emailStatus: ValidateStatus) => void,
+  testId: string,
 };
 
-export const InputEmail: React.FC<PropsType> = ({ name, emailStatus, setEmailStatus }) => {
+export const InputEmail: React.FC<PropsType> = ({
+  name,
+  emailStatus,
+  setEmailStatus,
+  testId }) => {
   const emailRegExp = /^([a-zA-Z0-9._]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,6})+$/;
   
   const validateEmail = (email: string) => {
@@ -39,6 +44,7 @@ export const InputEmail: React.FC<PropsType> = ({ name, emailStatus, setEmailSta
       ]}
       validateTrigger='onChange'
       validateStatus={emailStatus}
+      data-test-id={testId}
     >
       <Input
         autoComplete='false'

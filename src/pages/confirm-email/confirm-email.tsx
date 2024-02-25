@@ -62,6 +62,7 @@ export const ConfirmEmail: React.FC = () => {
           character: isConfirmEmailError? styles.characterError : styles.character,
           characterFilled: styles.caracterFilled,
         }}
+        data-test-id='verification-input'
       />
       <Text className={styles.text} type='secondary'>Не пришло письмо? Проверьте папку Спам.</Text>
     </Card>

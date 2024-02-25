@@ -9,10 +9,19 @@ type PropsType = {
   setStatus: (status: ValidateStatus) => void,
   placeholder: string,
   name: string,
-  help?: string
+  help?: string,
+  testId: string,
 }
 
-export const InputPassword: React.FC<PropsType> = ({ passwordValue, status, setStatus, placeholder, name, help }) => {
+export const InputPassword: React.FC<PropsType> = ({
+  passwordValue,
+  status,
+  setStatus,
+  placeholder,
+  name,
+  help,
+  testId
+}) => {
   const validatePassword = (password: string) => {
     const passwordRegExp = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
     return passwordRegExp.test(password);
@@ -49,6 +58,7 @@ export const InputPassword: React.FC<PropsType> = ({ passwordValue, status, setS
       validateTrigger='onChange'
       validateStatus={status}
       className={styles.inputPassword}
+      data-test-id={testId}
     >
       <Input.Password
         autoComplete='false'

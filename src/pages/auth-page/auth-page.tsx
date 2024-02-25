@@ -20,7 +20,10 @@ export const AuthPage: React.FC = () => {
   const [isChecked, setIsChecked] = useState<boolean>(true);
   const [isForgotPassDispabled, setIsForgotPassDispabled] = useState<boolean>(true);
 
-  const screenWidth = useScreenWidth()
+  const screenWidth = useScreenWidth();
+
+  const testIdEmail = 'login-email';
+  const testIdPassword = 'login-password';
 
   const formRef = useRef(null);
   const [form] = Form.useForm();
@@ -75,22 +78,31 @@ export const AuthPage: React.FC = () => {
         name='email'
         emailStatus={emailStatus}
         setEmailStatus={setEmailStatus}
+        testId={testIdEmail}
       />
       <InputPassword
         name='password'
         status={passwordStatus}
         setStatus={setPasswordStatus}
         placeholder='Пароль'
+        testId={testIdPassword}
       />
 
       <div className={styles.logInControls}>
-        <Checkbox checked={isChecked} onChange={onRememberCheckBox}>Запомнить меня</Checkbox>
+        <Checkbox
+          checked={isChecked}
+          onChange={onRememberCheckBox}
+          data-test-id='login-remember'
+        >
+          Запомнить меня
+        </Checkbox>
         <Button
           type='link'
           size={screenWidth && screenWidth > 675 ? 'large' : 'middle'}
           className={styles.buttonForgotPass}
           disabled={isForgotPassDispabled}
           onClick={onForgetPass}
+          data-test-id='login-forgot-button'
         >
           Забыли пароль?
         </Button>
@@ -103,6 +115,7 @@ export const AuthPage: React.FC = () => {
           block
           size='large'
           className={styles.buttonEnter}
+          data-test-id='login-submit-button'
         >
           Войти
         </Button>
