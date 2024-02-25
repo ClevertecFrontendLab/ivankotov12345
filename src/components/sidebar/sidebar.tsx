@@ -6,7 +6,7 @@ import { push } from 'redux-first-history';
 
 import { useScreenWidth } from '@hooks/use-screen-width-hook';
 
-import { ExitOutlined } from '@components/exit-icon-outlined/exit-icon-outlined';
+import { ExitOutlined } from '@components/exit-icon-outlined';
 import { SidemenuSwitcher } from '@components/sidemenu-switcher';
 import { Paths } from '@typing/enums/paths';
 

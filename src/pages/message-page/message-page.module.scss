@@ -10,8 +10,23 @@
         .ant-result-title {
             font-weight: $font-weight-bold-mobile;
         }
+
+        .ant-result-subtitle {
+            padding: 0 60px;
+
+            @media (max-width: 675px) {
+                padding: 0;
+            }
+        }
     }
     .messageButton {
         @include color-button-primary;
+        max-width: 368px;
+        font-size: $size-semi-small;
+    }
+
+    @media (max-width: 675px) {
+        max-width: 328px;
+        padding: 32px 14px;
     }
 }

@@ -12,9 +12,6 @@ const exitSvg: React.FC = () => (
   </svg>
 );
 
-export const ExitOutlined = (props: Partial<CustomIconComponentProps>) => {
-
- return (
+export const ExitOutlined = (props: Partial<CustomIconComponentProps>) => (
   <Icon component={exitSvg} {...props} />
  )
-}

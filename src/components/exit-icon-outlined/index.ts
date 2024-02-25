@@ -1,0 +1,1 @@
+export { ExitOutlined } from './exit-icon-outlined'

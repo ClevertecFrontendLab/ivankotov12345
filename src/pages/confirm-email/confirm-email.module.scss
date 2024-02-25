@@ -47,6 +47,7 @@
 
         .text {
             display: block;
+            text-align: center;
         }
     }
 
@@ -89,6 +90,14 @@
             ::after {
                 display: none;
             }
+
+            @media (max-width: 675px) {
+                padding: 10px;
+            }
         }
+    }
+
+    @media (max-width: 675px) {
+        max-width: 328px;
     }
 }
