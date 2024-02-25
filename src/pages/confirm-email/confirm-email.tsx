@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { CloseCircleFilled, ExclamationCircleFilled } from '@ant-design/icons';
 import { Card, Typography } from 'antd';
 import VerificationInput from 'react-verification-input';
+import { goBack } from 'redux-first-history';
 
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { getConfirmEmailFetch, recoverySelect } from '@redux/slices/recovery';
@@ -33,6 +34,12 @@ export const ConfirmEmail: React.FC = () => {
     }
     setInputValue('');
   }
+
+  useEffect(() => {
+    if(!submittedEmail) {
+      dispatch(goBack());
+    }
+  })
   return (
     <Card className={styles.confirmCard}>
       {!isConfirmEmailError
@@ -62,7 +69,8 @@ export const ConfirmEmail: React.FC = () => {
           character: isConfirmEmailError? styles.characterError : styles.character,
           characterFilled: styles.caracterFilled,
         }}
-        data-test-id='verification-input'
+        inputProps={{ 'data-test-id': 'verification-input' }}
+
       />
       <Text className={styles.text} type='secondary'>Не пришло письмо? Проверьте папку Спам.</Text>
     </Card>

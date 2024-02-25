@@ -7,6 +7,7 @@ import { AuthResponseType } from '@typing/types/response-types';
 type AuthStateType = {
   isLoading: boolean,
   token: AuthResponseType | null,
+  rememberMe: boolean,
   message?: MessageType,
   submittedData?: FormInputValues,
 }
@@ -14,6 +15,7 @@ type AuthStateType = {
 const initialState: AuthStateType = {
   isLoading: false,
   token: null,
+  rememberMe: false,
 };
 
 export const authSlice = createSlice({
@@ -34,11 +36,17 @@ export const authSlice = createSlice({
       state.token = null;
       state.message = action.payload;
     },
+    toggleRememberMe: (state, action: PayloadAction<boolean>) => {
+      state.rememberMe = action.payload;
+    },
     clearAuth: (state) => {
       state.isLoading = false;
       state.token = null;
       state.message = undefined;
       state.submittedData = undefined;
+      if (!state.rememberMe) {
+        localStorage.removeItem('token');
+      }
     }
   }
 });
@@ -49,5 +57,6 @@ export const {
     getAuthFetch,
     getAuthSuccess,
     getAuthError,
+    toggleRememberMe,
     clearAuth,
 } = authSlice.actions;

@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 
 import { Loader } from '@components/loader';
 import { Sidebar } from '@components/sidebar';
@@ -8,6 +8,8 @@ import { AppFooter } from '@components/app-footer';
 
 import 'antd/dist/antd.css';
 import styles from './app-layout.module.scss';
+import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
+import { goBack } from 'redux-first-history';
 
 
 const Layout = lazy(() => import('antd').then(module => ({ default: module.Layout })));
@@ -15,9 +17,18 @@ const Content = lazy(() => import('antd').then(module => ({ default: module.Layo
 
 
 export const AppLayout: React.FC = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if(!token) {
+      dispatch(goBack())
+    }
+  })
   return (
-    <Suspense fallback={<Loader />}>
+
       <Layout className={styles.layout}>
+        <Suspense fallback={<Loader />}>
         <Sidebar />
         <Layout>
           <AppHeader />
@@ -26,7 +37,7 @@ export const AppLayout: React.FC = () => {
           </Content>
           <AppFooter />
         </Layout>
+        </Suspense>
       </Layout>
-    </Suspense>
   )
 }

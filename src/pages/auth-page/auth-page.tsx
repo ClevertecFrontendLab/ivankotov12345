@@ -7,18 +7,17 @@ import { InputEmail } from '@components/input-email';
 import { InputPassword } from '@components/input-password';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { FormInputValues } from '@typing/types/form-input-values';
-import { getAuthFetch } from '@redux/slices/auth';
+import { getAuthFetch, toggleRememberMe } from '@redux/slices/auth';
 import { getForgotPassFetch, recoverySelect } from '@redux/slices/recovery';
 import { useScreenWidth } from '@hooks/use-screen-width-hook';
 
 import styles from './auth-page.module.scss';
 
-
 export const AuthPage: React.FC = () => {
   const [emailStatus, setEmailStatus] = useState<ValidateStatus>('');
   const [passwordStatus, setPasswordStatus] = useState<ValidateStatus>('');
   const [isChecked, setIsChecked] = useState<boolean>(true);
-  const [isForgotPassDispabled, setIsForgotPassDispabled] = useState<boolean>(true);
+  const [isForgotPassDispabled, setIsForgotPassDispabled] = useState<boolean>(false);
 
   const screenWidth = useScreenWidth();
 
@@ -30,33 +29,27 @@ export const AuthPage: React.FC = () => {
 
   const { submittedEmail } = useAppSelector(recoverySelect)
 
-  const onRememberCheckBox = () => {
-    setIsChecked(!isChecked);
-  }
-
-  useEffect(() => {
-    if(
-      form.isFieldsTouched(['email'], true)
-      && emailStatus === ''
-      ) {
-        setIsForgotPassDispabled(false);
-      } else {
-        setIsForgotPassDispabled(true);
-      }
-  }, [form, emailStatus]);
-
   const dispatch = useAppDispatch();
 
   const onSubmit = (data: FormInputValues) => {
+    if(emailStatus === 'error' || passwordStatus === 'error') {
+      return;
+    }
     dispatch(getAuthFetch(data));
   }
 
-  const onFinishFailed = () => {
-    setEmailStatus('error');
-    setPasswordStatus('error');
+  const onRememberCheckBox = () => {
+    setIsChecked(!isChecked);
+    dispatch(toggleRememberMe(isChecked));
   }
 
   const onForgetPass = () => {
+    const email: string = form.getFieldValue('email');
+    if (email === null || !form.isFieldTouched('email')) {
+      setEmailStatus('error');
+      setIsForgotPassDispabled(true);
+      return;
+    }
     const emailValue: string = form.getFieldValue('email');
     dispatch(getForgotPassFetch({email: emailValue}));
   }
@@ -72,13 +65,13 @@ export const AuthPage: React.FC = () => {
       className={styles.form}
       form={form} ref={formRef}
       onFinish={onSubmit}
-      onFinishFailed={onFinishFailed}
     >
       <InputEmail
         name='email'
         emailStatus={emailStatus}
         setEmailStatus={setEmailStatus}
         testId={testIdEmail}
+        setIsForgotPassDispabled={setIsForgotPassDispabled}
       />
       <InputPassword
         name='password'

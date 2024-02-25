@@ -8,13 +8,16 @@ type PropsType = {
   emailStatus: ValidateStatus,
   setEmailStatus: (emailStatus: ValidateStatus) => void,
   testId: string,
+  setIsForgotPassDispabled?: (isForgotPassDispabled: boolean) => void,
 };
 
 export const InputEmail: React.FC<PropsType> = ({
   name,
   emailStatus,
   setEmailStatus,
-  testId }) => {
+  testId,
+  setIsForgotPassDispabled,
+ }) => {
   const emailRegExp = /^([a-zA-Z0-9._]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,6})+$/;
   
   const validateEmail = (email: string) => {
@@ -25,6 +28,7 @@ export const InputEmail: React.FC<PropsType> = ({
     const email = event.target.value;
     if(validateEmail(email)) {
       setEmailStatus('');
+      setIsForgotPassDispabled && setIsForgotPassDispabled(false);
     } else {
       setEmailStatus('error');
     }

@@ -11,6 +11,7 @@ export const AuthLayout: React.FC = () => {
   const { isLoading: isAuthLoading } = useAppSelector(authSelect);
   const { isLoading: isRegistrationLoading } = useAppSelector(registrationSelect);
   const { isLoading: isRecoveryLoading } = useAppSelector(recoverySelect);
+  
   return (
       <section className={styles.autContainer}>
         {(isAuthLoading || isRegistrationLoading || isRecoveryLoading) && <Loader />}
