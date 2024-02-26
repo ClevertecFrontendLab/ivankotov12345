@@ -13,10 +13,13 @@ export const AuthLayout: React.FC = () => {
   const { isLoading: isRecoveryLoading } = useAppSelector(recoverySelect);
   
   return (
+    <>
+      {(isAuthLoading || isRegistrationLoading || isRecoveryLoading) && <Loader />}
       <section className={styles.autContainer}>
-        {(isAuthLoading || isRegistrationLoading || isRecoveryLoading) && <Loader />}
+        
         <div className={styles.authWrapper}>
           <Outlet />
         </div>
       </section>
+    </>
 )}
