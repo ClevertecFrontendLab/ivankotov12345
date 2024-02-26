@@ -1,0 +1,17 @@
+export enum Paths {
+    HOME = '/',
+    MAIN = '/main',
+    AUTH = '/auth',
+    REGISTRATION = '/registration',
+    CONFIRM_EMAIL = '/confirm-email',
+    CHANGE_PASSWORD = '/change-password',
+    RESULT = '/result',
+    ERROR_LOG_IN = '/error-login',
+    REGISTRATION_SUCCESS = '/success',
+    CHANGE_PASSWORD_SUCCESS = '/success-change-password',
+    REGISTRATION_ERROR = '/error',
+    ERROR_REGISTRATION_USER_EXIST = '/error-user-exist',
+    ERROR_EMAIL_NO_EXIST = '/error-check-email-no-exist',
+    ERROR_CHECK_EMAIL = '/error-check-email',
+    ERROR_CHANGE_PASSWORD = '/error-change-password',
+}

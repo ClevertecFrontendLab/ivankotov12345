@@ -2,7 +2,7 @@ import { Footer } from 'antd/lib/layout/layout';
 import { Button, Typography } from 'antd';
 import { AndroidFilled, AppleFilled } from '@ant-design/icons';
 
-import styles from './app-footer.module.scss'
+import styles from './app-footer.module.scss';
 
 export const AppFooter: React.FC = () => {
   const { Text } = Typography;

@@ -1,8 +1,37 @@
 import { configureStore } from '@reduxjs/toolkit';
+import createSagaMiddleware from 'redux-saga';
+import { createReduxHistoryContext } from "redux-first-history";
+import { createBrowserHistory } from 'history';
+import { registrationReducer } from './slices/registration';
+import { rootSaga } from './sagas/root-saga';
+import { authReducer } from './slices/auth';
+import { recoveryReducer } from './slices/recovery';
+
+const {
+    createReduxHistory,
+    routerMiddleware,
+    routerReducer
+  } = createReduxHistoryContext({
+    history: createBrowserHistory(),
+    savePreviousLocations: 1,
+  });
+
+const sagaMiddleware = createSagaMiddleware();
 
 export const store = configureStore({
-    reducer: {},
+  reducer: {
+    router: routerReducer,
+    auth: authReducer,
+    registration: registrationReducer,
+    recovery: recoveryReducer,
+  },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware()
+    .concat(sagaMiddleware, routerMiddleware),
+  devTools: true,
 });
+
+sagaMiddleware.run(rootSaga);
+export const history = createReduxHistory(store);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

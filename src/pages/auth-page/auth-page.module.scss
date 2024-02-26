@@ -1,0 +1,47 @@
+@use '../../scss/index' as *;
+
+.form {
+    margin-top: 30px;
+    padding-bottom: 110px;
+
+    .logInControls {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 45px;
+
+        :global {
+            .ant-btn-link {
+                padding: 0;
+            }
+
+            .ant-checkbox,
+            .ant-checkbox-checked {
+                span {
+                    border-color: $primary-light-6;
+                }
+            }
+
+            .ant-checkbox-checked {
+                span {
+                    background: $primary-light-6;
+                }
+            }
+        }
+    }
+
+    .buttonForgotPass {
+        color: $primary-light-6;
+    }
+
+    .buttonsWrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-top: 16px;
+
+        .buttonEnter {
+            @include color-button-primary;
+        }
+    }
+}

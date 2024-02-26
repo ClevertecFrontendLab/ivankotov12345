@@ -1,0 +1,82 @@
+@use '../../scss/index' as *;
+
+.formCard {
+    max-width: 539px;
+    width: 100%;
+    min-height: 686px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 64px 85.5px;
+
+    .logo {
+        @media (max-width: 675px) {
+            width: 203px;
+            height: 50px;
+        }
+    }
+
+    :global {
+        .ant-card-head,
+        .ant-card-body {
+            padding: 0;
+            width: 100%;
+            border: none;
+        }
+
+        .ant-form-item {
+            margin-bottom: 31px;
+        }
+
+        .ant-card-head-title {
+            display: flex;
+            justify-content: center;
+            padding: 0;
+            width: 100%;
+            margin-bottom: 43px;
+
+            @media (max-width: 675px) {
+                margin-bottom: 32px;
+            }
+        }
+
+        .ant-tabs-nav {
+            margin-bottom: 12px;
+            .ant-tabs-nav-wrap {
+                .ant-tabs-nav-list {
+                    width: 100%;
+
+                    .ant-tabs-tab {
+                        width: 50%;
+                        justify-content: center;
+                        margin: 0;
+                        padding: 12px 0;
+                        @media (max-width: 675px) {
+                            font-size: $size-semi-small;
+                        }
+                    }
+                }
+            }
+        }
+
+        .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+            color: $primary-light-6;
+        }
+
+        .ant-tabs-ink-bar {
+            background: $primary-light-6;
+        }
+    }
+
+    @media (max-width: 834px) {
+        margin-bottom: 50px;
+    }
+
+    @media (max-width: 675px) {
+        max-width: 328px;
+        padding: 32px 16px;
+        min-height: 610px;
+        margin-bottom: 10px;
+    }
+}
+

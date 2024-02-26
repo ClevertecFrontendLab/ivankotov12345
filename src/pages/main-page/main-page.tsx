@@ -6,7 +6,9 @@ import { ActionCard } from '@components/action-card';
 import 'antd/dist/antd.css';
 import styles from './main-page.module.scss';
 
+
 export const MainPage: React.FC = () => {
+
   const cardsData = [
     {
       key: '1',
@@ -28,6 +30,7 @@ export const MainPage: React.FC = () => {
     },
   ];
   const { Title } = Typography;
+
   return (
     <div className={styles.mainPageWrapper}>
       <ul className={styles.featuresList}>

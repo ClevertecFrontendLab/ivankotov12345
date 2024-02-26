@@ -10,3 +10,16 @@
         padding: 16px;
     }
 }
+
+@mixin color-button-primary {
+    border-color: $primary-light-6;
+    background: $primary-light-6;
+    @media (max-width: 675px) {
+        font-size: $size-semi-small;
+    }
+
+    &:disabled {
+        border: 1px solid $character-light-border;
+        background: $character-light-background;
+    }
+}
