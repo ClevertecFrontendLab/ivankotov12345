@@ -10,6 +10,11 @@ import { ExitOutlined } from '@components/exit-icon-outlined';
 import { SidemenuSwitcher } from '@components/sidemenu-switcher';
 import { Paths } from '@typing/enums/paths';
 
+import { useScreenWidth } from '@hooks/use-screen-width-hook';
+
+import { ExitOutlined } from '@components/exit-icon-outlined/exit-icon-outlined';
+import { SidemenuSwitcher } from '@components/sidemenu-switcher';
+
 import clever from './assets/svg/clever.svg';
 import logo from './assets/svg/fit.svg';
 
