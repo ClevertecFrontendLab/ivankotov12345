@@ -34,8 +34,7 @@ export const ChangePasswordPage: React.FC = () => {
     if (submittedNewPass) {
       dispatch(getResetPasswordFetch(submittedNewPass));
     }
-  })
-
+  }, [dispatch, submittedNewPass]);
   return (
     <Card className={styles.card}>
       <Title level={3} className={styles.cardTitle}>Восстановление аккаунта</Title>

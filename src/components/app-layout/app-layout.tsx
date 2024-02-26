@@ -22,7 +22,7 @@ export const AppLayout: React.FC = () => {
     if(!token) {
       dispatch(goBack());
     }
-  })
+  }, [dispatch])
   return (
       <Layout className={styles.layout}>
         <Suspense fallback={<Loader />}>

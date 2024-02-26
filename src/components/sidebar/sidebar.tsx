@@ -27,7 +27,6 @@ export const Sidebar: React.FC = () => {
   const handleLogOut = () => {
     localStorage.removeItem('token');
     dispatch(push(Paths.AUTH));
-    console.log('1')
   }
 
   const toneColor = '#061178';

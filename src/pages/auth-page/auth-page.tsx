@@ -58,7 +58,7 @@ export const AuthPage: React.FC = () => {
     if(submittedEmail) {
       dispatch(getForgotPassFetch(submittedEmail));
     }
-  })
+  }, [dispatch, submittedEmail]);
   return (
     <>
     <Form

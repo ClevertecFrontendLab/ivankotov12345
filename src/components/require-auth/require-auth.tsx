@@ -10,7 +10,7 @@ export const RequireAuth: React.FC = () => {
     if (accessToken) {
       navigate(Paths.MAIN);
     }
-  });
+  }, [accessToken, navigate]);
 
   return (
     accessToken ? <Outlet /> : <Navigate to={Paths.AUTH} />

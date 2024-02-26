@@ -37,10 +37,10 @@
             text-align: center;
             line-height: 130%;
             margin: 0;
+            max-width: 400px;
         }
 
         .title {
-            max-width: 400px;
             width: 100%;
             margin-top: 10px;
         }
@@ -48,6 +48,9 @@
         .text {
             display: block;
             text-align: center;
+            strong {
+                font-weight: 700;
+            }
         }
     }
 

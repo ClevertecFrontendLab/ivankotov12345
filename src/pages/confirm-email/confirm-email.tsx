@@ -39,7 +39,7 @@ export const ConfirmEmail: React.FC = () => {
     if(!submittedEmail) {
       dispatch(goBack());
     }
-  })
+  }, [dispatch, submittedEmail])
   return (
     <Card className={styles.confirmCard}>
       {!isConfirmEmailError

@@ -44,7 +44,7 @@ export const InputPassword: React.FC<PropsType> = ({
     } else {
       setStatus('error');
     }
-  }
+  };
   return (
     <Form.Item
       rules={[

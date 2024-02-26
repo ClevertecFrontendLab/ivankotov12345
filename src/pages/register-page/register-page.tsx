@@ -43,7 +43,7 @@ export const RegisterPage: React.FC = () => {
     if(message && submittedData) {
       dispatch(getRegistrationFetch(submittedData));
     }
-  })
+  }, [dispatch, message, submittedData])
 
   return (
     <Form form={form} onFinish={onSubmit} className={styles.form}>
