@@ -6,6 +6,7 @@ import { registrationReducer } from './slices/registration';
 import { rootSaga } from './sagas/root-saga';
 import { authReducer } from './slices/auth';
 import { recoveryReducer } from './slices/recovery';
+import { reviewsReducer } from './slices/reviews';
 
 const {
     createReduxHistory,
@@ -24,6 +25,7 @@ export const store = configureStore({
     auth: authReducer,
     registration: registrationReducer,
     recovery: recoveryReducer,
+    reviews: reviewsReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware()
     .concat(sagaMiddleware, routerMiddleware),

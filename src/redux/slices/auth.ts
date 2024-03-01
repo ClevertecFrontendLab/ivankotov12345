@@ -36,6 +36,10 @@ export const authSlice = createSlice({
       state.token = null;
       state.message = action.payload;
     },
+    getAuthGoogleFetch: (state) => {
+      state.isLoading = true;
+      state.rememberMe = true;
+    },
     toggleRememberMe: (state, action: PayloadAction<boolean>) => {
       state.rememberMe = action.payload;
     },
@@ -58,5 +62,6 @@ export const {
     getAuthSuccess,
     getAuthError,
     toggleRememberMe,
+    getAuthGoogleFetch,
     clearAuth,
 } = authSlice.actions;

@@ -1,16 +1,17 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from 'react-router-dom';
 
-import { AppLayout } from "@components/app-layout";
-import { MainPage } from "@pages/main-page";
-import { RequireAuth } from "@components/require-auth";
-import { AuthLayout } from "@components/auth-layout";
-import { AuthForm } from "@components/auth-form";
-import { AuthPage } from "@pages/auth-page";
-import { RegisterPage } from "@pages/register-page";
-import { MessagePage } from "@pages/message-page";
-import { ConfirmEmail } from "@pages/confirm-email";
-import { Paths } from "@typing/enums/paths";
-import { ChangePasswordPage } from "@pages/change-password-page";
+import { AppLayout } from '@components/app-layout';
+import { MainPage } from '@pages/main-page';
+import { RequireAuth } from '@components/require-auth';
+import { AuthLayout } from '@components/auth-layout';
+import { AuthForm } from '@components/auth-form';
+import { AuthPage } from '@pages/auth-page';
+import { RegisterPage } from '@pages/register-page';
+import { MessagePage } from '@pages/message-page';
+import { ConfirmEmail } from '@pages/confirm-email';
+import { Paths } from '@typing/enums/paths';
+import { ChangePasswordPage } from '@pages/change-password-page';
+import { FeedbacksPage } from '@pages/reviews-page';
 
 
 export const routes = (
@@ -18,6 +19,7 @@ export const routes = (
     <Route path={Paths.HOME} element={<RequireAuth />}>
       <Route element={<AppLayout />}>
         <Route index path={Paths.MAIN} element={<MainPage />} />
+        <Route index path={Paths.FEEDBACKS} element={<FeedbacksPage />} />
       </Route>
     </Route>
 

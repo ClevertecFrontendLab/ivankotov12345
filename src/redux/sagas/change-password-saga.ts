@@ -10,7 +10,7 @@ import { Paths } from '@typing/enums/paths';
 import { ChangePasswordErrorMessage, ChangePasswordSuccessMessage } from '@typing/enums/result-messages';
 
 
-export function* changePasswordWorker(action: PayloadAction<FormRecoveryInputValues>) {
+function* changePasswordWorker(action: PayloadAction<FormRecoveryInputValues>) {
   try {
     yield call(
       instance.post,

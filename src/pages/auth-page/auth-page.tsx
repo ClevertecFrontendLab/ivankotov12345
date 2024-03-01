@@ -7,7 +7,7 @@ import { InputEmail } from '@components/input-email';
 import { InputPassword } from '@components/input-password';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { FormInputValues } from '@typing/types/form-input-values';
-import { getAuthFetch, toggleRememberMe } from '@redux/slices/auth';
+import { getAuthFetch, getAuthGoogleFetch, toggleRememberMe } from '@redux/slices/auth';
 import { getForgotPassFetch, recoverySelect } from '@redux/slices/recovery';
 import { useScreenWidth } from '@hooks/use-screen-width-hook';
 
@@ -41,6 +41,10 @@ export const AuthPage: React.FC = () => {
   const onRememberCheckBox = () => {
     setIsChecked(!isChecked);
     dispatch(toggleRememberMe(isChecked));
+  }
+
+  const onGoogleAuthClick = () => {
+    dispatch(getAuthGoogleFetch());
   }
 
   const onForgetPass = () => {
@@ -116,6 +120,7 @@ export const AuthPage: React.FC = () => {
           icon={<GooglePlusOutlined />}
           block
           size='large'
+          onClick={onGoogleAuthClick}
         >
           Войти через Google
         </Button>

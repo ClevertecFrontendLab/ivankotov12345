@@ -11,7 +11,7 @@ import { ChangePasswordEmailExist, ChangePasswordSomethingGoesWrong } from '@typ
 import { MessageResponse } from '@typing/types/message-types';
 
 
-export function* forgotPassWorker(action: PayloadAction<FormRecoveryInputEmail>) {
+function* forgotPassWorker(action: PayloadAction<FormRecoveryInputEmail>) {
   try {
     yield call(
       instance.post,
