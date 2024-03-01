@@ -6,5 +6,5 @@ export enum AxiosPaths {
     CONFIRM_EMAIL = '/auth/confirm-email',
     FORGOT_PASS = '/confirm-email',
     CHANGE_PASSWORD = '/auth/change-password',
-    REVIEWS = '/feedback',
+    FEEDBACK = '/feedback',
 }

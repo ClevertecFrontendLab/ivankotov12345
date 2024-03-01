@@ -1,14 +1,28 @@
 import { Footer } from 'antd/lib/layout/layout';
 import { Button, Typography } from 'antd';
 import { AndroidFilled, AppleFilled } from '@ant-design/icons';
+import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
+import { getReviewsFetch } from '@redux/slices/reviews';
 
 import styles from './app-footer.module.scss';
 
 export const AppFooter: React.FC = () => {
   const { Text } = Typography;
+
+  const dispatch = useAppDispatch()
+
+  const onShowFeedbacks = () => {
+    dispatch(getReviewsFetch());
+  }
   return (
     <Footer className={styles.footer}>
-      <Button type='text' className={styles.reviewsButton}>Смотреть отзывы</Button>
+      <Button
+        type='text'
+        className={styles.reviewsButton}
+        onClick={onShowFeedbacks}
+      >
+        Смотреть отзывы
+      </Button>
 
       <div className={styles.footerCard}>
         <div className={styles.textWrapper}>

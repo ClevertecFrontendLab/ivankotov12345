@@ -15,13 +15,12 @@ export const RequireAuth: React.FC = () => {
   }
 
   useEffect(() => {
-    if (accessToken) {
-      navigate(Paths.MAIN);
+    if (!accessToken) {
+      navigate(Paths.AUTH);
     }
   }, [accessToken, navigate]);
 
   return (
     accessToken ? <Outlet /> : <Navigate to={Paths.AUTH} />
-
   )
 }
