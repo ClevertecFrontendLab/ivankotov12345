@@ -1,8 +1,9 @@
 import { Footer } from 'antd/lib/layout/layout';
+import { push } from 'redux-first-history';
 import { Button, Typography } from 'antd';
 import { AndroidFilled, AppleFilled } from '@ant-design/icons';
 import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
-import { getReviewsFetch } from '@redux/slices/reviews';
+import { Paths } from '@typing/enums/paths';
 
 import styles from './app-footer.module.scss';
 
@@ -12,7 +13,7 @@ export const AppFooter: React.FC = () => {
   const dispatch = useAppDispatch()
 
   const onShowFeedbacks = () => {
-    dispatch(getReviewsFetch());
+    dispatch(push(Paths.FEEDBACKS));
   }
   return (
     <Footer className={styles.footer}>

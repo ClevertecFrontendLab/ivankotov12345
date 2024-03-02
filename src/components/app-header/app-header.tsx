@@ -5,10 +5,9 @@ import { SettingOutlined } from '@ant-design/icons';
 import { history } from '@redux/configure-store';
 import { useScreenWidth } from '@hooks/use-screen-width-hook';
 import { Paths } from '@typing/enums/paths';
-
-import styles from './header.module.scss';
 import { Breadcrumbs } from '@components/breadcrumbs';
 
+import styles from './header.module.scss';
 
 export const AppHeader: React.FC = () => {
   const [currentLocation, setCurrentLocation] = useState<string>('');
@@ -24,7 +23,6 @@ export const AppHeader: React.FC = () => {
       unlisten();
     }
   }, []);
-
   return (
     <Header className={styles.header}>
       <Breadcrumbs />
@@ -41,8 +39,8 @@ export const AppHeader: React.FC = () => {
             ghost={screenWidth && screenWidth > 675 ? true : false}
             shape={screenWidth && screenWidth > 675 ? 'default' : 'circle'}
             icon={<SettingOutlined className={styles.settingsButtonLabel} />}
-            >
-          {screenWidth && screenWidth > 675 && 'Настройки'}
+          >
+            {screenWidth && screenWidth > 675 && 'Настройки'}
           </Button>
         </div>
       }

@@ -11,13 +11,13 @@ import { MessagePage } from '@pages/message-page';
 import { ConfirmEmail } from '@pages/confirm-email';
 import { Paths } from '@typing/enums/paths';
 import { ChangePasswordPage } from '@pages/change-password-page';
-import { FeedbacksPage } from '@pages/reviews-page';
+import { FeedbacksPage } from '@pages/feedbacks-page';
 
 
 export const routes = (
   <Routes>
     <Route path={Paths.HOME} element={<RequireAuth />}>
-      <Route element={<AppLayout />}>
+      <Route element={<AppLayout />} >
         <Route index path={Paths.MAIN} element={<MainPage />} />
         <Route index path={Paths.FEEDBACKS} element={<FeedbacksPage />} />
       </Route>

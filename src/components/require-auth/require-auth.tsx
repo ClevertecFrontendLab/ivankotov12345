@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Outlet, useNavigate, Navigate } from 'react-router-dom';
 import { Paths } from '@typing/enums/paths';
+import { history } from '@redux/configure-store';
 
 export const RequireAuth: React.FC = () => {
   let accessToken = localStorage.getItem('token');
@@ -15,11 +16,12 @@ export const RequireAuth: React.FC = () => {
   }
 
   useEffect(() => {
-    if (!accessToken) {
+    if (accessToken && history.location.pathname === Paths.HOME) {
+      navigate(Paths.MAIN);
+    } else if (!accessToken) {
       navigate(Paths.AUTH);
     }
   }, [accessToken, navigate]);
-
   return (
     accessToken ? <Outlet /> : <Navigate to={Paths.AUTH} />
   )

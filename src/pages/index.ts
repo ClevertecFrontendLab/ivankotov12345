@@ -4,4 +4,4 @@ export { RegisterPage } from './register-page';
 export { MessagePage } from './message-page';
 export { ConfirmEmail } from './confirm-email';
 export { ChangePasswordPage } from './change-password-page';
-export { FeedbacksPage } from './reviews-page';
+export { FeedbacksPage } from './feedbacks-page';

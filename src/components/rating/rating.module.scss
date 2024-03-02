@@ -1,0 +1,14 @@
+@use '../../scss/index' as *;
+
+.ratingWrapper {
+    display: flex;
+    gap: 4px;
+
+    .star {
+        color: $character-light-warning;
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+    }
+}
