@@ -54,8 +54,22 @@ export enum ChangePasswordErrorMessage {
   buttonText = 'Повторить',
 }
 
+export enum GetFeedbacksErrorMessage {
+  status = '500',
+  title = 'Что-то пошло не так',
+  subTitle = 'Произошла ошибка, попробуйте ещё раз.',
+  buttonText = 'Назад',
+}
+
 export enum SendFeedbackSuccessMessage {
   status = 'success',
   title = 'Отзыв успешно опубликован',
   buttonText = 'Отлично',
+}
+export enum SendFeedbackErrorMessage {
+  status = 'error',
+  title = 'Данные не сохранились',
+  subTitle = 'Что-то пошло не так. Попробуйте ещё раз',
+  buttonTextWriteMessage = 'Написать отзыв',
+  buttonTextClose = 'Закрыть',
 }

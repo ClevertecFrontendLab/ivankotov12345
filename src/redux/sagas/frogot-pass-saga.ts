@@ -20,9 +20,9 @@ function* forgotPassWorker(action: PayloadAction<FormRecoveryInputEmail>) {
       {
         withCredentials: true,
       }
-    )
+    );
     yield put(push(`${Paths.AUTH}${Paths.CONFIRM_EMAIL}`));
-    yield put(getForgotPassSuccess())
+    yield put(getForgotPassSuccess());
   } catch(error) {
     const { response } = error as AxiosError;
     const responseData = response?.data as MessageResponse
@@ -44,7 +44,7 @@ function* forgotPassWorker(action: PayloadAction<FormRecoveryInputEmail>) {
         buttonLink: Paths.AUTH,
         retry: true,
       }));
-      yield put(push(`${Paths.RESULT}${Paths.ERROR_CHECK_EMAIL}`))
+      yield put(push(`${Paths.RESULT}${Paths.ERROR_CHECK_EMAIL}`));
     }
   }
 }

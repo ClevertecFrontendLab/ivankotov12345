@@ -4,9 +4,17 @@ export type MessageType = {
   status: ResultStatusType,
   title: string,
   subTitle?: string,
-  buttonLink?: string,
+  buttonLink: string,
   buttonText: string,
   retry?: boolean,
+}
+
+export type MessageFeedbackType = {
+  status: ResultStatusType,
+  title: string,
+  subTitle: string,
+  buttonTextWriteMessage: string,
+  buttonTextClose: string,
 }
 
 export type MessageResponse = {

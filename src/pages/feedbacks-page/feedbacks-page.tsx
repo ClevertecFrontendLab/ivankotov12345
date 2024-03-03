@@ -5,8 +5,11 @@ import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { getReviewsFetch, reviewsSelect } from '@redux/slices/reviews';
 import { Commentary } from '@components/commentary';
 import { ModalFeedbacks } from '@components/modal-feedbacks';
+import { ModalResults } from '@components/modal-results';
+import { SendFeedbackResults } from '@components/send-feedback-results';
 
 import styles from './feedbacks-page.module.scss';
+
 
 
 export const FeedbacksPage: React.FC = () => {
@@ -71,6 +74,10 @@ export const FeedbacksPage: React.FC = () => {
       </div>
       <ModalFeedbacks
         isSendFeedbackOpen={isSendFeedbackOpen}
+        setIsSendFeedbackOpen={setIsSendFeedbackOpen}
+      />
+      <ModalResults />
+      <SendFeedbackResults
         setIsSendFeedbackOpen={setIsSendFeedbackOpen}
       />
     </section>

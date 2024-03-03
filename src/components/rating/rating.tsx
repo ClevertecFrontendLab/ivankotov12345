@@ -1,8 +1,7 @@
 import { StarFilled, StarOutlined } from '@ant-design/icons';
-
-import styles from './rating.module.scss';
 import { Button } from 'antd';
 
+import styles from './rating.module.scss';
 
 type PropsType = {
   rating: number

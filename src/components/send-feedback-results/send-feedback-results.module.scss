@@ -1,0 +1,27 @@
+@use '../../scss/index' as *;
+
+.modal {
+    :global {
+        .ant-modal-body {
+            padding: 0;
+        }
+    }
+
+    .result {
+        padding: 64px 32px 56px;
+        margin-top: 60px;
+
+        :global {
+            .ant-result-icon {
+                margin-bottom: 12px;
+            }
+
+            .ant-result-extra {
+                margin: 16px 0 0 0;
+            }
+        }
+    }
+    .resultButton {
+        @include color-button-primary;
+    }
+}
