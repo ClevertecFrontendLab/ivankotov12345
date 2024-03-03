@@ -30,14 +30,14 @@ export enum ChangePasswordEmailExist {
   status = 'error',
   title = 'Такой e-mail не зарегистрирован',
   subTitle = 'Мы не нашли в базе вашего e-mail. Попробуйте войти с другим e-mail.',
-  buttonText = 'Попробовать снова'
+  buttonText = 'Попробовать снова',
 }
 
 export enum ChangePasswordSomethingGoesWrong {
   status = '500',
   title = 'Что-то пошло не так',
   subTitle = 'Произошла ошибка, попробуйте отправить форму ещё раз.',
-  buttonText = 'Назад'
+  buttonText = 'Назад',
 }
 
 export enum ChangePasswordSuccessMessage {
@@ -52,4 +52,10 @@ export enum ChangePasswordErrorMessage {
   title = 'Данные не сохранились',
   subTitle = 'Что-то пошло не так. Попробуйте ещё раз',
   buttonText = 'Повторить',
+}
+
+export enum SendFeedbackSuccessMessage {
+  status = 'success',
+  title = 'Отзыв успешно опубликован',
+  buttonText = 'Отлично',
 }

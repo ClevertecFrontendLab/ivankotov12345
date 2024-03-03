@@ -16,3 +16,8 @@ export type FromRecoveryConfirmEmail = {
   email: string,
   code: string,
 }
+
+export type FeedbackValues = {
+  message: string,
+  rating: number,
+}

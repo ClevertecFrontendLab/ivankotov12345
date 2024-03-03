@@ -6,6 +6,7 @@ import { confirmEmailWatcher } from './confirm-email-saga';
 import { changePasswordWatcher } from './change-password-saga';
 import { reviewsWatcher } from './reviews-saga';
 import { authGoogleWatcher } from './auth-google-saga';
+import { sendFeedbackWatcher } from './send-feedback-saga';
 
 export function* rootSaga() {
   yield all([
@@ -16,5 +17,6 @@ export function* rootSaga() {
     confirmEmailWatcher(),
     changePasswordWatcher(),
     reviewsWatcher(),
+    sendFeedbackWatcher(),
   ]);
 }

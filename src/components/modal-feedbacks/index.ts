@@ -1,0 +1,1 @@
+export { ModalFeedbacks } from './modal-feedbacks'

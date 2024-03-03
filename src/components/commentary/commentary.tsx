@@ -38,7 +38,7 @@ export const Commentary: React.FC<PropsType> = (
       </div>
       <div>
         <div className={styles.commentaryHead}>
-          <Rating rating={rating} />
+          <Rating rating={rating} size={16} disabled={true} />
           <Text type='secondary' className={styles.textDate}>
             {new Date(createdAt).toLocaleDateString()}
           </Text>

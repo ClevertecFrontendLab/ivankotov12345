@@ -4,12 +4,15 @@ import { Button } from 'antd';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { getReviewsFetch, reviewsSelect } from '@redux/slices/reviews';
 import { Commentary } from '@components/commentary';
+import { ModalFeedbacks } from '@components/modal-feedbacks';
 
 import styles from './feedbacks-page.module.scss';
 
+
 export const FeedbacksPage: React.FC = () => {
   const dispatch = useAppDispatch();
-  const [isFullList, setIsFullList] = useState(false);
+  const [isFullList, setIsFullList] = useState<boolean>(false);
+  const [isSendFeedbackOpen, setIsSendFeedbackOpen] = useState<boolean>(false);
   useEffect(() => {
     dispatch(getReviewsFetch());
   }, [dispatch]);
@@ -22,6 +25,10 @@ export const FeedbacksPage: React.FC = () => {
 
   const displayFullListToggle = () => {
     setIsFullList(!isFullList);
+  }
+
+  const onWriteFeedbackButtonClick = () => {
+    setIsSendFeedbackOpen(true);
   }
   return (
     <section className={styles.feedbacksSection}>
@@ -47,6 +54,7 @@ export const FeedbacksPage: React.FC = () => {
           type='primary'
           className={styles.buttonFeedback}
           size='large'
+          onClick={onWriteFeedbackButtonClick}
         >
           Написать отзыв
         </Button>
@@ -61,6 +69,10 @@ export const FeedbacksPage: React.FC = () => {
             : 'Развернуть все отзывы'}
         </Button>
       </div>
+      <ModalFeedbacks
+        isSendFeedbackOpen={isSendFeedbackOpen}
+        setIsSendFeedbackOpen={setIsSendFeedbackOpen}
+      />
     </section>
   )
 }
