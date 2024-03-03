@@ -9,6 +9,7 @@ import { ModalResults } from '@components/modal-results';
 import { SendFeedbackResults } from '@components/send-feedback-results';
 
 import styles from './feedbacks-page.module.scss';
+import { FeedbacksNoResults } from '@components/feedbacks-no-results';
 
 
 
@@ -21,6 +22,7 @@ export const FeedbacksPage: React.FC = () => {
   }, [dispatch]);
 
   const { feedbacks } = useAppSelector(reviewsSelect);
+
 
   const sortedFeedbacks = feedbacks 
     && [...feedbacks]
@@ -35,43 +37,49 @@ export const FeedbacksPage: React.FC = () => {
   }
   return (
     <section className={styles.feedbacksSection}>
-      <ul className={styles.feedbacksList}>
-        {sortedFeedbacks
-          && sortedFeedbacks
-            .slice(0, isFullList ? sortedFeedbacks.length : 4)
-            .map(({ createdAt, fullName, imageSrc, message, rating, id }) => (
-          <li key={id}>
-            <Commentary
-              createdAt={createdAt}
-              fullName = {fullName}
-              imageSrc={imageSrc}
-              message={message}
-              rating={rating}
-            />
-          </li>
-        ))}
-      </ul>
+      {feedbacks && feedbacks.length > 0 &&
+        <>
+          <ul className={styles.feedbacksList}>
+          {sortedFeedbacks
+            && sortedFeedbacks
+              .slice(0, isFullList ? sortedFeedbacks.length : 4)
+              .map(({ createdAt, fullName, imageSrc, message, rating, id }) => (
+            <li key={id}>
+              <Commentary
+                createdAt={createdAt}
+                fullName = {fullName}
+                imageSrc={imageSrc}
+                message={message}
+                rating={rating}
+              />
+            </li>
+          ))}
+        </ul>
 
-      <div className={styles.buttonsWrapper}>
-        <Button
-          type='primary'
-          className={styles.buttonFeedback}
-          size='large'
-          onClick={onWriteFeedbackButtonClick}
-        >
-          Написать отзыв
-        </Button>
-        <Button
-          type='link'
-          onClick={displayFullListToggle}
-          className={styles.buttonShowAll}
-          size='large'
-        >
-          {isFullList
-            ? 'Свернуть все отзывы'
-            : 'Развернуть все отзывы'}
-        </Button>
-      </div>
+        <div className={styles.buttonsWrapper}>
+          <Button
+            type='primary'
+            className={styles.buttonFeedback}
+            size='large'
+            onClick={onWriteFeedbackButtonClick}
+          >
+            Написать отзыв
+          </Button>
+          <Button
+            type='link'
+            onClick={displayFullListToggle}
+            className={styles.buttonShowAll}
+            size='large'
+          >
+            {isFullList
+              ? 'Свернуть все отзывы'
+              : 'Развернуть все отзывы'}
+          </Button>
+        </div>
+        </>}
+      {feedbacks && !feedbacks.length &&
+        <FeedbacksNoResults setIsSendFeedbackOpen={setIsSendFeedbackOpen} />
+      }
       <ModalFeedbacks
         isSendFeedbackOpen={isSendFeedbackOpen}
         setIsSendFeedbackOpen={setIsSendFeedbackOpen}

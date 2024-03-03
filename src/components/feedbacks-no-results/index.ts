@@ -1,0 +1,1 @@
+export { FeedbacksNoResults } from './feedbacks-no-results';

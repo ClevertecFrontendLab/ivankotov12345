@@ -2,9 +2,9 @@ import { Button, Modal, Result } from 'antd';
 
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { clearFeedbackInputs, clearFeedbackResult, sendFeedbackSelect } from '@redux/slices/send-feedback';
+import { getReviewsFetch } from '@redux/slices/reviews';
 
 import styles from './send-feedback-results.module.scss';
-import { getReviewsFetch } from '@redux/slices/reviews';
 
 type PropsType = {
   setIsSendFeedbackOpen: (isSendFeedbackOpen: boolean) => void,

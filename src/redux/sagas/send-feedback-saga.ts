@@ -12,7 +12,7 @@ function* sendFeedBackWorker(action: PayloadAction<FeedbackValues>) {
   try {
     yield call(
       instance.post,
-      AxiosPaths.FEEDBACK + '1',
+      AxiosPaths.FEEDBACK,
       { ...action.payload }
     );
     yield put(getFeedbackSuccess({
