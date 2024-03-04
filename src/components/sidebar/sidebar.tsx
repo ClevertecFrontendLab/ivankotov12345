@@ -26,6 +26,7 @@ export const Sidebar: React.FC = () => {
 
   const handleLogOut = () => {
     localStorage.removeItem('token');
+    sessionStorage.clear();
     dispatch(push(Paths.AUTH));
   }
 

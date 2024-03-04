@@ -13,6 +13,7 @@ import { Paths } from '@typing/enums/paths';
 
 import 'antd/dist/antd.css';
 import styles from './app-layout.module.scss';
+import { authSelect } from '@redux/slices/auth';
 
 const Layout = lazy(() => import('antd').then(module => ({ default: module.Layout })));
 const Content = lazy(() => import('antd').then(module => ({ default: module.Layout.Content })));
@@ -20,15 +21,8 @@ const Content = lazy(() => import('antd').then(module => ({ default: module.Layo
 export const AppLayout: React.FC = () => {
   const [currentLocation, setCurrentLocation] = useState<string>(history.location.pathname);
   const { isLoading } = useAppSelector(reviewsSelect);
+  const { token: storeToken } = useAppSelector(authSelect)
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    window.addEventListener('beforeunload', () => sessionStorage.clear());
-    dispatch(push(Paths.AUTH));
-    return () => {
-      window.removeEventListener('beforeunload', () => sessionStorage.clear());
-    };
-  }, [dispatch]);
 
   useEffect(() => {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
@@ -46,6 +40,14 @@ export const AppLayout: React.FC = () => {
       unlisten();
     };
   }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if(!storeToken && !token) {
+      sessionStorage.clear()
+      dispatch(push(Paths.AUTH))
+    }
+  }, [storeToken, dispatch])
   return (
       <>
         {isLoading && <Loader />}
