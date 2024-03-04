@@ -10,10 +10,11 @@ import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { reviewsSelect } from '@redux/slices/reviews';
 import { history } from '@redux/configure-store';
 import { Paths } from '@typing/enums/paths';
+import { authSelect } from '@redux/slices/auth';
 
 import 'antd/dist/antd.css';
 import styles from './app-layout.module.scss';
-import { authSelect } from '@redux/slices/auth';
+
 
 const Layout = lazy(() => import('antd').then(module => ({ default: module.Layout })));
 const Content = lazy(() => import('antd').then(module => ({ default: module.Layout.Content })));

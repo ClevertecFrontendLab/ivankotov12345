@@ -10,7 +10,7 @@ import { Breadcrumbs } from '@components/breadcrumbs';
 import styles from './header.module.scss';
 
 export const AppHeader: React.FC = () => {
-  const [currentLocation, setCurrentLocation] = useState<string>('');
+  const [currentLocation, setCurrentLocation] = useState<string>(history.location.pathname);
   const { Header } = Layout;
   const { Title } = Typography;
   const screenWidth = useScreenWidth();
