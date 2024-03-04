@@ -7,11 +7,9 @@ import { Commentary } from '@components/commentary';
 import { ModalFeedbacks } from '@components/modal-feedbacks';
 import { ModalResults } from '@components/modal-results';
 import { SendFeedbackResults } from '@components/send-feedback-results';
-
-import styles from './feedbacks-page.module.scss';
 import { FeedbacksNoResults } from '@components/feedbacks-no-results';
 
-
+import styles from './feedbacks-page.module.scss';
 
 export const FeedbacksPage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -22,7 +20,6 @@ export const FeedbacksPage: React.FC = () => {
   }, [dispatch]);
 
   const { feedbacks } = useAppSelector(reviewsSelect);
-
 
   const sortedFeedbacks = feedbacks 
     && [...feedbacks]

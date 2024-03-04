@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { push } from 'redux-first-history';
 
 import { instance } from '@axios/axios';
@@ -10,6 +10,7 @@ import { Paths } from '@typing/enums/paths';
 import { FormInputValues } from '@typing/types/form-input-values';
 import { AuthResponseType } from '@typing/types/response-types';
 import { AuthMessage } from '@typing/enums/result-messages';
+import { RootState } from '@redux/configure-store';
 
 function* authWorker(action: PayloadAction<FormInputValues>) {
   try {
@@ -19,7 +20,15 @@ function* authWorker(action: PayloadAction<FormInputValues>) {
       { ...action.payload }
     );
     yield put(getAuthSuccess(data));
-    yield localStorage.setItem('token', data.accessToken);
+
+    const rememberMe: boolean = yield select((state: RootState) => state.auth.rememberMe);
+
+    if(rememberMe) {
+      yield localStorage.setItem('token', data.accessToken);
+    } else {
+      yield sessionStorage.setItem('token', data.accessToken);
+    }
+
     yield put(push(Paths.MAIN));
   } catch(error) {
     if(error) {

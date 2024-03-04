@@ -39,8 +39,9 @@ export const AuthPage: React.FC = () => {
   }
 
   const onRememberCheckBox = () => {
-    setIsChecked(!isChecked);
-    dispatch(toggleRememberMe(isChecked));
+    const currentCheck = !isChecked;
+    setIsChecked(currentCheck);
+    dispatch(toggleRememberMe(currentCheck));
   }
 
   const onGoogleAuthClick = () => {

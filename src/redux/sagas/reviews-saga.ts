@@ -19,6 +19,7 @@ function* reviewsWorker() {
     const { response } = error as AxiosError;
     if(response?.status === 403) {
       yield localStorage.removeItem('token');
+      yield sessionStorage.removeItem('token');
       yield put(push(Paths.AUTH));
     } else {
       yield put(getReviewsError({
