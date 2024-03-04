@@ -27,6 +27,16 @@
         .buttonShowAll {
             color: $primary-light-6;
         }
+
+        @media (max-width: 675px) {
+            flex-direction: column;
+            padding-top: 32px;
+            .buttonFeedback,
+            .buttonShowAll {
+                display: block;
+                width: 100%;
+            }  
+        }
     }
 }
 

@@ -19,9 +19,9 @@ export const FeedbacksNoResults: React.FC<PropsType> = ({ setIsSendFeedbackOpen 
         <Title level={3} className={styles.title}>Оставьте свой отзыв первым</Title>
 
         <div className={styles.textWrapper}>
-          <Text>Вы можете быть первым, кто оставит отзыв об этом фитнесс приложении.</Text>
-          <Text>Поделитесь своим мнением и опытом с другими пользователями,</Text>
-          <Text>и помогите им сделать правильный выбор.</Text>
+          <Text className={styles.text}>Вы можете быть первым, кто оставит отзыв об этом фитнесс приложении.</Text>
+          <Text className={styles.text}>Поделитесь своим мнением и опытом с другими пользователями,</Text>
+          <Text className={styles.text}>и помогите им сделать правильный выбор.</Text>
         </div>
       </Card>
 

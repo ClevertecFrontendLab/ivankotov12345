@@ -8,8 +8,7 @@
     }
 
     .result {
-        padding: 64px 32px 56px;
-        margin-top: 60px;
+        padding: 79px 87px 67px;
 
         :global {
             .ant-result-icon {
@@ -23,5 +22,10 @@
     }
     .resultButton {
         @include color-button-primary;
+    }
+    @media (max-width: 675px) {
+        .result {
+            padding: 32px 16px;
+        }
     }
 }

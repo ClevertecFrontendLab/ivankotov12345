@@ -15,7 +15,7 @@ type AuthStateType = {
 const initialState: AuthStateType = {
   isLoading: false,
   token: null,
-  rememberMe: false,
+  rememberMe: true,
 };
 
 export const authSlice = createSlice({
@@ -48,7 +48,7 @@ export const authSlice = createSlice({
       state.token = null;
       state.message = undefined;
       state.submittedData = undefined;
-      if (!state.rememberMe) {
+      if (state.rememberMe) {
         localStorage.removeItem('token');
       }
     }

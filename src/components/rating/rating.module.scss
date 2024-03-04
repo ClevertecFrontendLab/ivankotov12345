@@ -4,15 +4,4 @@
     display: flex;
     gap: 4px;
     list-style-type: none;
-
-    :global {
-        .ant-rate-star-zero {
-            color: $character-light-warning;
-        }
-    }
-
-
-    .star {
-        color: $character-light-warning;
-    }
 }

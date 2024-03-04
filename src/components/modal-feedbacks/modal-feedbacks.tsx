@@ -5,6 +5,7 @@ import { useEffect, useId, useState } from 'react';
 import { Rating } from '@components/rating';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { getFeedbackFetch, sendFeedbackSelect } from '@redux/slices/send-feedback';
+import { useScreenWidth } from '@hooks/use-screen-width-hook';
 
 import styles from './modal-feedbacks.module.scss';
 
@@ -15,7 +16,8 @@ type PropsType = {
 
 export const ModalFeedbacks: React.FC<PropsType> = ({ isSendFeedbackOpen, setIsSendFeedbackOpen }) => {
   const { submittedData, clearModalInputs } = useAppSelector(sendFeedbackSelect);
-  const id = useId()
+  const id = useId();
+  const screenWidth = useScreenWidth();
 
   const [rating, setRating] = useState<number | undefined>(submittedData?.rating);
   const [feedback, setFeedback] = useState<string | undefined>(submittedData?.message);
@@ -50,9 +52,14 @@ export const ModalFeedbacks: React.FC<PropsType> = ({ isSendFeedbackOpen, setIsS
   return (
     <Modal
       title='Ваш отзыв'
+      centered
       open={isSendFeedbackOpen}
       onCancel={onCancel}
-      width={539}
+      width={screenWidth && screenWidth > 675 ? 539 : 328}
+      maskStyle={{
+        backgroundColor: 'rgba(121, 156, 213, 0.5)',
+        backdropFilter: 'blur(5px)'
+      }}
       footer={[
         <Button
           key={id}

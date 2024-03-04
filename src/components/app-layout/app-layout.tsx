@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { Suspense, lazy, useEffect, useState } from 'react';
-import { goBack } from 'redux-first-history';
+import { push } from 'redux-first-history';
 
 import { Loader } from '@components/loader';
 import { Sidebar } from '@components/sidebar';
@@ -25,7 +25,7 @@ export const AppLayout: React.FC = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if(!token) {
-      dispatch(goBack());
+      dispatch(push(Paths.AUTH));
     }
   }, [dispatch]);
 

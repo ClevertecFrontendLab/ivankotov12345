@@ -1,10 +1,6 @@
 import { Rate } from 'antd';
 import { StarFilled, StarOutlined } from '@ant-design/icons';
 
-
-import styles from './rating.module.scss';
-
-
 type PropsType = {
   rating: number
   setRating?: (rating: number) => void
@@ -14,7 +10,10 @@ type PropsType = {
 
 export const Rating: React.FC<PropsType> = ({ rating, setRating, size, disabled }) => {
 
-  const starStyle = { fontSize: `${size}px` };
+  const starStyle = {
+    fontSize: `${size}px`,
+    color: '#faad14'
+  };
 
   const onRatingClick = (value: number) => {
     setRating && setRating(value)
@@ -26,8 +25,8 @@ export const Rating: React.FC<PropsType> = ({ rating, setRating, size, disabled 
       onChange={onRatingClick}
       character={({ index = 0, value = 0 }) => (
         index < value
-          ? <StarFilled style={starStyle} className={styles.star} />
-          : <StarOutlined style={starStyle} className={styles.star} />
+          ? <StarFilled style={starStyle} />
+          : <StarOutlined style={starStyle} />
       )}
     />
   )
