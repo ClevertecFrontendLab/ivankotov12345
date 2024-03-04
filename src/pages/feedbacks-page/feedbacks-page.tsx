@@ -62,6 +62,7 @@ export const FeedbacksPage: React.FC = () => {
             className={styles.buttonFeedback}
             size='large'
             onClick={onWriteFeedbackButtonClick}
+            data-test-id='write-review'
           >
             Написать отзыв
           </Button>
@@ -70,6 +71,7 @@ export const FeedbacksPage: React.FC = () => {
             onClick={displayFullListToggle}
             className={styles.buttonShowAll}
             size='large'
+            data-test-id='all-reviews-button'
           >
             {isFullList
               ? 'Свернуть все отзывы'

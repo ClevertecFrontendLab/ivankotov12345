@@ -30,6 +30,7 @@ export const FeedbacksNoResults: React.FC<PropsType> = ({ setIsSendFeedbackOpen 
         size='large'
         className={styles.buttonMessage}
         onClick={onClick}
+        data-test-id='write-review'
       >
         Написать отзыв
     </Button>

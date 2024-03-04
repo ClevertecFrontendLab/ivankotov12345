@@ -62,6 +62,7 @@ export const SendFeedbackResults: React.FC<PropsType> = ({ setIsSendFeedbackOpen
               size='large'
               className={styles.resultButton}
               onClick={onWriteFeedbackButton}
+              data-test-id='write-review-not-saved-modal'
             >
               {messageError.buttonTextWriteMessage}
             </Button>

@@ -21,6 +21,7 @@ export const AppFooter: React.FC = () => {
         type='text'
         className={styles.reviewsButton}
         onClick={onShowFeedbacks}
+        data-test-id='see-reviews'
       >
         Смотреть отзывы
       </Button>

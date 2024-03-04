@@ -39,9 +39,9 @@ export const ModalFeedbacks: React.FC<PropsType> = ({ isSendFeedbackOpen, setIsS
   }
 
   const onSubmit = () => {
-    if(feedback && rating) {
+    if(rating) {
       dispatch(getFeedbackFetch({
-        message: feedback,
+        message: feedback || '',
         rating: rating,
       }));
       setIsSendFeedbackOpen(false);
@@ -59,8 +59,9 @@ export const ModalFeedbacks: React.FC<PropsType> = ({ isSendFeedbackOpen, setIsS
           type='primary'
           size='large'
           className={styles.modalButton}
-          disabled={rating === 0 ? true : false}
+          disabled={!rating ? true : false}
           onClick={onSubmit}
+          data-test-id='new-review-submit-button'
         >
           Опубликовать
         </Button>

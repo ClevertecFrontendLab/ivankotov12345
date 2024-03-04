@@ -1,7 +1,9 @@
+import { Rate } from 'antd';
 import { StarFilled, StarOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
+
 
 import styles from './rating.module.scss';
+
 
 type PropsType = {
   rating: number
@@ -11,30 +13,22 @@ type PropsType = {
 }
 
 export const Rating: React.FC<PropsType> = ({ rating, setRating, size, disabled }) => {
-  const ratingArr: number[] = Array(rating).fill(1);
-  while (ratingArr.length < 5) {
-    ratingArr.push(0);
-  }
 
   const starStyle = { fontSize: `${size}px` };
 
-  const onRatingClick = (index: number) => {
-    setRating && setRating(index + 1)
+  const onRatingClick = (value: number) => {
+    setRating && setRating(value)
   }
   return (
-    <div className={styles.ratingWrapper}>
-      {ratingArr.map((star, index) => (
-        <Button
-          type='link'
-          key={index}
-          onClick={() => onRatingClick(index)}
-          className={styles.starButton}
-          icon={star > 0
-            ? <StarFilled style={starStyle} className={styles.star} />
-            : <StarOutlined style={starStyle} className={styles.star} />}
-          disabled={disabled}
-        />
-      ))}
-    </div>
+    <Rate
+      disabled={disabled}
+      value={rating}
+      onChange={onRatingClick}
+      character={({ index = 0, value = 0 }) => (
+        index < value
+          ? <StarFilled style={starStyle} className={styles.star} />
+          : <StarOutlined style={starStyle} className={styles.star} />
+      )}
+    />
   )
 }

@@ -1,7 +1,6 @@
 @use '../../scss/index' as *;
 
 .modalFeedback {
-    margin-top: 285px;
     :global {
         .ant-modal-body {
             display: flex;
