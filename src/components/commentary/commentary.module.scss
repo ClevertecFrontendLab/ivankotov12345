@@ -1,0 +1,62 @@
+@use '../../scss/index' as *;
+
+.commentaryWrapper {
+    :global {
+        .ant-card-body {
+            display: grid;
+            grid-template-columns: 174px 1fr;
+            padding: 16px;
+            @media (max-width: 675px) {
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr 1fr;
+            }
+        }
+        :before,
+        :after {
+            display: none;
+        }
+    }
+
+    .commentaryUser {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+
+        .avatar {
+            background: $character-light-background;
+
+            .userLogo {
+                color: $character-light-title-85;
+            }
+        }
+
+        .textUserName {
+            display: block;
+            text-align: center;
+            font-size: $size-basic;
+            line-height: 130%;
+            color: $character-light-title-85;
+        }
+
+        @media (max-width: 675px) {
+            flex-direction: row;
+        }
+    }
+
+    .commentaryHead {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        .textDate {
+            font-size: $size-small;
+        }
+    }
+
+    .commentaryText {
+        display: block;
+        color: $character-light-secondary-45;
+        margin-top: 12px;
+    }
+}

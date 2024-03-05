@@ -13,13 +13,14 @@ import {
   RegistrationMessageError,
   RegistrationMessageSuccess
 } from '@typing/enums/result-messages';
+import { ErrorStatus } from '@typing/enums/error-status';
 
 function* registrationWorker(action: PayloadAction<FormInputValues>) {
   try {
     yield call(
      instance.post,
      `${AxiosPaths.REGISTRATION}`,
-     { ...action.payload },
+     action.payload,
     );
     yield put(getRegistrationSuccess({
       status: RegistrationMessageSuccess.status,
@@ -31,7 +32,7 @@ function* registrationWorker(action: PayloadAction<FormInputValues>) {
     yield put(push(`${Paths.RESULT}${Paths.REGISTRATION_SUCCESS}`));
   } catch (error) {
     const { response } = error as AxiosError;
-    if(response?.status === 409) {
+    if(response?.status === ErrorStatus.EMAIL_EXISTS) {
       yield put(getRegistrationError({
         status: RegistrationMessageEmailExists.status,
         title: RegistrationMessageEmailExists.title,

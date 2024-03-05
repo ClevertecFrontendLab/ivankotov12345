@@ -8,12 +8,12 @@ import { FromRecoveryConfirmEmail } from '@typing/types/form-input-values';
 import { goForward, replace } from 'redux-first-history';
 import { Paths } from '@typing/enums/paths';
 
-export function* confirmEmailWorker(action: PayloadAction<FromRecoveryConfirmEmail>) {
+function* confirmEmailWorker(action: PayloadAction<FromRecoveryConfirmEmail>) {
   try {
     yield call(
       instance.post,
       `${AxiosPaths.CONFIRM_EMAIL}`,
-      { ...action.payload },
+      action.payload,
       { withCredentials: true },
     );
     yield put(getConfirmEmailSuccess())

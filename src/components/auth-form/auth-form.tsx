@@ -11,20 +11,20 @@ import formLogo from './assets/svg/logo.svg';
 
 import styles from './auth-form.module.scss';
 
+const tabList = [
+  {
+    key: Paths.AUTH,
+    tab: <span className={styles.tab}>Вход</span>,
+  },
+  {
+    key: `${Paths.AUTH}${Paths.REGISTRATION}`,
+    tab: <div className={styles.tab}>Регистрация</div>,
+  }
+];
+
 export const AuthForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const [activeTab, setActiveTab] = useState<string>(history.location.pathname);
-
-  const tabList = [
-    {
-      key: Paths.AUTH,
-      tab: <span className={styles.tab}>Вход</span>,
-    },
-    {
-      key: `${Paths.AUTH}${Paths.REGISTRATION}`,
-      tab: <div className={styles.tab}>Регистрация</div>,
-    }
-  ];
 
   const onTabChange = (key: string) => {
     setActiveTab(key);

@@ -1,0 +1,42 @@
+@use '../../scss/index' as *;
+
+.feedbacksSection {
+    height: 100%;
+
+    .feedbacksList {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 0;
+        list-style-type: none;
+        overflow-y: auto;
+        max-height: 80%;
+    }
+
+    .buttonsWrapper {
+        position: sticky;
+        bottom: 0;
+        padding-top: 112px;
+        display: flex;
+        gap: 8px;
+
+        .buttonFeedback {
+            @include color-button-primary;
+        }
+
+        .buttonShowAll {
+            color: $primary-light-6;
+        }
+
+        @media (max-width: 675px) {
+            flex-direction: column;
+            padding-top: 32px;
+            .buttonFeedback,
+            .buttonShowAll {
+                display: block;
+                width: 100%;
+            }  
+        }
+    }
+}
+

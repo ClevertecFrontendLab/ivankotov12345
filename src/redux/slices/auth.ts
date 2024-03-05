@@ -36,6 +36,10 @@ export const authSlice = createSlice({
       state.token = null;
       state.message = action.payload;
     },
+    getAuthGoogleFetch: (state) => {
+      state.isLoading = true;
+      state.rememberMe = true;
+    },
     toggleRememberMe: (state, action: PayloadAction<boolean>) => {
       state.rememberMe = action.payload;
     },
@@ -44,19 +48,18 @@ export const authSlice = createSlice({
       state.token = null;
       state.message = undefined;
       state.submittedData = undefined;
-      if (!state.rememberMe) {
-        localStorage.removeItem('token');
-      }
     }
   }
 });
 
 export const authSelect = (state: RootState) => state.auth;
+export const rememberMeSelect = (state: RootState) => state.auth.rememberMe
 export const authReducer = authSlice.reducer;
 export const {
     getAuthFetch,
     getAuthSuccess,
     getAuthError,
     toggleRememberMe,
+    getAuthGoogleFetch,
     clearAuth,
 } = authSlice.actions;

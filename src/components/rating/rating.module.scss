@@ -1,0 +1,7 @@
+@use '../../scss/index' as *;
+
+.ratingWrapper {
+    display: flex;
+    gap: 4px;
+    list-style-type: none;
+}

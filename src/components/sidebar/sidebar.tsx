@@ -5,6 +5,7 @@ import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
 import { push } from 'redux-first-history';
 
 import { useScreenWidth } from '@hooks/use-screen-width-hook';
+import { MOBILE_WIDTH } from '@constants/constants';
 
 import { ExitOutlined } from '@components/exit-icon-outlined';
 import { SidemenuSwitcher } from '@components/sidemenu-switcher';
@@ -16,21 +17,23 @@ import logo from './assets/svg/fit.svg';
 import 'antd/dist/antd.css';
 import styles from './sidebar.module.scss';
 
+const { Sider } = Layout;
 
 export const Sidebar: React.FC = () => {
   const [collapsed, setCollapsed] = useState<boolean>(false);
-  const { Sider } = Layout;
+
   const screenWidth = useScreenWidth();
 
   const dispatch = useAppDispatch();
 
   const handleLogOut = () => {
     localStorage.removeItem('token');
+    sessionStorage.clear();
     dispatch(push(Paths.AUTH));
   }
 
   const toneColor = '#061178';
-  const testId = screenWidth && screenWidth > 675 ? 'sider-switch' : 'sider-switch-mobile';
+  const testId = screenWidth && screenWidth > MOBILE_WIDTH ? 'sider-switch' : 'sider-switch-mobile';
 
   const menuItems = [
     {
@@ -82,8 +85,8 @@ export const Sidebar: React.FC = () => {
       collapsed={collapsed}
       theme='light'
       trigger={null}
-      width={screenWidth && screenWidth > 675 ? 208 : 106}
-      collapsedWidth={screenWidth && screenWidth > 675 ? 64 : 0}
+      width={screenWidth && screenWidth > MOBILE_WIDTH ? 208 : 106}
+      collapsedWidth={screenWidth && screenWidth > MOBILE_WIDTH ? 64 : 0}
       className={styles.sideBar}
       >
       <div className={

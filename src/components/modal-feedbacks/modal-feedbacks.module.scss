@@ -1,0 +1,19 @@
+@use '../../scss/index' as *;
+
+.modalFeedback {
+    :global {
+        .ant-modal-body {
+            display: flex;
+            flex-direction: column;
+            padding: 24px 14px;
+            gap: 10px;
+        }
+        .ant-modal-footer {
+            padding: 10px 14px;
+        }
+    }
+
+    .modalButton {
+        @include color-button-primary;
+    }
+}

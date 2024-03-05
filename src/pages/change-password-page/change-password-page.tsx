@@ -8,25 +8,23 @@ import { getResetPasswordFetch, recoverySelect } from '@redux/slices/recovery';
 
 import styles from './change-password-page.module.scss';
 
+const { Title } = Typography;
+
 export const ChangePasswordPage: React.FC = () => {
   const [newPasswordStatus, setNewPasswordStatus] = useState<ValidateStatus>('');
   const [confirmNewPasswordStatus, setConfirmNewPasswordStatus] = useState<ValidateStatus>('');
   const testIdPassword = 'change-password';
   const testIdConfirmPassword = 'change-confirm-password';
 
-  const { Title } = Typography;
-
   const dispatch = useAppDispatch();
   const { submittedNewPass } = useAppSelector(recoverySelect);
 
-  const onSubmit = (data: FormRecoveryInputValues) => {
-      dispatch(getResetPasswordFetch(data));
-  };
+  const onSubmit = (data: FormRecoveryInputValues) => dispatch(getResetPasswordFetch(data));
 
   const onFinishFailed = () => {
     setNewPasswordStatus('error');
     setConfirmNewPasswordStatus('error');
-  }
+  };
 
   const [form] = Form.useForm();
 

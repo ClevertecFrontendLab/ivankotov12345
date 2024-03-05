@@ -7,9 +7,10 @@ type PropsType = {
   cardName: string,
   buttonText: string,
 }
-export const ActionCard: React.FC<PropsType> = ({ cardLogo, cardName, buttonText }: PropsType) => {
-  const {Text} = Typography;
-  return (
+
+const {Text} = Typography;
+
+export const ActionCard: React.FC<PropsType> = ({ cardLogo, cardName, buttonText }: PropsType) => (
     <li className={styles.card}>
       <Text className={styles.text}>{cardName}</Text>
       <Button 
@@ -19,4 +20,3 @@ export const ActionCard: React.FC<PropsType> = ({ cardLogo, cardName, buttonText
       >{buttonText}</Button>
     </li>
   )
-}
