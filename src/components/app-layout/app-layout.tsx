@@ -15,14 +15,13 @@ import { authSelect } from '@redux/slices/auth';
 import 'antd/dist/antd.css';
 import styles from './app-layout.module.scss';
 
-
 const Layout = lazy(() => import('antd').then(module => ({ default: module.Layout })));
 const Content = lazy(() => import('antd').then(module => ({ default: module.Layout.Content })));
 
 export const AppLayout: React.FC = () => {
   const [currentLocation, setCurrentLocation] = useState<string>(history.location.pathname);
   const { isLoading } = useAppSelector(reviewsSelect);
-  const { token: storeToken } = useAppSelector(authSelect)
+  const { token: storeToken } = useAppSelector(authSelect);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -45,10 +44,10 @@ export const AppLayout: React.FC = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if(!storeToken && !token) {
-      sessionStorage.clear()
-      dispatch(push(Paths.AUTH))
+      sessionStorage.clear();
+      dispatch(push(Paths.AUTH));
     }
-  }, [storeToken, dispatch])
+  }, [storeToken, dispatch]);
   return (
       <>
         {isLoading && <Loader />}

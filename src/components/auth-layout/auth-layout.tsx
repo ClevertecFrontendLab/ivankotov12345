@@ -16,7 +16,6 @@ export const AuthLayout: React.FC = () => {
     <>
       {(isAuthLoading || isRegistrationLoading || isRecoveryLoading) && <Loader />}
       <section className={styles.autContainer}>
-        
         <div className={styles.authWrapper}>
           <Outlet />
         </div>

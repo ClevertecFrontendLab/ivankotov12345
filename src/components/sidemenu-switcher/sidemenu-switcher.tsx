@@ -9,9 +9,7 @@ type PropsType = {
 }
 
 export const SidemenuSwitcher = ({ collapsed, setCollapsed, testId }: PropsType) => {
-  const toggleCollapse = () => {
-    setCollapsed(!collapsed);
-  }
+  const toggleCollapse = () => setCollapsed(!collapsed);
   return (
     <button type='button' className={styles.sideMenuButton} onClick={toggleCollapse} data-test-id={testId}>
       {

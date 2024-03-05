@@ -3,25 +3,24 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { push } from 'redux-first-history';
 
 import { instance } from '@axios/axios';
-import { getAuthError, getAuthFetch, getAuthSuccess } from '@redux/slices/auth';
+import { getAuthError, getAuthFetch, getAuthSuccess, rememberMeSelect } from '@redux/slices/auth';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { AxiosPaths } from '@typing/enums/axios-paths';
 import { Paths } from '@typing/enums/paths';
 import { FormInputValues } from '@typing/types/form-input-values';
 import { AuthResponseType } from '@typing/types/response-types';
 import { AuthMessage } from '@typing/enums/result-messages';
-import { RootState } from '@redux/configure-store';
 
 function* authWorker(action: PayloadAction<FormInputValues>) {
   try {
     const { data }: AxiosResponse<AuthResponseType> = yield call(
       instance.post,
       `${AxiosPaths.LOG_IN}`,
-      { ...action.payload }
+      action.payload
     );
     yield put(getAuthSuccess(data));
 
-    const rememberMe: boolean = yield select((state: RootState) => state.auth.rememberMe);
+    const rememberMe: boolean = yield select(rememberMeSelect)
 
     if(rememberMe) {
       yield localStorage.setItem('token', data.accessToken);
@@ -45,5 +44,5 @@ function* authWorker(action: PayloadAction<FormInputValues>) {
 }
 
 export function* authWatcher() {
-  yield takeLatest(getAuthFetch.type, authWorker)
+  yield takeLatest(getAuthFetch.type, authWorker);
 }

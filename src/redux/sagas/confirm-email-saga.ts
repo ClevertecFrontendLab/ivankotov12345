@@ -13,7 +13,7 @@ function* confirmEmailWorker(action: PayloadAction<FromRecoveryConfirmEmail>) {
     yield call(
       instance.post,
       `${AxiosPaths.CONFIRM_EMAIL}`,
-      { ...action.payload },
+      action.payload,
       { withCredentials: true },
     );
     yield put(getConfirmEmailSuccess())

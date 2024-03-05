@@ -4,16 +4,14 @@ import { Paths } from '@typing/enums/paths';
 import { Link } from 'react-router-dom';
 import { history } from '@redux/configure-store';
 
+const breadcrumbNamesMap: Record<string, string> = {
+  [Paths.MAIN]: 'Главная',
+  [Paths.FEEDBACKS]: 'Отзывы пользователей'
+};
 
 export const Breadcrumbs: React.FC = () => {
   const pathSnippets = history.location.pathname.split('/').filter(i => i);
-  const isPathMain = history.location.pathname.includes(Paths.MAIN)
-
-  
-  const breadcrumbNamesMap: Record<string, string> = {
-      [Paths.MAIN]: 'Главная',
-      [Paths.FEEDBACKS]: 'Отзывы пользователей'
-  }
+  const isPathMain = history.location.pathname.includes(Paths.MAIN);
   return (
     <Breadcrumb>
       <Breadcrumb.Item key='Главная'>

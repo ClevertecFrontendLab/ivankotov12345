@@ -9,15 +9,12 @@ type PropsType = {
 }
 
 export const Rating: React.FC<PropsType> = ({ rating, setRating, size, disabled }) => {
-
   const starStyle = {
     fontSize: `${size}px`,
     color: '#faad14'
   };
 
-  const onRatingClick = (value: number) => {
-    setRating && setRating(value)
-  }
+  const onRatingClick = (value: number) => setRating && setRating(value);
   return (
     <Rate
       disabled={disabled}

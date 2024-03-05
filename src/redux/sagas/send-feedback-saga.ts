@@ -13,7 +13,7 @@ function* sendFeedBackWorker(action: PayloadAction<FeedbackValues>) {
     yield call(
       instance.post,
       AxiosPaths.FEEDBACK,
-      { ...action.payload }
+      action.payload
     );
     yield put(getFeedbackSuccess({
       status: SendFeedbackSuccessMessage.status,

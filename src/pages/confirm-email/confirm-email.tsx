@@ -9,10 +9,11 @@ import { getConfirmEmailFetch, recoverySelect } from '@redux/slices/recovery';
 
 import styles from './confirm-email.module.scss';
 
+const { Title, Text } = Typography;
+
 export const ConfirmEmail: React.FC = () => {
   const [messageTitle, setMessageTitle] = useState<string | null>();
   const [inputValue, setInputValue] = useState<string>('');
-  const { Title, Text } = Typography;
 
   const dispatch = useAppDispatch();
   const { submittedEmail, isConfirmEmailError } = useAppSelector(recoverySelect);

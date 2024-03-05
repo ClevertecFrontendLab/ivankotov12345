@@ -6,32 +6,30 @@ import { ActionCard } from '@components/action-card';
 import 'antd/dist/antd.css';
 import styles from './main-page.module.scss';
 
+const cardsData = [
+  {
+    key: '1',
+    cardLogo: <HeartTwoTone className={styles.iconFilled} />,
+    cardName: 'Расписать тренировки',
+    buttonText: 'Тренировки',
+  },
+  {
+    key: '2',
+    cardLogo: <CalendarTwoTone className={styles.iconFilled} />,
+    cardName: 'Назначить календарь',
+    buttonText: 'Календарь',
+  },
+  {
+    key: '3',
+    cardLogo: <IdcardOutlined className={styles.iconID} />,
+    cardName: 'Заполнить профиль',
+    buttonText: 'Профиль',
+  },
+];
 
-export const MainPage: React.FC = () => {
+const { Title } = Typography;
 
-  const cardsData = [
-    {
-      key: '1',
-      cardLogo: <HeartTwoTone className={styles.iconFilled} />,
-      cardName: 'Расписать тренировки',
-      buttonText: 'Тренировки',
-    },
-    {
-      key: '2',
-      cardLogo: <CalendarTwoTone className={styles.iconFilled} />,
-      cardName: 'Назначить календарь',
-      buttonText: 'Календарь',
-    },
-    {
-      key: '3',
-      cardLogo: <IdcardOutlined className={styles.iconID} />,
-      cardName: 'Заполнить профиль',
-      buttonText: 'Профиль',
-    },
-  ];
-  const { Title } = Typography;
-
-  return (
+export const MainPage: React.FC = () => (
     <div className={styles.mainPageWrapper}>
       <ul className={styles.featuresList}>
         <li>
@@ -64,5 +62,4 @@ export const MainPage: React.FC = () => {
       }
       </ul>
     </div>
-  );
-};
+  )

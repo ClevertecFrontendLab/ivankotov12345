@@ -6,8 +6,10 @@ import { Rating } from '@components/rating';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { getFeedbackFetch, sendFeedbackSelect } from '@redux/slices/send-feedback';
 import { useScreenWidth } from '@hooks/use-screen-width-hook';
+import { MOBILE_WIDTH, MODAL_WIDTH_DESKTOP, MODAL_WIDTH_MOBILE } from '@constants/constants';
 
 import styles from './modal-feedbacks.module.scss';
+
 
 type PropsType = {
   isSendFeedbackOpen: boolean,
@@ -24,9 +26,7 @@ export const ModalFeedbacks: React.FC<PropsType> = ({ isSendFeedbackOpen, setIsS
 
   const dispatch = useAppDispatch();
 
-  const onCancel = () => {
-    setIsSendFeedbackOpen(false);
-  }
+  const onCancel = () => setIsSendFeedbackOpen(false);
 
   useEffect(() => {
     if(clearModalInputs) {
@@ -35,10 +35,7 @@ export const ModalFeedbacks: React.FC<PropsType> = ({ isSendFeedbackOpen, setIsS
     }
   }, [clearModalInputs]);
 
-  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const currentFeedback = e.target.value;
-    setFeedback(currentFeedback);
-  }
+  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => setFeedback(e.target.value);
 
   const onSubmit = () => {
     if(rating) {
@@ -48,14 +45,19 @@ export const ModalFeedbacks: React.FC<PropsType> = ({ isSendFeedbackOpen, setIsS
       }));
       setIsSendFeedbackOpen(false);
     }
-  }
+  };
   return (
     <Modal
       title='Ваш отзыв'
       centered
       open={isSendFeedbackOpen}
       onCancel={onCancel}
-      width={screenWidth && screenWidth > 675 ? 539 : 328}
+      width={
+        screenWidth 
+          && screenWidth > MOBILE_WIDTH
+          ? MODAL_WIDTH_DESKTOP
+          : MODAL_WIDTH_MOBILE
+      }
       maskStyle={{
         backgroundColor: 'rgba(121, 156, 213, 0.5)',
         backdropFilter: 'blur(5px)'

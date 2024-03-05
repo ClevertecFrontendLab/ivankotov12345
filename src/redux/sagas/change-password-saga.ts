@@ -15,7 +15,7 @@ function* changePasswordWorker(action: PayloadAction<FormRecoveryInputValues>) {
     yield call(
       instance.post,
       AxiosPaths.CHANGE_PASSWORD,
-      { ...action.payload },
+      action.payload,
       { withCredentials: true },
     )
     yield put(getResetPasswordSuccess({

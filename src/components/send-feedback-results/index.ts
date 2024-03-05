@@ -1,1 +1,1 @@
-export { SendFeedbackResults } from './send-feedback-results'
+export { SendFeedbackResults } from './send-feedback-results';

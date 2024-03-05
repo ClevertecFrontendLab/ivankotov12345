@@ -8,14 +8,12 @@ import { Paths } from '@typing/enums/paths';
 
 import styles from './app-footer.module.scss';
 
+const { Text } = Typography;
+
 export const AppFooter: React.FC = () => {
-  const { Text } = Typography;
+  const dispatch = useAppDispatch();
 
-  const dispatch = useAppDispatch()
-
-  const onShowFeedbacks = () => {
-    dispatch(push(Paths.FEEDBACKS));
-  }
+  const onShowFeedbacks = () => dispatch(push(Paths.FEEDBACKS));
   return (
     <Footer className={styles.footer}>
       <Button

@@ -3,9 +3,10 @@ import { Button, Modal, Result } from 'antd';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { clearFeedbackInputs, clearFeedbackResult, sendFeedbackSelect } from '@redux/slices/send-feedback';
 import { getReviewsFetch } from '@redux/slices/reviews';
+import { useScreenWidth } from '@hooks/use-screen-width-hook';
+import { MOBILE_WIDTH, MODAL_WIDTH_DESKTOP, MODAL_WIDTH_MOBILE } from '@constants/constants';
 
 import styles from './send-feedback-results.module.scss';
-import { useScreenWidth } from '@hooks/use-screen-width-hook';
 
 type PropsType = {
   setIsSendFeedbackOpen: (isSendFeedbackOpen: boolean) => void,
@@ -44,7 +45,12 @@ export const SendFeedbackResults: React.FC<PropsType> = ({ setIsSendFeedbackOpen
         backgroundColor: 'rgba(121, 156, 213, 0.5)',
         backdropFilter: 'blur(5px)'
       }}
-      width={screenWidth && screenWidth > 675 ? 539 : 328}
+      width={
+        screenWidth 
+          && screenWidth > MOBILE_WIDTH
+          ? MODAL_WIDTH_DESKTOP 
+          : MODAL_WIDTH_MOBILE
+        }
     >
       <Result
         status={message?.status || messageError?.status}

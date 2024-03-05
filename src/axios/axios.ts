@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { AxiosPaths } from '@typing/enums/axios-paths';
 
 export const instance = axios.create({
-    baseURL: 'https://marathon-api.clevertec.ru'
+    baseURL: AxiosPaths.BASE_URL
 });
 
 instance.interceptors.request.use(config => {

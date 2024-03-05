@@ -10,6 +10,7 @@ import { FormInputValues } from '@typing/types/form-input-values';
 import { getAuthFetch, getAuthGoogleFetch, toggleRememberMe } from '@redux/slices/auth';
 import { getForgotPassFetch, recoverySelect } from '@redux/slices/recovery';
 import { useScreenWidth } from '@hooks/use-screen-width-hook';
+import { MOBILE_WIDTH } from '@constants/constants';
 
 import styles from './auth-page.module.scss';
 
@@ -36,17 +37,17 @@ export const AuthPage: React.FC = () => {
       return;
     }
     dispatch(getAuthFetch(data));
-  }
+  };
 
   const onRememberCheckBox = () => {
     const currentCheck = !isChecked;
     setIsChecked(currentCheck);
     dispatch(toggleRememberMe(currentCheck));
-  }
+  };
 
   const onGoogleAuthClick = () => {
     dispatch(getAuthGoogleFetch());
-  }
+  };
 
   const onForgetPass = () => {
     const email: string = form.getFieldValue('email');
@@ -57,7 +58,7 @@ export const AuthPage: React.FC = () => {
     }
     const emailValue: string = form.getFieldValue('email');
     dispatch(getForgotPassFetch({email: emailValue}));
-  }
+  };
 
   useEffect(() => {
     if(submittedEmail) {
@@ -96,7 +97,7 @@ export const AuthPage: React.FC = () => {
         </Checkbox>
         <Button
           type='link'
-          size={screenWidth && screenWidth > 675 ? 'large' : 'middle'}
+          size={screenWidth && screenWidth > MOBILE_WIDTH ? 'large' : 'middle'}
           className={styles.buttonForgotPass}
           disabled={isForgotPassDispabled}
           onClick={onForgetPass}

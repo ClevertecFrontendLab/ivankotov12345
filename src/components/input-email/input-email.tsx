@@ -20,9 +20,7 @@ export const InputEmail: React.FC<PropsType> = ({
  }) => {
   const emailRegExp = /^([a-zA-Z0-9._]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,6})+$/;
   
-  const validateEmail = (email: string) => {
-    return emailRegExp.test(email.toLocaleLowerCase());
-  };
+  const validateEmail = (email: string) =>  emailRegExp.test(email.toLocaleLowerCase());
 
   const handleInpuntChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const email = event.target.value;

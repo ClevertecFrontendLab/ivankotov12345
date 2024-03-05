@@ -1,4 +1,5 @@
 export enum AxiosPaths {
+    BASE_URL = 'https://marathon-api.clevertec.ru',
     LOG_IN = '/auth/login',
     REGISTRATION = '/auth/registration',
     AUTH_GOOGLE = '/auth/google',

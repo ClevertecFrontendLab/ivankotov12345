@@ -6,13 +6,10 @@ type PropsType = {
     setIsSendFeedbackOpen: (isSendFeedbackOpen: boolean) => void,
 }
 
+const { Title, Text } = Typography;
+
 export const FeedbacksNoResults: React.FC<PropsType> = ({ setIsSendFeedbackOpen }) => {
-  const { Title, Text } = Typography;
-
-  const onClick = () => {
-    setIsSendFeedbackOpen(true);
-  }
-
+  const onClick = () => setIsSendFeedbackOpen(true);
   return (
     <div className={styles.wrapper}>
       <Card className={styles.card}>

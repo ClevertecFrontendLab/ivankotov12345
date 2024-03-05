@@ -5,9 +5,9 @@ import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { clearError, reviewsSelect } from '@redux/slices/reviews';
 import { clearFeedbackResult } from '@redux/slices/send-feedback';
 import { useScreenWidth } from '@hooks/use-screen-width-hook';
+import { MOBILE_WIDTH, MODAL_WIDTH_DESKTOP, MODAL_WIDTH_MOBILE } from '@constants/constants';
 
-import styles from './modal-results.module.scss'
-
+import styles from './modal-results.module.scss';
 
 export const ModalResults: React.FC = () => {
   const { message: reviewsMessage, isError } = useAppSelector(reviewsSelect);
@@ -21,7 +21,7 @@ export const ModalResults: React.FC = () => {
       dispatch(clearError());
       dispatch(clearFeedbackResult());
     }
-  }
+  };
   return (
     <Modal
       open={isError}
@@ -33,7 +33,12 @@ export const ModalResults: React.FC = () => {
         backgroundColor: 'rgba(121, 156, 213, 0.5)',
         backdropFilter: 'blur(5px)'
       }}
-      width={screenWidth && screenWidth > 675 ? 539 : 328}
+      width={
+        screenWidth 
+          && screenWidth > MOBILE_WIDTH
+          ? MODAL_WIDTH_DESKTOP 
+          : MODAL_WIDTH_MOBILE
+        }
     >
       <Result
         status={reviewsMessage?.status}

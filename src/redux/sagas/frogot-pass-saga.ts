@@ -16,7 +16,7 @@ function* forgotPassWorker(action: PayloadAction<FormRecoveryInputEmail>) {
     yield call(
       instance.post,
       `${AxiosPaths.CHECK_EMAIL}`,
-      { ...action.payload },
+      action.payload,
       {
         withCredentials: true,
       }

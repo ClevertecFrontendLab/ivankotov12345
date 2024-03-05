@@ -6,13 +6,15 @@ import { history } from '@redux/configure-store';
 import { useScreenWidth } from '@hooks/use-screen-width-hook';
 import { Paths } from '@typing/enums/paths';
 import { Breadcrumbs } from '@components/breadcrumbs';
+import { MOBILE_WIDTH } from '@constants/constants';
 
 import styles from './header.module.scss';
 
+const { Header } = Layout;
+const { Title } = Typography;
+
 export const AppHeader: React.FC = () => {
   const [currentLocation, setCurrentLocation] = useState<string>(history.location.pathname);
-  const { Header } = Layout;
-  const { Title } = Typography;
   const screenWidth = useScreenWidth();
 
   useEffect(() => {
@@ -34,13 +36,13 @@ export const AppHeader: React.FC = () => {
           </Title>
           <Button
             className={styles.settingsButton}
-            type={screenWidth && screenWidth > 675 ? 'text' : 'default'}
+            type={screenWidth && screenWidth > MOBILE_WIDTH ? 'text' : 'default'}
             size='middle'
-            ghost={screenWidth && screenWidth > 675 ? true : false}
-            shape={screenWidth && screenWidth > 675 ? 'default' : 'circle'}
+            ghost={screenWidth && screenWidth > MOBILE_WIDTH ? true : false}
+            shape={screenWidth && screenWidth > MOBILE_WIDTH ? 'default' : 'circle'}
             icon={<SettingOutlined className={styles.settingsButtonLabel} />}
           >
-            {screenWidth && screenWidth > 675 && 'Настройки'}
+            {screenWidth && screenWidth > MOBILE_WIDTH && 'Настройки'}
           </Button>
         </div>
       }

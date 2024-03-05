@@ -53,6 +53,7 @@ export const authSlice = createSlice({
 });
 
 export const authSelect = (state: RootState) => state.auth;
+export const rememberMeSelect = (state: RootState) => state.auth.rememberMe
 export const authReducer = authSlice.reducer;
 export const {
     getAuthFetch,

@@ -13,6 +13,8 @@ type PropsType = {
   rating: number,
 }
 
+const { Text } = Typography;
+
 export const Commentary: React.FC<PropsType> = (
   {
     createdAt,
@@ -21,7 +23,6 @@ export const Commentary: React.FC<PropsType> = (
     message,
     rating,
   }) => {
-  const { Text } = Typography;
   const fullNameArr = fullName?.split(' ');
   return (
     <Card className={styles.commentaryWrapper}>
@@ -29,8 +30,8 @@ export const Commentary: React.FC<PropsType> = (
         <Avatar src={imageSrc || <UserOutlined className={styles.userLogo} />} size={42} className={styles.avatar} />
         {fullName &&
           <div>
-            {fullNameArr?.map((el, index) => (
-              <Text className={styles.textUserName} key={index}>
+            {fullNameArr?.map((el) => (
+              <Text className={styles.textUserName} key={el}>
                 {el}
               </Text>
             ))}
