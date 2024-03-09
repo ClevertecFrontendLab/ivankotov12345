@@ -8,6 +8,8 @@ import { authReducer } from './slices/auth';
 import { recoveryReducer } from './slices/recovery';
 import { reviewsReducer } from './slices/reviews';
 import { sendFeedbackReducer } from './slices/send-feedback';
+import { calendarReducer } from './slices/calendar';
+import { trainingListReducer } from './slices/training-list';
 
 const {
     createReduxHistory,
@@ -28,6 +30,8 @@ export const store = configureStore({
     recovery: recoveryReducer,
     reviews: reviewsReducer,
     sendFeedback: sendFeedbackReducer,
+    calendar: calendarReducer,
+    trainingList: trainingListReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware()
     .concat(sagaMiddleware, routerMiddleware),

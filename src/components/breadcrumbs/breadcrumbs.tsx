@@ -6,7 +6,8 @@ import { history } from '@redux/configure-store';
 
 const breadcrumbNamesMap: Record<string, string> = {
   [Paths.MAIN]: 'Главная',
-  [Paths.FEEDBACKS]: 'Отзывы пользователей'
+  [Paths.FEEDBACKS]: 'Отзывы пользователей',
+  [Paths.CALENDAR]: 'Календарь',
 };
 
 export const Breadcrumbs: React.FC = () => {

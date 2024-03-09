@@ -1,3 +1,10 @@
+export enum NavigateErrorMessage {
+  status = '500',
+  title = 'Что-то пошло не так',
+  subTitle = 'Произошла ошибка, попробуйте ещё раз.',
+  buttonText = 'Назад',
+}
+
 export enum AuthMessage {
   status = 'warning',
   title = 'Вход не выполнен',
@@ -52,13 +59,6 @@ export enum ChangePasswordErrorMessage {
   title = 'Данные не сохранились',
   subTitle = 'Что-то пошло не так. Попробуйте ещё раз',
   buttonText = 'Повторить',
-}
-
-export enum GetFeedbacksErrorMessage {
-  status = '500',
-  title = 'Что-то пошло не так',
-  subTitle = 'Произошла ошибка, попробуйте ещё раз.',
-  buttonText = 'Назад',
 }
 
 export enum SendFeedbackSuccessMessage {
