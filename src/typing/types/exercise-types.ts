@@ -6,10 +6,10 @@ export type ParametersType = {
 }
 
 export type ExerciseType = {
-  _id: string;
+  _id?: string;
   name: string;
-  replays: number;
-  weight: number;
-  approaches: number;
+  replays: number | null;
+  weight: number | null;
+  approaches: number | null;
   isImplementation: boolean;
 };

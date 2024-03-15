@@ -1,0 +1,12 @@
+.inputsNumberWrapper {
+    display: flex;
+
+    .label {
+        display: block;
+    }
+
+    .inputsWeightWrapper {
+        display: flex;
+        align-items: end;
+    }
+}

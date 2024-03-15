@@ -1,0 +1,1 @@
+export { CreateTrainingModal } from './create-training-modal';

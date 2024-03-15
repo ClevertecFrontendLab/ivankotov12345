@@ -9,6 +9,7 @@ import { authGoogleWatcher } from './auth-google-saga';
 import { sendFeedbackWatcher } from './send-feedback-saga';
 import { calendarWatcher } from './calendar-saga';
 import { trainingListWatcher } from './training-list-saga';
+import { createTrainingWatcher } from './create-training-saga';
 
 export function* rootSaga() {
   yield all([
@@ -22,5 +23,6 @@ export function* rootSaga() {
     sendFeedbackWatcher(),
     calendarWatcher(),
     trainingListWatcher(),
+    createTrainingWatcher(),
   ]);
 }

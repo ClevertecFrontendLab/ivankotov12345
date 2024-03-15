@@ -1,0 +1,13 @@
+@use '../../scss/index' as *;
+
+.card {
+    display: block;
+    position: absolute;
+    z-index: 1000;
+    width: 264px;
+
+    .headerWrapper {
+        display: flex;
+        justify-content: space-between;
+    }
+}

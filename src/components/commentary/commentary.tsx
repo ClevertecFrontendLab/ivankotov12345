@@ -27,7 +27,11 @@ export const Commentary: React.FC<PropsType> = (
   return (
     <Card className={styles.commentaryWrapper}>
       <div className={styles.commentaryUser}>
-        <Avatar src={imageSrc || <UserOutlined className={styles.userLogo} />} size={42} className={styles.avatar} />
+        <Avatar 
+          src={imageSrc || <UserOutlined className={styles.userLogo} />}
+          size={42}
+          className={styles.avatar}
+        />
         {fullName &&
           <div>
             {fullNameArr?.map((el) => (

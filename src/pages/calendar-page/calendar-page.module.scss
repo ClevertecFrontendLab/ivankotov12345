@@ -1,0 +1,41 @@
+@use '../../scss/index' as *;
+
+.calendarWrapper {
+    padding: 24px;
+    background: $primary-light-1;
+    position: relative;
+    bottom: 1px;
+
+    :global {
+        .ant-picker-panel {
+            background: transparent;
+        }
+        .ant-picker-calendar-date.ant-picker-calendar-date.ant-picker-calendar-date  {
+            background: $character-light-primary-inverse;
+            height: 143px;
+        }
+
+        .ant-picker-calendar-date-today.ant-picker-calendar-date-today.ant-picker-calendar-date-today.ant-picker-calendar-date-today {
+            border-color: $blue-dark-6;
+            color: $character-light-title-85;
+        }
+
+        .ant-picker-calendar-date-value{
+            color: $character-light-title-85 !important;
+        }
+    }
+
+    .trainingList {
+        padding: 0;
+        list-style-type: none;
+        margin-bottom: 0;
+        li {
+            height: 16px;
+            .badge {
+                font-size: $size-small;
+                line-height: 130%;
+            }
+        }
+
+    }
+}

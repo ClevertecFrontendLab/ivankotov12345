@@ -1,0 +1,75 @@
+@use '../../scss/index' as *;
+
+.card {
+    display: block;
+    position: absolute;
+    z-index: 1000;
+    width: 264px;
+    padding: 0;
+
+    :global {
+        .ant-card-body {
+            padding: 0;
+        }
+    }
+
+    .headWrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 4px;
+        padding: 16px 12px 0;
+    
+        .title {
+            margin: 0;
+            color: $character-light-title-85;
+            font-weight: 700;
+        }
+    
+        .closeButton {
+            width: 14px;
+            height: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+    
+            .closeIcon {
+                color: $character-light-title-85;
+            }
+        }
+    }
+
+    .content {
+        padding: 0 12px;
+    }
+
+    .emptyContainer {
+        padding: 16px 0;
+    }
+
+    .divider {
+        margin: 0;
+    }
+
+    .trainingList {
+        margin: 0;
+        padding: 16px 0;
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        li {
+            height: 18px;
+        }
+    }
+
+    .buttonCreateTraineeWrapper {
+        padding: 12px;
+
+        .buttonCreateTrainee {
+            @include color-button-primary;
+        }
+    }
+}
+

@@ -14,7 +14,6 @@ const initialState: CalendarStateType = {
   isLoading: false,
   isError: false,
   trainings: null,
-
 }
 
 export const calendarSlice = createSlice({
