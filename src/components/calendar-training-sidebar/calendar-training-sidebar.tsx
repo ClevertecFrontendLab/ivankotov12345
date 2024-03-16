@@ -5,7 +5,7 @@ import { TrainingSidebarItem } from '@components/training-sidebar-item';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { createTrainingSelect, setExercisesList } from '@redux/slices/create-training';
 import { ExerciseType } from '@typing/types/exercise-types';
-import { EMPTY_EXERCISE } from '@constants/constants';
+import { DRAWER_WIDTH_DESKTOP, EMPTY_EXERCISE } from '@constants/constants';
 import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 
 import styles from './calendar-training-sidebar.module.scss';
@@ -35,7 +35,8 @@ export const CalendarTrainingSidebar: React.FC<PropsType> = ({
   }
 
   const onClose = () => {
-    dispatch(setExercisesList(exerciseItems));
+    const exercisesNonEmpty = exerciseItems.filter((exercise) => exercise.name);
+    dispatch(setExercisesList(exercisesNonEmpty));
     setIsCalendarSidebarOpen(false);
   }
 
@@ -44,11 +45,13 @@ export const CalendarTrainingSidebar: React.FC<PropsType> = ({
       open={isCalendarSidebarOpen}
       mask={false}
       headerStyle={{ display: 'none' }}
+      width={DRAWER_WIDTH_DESKTOP}
     >
       <div>
         <Title level={4}><PlusOutlined /> Добавление упражнений</Title>
         <Button icon={<CloseOutlined />} onClick={onClose} />
       </div>
+      
       {exerciseItems.map((exercise, index) => (
         <TrainingSidebarItem
           exercise={exercise}

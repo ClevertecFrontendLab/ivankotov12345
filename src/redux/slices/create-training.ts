@@ -7,12 +7,14 @@ type CreatetrainingStateType = {
   isLoading: boolean,
   submittedData: TrainingRequestType | null,
   exercises: ExerciseType[],
+  isModalTrainingsOpen: boolean,
 }
 
 const initialState: CreatetrainingStateType = {
   isLoading: false,
   submittedData: null,
   exercises: [],
+  isModalTrainingsOpen: false,
 }
 
 export const createTrainingSlice = createSlice({
@@ -25,15 +27,23 @@ export const createTrainingSlice = createSlice({
     },
     getCreateTrainingSuccess: (state) => {
       state.isLoading = false;
+      state.isModalTrainingsOpen = false;
     },
     getCreateTrainingError: (state) => {
       state.isLoading = false;
+      state.isModalTrainingsOpen = false;
     },
     setExercisesList: (state, action: PayloadAction<ExerciseType[]>) => {
       state.exercises = action.payload;
     },
     clearExercisesList: (state) => {
       state.exercises = []
+    },
+    openCreateTrainingModal: (state) => {
+      state.isModalTrainingsOpen = true;
+    },
+    closeCreateTrainingModal: (state) => {
+      state.isModalTrainingsOpen = false;
     }
   }
 });
@@ -46,4 +56,6 @@ export const {
   getCreateTrainingError,
   setExercisesList,
   clearExercisesList,
+  openCreateTrainingModal,
+  closeCreateTrainingModal,
 } = createTrainingSlice.actions;

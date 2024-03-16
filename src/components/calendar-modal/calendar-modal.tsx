@@ -1,13 +1,14 @@
 import { Badge, Button, Card, Divider, Empty, Typography } from 'antd';
 import type { Moment } from 'moment';
+import moment from 'moment';
 
 import { ModalCoords } from '@typing/types/modal-coords';
 import { CloseOutlined } from '@ant-design/icons';
-import { useAppSelector } from '@hooks/typed-react-redux-hooks';
+import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { calendarSelect } from '@redux/slices/calendar';
-import moment from 'moment';
 import { CalendarBadgeColors } from '@typing/enums/calendar-badge-colors';
 import { trainingListSelect } from '@redux/slices/training-list';
+import { openCreateTrainingModal } from '@redux/slices/create-training';
 
 import styles from './calendar-modal.module.scss'
 
@@ -17,14 +18,12 @@ type PropsType = {
   setIsModalOpen: (isModalOpen: boolean) => void,
   modalCoords: ModalCoords,
   selectedDate: Moment,
-  setIsModalTrainingOpen: (isModalTrainingOpen: boolean) => void,
 }
 
 export const CalendarModal: React.FC<PropsType> = ({
   setIsModalOpen,
   modalCoords,
   selectedDate,
-  setIsModalTrainingOpen
  }) => {
   const currDate = selectedDate.format('DD.MM.YYYY');
 
@@ -37,10 +36,10 @@ export const CalendarModal: React.FC<PropsType> = ({
       top: `${modalCoords.top}px`,
       left: `${modalCoords.left}px`
       };
-  const onCancel = () => setIsModalOpen(false);
 
   const { trainings } = useAppSelector(calendarSelect);
   const { trainingList } = useAppSelector(trainingListSelect);
+  const dispatch = useAppDispatch()
 
   const currentDateTrainings = trainings
     ?.filter((training) => {
@@ -49,9 +48,11 @@ export const CalendarModal: React.FC<PropsType> = ({
     });
 
   const onCreateTraining = () => {
-    setIsModalTrainingOpen(true);
+    dispatch(openCreateTrainingModal());
     setIsModalOpen(false);
   }
+
+  const onCancel = () => setIsModalOpen(false);
 
   const buttonCreateTrainingDisabled = trainingList
   ?.every((list) => currentDateTrainings?.some(training => training.name === list.name));
@@ -109,7 +110,9 @@ export const CalendarModal: React.FC<PropsType> = ({
           onClick={onCreateTraining}
           className={styles.buttonCreateTrainee}
         >
-          Добавить тренировку
+          {currentDateTrainings?.length === 0
+            ? 'Создать тренировку'
+            : 'Добавить тренировку'}
         </Button>
       </div>
     </Card>

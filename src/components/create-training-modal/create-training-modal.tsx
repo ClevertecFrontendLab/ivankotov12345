@@ -6,8 +6,9 @@ import type { Moment } from 'moment';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { trainingListSelect } from '@redux/slices/training-list';
 import { ModalCoords } from '@typing/types/modal-coords';
-import { Button, Card, Dropdown, Empty, MenuProps, Space, Typography } from 'antd';
+import { Button, Card, Divider, Dropdown, Empty, MenuProps, Space, Typography } from 'antd';
 import {
+  closeCreateTrainingModal,
   createTrainingSelect,
   getCreateTrainingFetch,
   setExercisesList
@@ -17,7 +18,6 @@ import { calendarSelect } from '@redux/slices/calendar';
 import styles from './create-training-modal.module.scss';
 
 type PropsType = {
-  setIsTrainingModalOpen: (isTraineeModalOpen: boolean) => void,
   setIsModalOpen: (isModalOpen: boolean) => void,
   modalCoords: ModalCoords,
   setIsCalendarSidebarOpen: (isCalendarSidebarOpen: boolean) => void,
@@ -27,7 +27,6 @@ type PropsType = {
 const { Text } = Typography;
 
 export const CreateTrainingModal: React.FC<PropsType> = ({
-  setIsTrainingModalOpen,
   setIsModalOpen,
   modalCoords,
   setIsCalendarSidebarOpen,
@@ -35,7 +34,7 @@ export const CreateTrainingModal: React.FC<PropsType> = ({
 }) => {
   const dispatch = useAppDispatch();
   const { trainingList } = useAppSelector(trainingListSelect);
-  const { exercises } = useAppSelector(createTrainingSelect);
+  const { exercises, isLoading } = useAppSelector(createTrainingSelect);
   const { trainings } = useAppSelector(calendarSelect);
 
   const currentDateTrainings = trainings
@@ -58,20 +57,27 @@ export const CreateTrainingModal: React.FC<PropsType> = ({
 
   const openCalendarSidebar = () => setIsCalendarSidebarOpen(true);
   const onBack = () => {
-    setIsTrainingModalOpen(false);
+    dispatch(closeCreateTrainingModal());
     setIsModalOpen(true);
   }
 
-  const items: MenuProps['items'] = trainingList?.map(({ name, key }) => {
-    return {
-      label: name,
-      key,
-      onClick: () => {
-        const selectedType= currentDateTrainings?.find((type) => type.name === name);
-        setSelectedTraining(name);
-        dispatch(setExercisesList(selectedType?.exercises || []));
-      },
-    }
+  const items: MenuProps['items'] = trainingList
+    ?.filter(({ name }) => {
+      return !currentDateTrainings?.some((type) => type.name === name);
+    })
+    .map(({ name, key }) => {
+      return {
+        label: name,
+        key,
+        onClick: () => {
+          const selectedType= currentDateTrainings?.find((type) => type.name === name);
+          setSelectedTraining(name);
+          if(selectedType) {
+            dispatch(setExercisesList(selectedType?.exercises));
+          }
+          setIsModalOpen(true);
+        },
+      }
   });
   const onButtonSave = () => {
     if(selectedTraining && exercises) {
@@ -81,7 +87,6 @@ export const CreateTrainingModal: React.FC<PropsType> = ({
         exercises: exercises,
       }));
     }
-    setIsTrainingModalOpen(false);
   }
   return (
     <Card
@@ -90,32 +95,49 @@ export const CreateTrainingModal: React.FC<PropsType> = ({
     >
       <div className={styles.headerWrapper}>
         <Button
-          icon={<ArrowLeftOutlined />}
+          icon={<ArrowLeftOutlined className={styles.buttonLogo} />}
           type='link'
           onClick={onBack}
+          className={styles.buttonBack}
         />
 
-        <Dropdown menu={{ items }} trigger={['click']}>
+        <Dropdown
+          menu={{ items }}
+          trigger={['click']}
+          className={styles.dropdown}
+        >
             <Space>
               {selectedTraining ? selectedTraining : 'Выбор типа тренировки'}
-              <DownOutlined />
+              <DownOutlined className={styles.dropdownButton} />
             </Space>
         </Dropdown>
       </div>
 
-      <div>
+      <Divider className={styles.divider} />
+
+      <div className={styles.emptyWrapper}>
         {exercises.length
-          ? exercises.map(({ name }) => (
-              <Text key={name}>{name}</Text>
-            )
-          )
-          : <Empty />
+          ? <ul className={styles.exercisesList}>
+              {exercises.map(({ name }) => (
+                <li key={name}>
+                  <Text>{name}</Text>
+                </li>
+              ))}
+            </ul>
+          : <Empty
+              image={'https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg'}
+              description={false}
+              imageStyle={{
+                height: 32
+              }}
+            />
       }
       </div>
 
-      <div>
+      <Divider className={styles.divider} />
+
+      <div className={styles.buttonsWrapper}>
         <Button
-          type='primary'
           block
           onClick={openCalendarSidebar}
           disabled={!selectedTraining}
@@ -127,6 +149,8 @@ export const CreateTrainingModal: React.FC<PropsType> = ({
           type='link'
           block
           onClick={onButtonSave}
+          loading={isLoading}
+          disabled={exercises.length === 0}
         >
           Сохранить
         </Button>

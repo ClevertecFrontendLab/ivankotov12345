@@ -6,8 +6,57 @@
     z-index: 1000;
     width: 264px;
 
+    :global {
+        .ant-card-body {
+            padding: 0;
+        }
+    }
+
     .headerWrapper {
         display: flex;
         justify-content: space-between;
+        padding: 20px 10px;
+        gap: 10px;
+
+        .buttonBack {
+            width: 14px;
+            height: 14px;
+
+            .buttonLogo {
+                color: $character-light-title-85;
+            }
+        }
+
+        .dropdown {
+            width: 100%;
+            justify-content: space-between;
+
+            .dropdownButton {
+                color: $character-light-secondary-45;
+                width: 12px;
+                height: 8px;
+            }
+        }
+    }
+
+    .divider {
+        margin: 0;
+    }
+
+    .exercisesList {
+        margin: 0;
+        padding: 0 12px;
+        list-style-type: none;
+    }
+
+    .emptyWrapper {
+        padding: 16px 0;
+    }
+
+    .buttonsWrapper {
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
     }
 }
