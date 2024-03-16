@@ -8,6 +8,7 @@ type CreatetrainingStateType = {
   submittedData: TrainingRequestType | null,
   exercises: ExerciseType[],
   isModalTrainingsOpen: boolean,
+  selectedTraining: string | null,
 }
 
 const initialState: CreatetrainingStateType = {
@@ -15,6 +16,7 @@ const initialState: CreatetrainingStateType = {
   submittedData: null,
   exercises: [],
   isModalTrainingsOpen: false,
+  selectedTraining: null,
 }
 
 export const createTrainingSlice = createSlice({
@@ -36,8 +38,12 @@ export const createTrainingSlice = createSlice({
     setExercisesList: (state, action: PayloadAction<ExerciseType[]>) => {
       state.exercises = action.payload;
     },
+    setSelectedTraining: (state, action: PayloadAction<string>) => {
+      state.selectedTraining = action.payload;
+    },
     clearExercisesList: (state) => {
-      state.exercises = []
+      state.exercises = [];
+      state.selectedTraining = null;
     },
     openCreateTrainingModal: (state) => {
       state.isModalTrainingsOpen = true;
@@ -55,6 +61,7 @@ export const {
   getCreateTrainingSuccess,
   getCreateTrainingError,
   setExercisesList,
+  setSelectedTraining,
   clearExercisesList,
   openCreateTrainingModal,
   closeCreateTrainingModal,

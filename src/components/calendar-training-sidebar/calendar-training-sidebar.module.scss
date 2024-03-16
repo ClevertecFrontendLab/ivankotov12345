@@ -1,2 +1,64 @@
 @use '../../scss/index' as *;
 
+.trainingSidebar {
+    :global {
+        .ant-drawer-content-wrapper,
+        .ant-drawer-content {
+            border-radius: 8px 0 0 8px;
+        }
+        .ant-drawer-body {
+            padding: 24px 32px;
+        }
+    }
+    .headerWrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+
+        .title {
+            margin-bottom: 0;
+            .titleLogo {
+                width: 14px;
+                height: 14px;
+                margin-right: 6px;
+            }
+        }
+
+        .buttonClose {
+            color: $character-light-secondary-45;
+        }
+    }
+    .selectedTrainingWrapper {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+
+        .badge,
+        .date {
+            font-size: 14px;
+            font-weight: 500;
+            span {
+                color: $character-light-secondary-45;
+            }
+        }
+    }
+
+    .exercisesList {
+        margin: 0;
+        padding: 24px 0 0;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        max-height: 85%;
+        overflow: scroll;
+        list-style-type: none;
+    }
+
+    .buttonsWrapper {
+        position: sticky;
+        margin-top: 24px;
+        background-color: $charactre-light-dividers;
+        width: 100%;
+    }
+}

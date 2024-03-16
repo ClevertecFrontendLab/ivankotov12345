@@ -1,8 +1,27 @@
+@use '../../scss/index' as *;
+
 .inputsNumberWrapper {
     display: flex;
+    gap: 32px;
+    margin-top: 12px;
 
     .label {
         display: block;
+        height: 24px;
+        margin-bottom: 6px;
+        padding: 2px 0 0 4px;
+        background-color: $charactre-light-dividers;
+        font-size: $size-small;
+        color: $character-light-title-85;
+    }
+
+    .buttonPlus {
+        padding: 0;
+        color: $character-light-title-85;
+    }
+
+    .divider {
+        color: $charactre-light-dividers;
     }
 
     .inputsWeightWrapper {

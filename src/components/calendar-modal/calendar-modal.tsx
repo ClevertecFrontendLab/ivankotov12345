@@ -26,6 +26,7 @@ export const CalendarModal: React.FC<PropsType> = ({
   selectedDate,
  }) => {
   const currDate = selectedDate.format('DD.MM.YYYY');
+  const today = moment();
 
   const modalPosition = selectedDate.day() === 0
     ? {
@@ -39,7 +40,7 @@ export const CalendarModal: React.FC<PropsType> = ({
 
   const { trainings } = useAppSelector(calendarSelect);
   const { trainingList } = useAppSelector(trainingListSelect);
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   const currentDateTrainings = trainings
     ?.filter((training) => {
@@ -106,7 +107,7 @@ export const CalendarModal: React.FC<PropsType> = ({
         <Button
           block
           type='primary'
-          disabled={buttonCreateTrainingDisabled}
+          disabled={buttonCreateTrainingDisabled || selectedDate <= today}
           onClick={onCreateTraining}
           className={styles.buttonCreateTrainee}
         >

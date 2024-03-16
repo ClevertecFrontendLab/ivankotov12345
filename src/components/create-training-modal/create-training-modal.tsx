@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { ArrowLeftOutlined, DownOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, DownOutlined, EditOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import type { Moment } from 'moment';
 
@@ -11,7 +10,8 @@ import {
   closeCreateTrainingModal,
   createTrainingSelect,
   getCreateTrainingFetch,
-  setExercisesList
+  setExercisesList,
+  setSelectedTraining
 } from '@redux/slices/create-training';
 import { calendarSelect } from '@redux/slices/calendar';
 
@@ -34,7 +34,7 @@ export const CreateTrainingModal: React.FC<PropsType> = ({
 }) => {
   const dispatch = useAppDispatch();
   const { trainingList } = useAppSelector(trainingListSelect);
-  const { exercises, isLoading } = useAppSelector(createTrainingSelect);
+  const { exercises, selectedTraining, isLoading } = useAppSelector(createTrainingSelect);
   const { trainings } = useAppSelector(calendarSelect);
 
   const currentDateTrainings = trainings
@@ -53,8 +53,6 @@ export const CreateTrainingModal: React.FC<PropsType> = ({
     left: `${modalCoords.left}px`
     };
 
-  const [selectedTraining, setSelectedTraining] = useState<string | null>(null);
-
   const openCalendarSidebar = () => setIsCalendarSidebarOpen(true);
   const onBack = () => {
     dispatch(closeCreateTrainingModal());
@@ -71,9 +69,11 @@ export const CreateTrainingModal: React.FC<PropsType> = ({
         key,
         onClick: () => {
           const selectedType= currentDateTrainings?.find((type) => type.name === name);
-          setSelectedTraining(name);
+          dispatch(setSelectedTraining(name));
           if(selectedType) {
             dispatch(setExercisesList(selectedType?.exercises));
+          } else {
+            dispatch(setExercisesList([])); //Если неправильно - исправить
           }
           setIsModalOpen(true);
         },
@@ -119,8 +119,14 @@ export const CreateTrainingModal: React.FC<PropsType> = ({
         {exercises.length
           ? <ul className={styles.exercisesList}>
               {exercises.map(({ name }) => (
-                <li key={name}>
-                  <Text>{name}</Text>
+                <li key={name} className={styles.listItem}>
+                  <Text className={styles.itemText}>{name}</Text>
+                  <Button
+                    type='link'
+                    icon={<EditOutlined className={styles.buttonIcon} />}
+                    size='small'
+                    onClick={openCalendarSidebar}
+                  />
                 </li>
               ))}
             </ul>
@@ -151,6 +157,7 @@ export const CreateTrainingModal: React.FC<PropsType> = ({
           onClick={onButtonSave}
           loading={isLoading}
           disabled={exercises.length === 0}
+          className={styles.buttonSave}
         >
           Сохранить
         </Button>
