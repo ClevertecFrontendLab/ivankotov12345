@@ -24,10 +24,3 @@
         background-position: center;
     }
 }
-:global {
-    .ant-layout-content {
-        @media (max-width: 675px) {
-            padding: 24px 18px;
-        }
-    }
-}

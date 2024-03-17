@@ -5,6 +5,10 @@
     display: flex;
     flex-direction: column;
     margin: 24px;
+
+    @media (max-width: 675px) {
+        margin: 24px 18px;
+    }
 }
 
 .featuresList,

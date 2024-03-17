@@ -46,6 +46,12 @@
         margin-top: 5px;
 
         .settingsButtonLabel {
+
+            &.settingsButtonLabelCalendar{
+                @media (max-width: 880px) {
+                    display: inline;
+                }
+            }
             @media (max-width: 880px) {
                 display: none;
             }
@@ -58,5 +64,7 @@
         @media (max-width: 675px) {
             margin-top: 0;
         }
+
+
     }
 }

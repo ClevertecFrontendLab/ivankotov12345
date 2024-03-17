@@ -55,11 +55,22 @@ export const AppHeader: React.FC = () => {
           </Title>
           <Button
             className={styles.settingsButton}
-            type={screenWidth && screenWidth > MOBILE_WIDTH ? 'text' : 'default'}
+            type={
+              currentLocation === Paths.MAIN
+                && screenWidth && screenWidth <= MOBILE_WIDTH
+                  ? 'default'
+                  : 'text'
+            }
             size='middle'
-            ghost={screenWidth && screenWidth > MOBILE_WIDTH ? true : false}
             shape={screenWidth && screenWidth > MOBILE_WIDTH ? 'default' : 'circle'}
-            icon={<SettingOutlined className={styles.settingsButtonLabel} />}
+            icon={
+            <SettingOutlined
+              className={
+                currentLocation === Paths.MAIN
+                  ? styles.settingsButtonLabel
+                  : classNames(styles.settingsButtonLabel, styles.settingsButtonLabelCalendar) 
+                }
+              />}
           >
             {screenWidth && screenWidth > MOBILE_WIDTH && 'Настройки'}
           </Button>

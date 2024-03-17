@@ -5,14 +5,39 @@
     background: $primary-light-1;
     position: relative;
     bottom: 1px;
+    z-index: 0;
 
     :global {
         .ant-picker-panel {
             background: transparent;
         }
+
+        .ant-picker-panel,
+        .ant-picker-calendar-header {
+            @media (max-width: 675px) {
+                background: $character-light-primary-inverse;
+            }
+        }
+
+        .ant-picker-calendar-header {
+            @media (max-width: 675px) {
+                display: flex;
+
+                .ant-picker-calendar-mode-switch {
+                    margin-top: 0;
+                    margin-left: 8px;
+                }
+            }
+        }
+
         .ant-picker-calendar-date.ant-picker-calendar-date.ant-picker-calendar-date  {
             background: $character-light-primary-inverse;
             height: 143px;
+
+            @media (max-width: 675px) {
+                width: 100%;
+                height: 24px;
+            }
         }
 
         .ant-picker-calendar-date-today.ant-picker-calendar-date-today.ant-picker-calendar-date-today.ant-picker-calendar-date-today {
@@ -36,6 +61,14 @@
                 line-height: 130%;
             }
         }
+    }
 
+    .trainingDateMobile {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: $primary-light-1;
+        z-index: -1;
     }
 }

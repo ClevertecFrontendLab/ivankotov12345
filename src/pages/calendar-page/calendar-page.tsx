@@ -20,6 +20,8 @@ import {
 import { removeIsRedactTrainingMode } from '@redux/slices/redact-training.ts';
 
 import styles from './calendar-page.module.scss';
+import { useScreenWidth } from '@hooks/use-screen-width-hook.ts';
+import { MOBILE_WIDTH } from '@constants/constants.ts';
 
 
 moment.updateLocale('ru', { week: { dow: 1 } });
@@ -34,6 +36,7 @@ export const CalendarPage: React.FC = () => {
     left: null,
     right: null,
   });
+  const screenWidth = useScreenWidth();
 
   const dispatch = useAppDispatch();
 
@@ -63,6 +66,14 @@ export const CalendarPage: React.FC = () => {
         ))}
       </ul>
     )
+  }
+  const dateCellRenderMobile = (date: Moment) => {
+    const trainingList = getTrainingsNotifications(date);
+    if (trainingList && trainingList.length > 0) {
+      return (
+        <div className={styles.trainingDateMobile} />
+      );
+    }
   }
   useEffect(() => {
     dispatch(getTrainingListFetch());
@@ -104,7 +115,12 @@ export const CalendarPage: React.FC = () => {
         locale={localeRU}
         onSelect={onSelect}
         className={styles.calendarWrapper}
-        dateCellRender={dateCellRender}
+        dateCellRender={
+          screenWidth && screenWidth > MOBILE_WIDTH
+            ? dateCellRender
+            : dateCellRenderMobile
+        }
+        fullscreen={screenWidth && screenWidth > MOBILE_WIDTH ? true : false}
       />
 
       {isModalOpen && <CalendarModal
