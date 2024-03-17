@@ -11,6 +11,7 @@
     background-color: $character-light-primary-inverse;
     clip-path: polygon(0 0, 100% 12%, 100% 88%, 0 100%);
     cursor: pointer;
+    z-index: 1000;
 
     @media (max-width:675px) {
         top: 24px;

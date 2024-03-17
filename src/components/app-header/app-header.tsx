@@ -9,6 +9,7 @@ import { Breadcrumbs } from '@components/breadcrumbs';
 import { MOBILE_WIDTH } from '@constants/constants';
 
 import styles from './header.module.scss';
+import classNames from 'classnames';
 
 const { Header } = Layout;
 const { Title } = Typography;
@@ -26,11 +27,29 @@ export const AppHeader: React.FC = () => {
     }
   }, []);
   return (
-    <Header className={styles.header}>
+    <Header
+      className={
+        currentLocation === Paths.MAIN
+          ? styles.header
+          : classNames(styles.header, styles.headerCalendar) 
+      }
+    >
       <Breadcrumbs />
-      {currentLocation === Paths.MAIN &&
-        <div className={styles.wrapper}>
-          <Title className={styles.title}>
+      {(currentLocation === Paths.MAIN || currentLocation === Paths.CALENDAR) &&
+        <div
+          className={
+            currentLocation === Paths.MAIN
+              ? styles.wrapper
+              : classNames(styles.wrapper, styles.wrapperCalendar) 
+          }
+        >
+          <Title
+            className={
+              currentLocation === Paths.MAIN
+                ? styles.title
+                : classNames(styles.title, styles.titleHidden) 
+              }
+          >
             Приветствуем тебя в CleverFit — приложении,<br />
             которое поможет тебе добиться своей мечты!
           </Title>

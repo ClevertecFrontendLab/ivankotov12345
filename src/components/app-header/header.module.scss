@@ -5,6 +5,10 @@
     height: auto;
     padding: 16px 24px;
 
+    &.headerCalendar {
+        padding: 16px 24px 6px;
+    }
+
     @media (max-width: 675px) {
         padding: 12px 24px 16px;
     }
@@ -13,6 +17,10 @@
 .wrapper {
     display: flex;
     justify-content: space-between;
+
+    &.wrapperCalendar {
+        justify-content: end;
+    }
 
     .title {
         margin: 6px 0;
@@ -28,6 +36,10 @@
             line-height: 130%;
             font-size: $size-header-small;
         }
+    }
+
+    .titleHidden {
+        display: none;
     }
 
     .settingsButton {
