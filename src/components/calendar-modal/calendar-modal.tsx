@@ -3,14 +3,16 @@ import type { Moment } from 'moment';
 import moment from 'moment';
 
 import { ModalCoords } from '@typing/types/modal-coords';
-import { CloseOutlined } from '@ant-design/icons';
+import { CloseOutlined, EditOutlined } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { calendarSelect } from '@redux/slices/calendar';
 import { CalendarBadgeColors } from '@typing/enums/calendar-badge-colors';
 import { trainingListSelect } from '@redux/slices/training-list';
-import { openCreateTrainingModal } from '@redux/slices/create-training';
+import { openCreateTrainingModal, setExercisesList, setSelectedTraining } from '@redux/slices/create-training';
+import { setIsRedactingMode, setSelectedTrainingId } from '@redux/slices/redact-training';
 
 import styles from './calendar-modal.module.scss'
+
 
 const { Text } = Typography;
 
@@ -45,11 +47,34 @@ export const CalendarModal: React.FC<PropsType> = ({
   const currentDateTrainings = trainings
     ?.filter((training) => {
       const trainingDate = moment(training.date).format('DD.MM.YYYY');
-      return currDate === trainingDate
+      return currDate === trainingDate;
     });
 
   const onCreateTraining = () => {
     dispatch(openCreateTrainingModal());
+    setIsModalOpen(false);
+  }
+
+  const onRedactTraining = (trainingName: string) => {
+    const currentDateTrainingItem = currentDateTrainings
+      ?.find(({ name }) => name === trainingName);
+    const currentDateExercises = currentDateTrainingItem?.exercises
+      .map(({ name, replays, weight, approaches}) => {
+        return {
+          name,
+          replays,
+          weight,
+          approaches,
+          isImplementation: false
+        }
+      });
+    if(currentDateTrainingItem && currentDateExercises) {
+      dispatch(setSelectedTrainingId(currentDateTrainingItem._id));
+      dispatch(setSelectedTraining(currentDateTrainingItem.name))
+      dispatch(setExercisesList(currentDateExercises));
+    }
+    dispatch(openCreateTrainingModal());
+    dispatch(setIsRedactingMode());
     setIsModalOpen(false);
   }
 
@@ -87,6 +112,10 @@ export const CalendarModal: React.FC<PropsType> = ({
                   <Badge
                     color={CalendarBadgeColors[name as keyof typeof CalendarBadgeColors]}
                     text={name} />
+                  <Button
+                    icon={<EditOutlined />}
+                    onClick={() => onRedactTraining(name)}
+                  />
                 </li>
               ))}
               </ul>

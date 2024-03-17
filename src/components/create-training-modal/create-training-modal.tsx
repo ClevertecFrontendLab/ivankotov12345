@@ -7,6 +7,7 @@ import { trainingListSelect } from '@redux/slices/training-list';
 import { ModalCoords } from '@typing/types/modal-coords';
 import { Button, Card, Divider, Dropdown, Empty, MenuProps, Space, Typography } from 'antd';
 import {
+  clearExercisesList,
   closeCreateTrainingModal,
   createTrainingSelect,
   getCreateTrainingFetch,
@@ -14,6 +15,7 @@ import {
   setSelectedTraining
 } from '@redux/slices/create-training';
 import { calendarSelect } from '@redux/slices/calendar';
+import { getRedactTrainingFetch, redactTrainingSelect, removeIsRedactTrainingMode } from '@redux/slices/redact-training';
 
 import styles from './create-training-modal.module.scss';
 
@@ -35,13 +37,15 @@ export const CreateTrainingModal: React.FC<PropsType> = ({
   const dispatch = useAppDispatch();
   const { trainingList } = useAppSelector(trainingListSelect);
   const { exercises, selectedTraining, isLoading } = useAppSelector(createTrainingSelect);
+  
   const { trainings } = useAppSelector(calendarSelect);
+  const { isRedactingMode } = useAppSelector(redactTrainingSelect);
 
   const currentDateTrainings = trainings
-  ?.filter((training) => {
-    const trainingDate = moment(training.date).format('DD.MM.YYYY');
-    return selectedDate.format('DD.MM.YYYY') === trainingDate
-  });
+    ?.filter((training) => {
+      const trainingDate = moment(training.date).format('DD.MM.YYYY');
+      return selectedDate.format('DD.MM.YYYY') === trainingDate
+    });
 
   const modalPosition = selectedDate.day() === 0
   ? {
@@ -56,11 +60,16 @@ export const CreateTrainingModal: React.FC<PropsType> = ({
   const openCalendarSidebar = () => setIsCalendarSidebarOpen(true);
   const onBack = () => {
     dispatch(closeCreateTrainingModal());
+    dispatch(removeIsRedactTrainingMode());
+    dispatch(clearExercisesList());
     setIsModalOpen(true);
   }
 
   const items: MenuProps['items'] = trainingList
     ?.filter(({ name }) => {
+      if (isRedactingMode) {
+        return true;
+      }
       return !currentDateTrainings?.some((type) => type.name === name);
     })
     .map(({ name, key }) => {
@@ -73,15 +82,25 @@ export const CreateTrainingModal: React.FC<PropsType> = ({
           if(selectedType) {
             dispatch(setExercisesList(selectedType?.exercises));
           } else {
-            dispatch(setExercisesList([])); //Если неправильно - исправить
+            dispatch(setExercisesList([]));
           }
           setIsModalOpen(true);
         },
       }
   });
-  const onButtonSave = () => {
+  const onButtonSaveCreate = () => {
     if(selectedTraining && exercises) {
       dispatch(getCreateTrainingFetch({
+        name: selectedTraining,
+        date: selectedDate.format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
+        exercises: exercises,
+      }));
+    }
+  }
+
+  const onButtonSaveRedact = () => {
+    if(selectedTraining && exercises) {
+      dispatch(getRedactTrainingFetch({
         name: selectedTraining,
         date: selectedDate.format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
         exercises: exercises,
@@ -154,7 +173,7 @@ export const CreateTrainingModal: React.FC<PropsType> = ({
         <Button
           type='link'
           block
-          onClick={onButtonSave}
+          onClick={isRedactingMode? onButtonSaveRedact : onButtonSaveCreate}
           loading={isLoading}
           disabled={exercises.length === 0}
           className={styles.buttonSave}

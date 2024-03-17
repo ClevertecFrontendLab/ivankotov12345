@@ -1,18 +1,27 @@
-import { Button, Input, InputNumber, Typography } from 'antd';
+import { Button, Checkbox, Input, InputNumber, Typography } from 'antd';
 
 import { ExerciseType } from '@typing/types/exercise-types';
+import { useAppSelector } from '@hooks/typed-react-redux-hooks';
+import { redactTrainingSelect } from '@redux/slices/redact-training';
 
 import styles from './training-sidebar-item.module.scss'
+
 
 type PropsType = {
   exercise: ExerciseType,
   index: number
   changeExercise: (index: number, changedExercise: ExerciseType) => void,
+  handleRemoveChange: (index: number, isRemoveChecked: boolean) => void,
 }
 
 const { Text } = Typography;
 
-export const TrainingSidebarItem: React.FC<PropsType> = ({ exercise, changeExercise, index }) => {
+export const TrainingSidebarItem: React.FC<PropsType> = ({
+  exercise,
+  changeExercise,
+  handleRemoveChange,
+  index }) => {
+  const { isRedactingMode } = useAppSelector(redactTrainingSelect);
   const onTrainigNameChange = (e: React.ChangeEvent<HTMLInputElement>) => 
     changeExercise(index, {...exercise, name: e.target.value});
   const onApproachesChange = (value: number | null) => 
@@ -29,6 +38,12 @@ export const TrainingSidebarItem: React.FC<PropsType> = ({ exercise, changeExerc
         placeholder='Упражнение'
         value={exercise.name}
         onChange={onTrainigNameChange}
+        addonAfter={
+          isRedactingMode 
+          && <Checkbox
+               onChange={(e) => handleRemoveChange(index, e.target.checked)}
+             />
+        }
       />
 
       <div className={styles.inputsNumberWrapper}>

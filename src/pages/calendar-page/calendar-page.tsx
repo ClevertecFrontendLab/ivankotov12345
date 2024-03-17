@@ -13,9 +13,14 @@ import { CreateTrainingModal } from '@components/create-training-modal/create-tr
 import { CalendarTrainingSidebar } from '@components/calendar-training-sidebar/calendar-training-sidebar.tsx';
 import { calendarSelect } from '@redux/slices/calendar.tsx';
 import { CalendarBadgeColors } from '@typing/enums/calendar-badge-colors.ts';
-import { clearExercisesList, closeCreateTrainingModal, createTrainingSelect } from '@redux/slices/create-training.ts';
+import {
+  clearExercisesList,
+  closeCreateTrainingModal,
+  createTrainingSelect } from '@redux/slices/create-training.ts';
+import { removeIsRedactTrainingMode } from '@redux/slices/redact-training.ts';
 
 import styles from './calendar-page.module.scss';
+
 
 moment.updateLocale('ru', { week: { dow: 1 } });
 
@@ -87,6 +92,7 @@ export const CalendarPage: React.FC = () => {
   }, [selectedDate]);
 
   const onSelect = (currDate: Moment) => {
+    dispatch(removeIsRedactTrainingMode());
     dispatch(closeCreateTrainingModal())
     setIsModalOpen(true);
     setSelectedDate(currDate);

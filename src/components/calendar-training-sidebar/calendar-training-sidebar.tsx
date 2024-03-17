@@ -7,10 +7,11 @@ import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { createTrainingSelect, setExercisesList } from '@redux/slices/create-training';
 import { ExerciseType } from '@typing/types/exercise-types';
 import { DRAWER_WIDTH_DESKTOP, EMPTY_EXERCISE } from '@constants/constants';
-import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
+import { CloseOutlined, EditOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { CalendarBadgeColors } from '@typing/enums/calendar-badge-colors';
 
 import styles from './calendar-training-sidebar.module.scss';
+import { redactTrainingSelect } from '@redux/slices/redact-training';
 
 type PropsType = {
   isCalendarSidebarOpen: boolean,
@@ -27,6 +28,7 @@ export const CalendarTrainingSidebar: React.FC<PropsType> = ({
 }) => {
   const dispatch = useAppDispatch();
   const { exercises, selectedTraining } = useAppSelector(createTrainingSelect);
+  const { isRedactingMode } = useAppSelector(redactTrainingSelect);
   const [exerciseItems, setExerciseItems] = useState<ExerciseType[]>(
     exercises.length === 0
     ? [EMPTY_EXERCISE]
@@ -35,6 +37,13 @@ export const CalendarTrainingSidebar: React.FC<PropsType> = ({
   const date = selectedDate.format('DD.MM.YYYY');
 
   const addItem = () => setExerciseItems([...exerciseItems, EMPTY_EXERCISE]);
+
+  const [checkedRemoveItems, setCheckedRemoveItems] = 
+    useState<boolean[]>(new Array(exerciseItems.length).fill(false));
+
+  const handleRemoveChange = (index: number, isRemoveChecked: boolean) => {
+    setCheckedRemoveItems(checkedRemoveItems.map((item, i) => i === index ? isRemoveChecked : item));
+  };
 
   const changeExercise = (index: number, changedExercise: ExerciseType) => {
     setExerciseItems(exerciseItems.map((item, i) => i === index ? changedExercise : item));
@@ -46,6 +55,10 @@ export const CalendarTrainingSidebar: React.FC<PropsType> = ({
     setIsCalendarSidebarOpen(false);
   };
 
+  const removeCheckedItems = () => {
+    setExerciseItems(exerciseItems.filter((_, index) => !checkedRemoveItems[index]));
+    setCheckedRemoveItems(checkedRemoveItems.filter((_, index) => !checkedRemoveItems[index]));
+  };
   return (
     <Drawer
       open={isCalendarSidebarOpen}
@@ -56,7 +69,14 @@ export const CalendarTrainingSidebar: React.FC<PropsType> = ({
     >
       <div className={styles.headerWrapper}>
         <Title level={4} className={styles.title}>
-          <PlusOutlined className={styles.titleLogo} />Добавление упражнений
+          {isRedactingMode
+            ? <>
+                <EditOutlined className={styles.titleLogo} />Редактирование
+              </>
+            : <>
+                <PlusOutlined className={styles.titleLogo} />Добавление упражнений
+              </>
+          }
         </Title>
         <Button
           icon={<CloseOutlined />}
@@ -84,6 +104,7 @@ export const CalendarTrainingSidebar: React.FC<PropsType> = ({
             key={index}
             changeExercise={changeExercise}
             index={index}
+            handleRemoveChange={handleRemoveChange}
           />
         ))}
       </ul>
@@ -97,6 +118,14 @@ export const CalendarTrainingSidebar: React.FC<PropsType> = ({
         />}>
           Добавить ещё
         </Button>
+        {isRedactingMode &&
+        <Button
+          type='link'
+          icon={<MinusOutlined />}
+          onClick={removeCheckedItems}
+        >
+          Удалить
+        </Button>}
       </div>
     </Drawer>
   )
