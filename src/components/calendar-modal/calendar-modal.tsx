@@ -111,9 +111,11 @@ export const CalendarModal: React.FC<PropsType> = ({
                 <li key={name}>
                   <Badge
                     color={CalendarBadgeColors[name as keyof typeof CalendarBadgeColors]}
-                    text={name} />
+                    text={name}
+                  />
                   <Button
-                    icon={<EditOutlined />}
+                    type='text'
+                    icon={<EditOutlined className={styles.editIcon} />}
                     onClick={() => onRedactTraining(name)}
                   />
                 </li>

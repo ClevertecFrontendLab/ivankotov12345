@@ -61,6 +61,13 @@
 
         li {
             height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .editIcon {
+                color: $primary-light-6
+            }
         }
     }
 

@@ -54,7 +54,8 @@ export const TrainingSidebarItem: React.FC<PropsType> = ({
             min={1}
             addonBefore={
               <Button
-                type='link'
+                type='text'
+                size='small'
                 className={styles.buttonPlus}
                 onClick={incrementApproaches}
               >

@@ -18,6 +18,7 @@ import { calendarSelect } from '@redux/slices/calendar';
 import { getRedactTrainingFetch, redactTrainingSelect, removeIsRedactTrainingMode } from '@redux/slices/redact-training';
 
 import styles from './create-training-modal.module.scss';
+import { useEffect } from 'react';
 
 type PropsType = {
   setIsModalOpen: (isModalOpen: boolean) => void,
@@ -107,6 +108,12 @@ export const CreateTrainingModal: React.FC<PropsType> = ({
       }));
     }
   }
+
+  useEffect(() => {
+    if(exercises.length === 0) {
+      dispatch(removeIsRedactTrainingMode());
+    }
+  }, [dispatch, exercises]);
   return (
     <Card
       className={styles.card}
