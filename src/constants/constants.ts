@@ -2,6 +2,7 @@ export const MOBILE_WIDTH = 675;
 
 export const MODAL_WIDTH_DESKTOP = 539;
 export const MODAL_WIDTH_MOBILE = 539;
+export const MODAL_WIDTH_CALENDAR = 384;
 
 export const DRAWER_WIDTH_DESKTOP = 408;
 

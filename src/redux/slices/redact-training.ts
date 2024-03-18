@@ -2,19 +2,24 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { RootState } from '@redux/configure-store';
 import { TrainingRequestType } from '@typing/types/request-types';
+import { MessageCalendarType } from '@typing/types/message-types';
 
 type RedactTrainingStateType = {
   isLoading: boolean,
+  isError: boolean,
   isRedactingMode: boolean,
   trainingId: string | null,
   submittedData: TrainingRequestType | null,
+  message: MessageCalendarType | null,
 }
 
 const initialState: RedactTrainingStateType = {
   isLoading: false,
+  isError: false,
   isRedactingMode: false,
   trainingId: null,
   submittedData: null,
+  message: null,
 }
 
 export const redactTrainingSlice = createSlice({
@@ -31,14 +36,19 @@ export const redactTrainingSlice = createSlice({
     getRedactTrainingSuccess: (state) => {
       state.isLoading = false;
     },
-    getRedactTrainingError: (state) => {
+    getRedactTrainingError: (state, action: PayloadAction<MessageCalendarType>) => {
       state.isLoading = false;
+      state.message = action.payload;
     },
     setIsRedactingMode: (state) => {
       state.isRedactingMode = true;
     },
     removeIsRedactTrainingMode: (state) => {
       state.isRedactingMode = false;
+    },
+    clearRedactingError: (state) => {
+      state.message = null;
+      state.isError = false;
     }
   }
 });
@@ -52,6 +62,7 @@ export const {
   setIsRedactingMode,
   setSelectedTrainingId,
   removeIsRedactTrainingMode,
+  clearRedactingError
 } = redactTrainingSlice.actions;
 export const redactTrainingReducer = redactTrainingSlice.reducer;
 

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { ArrowLeftOutlined, DownOutlined, EditOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import type { Moment } from 'moment';
@@ -15,10 +16,14 @@ import {
   setSelectedTraining
 } from '@redux/slices/create-training';
 import { calendarSelect } from '@redux/slices/calendar';
-import { getRedactTrainingFetch, redactTrainingSelect, removeIsRedactTrainingMode } from '@redux/slices/redact-training';
+import {
+  getRedactTrainingFetch,
+  redactTrainingSelect,
+  removeIsRedactTrainingMode,
+} from '@redux/slices/redact-training';
 
 import styles from './create-training-modal.module.scss';
-import { useEffect } from 'react';
+
 
 type PropsType = {
   setIsModalOpen: (isModalOpen: boolean) => void,

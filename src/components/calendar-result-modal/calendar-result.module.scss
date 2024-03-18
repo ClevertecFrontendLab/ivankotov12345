@@ -1,0 +1,55 @@
+@use '../../scss/index' as *;
+
+
+.modal {
+    :global {
+        .ant-modal-header {
+            border-bottom: none;
+        }
+        .ant-modal-footer {
+            border-top: none;
+        }
+
+        .ant-modal-close {
+            display: none;
+        }
+    }
+
+    .headerWrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        gap: 16px;
+
+        .title {
+            margin: 0;
+            font-size: $size-semi-small;
+        }
+
+        .buttonCloseIcon {
+            width: 10px;
+            height: 10px;
+            color: $character-light-secondary-45;
+        }
+    }
+
+    .retryButton {
+        @include color-button-primary;
+    }
+}
+.closeCircleBlue {
+    width: 24px;
+    height: 24px;
+
+    svg {
+        width: 24px;
+        height: 24px;
+        fill: $primary-light-6
+    }
+
+    &.closeCircleRed {
+        svg {
+            fill: $character-light-error;
+        }
+    }
+}

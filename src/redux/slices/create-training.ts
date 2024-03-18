@@ -1,6 +1,7 @@
 import { RootState } from '@redux/configure-store';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { ExerciseType } from '@typing/types/exercise-types';
+import { MessageCalendarType } from '@typing/types/message-types';
 import { TrainingRequestType } from '@typing/types/request-types';
 
 type CreatetrainingStateType = {
@@ -9,6 +10,8 @@ type CreatetrainingStateType = {
   exercises: ExerciseType[],
   isModalTrainingsOpen: boolean,
   selectedTraining: string | null,
+  message: MessageCalendarType | null,
+  isError: boolean,
 }
 
 const initialState: CreatetrainingStateType = {
@@ -17,6 +20,8 @@ const initialState: CreatetrainingStateType = {
   exercises: [],
   isModalTrainingsOpen: false,
   selectedTraining: null,
+  message: null,
+  isError: false,
 }
 
 export const createTrainingSlice = createSlice({
@@ -31,9 +36,11 @@ export const createTrainingSlice = createSlice({
       state.isLoading = false;
       state.isModalTrainingsOpen = false;
     },
-    getCreateTrainingError: (state) => {
+    getCreateTrainingError: (state, action: PayloadAction<MessageCalendarType>) => {
       state.isLoading = false;
       state.isModalTrainingsOpen = false;
+      state.message = action.payload;
+      state.isError = true;
     },
     setExercisesList: (state, action: PayloadAction<ExerciseType[]>) => {
       state.exercises = action.payload;
@@ -50,6 +57,10 @@ export const createTrainingSlice = createSlice({
     },
     closeCreateTrainingModal: (state) => {
       state.isModalTrainingsOpen = false;
+    },
+    clearCreateTrainingError: (state) => {
+      state.isError = false;
+      state.message = null;
     }
   }
 });
@@ -65,4 +76,5 @@ export const {
   clearExercisesList,
   openCreateTrainingModal,
   closeCreateTrainingModal,
+  clearCreateTrainingError
 } = createTrainingSlice.actions;

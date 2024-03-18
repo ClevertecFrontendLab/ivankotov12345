@@ -1,0 +1,1 @@
+export { CalendarResult } from './calendar-result';

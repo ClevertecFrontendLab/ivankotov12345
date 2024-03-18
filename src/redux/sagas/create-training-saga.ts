@@ -3,8 +3,13 @@ import { instance } from '@axios/axios';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { AxiosPaths } from '@typing/enums/axios-paths';
 import { TrainingRequestType } from '@typing/types/request-types';
-import { getCreateTrainingFetch, getCreateTrainingSuccess } from '@redux/slices/create-training';
+import {
+  getCreateTrainingError,
+  getCreateTrainingFetch,
+  getCreateTrainingSuccess
+} from '@redux/slices/create-training';
 import { getCalendarFetch } from '@redux/slices/calendar';
+import { GetModalCalendarError } from '@typing/enums/result-messages';
 
 function* createTrainingWorker(action: PayloadAction<TrainingRequestType>) {
   try {
@@ -16,7 +21,12 @@ function* createTrainingWorker(action: PayloadAction<TrainingRequestType>) {
     yield put(getCreateTrainingSuccess());
     yield put(getCalendarFetch());
   } catch(error) {
-    console.log(error)
+    yield put(getCreateTrainingError({
+      error: GetModalCalendarError.status,
+      title: GetModalCalendarError.title,
+      text: GetModalCalendarError.text,
+      buttonText: GetModalCalendarError.buttonText,
+    }));
   }
 
 }

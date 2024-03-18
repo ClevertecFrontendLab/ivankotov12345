@@ -73,3 +73,17 @@ export enum SendFeedbackErrorMessage {
   buttonTextWriteMessage = 'Написать отзыв',
   buttonTextClose = 'Закрыть',
 }
+
+export enum GetTrainingListError {
+  status = 'error no training list',
+  title = 'При открытии данных произошла ошибка',
+  text = 'Попробуйте ещё раз',
+  buttonText = 'Обновить',
+}
+
+export enum GetModalCalendarError {
+  status = 'error submit data',
+  title = 'При сохранении данных произошла ошибка',
+  text = 'Придется попробовать еще раз',
+  buttonText = 'Закрыть',
+}

@@ -37,5 +37,6 @@ export const calendarSlice = createSlice({
 });
 
 export const calendarSelect = (state: RootState) => state.calendar;
+export const calendarErrorMessageSelect = (state: RootState) => state.calendar.message;
 export const calendarReducer = calendarSlice.reducer;
 export const { getCalendarFetch, getCalendarSuccess, getCalendarError } = calendarSlice.actions;

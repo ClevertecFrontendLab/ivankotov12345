@@ -6,7 +6,7 @@ import 'moment/locale/ru';
 
 import { localeRU } from './locale/locale.ts';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks.ts';
-import { getTrainingListFetch } from '@redux/slices/training-list.ts';
+import { getTrainingListFetch, trainingListSelect } from '@redux/slices/training-list.ts';
 import { CalendarModal } from '@components/calendar-modal/calendar-modal.tsx';
 import { ModalCoords } from '@typing/types/modal-coords.ts';
 import { CreateTrainingModal } from '@components/create-training-modal/create-training-modal.tsx';
@@ -17,17 +17,20 @@ import {
   clearExercisesList,
   closeCreateTrainingModal,
   createTrainingSelect } from '@redux/slices/create-training.ts';
-import { removeIsRedactTrainingMode } from '@redux/slices/redact-training.ts';
-
-import styles from './calendar-page.module.scss';
+import { redactTrainingSelect, removeIsRedactTrainingMode } from '@redux/slices/redact-training.ts';
 import { useScreenWidth } from '@hooks/use-screen-width-hook.ts';
 import { MOBILE_WIDTH } from '@constants/constants.ts';
+
+import styles from './calendar-page.module.scss'
+import { CalendarResult } from '@components/calendar-result-modal/calendar-result.tsx';
 
 
 moment.updateLocale('ru', { week: { dow: 1 } });
 
 export const CalendarPage: React.FC = () => {
-  const { isModalTrainingsOpen } = useAppSelector(createTrainingSelect);
+  const { isError: isCreateTrainingError, isModalTrainingsOpen } = useAppSelector(createTrainingSelect);
+  const { isError: isTrainingListError } = useAppSelector(trainingListSelect);
+  const { isError: isRedactTrainingError } = useAppSelector(redactTrainingSelect);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isCalendarSidebarOpen, setIsCalendarSidebarOpen] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Moment>(() => moment());
@@ -78,7 +81,7 @@ export const CalendarPage: React.FC = () => {
   useEffect(() => {
     dispatch(getTrainingListFetch());
   }, [dispatch]);
-
+  
   const getModalCoords = () => {
     const selectedDate = document.querySelector('.ant-picker-cell-selected') as HTMLElement;
     const rect = selectedDate.getBoundingClientRect();
@@ -139,6 +142,9 @@ export const CalendarPage: React.FC = () => {
         setIsCalendarSidebarOpen={setIsCalendarSidebarOpen}
         selectedDate={selectedDate}
       />}
+
+      {(isTrainingListError || isCreateTrainingError || isRedactTrainingError)
+        && <CalendarResult />}
     </>
   )
 }
