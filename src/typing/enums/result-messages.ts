@@ -84,6 +84,6 @@ export enum GetTrainingListError {
 export enum GetModalCalendarError {
   status = 'error submit data',
   title = 'При сохранении данных произошла ошибка',
-  text = 'Придется попробовать еще раз',
+  text = 'Придётся попробовать ещё раз',
   buttonText = 'Закрыть',
 }

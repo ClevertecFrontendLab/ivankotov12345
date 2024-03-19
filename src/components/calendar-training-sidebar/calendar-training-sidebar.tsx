@@ -6,12 +6,13 @@ import { TrainingSidebarItem } from '@components/training-sidebar-item';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { createTrainingSelect, setExercisesList } from '@redux/slices/create-training';
 import { ExerciseType } from '@typing/types/exercise-types';
-import { DRAWER_WIDTH_DESKTOP, EMPTY_EXERCISE } from '@constants/constants';
+import { DRAWER_WIDTH_DESKTOP, DRAWER_WIDTH_MOBILE, EMPTY_EXERCISE, MOBILE_WIDTH } from '@constants/constants';
 import { CloseOutlined, EditOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { CalendarBadgeColors } from '@typing/enums/calendar-badge-colors';
 
 import styles from './calendar-training-sidebar.module.scss';
 import { redactTrainingSelect } from '@redux/slices/redact-training';
+import { useScreenWidth } from '@hooks/use-screen-width-hook';
 
 type PropsType = {
   isCalendarSidebarOpen: boolean,
@@ -34,7 +35,15 @@ export const CalendarTrainingSidebar: React.FC<PropsType> = ({
     ? [EMPTY_EXERCISE]
     : [...exercises]);
 
+  
+
   const date = selectedDate.format('DD.MM.YYYY');
+
+  const screenWidth = useScreenWidth()
+
+  const drawerWidth = screenWidth && screenWidth > MOBILE_WIDTH
+    ? DRAWER_WIDTH_DESKTOP
+    : DRAWER_WIDTH_MOBILE;
 
   const addItem = () => setExerciseItems([...exerciseItems, EMPTY_EXERCISE]);
 
@@ -63,9 +72,11 @@ export const CalendarTrainingSidebar: React.FC<PropsType> = ({
     <Drawer
       open={isCalendarSidebarOpen}
       mask={false}
+      closable={true}
       headerStyle={{ display: 'none' }}
-      width={DRAWER_WIDTH_DESKTOP}
+      width={drawerWidth}
       className={styles.trainingSidebar}
+      data-test-id='modal-drawer-right'
     >
       <div className={styles.headerWrapper}>
         <Title level={4} className={styles.title}>
@@ -84,6 +95,7 @@ export const CalendarTrainingSidebar: React.FC<PropsType> = ({
           type='link'
           size='small'
           className={styles.buttonClose}
+          data-test-id='modal-drawer-right-button-close'
         />
       </div>
 
@@ -123,6 +135,7 @@ export const CalendarTrainingSidebar: React.FC<PropsType> = ({
           type='link'
           icon={<MinusOutlined />}
           onClick={removeCheckedItems}
+          disabled={checkedRemoveItems.every(el => el === false)}
         >
           Удалить
         </Button>}

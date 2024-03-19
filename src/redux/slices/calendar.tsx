@@ -7,13 +7,14 @@ type CalendarStateType = {
   isLoading: boolean,
   isError: boolean,
   trainings: CalendarResponseItemType[] | null;
-  message?: MessageType,
+  message: MessageType | null,
 }
 
 const initialState: CalendarStateType = {
   isLoading: false,
   isError: false,
   trainings: null,
+  message: null,
 }
 
 export const calendarSlice = createSlice({
@@ -33,10 +34,20 @@ export const calendarSlice = createSlice({
       state.isError = true;
       state.message = action.payload;
     },
+    clearCalendarError: (state) => {
+      state.isLoading = false;
+      state.isError = false;
+      state.message = null;
+    }
   }
 });
 
 export const calendarSelect = (state: RootState) => state.calendar;
 export const calendarErrorMessageSelect = (state: RootState) => state.calendar.message;
 export const calendarReducer = calendarSlice.reducer;
-export const { getCalendarFetch, getCalendarSuccess, getCalendarError } = calendarSlice.actions;
+export const {
+  getCalendarFetch,
+  getCalendarSuccess,
+  getCalendarError,
+  clearCalendarError
+} = calendarSlice.actions;

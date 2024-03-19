@@ -5,6 +5,7 @@ export const MODAL_WIDTH_MOBILE = 539;
 export const MODAL_WIDTH_CALENDAR = 384;
 
 export const DRAWER_WIDTH_DESKTOP = 408;
+export const DRAWER_WIDTH_MOBILE = '100%';
 
 export const EMPTY_EXERCISE = {
   name: '',

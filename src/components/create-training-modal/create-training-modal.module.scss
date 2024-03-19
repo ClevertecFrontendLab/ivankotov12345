@@ -1,10 +1,14 @@
 @use '../../scss/index' as *;
 
 .card {
-    display: block;
+    display: none;
     position: absolute;
     z-index: 1000;
     width: 264px;
+
+    &.cardOpen {
+        display: block;
+    }
 
     :global {
         .ant-card-body {
@@ -27,16 +31,10 @@
             }
         }
 
-        .dropdown {
-            width: 100%;
-            justify-content: space-between;
-
-            .dropdownButton {
-                color: $character-light-secondary-45;
-                width: 12px;
-                height: 8px;
-            }
-        }
+        
+    .select {
+        width: 100%;
+    }
     }
 
     .divider {
@@ -53,12 +51,21 @@
             align-items: center;
             justify-content: space-between;
 
-            .itemText {
-                color: $character-light-secondary-45;
-            }
-
-            .buttonIcon {
-                color: $primary-light-6;
+            .buttonRedact {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                .editIcon {
+                    color: $primary-light-6
+                }
+                .itemText {
+                    color: $character-light-secondary-45;
+                }
+    
+                .buttonIcon {
+                    color: $primary-light-6;
+                }
             }
         }
     }
@@ -76,5 +83,10 @@
         .buttonSave {
             color: $primary-light-6;
         }
+    }
+
+    @media (max-width: 675px) {
+        width: calc(100% - 48px);
+        margin-left: 24px;
     }
 }

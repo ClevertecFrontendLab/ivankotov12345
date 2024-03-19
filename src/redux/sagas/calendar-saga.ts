@@ -1,12 +1,9 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { push } from 'redux-first-history';
-import { AxiosError } from 'axios';
 import { instance } from '@axios/axios';
-import { getCalendarFetch, getCalendarSuccess } from '@redux/slices/calendar';
+import { getCalendarError, getCalendarFetch, getCalendarSuccess } from '@redux/slices/calendar';
 import { AxiosPaths } from '@typing/enums/axios-paths';
 import { Paths } from '@typing/enums/paths';
-import { ErrorStatus } from '@typing/enums/error-status';
-import { getReviewsError } from '@redux/slices/reviews';
 import { NavigateErrorMessage } from '@typing/enums/result-messages';
 
 function* calendarWorker() {
@@ -18,20 +15,13 @@ function* calendarWorker() {
     yield put(getCalendarSuccess(data));
     yield put(push(Paths.CALENDAR));
   } catch(error) {
-    const { response } = error as AxiosError;
-    if(response?.status === ErrorStatus.FORBIDDEN){
-      yield localStorage.removeItem('token');
-      yield sessionStorage.removeItem('token');
-      yield put(push(Paths.AUTH));
-    } else {
-      yield put(getReviewsError({
-        status: NavigateErrorMessage.status,
-        title: NavigateErrorMessage.title,
-        subTitle: NavigateErrorMessage.subTitle,
-        buttonText: NavigateErrorMessage.buttonText,
-        buttonLink: Paths.MAIN,
-      }));
-    }
+    yield put(getCalendarError({
+      status: NavigateErrorMessage.status,
+      title: NavigateErrorMessage.title,
+      subTitle: NavigateErrorMessage.subTitle,
+      buttonText: NavigateErrorMessage.buttonText,
+      buttonLink: Paths.MAIN,
+    }));
   }
 }
 

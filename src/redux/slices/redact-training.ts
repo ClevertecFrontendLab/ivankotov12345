@@ -39,6 +39,7 @@ export const redactTrainingSlice = createSlice({
     getRedactTrainingError: (state, action: PayloadAction<MessageCalendarType>) => {
       state.isLoading = false;
       state.message = action.payload;
+      state.isError = true;
     },
     setIsRedactingMode: (state) => {
       state.isRedactingMode = true;

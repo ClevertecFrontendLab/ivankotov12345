@@ -12,13 +12,12 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { ExerciseType } from '@typing/types/exercise-types';
 import { GetModalCalendarError } from '@typing/enums/result-messages';
 
-
 function* redactTrainingWorker(action: PayloadAction<ExerciseType[]>) {
   try {
     const id: string = yield select(trainingIdSelect);
     yield call(
       instance.put,
-      `${AxiosPaths.TRAINING}/${id}1`,
+      `${AxiosPaths.TRAINING}/${id}`,
       action.payload
     );
     yield put(getRedactTrainingSuccess());

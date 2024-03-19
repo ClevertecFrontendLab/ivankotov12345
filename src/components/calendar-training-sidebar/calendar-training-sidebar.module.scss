@@ -5,9 +5,17 @@
         .ant-drawer-content-wrapper,
         .ant-drawer-content {
             border-radius: 8px 0 0 8px;
+
+            @media (max-width: 675px) {
+                border-radius: 24px 24px 0 0;
+            }
         }
         .ant-drawer-body {
             padding: 24px 32px;
+
+            @media (max-width: 675px) {
+                padding: 24px 16px;
+            }
         }
     }
     .headerWrapper {
@@ -60,5 +68,12 @@
         margin-top: 24px;
         background-color: $charactre-light-dividers;
         width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    @media (max-width: 675px) {
+        margin-top: 85px;
     }
 }

@@ -1,12 +1,14 @@
-import { useEffect } from 'react';
-import { ArrowLeftOutlined, DownOutlined, EditOutlined } from '@ant-design/icons';
+import { useEffect, useState } from 'react';
+import { ArrowLeftOutlined, EditOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import type { Moment } from 'moment';
+import classNames from 'classnames';
 
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
+import { useScreenWidth } from '@hooks/use-screen-width-hook';
 import { trainingListSelect } from '@redux/slices/training-list';
 import { ModalCoords } from '@typing/types/modal-coords';
-import { Button, Card, Divider, Dropdown, Empty, MenuProps, Space, Typography } from 'antd';
+import { Button, Card, Divider, Empty, Select, Typography } from 'antd';
 import {
   clearExercisesList,
   closeCreateTrainingModal,
@@ -21,6 +23,7 @@ import {
   redactTrainingSelect,
   removeIsRedactTrainingMode,
 } from '@redux/slices/redact-training';
+import { MOBILE_WIDTH } from '@constants/constants';
 
 import styles from './create-training-modal.module.scss';
 
@@ -40,9 +43,21 @@ export const CreateTrainingModal: React.FC<PropsType> = ({
   setIsCalendarSidebarOpen,
   selectedDate,
 }) => {
+  const today = moment();
+  const isFuture = selectedDate > today;
+  console.log(isFuture);
+  const [edititngDisable, setEditingDisable] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const { trainingList } = useAppSelector(trainingListSelect);
-  const { exercises, selectedTraining, isLoading } = useAppSelector(createTrainingSelect);
+  const {
+    exercises,
+    selectedTraining,
+    isLoading,
+    isModalTrainingsOpen
+  } = useAppSelector(createTrainingSelect);
+
+  const screenWidth = useScreenWidth();
+  const isDesktop = screenWidth && screenWidth > MOBILE_WIDTH ? true : false;
   
   const { trainings } = useAppSelector(calendarSelect);
   const { isRedactingMode } = useAppSelector(redactTrainingSelect);
@@ -50,7 +65,7 @@ export const CreateTrainingModal: React.FC<PropsType> = ({
   const currentDateTrainings = trainings
     ?.filter((training) => {
       const trainingDate = moment(training.date).format('DD.MM.YYYY');
-      return selectedDate.format('DD.MM.YYYY') === trainingDate
+      return selectedDate.format('DD.MM.YYYY') === trainingDate;
     });
 
   const modalPosition = selectedDate.day() === 0
@@ -71,29 +86,32 @@ export const CreateTrainingModal: React.FC<PropsType> = ({
     setIsModalOpen(true);
   }
 
-  const items: MenuProps['items'] = trainingList
+  const selectOptions = trainingList
     ?.filter(({ name }) => {
-      if (isRedactingMode) {
+      const currentTraining = currentDateTrainings?.find((type) => type.name === name);
+      if (isRedactingMode && selectedDate <= today && currentTraining?.isImplementation === false) {
         return true;
       }
       return !currentDateTrainings?.some((type) => type.name === name);
     })
-    .map(({ name, key }) => {
+    .map(({ name }) => {
       return {
+        value: name,
         label: name,
-        key,
-        onClick: () => {
-          const selectedType= currentDateTrainings?.find((type) => type.name === name);
-          dispatch(setSelectedTraining(name));
-          if(selectedType) {
-            dispatch(setExercisesList(selectedType?.exercises));
-          } else {
-            dispatch(setExercisesList([]));
-          }
-          setIsModalOpen(true);
-        },
+      }});
+
+    const onChange = (value: string) => {
+      const selectedType = currentDateTrainings?.find((type) => type.name === value);
+      dispatch(setSelectedTraining(value));
+      if(selectedType) {
+        dispatch(setExercisesList(selectedType?.exercises));
+      } else {
+        dispatch(setExercisesList([]));
       }
-  });
+      setIsModalOpen(true);
+      setEditingDisable(false);
+      };
+
   const onButtonSaveCreate = () => {
     if(selectedTraining && exercises) {
       dispatch(getCreateTrainingFetch({
@@ -110,7 +128,9 @@ export const CreateTrainingModal: React.FC<PropsType> = ({
         name: selectedTraining,
         date: selectedDate.format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
         exercises: exercises,
+        isImplementation: selectedDate <= today ? true : false,
       }));
+      setEditingDisable(true);
     }
   }
 
@@ -121,8 +141,13 @@ export const CreateTrainingModal: React.FC<PropsType> = ({
   }, [dispatch, exercises]);
   return (
     <Card
-      className={styles.card}
-      style={modalPosition}
+      className={
+        isModalTrainingsOpen
+          ? classNames(styles.card, styles.cardOpen)
+          : styles.card
+        }
+      style={isDesktop ? modalPosition : {top: '264px'}}
+      data-test-id='modal-create-exercise'
     >
       <div className={styles.headerWrapper}>
         <Button
@@ -130,18 +155,17 @@ export const CreateTrainingModal: React.FC<PropsType> = ({
           type='link'
           onClick={onBack}
           className={styles.buttonBack}
+          data-test-id='modal-exercise-training-button-close'
         />
 
-        <Dropdown
-          menu={{ items }}
-          trigger={['click']}
-          className={styles.dropdown}
-        >
-            <Space>
-              {selectedTraining ? selectedTraining : 'Выбор типа тренировки'}
-              <DownOutlined className={styles.dropdownButton} />
-            </Space>
-        </Dropdown>
+        <Select
+          defaultValue='Выбор типа тренировки'
+          options={selectOptions}
+          bordered={false}
+          className={styles.select}
+          onChange={onChange}
+          data-test-id='modal-create-exercise-select'
+        />
       </div>
 
       <Divider className={styles.divider} />
@@ -149,15 +173,21 @@ export const CreateTrainingModal: React.FC<PropsType> = ({
       <div className={styles.emptyWrapper}>
         {exercises.length
           ? <ul className={styles.exercisesList}>
-              {exercises.map(({ name }) => (
+              {exercises.map(({ name }, index) => (
                 <li key={name} className={styles.listItem}>
-                  <Text className={styles.itemText}>{name}</Text>
                   <Button
                     type='link'
-                    icon={<EditOutlined className={styles.buttonIcon} />}
                     size='small'
                     onClick={openCalendarSidebar}
-                  />
+                    className={styles.buttonRedact}
+                    disabled={!isFuture && edititngDisable}
+                    data-test-id={`modal-update-training-edit-button${index}`}
+                  >
+                    <Text
+                      className={styles.itemText}
+                    >{name}</Text>
+                    <EditOutlined className={styles.buttonIcon} />
+                  </Button>
                 </li>
               ))}
             </ul>
@@ -190,7 +220,7 @@ export const CreateTrainingModal: React.FC<PropsType> = ({
           disabled={exercises.length === 0}
           className={styles.buttonSave}
         >
-          Сохранить
+          {isRedactingMode ? 'Сохранить изменения' : 'Сохранить'} 
         </Button>
       </div>
     </Card>

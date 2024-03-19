@@ -30,6 +30,7 @@ const cardsData = [
 
 const { Title } = Typography;
 
+
 export const MainPage: React.FC = () => (
     <div className={styles.mainPageWrapper}>
       <ul className={styles.featuresList}>

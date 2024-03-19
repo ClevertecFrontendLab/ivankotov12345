@@ -35,6 +35,7 @@ export const TrainingSidebarItem: React.FC<PropsType> = ({
   return (
     <li>
       <Input
+        data-test-id={`modal-drawer-right-input-exercise${index}`}
         placeholder='Упражнение'
         value={exercise.name}
         onChange={onTrainigNameChange}
@@ -42,16 +43,20 @@ export const TrainingSidebarItem: React.FC<PropsType> = ({
           isRedactingMode 
           && <Checkbox
                onChange={(e) => handleRemoveChange(index, e.target.checked)}
+               data-test-id={`modal-drawer-right-checkbox-exercise${index}`}
              />
         }
+        
       />
 
       <div className={styles.inputsNumberWrapper}>
         <div>
           <Text className={styles.label}>Подходы</Text>
           <InputNumber
+            data-test-id={`modal-drawer-right-input-approach${index}`}
             value={exercise.approaches}
             min={1}
+            controls={false}
             addonBefore={
               <Button
                 type='text'
@@ -73,6 +78,8 @@ export const TrainingSidebarItem: React.FC<PropsType> = ({
               value={exercise.weight}
               onChange={(value) => onWeightChange(value)}
               min={0}
+              controls={false}
+              data-test-id={`modal-drawer-right-input-weight${index}`}
             />
           </div>
 
@@ -83,6 +90,8 @@ export const TrainingSidebarItem: React.FC<PropsType> = ({
             <InputNumber
               value={exercise.replays}
               onChange={(value) => onReplaysChange(value)}
+              data-test-id={`modal-drawer-right-input-quantity${index}`}
+              controls={false}
               min={0}
             />
           </div>

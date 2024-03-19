@@ -12,6 +12,7 @@ type PropsType = {
 }
 
 const {Text} = Typography;
+const dataTestIdCalendar ='menu-button-calendar'
 
 export const ActionCard: React.FC<PropsType> = ({ cardLogo, cardName, buttonText }: PropsType) => {
   const dispatch = useAppDispatch();
@@ -19,12 +20,15 @@ export const ActionCard: React.FC<PropsType> = ({ cardLogo, cardName, buttonText
   const onCalendarButtonClick = () => dispatch(getCalendarFetch());
   return (
     <li className={styles.card}>
-      <Text className={styles.text}>{cardName}</Text>
+      <Text
+        className={styles.text}
+      >{cardName}</Text>
       <Button 
         type='link'
         icon={cardLogo}
         className={styles.cardButton}
         onClick={buttonText === 'Календарь' ? onCalendarButtonClick : undefined}
+        data-test-id={buttonText === 'Календарь' ? dataTestIdCalendar : ''}
       >
         {buttonText}
       </Button>

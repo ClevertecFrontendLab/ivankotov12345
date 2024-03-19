@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { clearError, reviewsSelect } from '@redux/slices/reviews';
 import { clearFeedbackResult } from '@redux/slices/send-feedback';
 import { useScreenWidth } from '@hooks/use-screen-width-hook';
-import { calendarSelect } from '@redux/slices/calendar';
+import { calendarSelect, clearCalendarError } from '@redux/slices/calendar';
 import { MOBILE_WIDTH, MODAL_WIDTH_DESKTOP, MODAL_WIDTH_MOBILE } from '@constants/constants';
 
 import styles from './modal-results.module.scss';
@@ -26,6 +26,7 @@ export const ModalResults: React.FC = () => {
     }
     if(calendarMessage) {
       dispatch(push(calendarMessage.buttonLink));
+      dispatch(clearCalendarError());
     }
   };
   return (
@@ -45,6 +46,7 @@ export const ModalResults: React.FC = () => {
           ? MODAL_WIDTH_DESKTOP 
           : MODAL_WIDTH_MOBILE
         }
+        data-test-id='modal-no-review'
     >
       <Result
         status={reviewsMessage?.status || calendarMessage?.status}

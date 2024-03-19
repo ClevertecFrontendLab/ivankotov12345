@@ -6,13 +6,17 @@ import { clearError, getTrainingListFetch, trainingListSelect } from '@redux/sli
 import { MODAL_WIDTH_CALENDAR } from '@constants/constants';
 
 import styles from './calendar-result.module.scss'
-import { clearCreateTrainingError, createTrainingSelect } from '@redux/slices/create-training';
+import { clearCreateTrainingError, closeCreateTrainingModal, createTrainingSelect } from '@redux/slices/create-training';
 import classNames from 'classnames';
 import { clearRedactingError, redactTrainingSelect } from '@redux/slices/redact-training';
 
 const { Title, Text } = Typography;
 
-export const CalendarResult: React.FC = () => {
+type PrposType = {
+  setIsModalOpen: (isModalOpen: boolean) => void,
+}
+
+export const CalendarResult: React.FC<PrposType> = ({ setIsModalOpen }) => {
   const dispatch = useAppDispatch()
   const {
     message: trainingListMessage,
@@ -34,15 +38,21 @@ export const CalendarResult: React.FC = () => {
     }
     if(isCreateTrainingError) {
       dispatch(clearCreateTrainingError());
+      dispatch(closeCreateTrainingModal());
+      setIsModalOpen(false);
     }
     if(isRedactTrainingError) {
       dispatch(clearRedactingError());
+      dispatch(closeCreateTrainingModal());
+      setIsModalOpen(false);
     }
   };
 
   const onCloseModalClick = () => dispatch(clearError());
   return(
     <Modal
+      transitionName=''
+      maskTransitionName=''
       className={styles.modal}
       width={MODAL_WIDTH_CALENDAR}
       open={isTrainingListError || isCreateTrainingError || isRedactTrainingError}
@@ -59,17 +69,15 @@ export const CalendarResult: React.FC = () => {
               : classNames(styles.closeCircleBlue, styles.closeCircleRed)
           } />
           <div>
-            <Title level={5} className={styles.title}>
+            <Title level={5} className={styles.title} data-test-id='modal-error-user-training-title'>
               {trainingListMessage?.title
                 || createTrainingMessage?.title
                 || redactTrainingMessage?.title}
             </Title>
-            <Text type='secondary'>
-              {
-              trainingListMessage?.text
+            <Text type='secondary' data-test-id='modal-error-user-training-subtitle'>
+              {trainingListMessage?.text
                 || createTrainingMessage?.text
-                || redactTrainingMessage?.text
-              }
+                || redactTrainingMessage?.text}
             </Text>
             </div>
 
@@ -79,6 +87,7 @@ export const CalendarResult: React.FC = () => {
                 size='small'
                 icon={<CloseOutlined className={styles.buttonCloseIcon} />}
                 onClick={onCloseModalClick}
+                data-test-id='modal-error-user-training-button-close'
               />}
         </div>
       }
@@ -95,6 +104,7 @@ export const CalendarResult: React.FC = () => {
           onClick={onRetryButtonClick}
           className={styles.retryButton}
           size='large'
+          data-test-id='modal-error-user-training-button'
         >
           {
           trainingListMessage?.buttonText

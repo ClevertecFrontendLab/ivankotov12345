@@ -6,7 +6,7 @@ import 'moment/locale/ru';
 
 import { localeRU } from './locale/locale.ts';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks.ts';
-import { getTrainingListFetch, trainingListSelect } from '@redux/slices/training-list.ts';
+import { getTrainingListFetch } from '@redux/slices/training-list.ts';
 import { CalendarModal } from '@components/calendar-modal/calendar-modal.tsx';
 import { ModalCoords } from '@typing/types/modal-coords.ts';
 import { CreateTrainingModal } from '@components/create-training-modal/create-training-modal.tsx';
@@ -16,8 +16,9 @@ import { CalendarBadgeColors } from '@typing/enums/calendar-badge-colors.ts';
 import {
   clearExercisesList,
   closeCreateTrainingModal,
-  createTrainingSelect } from '@redux/slices/create-training.ts';
-import { redactTrainingSelect, removeIsRedactTrainingMode } from '@redux/slices/redact-training.ts';
+  createTrainingSelect,
+  } from '@redux/slices/create-training.ts';
+import { removeIsRedactTrainingMode } from '@redux/slices/redact-training.ts';
 import { useScreenWidth } from '@hooks/use-screen-width-hook.ts';
 import { MOBILE_WIDTH } from '@constants/constants.ts';
 
@@ -28,9 +29,6 @@ import { CalendarResult } from '@components/calendar-result-modal/calendar-resul
 moment.updateLocale('ru', { week: { dow: 1 } });
 
 export const CalendarPage: React.FC = () => {
-  const { isError: isCreateTrainingError, isModalTrainingsOpen } = useAppSelector(createTrainingSelect);
-  const { isError: isTrainingListError } = useAppSelector(trainingListSelect);
-  const { isError: isRedactTrainingError } = useAppSelector(redactTrainingSelect);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isCalendarSidebarOpen, setIsCalendarSidebarOpen] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Moment>(() => moment());
@@ -39,6 +37,8 @@ export const CalendarPage: React.FC = () => {
     left: null,
     right: null,
   });
+
+  const { isModalTrainingsOpen } = useAppSelector(createTrainingSelect);
   const screenWidth = useScreenWidth();
 
   const dispatch = useAppDispatch();
@@ -107,11 +107,14 @@ export const CalendarPage: React.FC = () => {
 
   const onSelect = (currDate: Moment) => {
     dispatch(removeIsRedactTrainingMode());
-    dispatch(closeCreateTrainingModal())
+    dispatch(closeCreateTrainingModal());
     setIsModalOpen(true);
+    setIsCalendarSidebarOpen(false);
     setSelectedDate(currDate);
     dispatch(clearExercisesList()); 
   }
+
+  const isFullScreen = screenWidth && screenWidth > MOBILE_WIDTH ? true : false
   return (
     <>
       <Calendar
@@ -123,7 +126,7 @@ export const CalendarPage: React.FC = () => {
             ? dateCellRender
             : dateCellRenderMobile
         }
-        fullscreen={screenWidth && screenWidth > MOBILE_WIDTH ? true : false}
+        fullscreen={isFullScreen}
       />
 
       {isModalOpen && <CalendarModal
@@ -143,8 +146,9 @@ export const CalendarPage: React.FC = () => {
         selectedDate={selectedDate}
       />}
 
-      {(isTrainingListError || isCreateTrainingError || isRedactTrainingError)
-        && <CalendarResult />}
+      <CalendarResult
+        setIsModalOpen={setIsModalOpen}
+      />
     </>
   )
 }

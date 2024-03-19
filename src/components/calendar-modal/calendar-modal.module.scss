@@ -61,12 +61,14 @@
 
         li {
             height: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            .editIcon {
-                color: $primary-light-6
+            .buttonRedact {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                .editIcon {
+                    color: $primary-light-6
+                }
             }
         }
     }
@@ -77,6 +79,11 @@
         .buttonCreateTrainee {
             @include color-button-primary;
         }
+    }
+
+    @media (max-width: 675px) {
+        width: calc(100% - 48px);
+        margin-left: 24px;
     }
 }
 

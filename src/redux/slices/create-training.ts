@@ -45,7 +45,7 @@ export const createTrainingSlice = createSlice({
     setExercisesList: (state, action: PayloadAction<ExerciseType[]>) => {
       state.exercises = action.payload;
     },
-    setSelectedTraining: (state, action: PayloadAction<string>) => {
+    setSelectedTraining: (state, action: PayloadAction<string | null>) => {
       state.selectedTraining = action.payload;
     },
     clearExercisesList: (state) => {
