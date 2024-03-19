@@ -15,7 +15,7 @@ export const RegisterPage: React.FC = () => {
   const [emailStatus, setEmailStatus] = useState<ValidateStatus>('');
   const [passwordStatus, setPasswordStatus] = useState<ValidateStatus>('');
   const [confirmPasswordStatus, setConfirmPasswordStatus] = useState<ValidateStatus>('');
-  const [isFormValid, setIsFormValid] = useState<boolean>(false);
+  const [isFormValid, setIsFormValid] = useState(false);
   const testIdEmail = 'registration-email';
   const testIdPassword = 'registration-password';
   const testIdConfirmPassword = 'registration-confirm-password';

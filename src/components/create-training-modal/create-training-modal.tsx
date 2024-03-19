@@ -23,12 +23,12 @@ import {
   redactTrainingSelect,
   removeIsRedactTrainingMode,
 } from '@redux/slices/redact-training';
-import { MOBILE_WIDTH } from '@constants/constants';
+import { FORMAT_DATE_PAYLOAD, MOBILE_WIDTH } from '@constants/constants';
 
 import styles from './create-training-modal.module.scss';
 
 
-type PropsType = {
+type CreateTrainingModalProps = {
   setIsModalOpen: (isModalOpen: boolean) => void,
   modalCoords: ModalCoords,
   setIsCalendarSidebarOpen: (isCalendarSidebarOpen: boolean) => void,
@@ -37,7 +37,7 @@ type PropsType = {
 
 const { Text } = Typography;
 
-export const CreateTrainingModal: React.FC<PropsType> = ({
+export const CreateTrainingModal: React.FC<CreateTrainingModalProps> = ({
   setIsModalOpen,
   modalCoords,
   setIsCalendarSidebarOpen,
@@ -45,8 +45,9 @@ export const CreateTrainingModal: React.FC<PropsType> = ({
 }) => {
   const today = moment();
   const isFuture = selectedDate > today;
-  console.log(isFuture);
-  const [edititngDisable, setEditingDisable] = useState<boolean>(false);
+
+  const [edititngDisable, setEditingDisable] = useState(false);
+  
   const dispatch = useAppDispatch();
   const { trainingList } = useAppSelector(trainingListSelect);
   const {
@@ -57,7 +58,7 @@ export const CreateTrainingModal: React.FC<PropsType> = ({
   } = useAppSelector(createTrainingSelect);
 
   const screenWidth = useScreenWidth();
-  const isDesktop = screenWidth && screenWidth > MOBILE_WIDTH ? true : false;
+  const isDesktop = screenWidth && screenWidth > MOBILE_WIDTH;
   
   const { trainings } = useAppSelector(calendarSelect);
   const { isRedactingMode } = useAppSelector(redactTrainingSelect);
@@ -102,12 +103,9 @@ export const CreateTrainingModal: React.FC<PropsType> = ({
 
     const onChange = (value: string) => {
       const selectedType = currentDateTrainings?.find((type) => type.name === value);
+      const exercisesListData = selectedType ? selectedType?.exercises : []
       dispatch(setSelectedTraining(value));
-      if(selectedType) {
-        dispatch(setExercisesList(selectedType?.exercises));
-      } else {
-        dispatch(setExercisesList([]));
-      }
+      dispatch(setExercisesList(exercisesListData));
       setIsModalOpen(true);
       setEditingDisable(false);
       };
@@ -116,7 +114,7 @@ export const CreateTrainingModal: React.FC<PropsType> = ({
     if(selectedTraining && exercises) {
       dispatch(getCreateTrainingFetch({
         name: selectedTraining,
-        date: selectedDate.format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
+        date: selectedDate.format(FORMAT_DATE_PAYLOAD),
         exercises: exercises,
       }));
     }
@@ -126,9 +124,9 @@ export const CreateTrainingModal: React.FC<PropsType> = ({
     if(selectedTraining && exercises) {
       dispatch(getRedactTrainingFetch({
         name: selectedTraining,
-        date: selectedDate.format("YYYY-MM-DDTHH:mm:ss.SSS[Z]"),
+        date: selectedDate.format(FORMAT_DATE_PAYLOAD),
         exercises: exercises,
-        isImplementation: selectedDate <= today ? true : false,
+        isImplementation: selectedDate <= today,
       }));
       setEditingDisable(true);
     }

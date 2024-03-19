@@ -17,8 +17,8 @@ import styles from './auth-page.module.scss';
 export const AuthPage: React.FC = () => {
   const [emailStatus, setEmailStatus] = useState<ValidateStatus>('');
   const [passwordStatus, setPasswordStatus] = useState<ValidateStatus>('');
-  const [isChecked, setIsChecked] = useState<boolean>(false);
-  const [isForgotPassDispabled, setIsForgotPassDispabled] = useState<boolean>(false);
+  const [isChecked, setIsChecked] = useState(false);
+  const [isForgotPassDispabled, setIsForgotPassDispabled] = useState(false);
 
   const screenWidth = useScreenWidth();
 

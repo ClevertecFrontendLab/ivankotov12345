@@ -20,7 +20,7 @@ const Layout = lazy(() => import('antd').then(module => ({ default: module.Layou
 const Content = lazy(() => import('antd').then(module => ({ default: module.Layout.Content })));
 
 export const AppLayout: React.FC = () => {
-  const [currentLocation, setCurrentLocation] = useState<string>(history.location.pathname);
+  const [currentLocation, setCurrentLocation] = useState(history.location.pathname);
   const { isLoading: isReviewsLoading } = useAppSelector(reviewsSelect);
   const { isLoading: isCalendarLoading } = useAppSelector(calendarSelect);
   const { token: storeToken } = useAppSelector(authSelect);

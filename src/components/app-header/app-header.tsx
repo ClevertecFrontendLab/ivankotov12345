@@ -15,7 +15,7 @@ const { Header } = Layout;
 const { Title } = Typography;
 
 export const AppHeader: React.FC = () => {
-  const [currentLocation, setCurrentLocation] = useState<string>(history.location.pathname);
+  const [currentLocation, setCurrentLocation] = useState(history.location.pathname);
   const screenWidth = useScreenWidth();
 
   useEffect(() => {

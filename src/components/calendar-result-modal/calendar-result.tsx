@@ -49,13 +49,23 @@ export const CalendarResult: React.FC<PrposType> = ({ setIsModalOpen }) => {
   };
 
   const onCloseModalClick = () => dispatch(clearError());
+
+  const modalOpen = isTrainingListError || isCreateTrainingError || isRedactTrainingError;
+  const mdoalTitle = trainingListMessage?.title
+    || createTrainingMessage?.title
+    || redactTrainingMessage?.title;
+  const modalText = trainingListMessage?.text
+    || createTrainingMessage?.text
+    || redactTrainingMessage?.text;
+
+  const modalButtonText = trainingListMessage?.buttonText
+  || createTrainingMessage?.buttonText
+  || redactTrainingMessage?.buttonText
   return(
     <Modal
-      transitionName=''
-      maskTransitionName=''
       className={styles.modal}
       width={MODAL_WIDTH_CALENDAR}
-      open={isTrainingListError || isCreateTrainingError || isRedactTrainingError}
+      open={modalOpen}
       maskStyle={{
         backgroundColor: 'rgba(121, 156, 213, 0.5)',
         backdropFilter: 'blur(5px)'
@@ -70,14 +80,10 @@ export const CalendarResult: React.FC<PrposType> = ({ setIsModalOpen }) => {
           } />
           <div>
             <Title level={5} className={styles.title} data-test-id='modal-error-user-training-title'>
-              {trainingListMessage?.title
-                || createTrainingMessage?.title
-                || redactTrainingMessage?.title}
+              {mdoalTitle}
             </Title>
             <Text type='secondary' data-test-id='modal-error-user-training-subtitle'>
-              {trainingListMessage?.text
-                || createTrainingMessage?.text
-                || redactTrainingMessage?.text}
+              {modalText}
             </Text>
             </div>
 
@@ -96,21 +102,14 @@ export const CalendarResult: React.FC<PrposType> = ({ setIsModalOpen }) => {
       }}
       footer={[
         <Button 
-          key={
-            trainingListMessage?.buttonText
-            || createTrainingMessage?.buttonText
-            || redactTrainingMessage?.buttonText}
+          key={modalButtonText}
           type='primary'
           onClick={onRetryButtonClick}
           className={styles.retryButton}
           size='large'
           data-test-id='modal-error-user-training-button'
         >
-          {
-          trainingListMessage?.buttonText
-            || createTrainingMessage?.buttonText
-            || redactTrainingMessage?.buttonText
-          }
+          {modalButtonText}
         </Button>
       ]}
 

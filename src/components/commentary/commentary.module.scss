@@ -6,7 +6,7 @@
             display: grid;
             grid-template-columns: 174px 1fr;
             padding: 16px;
-            @media (max-width: 675px) {
+            @media (max-width: $screen-mobile) {
                 grid-template-columns: 1fr;
                 grid-template-rows: 1fr 1fr;
             }
@@ -35,11 +35,11 @@
             display: block;
             text-align: center;
             font-size: $size-basic;
-            line-height: 130%;
+            line-height: $line-height;
             color: $character-light-title-85;
         }
 
-        @media (max-width: 675px) {
+        @media (max-width: $screen-mobile) {
             flex-direction: row;
         }
     }

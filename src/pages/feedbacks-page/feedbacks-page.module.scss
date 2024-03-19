@@ -2,10 +2,10 @@
 
 .feedbacksSection {
     height: 100%;
-    margin: 24px;
+    margin: $page-wrapper;
 
-    @media (max-width: 675px) {
-        margin: 24px 18px;
+    @media (max-width: $screen-mobile) {
+        margin: $page-wrapper-mobile;
     }
 
     .feedbacksList {
@@ -33,7 +33,7 @@
             color: $primary-light-6;
         }
 
-        @media (max-width: 675px) {
+        @media (max-width: $screen-mobile) {
             flex-direction: column;
             padding-top: 32px;
             .buttonFeedback,

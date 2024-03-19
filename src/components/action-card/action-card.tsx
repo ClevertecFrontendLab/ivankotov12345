@@ -5,7 +5,7 @@ import { getCalendarFetch } from '@redux/slices/calendar';
 
 import styles from './action-card.module.scss';
 
-type PropsType = {
+type ActionCardProps = {
   cardLogo: JSX.Element,
   cardName: string,
   buttonText: string,
@@ -14,7 +14,7 @@ type PropsType = {
 const {Text} = Typography;
 const dataTestIdCalendar ='menu-button-calendar'
 
-export const ActionCard: React.FC<PropsType> = ({ cardLogo, cardName, buttonText }: PropsType) => {
+export const ActionCard: React.FC<ActionCardProps> = ({ cardLogo, cardName, buttonText }) => {
   const dispatch = useAppDispatch();
 
   const onCalendarButtonClick = () => dispatch(getCalendarFetch());

@@ -3,7 +3,7 @@
 .header {
     background: $primary-light-1;
     height: auto;
-    padding: 16px 24px;
+    padding: $padding-header;
 
     &.headerCalendar {
         padding: 16px 24px 6px;
@@ -27,13 +27,13 @@
         padding: 8px 0 0;
         font-weight: $font-weight-bold;
 
-        @media (max-width: 880px) {
+        @media (max-width: $screen-tablet) {
             font-size: $size-header-medium;
             font-weight: $font-weight-bold-mobile;
         }
-        @media (max-width: 675px) {
+        @media (max-width:  $screen-mobile) {
             padding: 0;
-            line-height: 130%;
+            line-height: $line-height;
             font-size: $size-header-small;
         }
     }
@@ -48,20 +48,20 @@
         .settingsButtonLabel {
 
             &.settingsButtonLabelCalendar{
-                @media (max-width: 880px) {
+                @media (max-width: $screen-tablet) {
                     display: inline;
                 }
             }
-            @media (max-width: 880px) {
+            @media (max-width: $screen-tablet) {
                 display: none;
             }
 
-            @media (max-width: 675px) {
+            @media (max-width: $screen-mobile) {
                 display: flex;
             }
         }
 
-        @media (max-width: 675px) {
+        @media (max-width: $screen-mobile) {
             margin-top: 0;
         }
 

@@ -1,7 +1,7 @@
 @use '../../scss/index' as *;
 
 .calendarWrapper {
-    padding: 24px;
+    padding: $page-wrapper;
     background: $primary-light-1;
     position: relative;
     bottom: 1px;
@@ -14,13 +14,13 @@
 
         .ant-picker-panel,
         .ant-picker-calendar-header {
-            @media (max-width: 675px) {
+            @media (max-width: $screen-mobile) {
                 background: $character-light-primary-inverse;
             }
         }
 
         .ant-picker-calendar-header {
-            @media (max-width: 675px) {
+            @media (max-width: $screen-mobile) {
                 display: flex;
 
                 .ant-picker-calendar-mode-switch {
@@ -33,8 +33,9 @@
         .ant-picker-calendar-date.ant-picker-calendar-date.ant-picker-calendar-date  {
             background: $character-light-primary-inverse;
             height: 143px;
+            overflow: auto;
 
-            @media (max-width: 675px) {
+            @media (max-width: $screen-mobile) {
                 width: 100%;
                 height: 24px;
             }
@@ -47,6 +48,10 @@
 
         .ant-picker-calendar-date-value{
             color: $character-light-title-85 !important;
+
+            @media (max-width: $screen-mobile) {
+                display: none;
+            }
         }
     }
 
@@ -58,17 +63,20 @@
             height: 16px;
             .badge {
                 font-size: $size-small;
-                line-height: 130%;
+                line-height: $line-height;
             }
         }
     }
 
-    .trainingDateMobile {
+    .trainingDateMobileFilled,
+    .traningDateMobile {
+        @include full-width;
         position: absolute;
         top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: $primary-light-1;
         z-index: -5;
+    }
+
+    .trainingDateMobileFilled {
+        background-color: $primary-light-1;
     }
 }

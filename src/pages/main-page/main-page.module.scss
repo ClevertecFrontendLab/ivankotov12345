@@ -4,10 +4,10 @@
     max-width: 752px;
     display: flex;
     flex-direction: column;
-    margin: 24px;
+    margin: $page-wrapper-mobile;
 
-    @media (max-width: 675px) {
-        margin: 24px 18px;
+    @media (max-width: $screen-mobile) {
+        margin: $page-wrapper-mobile;
     }
 }
 

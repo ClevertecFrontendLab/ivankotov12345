@@ -1,6 +1,7 @@
+@use '../../scss/index' as *;
+
 .autContainer {
-    width: 100%;
-    height: 100%;
+    @include full-width;
     background: url('./assets/img/auth-background.jpg');
     background-size: cover;
     background-position: center;
@@ -10,17 +11,16 @@
         display: grid;
         align-items: center;
         justify-items: center;
-        width: 100%;
-        height: 100%;
+        @include full-width;
         background: rgba(121, 156, 212, 0.5);
         backdrop-filter: blur(6px);
     }
 
-    @media (max-width: 834px) {
+    @media (max-width: $screen-tablet) {
         min-height: 1194px;
     }
 
-    @media (max-width: 675px) {
+    @media (max-width: $screen-mobile) {
         min-height: 800px;
     }
 }

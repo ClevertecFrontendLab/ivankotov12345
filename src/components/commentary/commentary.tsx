@@ -5,7 +5,7 @@ import { Rating } from '@components/rating';
 
 import styles from './commentary.module.scss'
 
-type PropsType = {
+type CommentaryProps = {
   createdAt: string,
   fullName: string | null,
   imageSrc: string | null,
@@ -15,7 +15,7 @@ type PropsType = {
 
 const { Text } = Typography;
 
-export const Commentary: React.FC<PropsType> = (
+export const Commentary: React.FC<CommentaryProps> = (
   {
     createdAt,
     fullName,

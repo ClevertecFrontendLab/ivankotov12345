@@ -26,10 +26,8 @@
 
         .title {
             margin-bottom: 0;
-            .titleLogo {
-                width: 14px;
-                height: 14px;
-                margin-right: 6px;
+            div {
+                color: $character-light-title-85;
             }
         }
 
@@ -44,8 +42,8 @@
 
         .badge,
         .date {
-            font-size: 14px;
-            font-weight: 500;
+            font-size: $size-semi-small;
+            font-weight: $font-weight-bold-mobile;
             span {
                 color: $character-light-secondary-45;
             }
@@ -71,9 +69,13 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        .addRemoveButton {
+            color: $primary-light-6;
+        }
     }
 
-    @media (max-width: 675px) {
+    @media (max-width: $screen-mobile) {
         margin-top: 85px;
     }
 }

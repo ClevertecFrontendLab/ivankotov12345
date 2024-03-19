@@ -3,7 +3,7 @@ import { ValidateStatus } from 'antd/es/form/FormItem';
 
 import styles from './input-password.module.scss';
 
-type PropsType = {
+type InputPasswordProps = {
   passwordValue?: string
   status: ValidateStatus,
   setStatus: (status: ValidateStatus) => void,
@@ -13,7 +13,7 @@ type PropsType = {
   testId: string,
 }
 
-export const InputPassword: React.FC<PropsType> = ({
+export const InputPassword: React.FC<InputPasswordProps> = ({
   passwordValue,
   status,
   setStatus,

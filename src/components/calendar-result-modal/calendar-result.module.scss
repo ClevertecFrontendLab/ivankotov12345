@@ -32,18 +32,16 @@
             color: $character-light-secondary-45;
         }
     }
-
+ 
     .retryButton {
         @include color-button-primary;
     }
 }
 .closeCircleBlue {
-    width: 24px;
-    height: 24px;
+    @include button-size-big;
 
     svg {
-        width: 24px;
-        height: 24px;
+        @include button-size-big;
         fill: $primary-light-6
     }
 

@@ -15,24 +15,24 @@ import {
 } from '@redux/slices/create-training';
 import { setIsRedactingMode, setSelectedTrainingId } from '@redux/slices/redact-training';
 import { useScreenWidth } from '@hooks/use-screen-width-hook';
+import { FORMAT_DATE_IN_VIEW, MOBILE_WIDTH } from '@constants/constants';
 
-import styles from './calendar-modal.module.scss'
-import { MOBILE_WIDTH } from '@constants/constants';
+import styles from './calendar-modal.module.scss';
 
 const { Text } = Typography;
 
-type PropsType = {
+type CalendarModalProps = {
   setIsModalOpen: (isModalOpen: boolean) => void,
   modalCoords: ModalCoords,
   selectedDate: Moment,
 }
 
-export const CalendarModal: React.FC<PropsType> = ({
+export const CalendarModal: React.FC<CalendarModalProps> = ({
   setIsModalOpen,
   modalCoords,
   selectedDate,
  }) => {
-  const currDate = selectedDate.format('DD.MM.YYYY');
+  const currDate = selectedDate.format(FORMAT_DATE_IN_VIEW);
   const today = moment();
   const screenWidth = useScreenWidth();
   const isDesktop = screenWidth && screenWidth > MOBILE_WIDTH ? true : false;
@@ -53,7 +53,7 @@ export const CalendarModal: React.FC<PropsType> = ({
 
   const currentDateTrainings = trainings
     ?.filter((training) => {
-      const trainingDate = moment(training.date).format('DD.MM.YYYY');
+      const trainingDate = moment(training.date).format(FORMAT_DATE_IN_VIEW);
       return currDate === trainingDate;
     });
 
@@ -111,9 +111,6 @@ export const CalendarModal: React.FC<PropsType> = ({
         />
       </div>
       <div className={styles.content}>
-        {!currentDateTrainings?.length 
-          && <Text type='secondary'>Нет активных тренировок</Text>}
-          
         {currentDateTrainings?.length 
             ? <ul className={styles.trainingList}>
               {currentDateTrainings.map(({ name, isImplementation }, index) => (
@@ -134,14 +131,17 @@ export const CalendarModal: React.FC<PropsType> = ({
                 </li>
               ))}
               </ul>
-            : <Empty
-                image={'https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg'}
-                description={false}
-                className={styles.emptyContainer}
-                imageStyle={{
-                  height: 32
-                }}
-              />
+            : <>
+                <Text type='secondary'>Нет активных тренировок</Text>
+                <Empty
+                  image={'https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg'}
+                  description={false}
+                  className={styles.emptyContainer}
+                  imageStyle={{
+                    height: 32
+                  }}
+                />
+              </>
         }
       </div>
 

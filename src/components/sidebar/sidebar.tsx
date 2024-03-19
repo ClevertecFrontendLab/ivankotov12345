@@ -11,18 +11,18 @@ import { ExitOutlined } from '@components/exit-icon-outlined';
 import { SidemenuSwitcher } from '@components/sidemenu-switcher';
 import { Paths } from '@typing/enums/paths';
 import { getCalendarFetch } from '@redux/slices/calendar';
+import { history } from '@redux/configure-store';
 
 import clever from './assets/svg/clever.svg';
 import logo from './assets/svg/fit.svg';
 
 import 'antd/dist/antd.css';
 import styles from './sidebar.module.scss';
-import { history } from '@redux/configure-store';
 
 const { Sider } = Layout;
 
 export const Sidebar: React.FC = () => {
-  const [collapsed, setCollapsed] = useState<boolean>(true);
+  const [collapsed, setCollapsed] = useState(true);
 
   const screenWidth = useScreenWidth();
 

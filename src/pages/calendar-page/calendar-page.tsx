@@ -21,16 +21,15 @@ import {
 import { removeIsRedactTrainingMode } from '@redux/slices/redact-training.ts';
 import { useScreenWidth } from '@hooks/use-screen-width-hook.ts';
 import { MOBILE_WIDTH } from '@constants/constants.ts';
-
-import styles from './calendar-page.module.scss'
 import { CalendarResult } from '@components/calendar-result-modal/calendar-result.tsx';
 
+import styles from './calendar-page.module.scss'
 
 moment.updateLocale('ru', { week: { dow: 1 } });
 
 export const CalendarPage: React.FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [isCalendarSidebarOpen, setIsCalendarSidebarOpen] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCalendarSidebarOpen, setIsCalendarSidebarOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Moment>(() => moment());
   const [modalCoords, setModalCoords] = useState<ModalCoords>({
     top: null,
@@ -74,8 +73,16 @@ export const CalendarPage: React.FC = () => {
     const trainingList = getTrainingsNotifications(date);
     if (trainingList && trainingList.length > 0) {
       return (
-        <div className={styles.trainingDateMobile} />
+        <div className={styles.trainingDateMobileFilled}>
+          {date.date()}
+        </div>
       );
+    } else {
+      return (
+        <div className={styles.traningDateMobile}>
+          {date.date()}
+        </div>
+      )
     }
   }
   useEffect(() => {
@@ -114,7 +121,7 @@ export const CalendarPage: React.FC = () => {
     dispatch(clearExercisesList()); 
   }
 
-  const isFullScreen = screenWidth && screenWidth > MOBILE_WIDTH ? true : false
+  const isFullScreen = screenWidth && screenWidth > MOBILE_WIDTH ? true : false;
   return (
     <>
       <Calendar

@@ -13,7 +13,7 @@
     cursor: pointer;
     z-index: 1000;
 
-    @media (max-width:675px) {
+    @media (max-width: $screen-mobile) {
         top: 24px;
         width: 32px;
         height: 48px;
