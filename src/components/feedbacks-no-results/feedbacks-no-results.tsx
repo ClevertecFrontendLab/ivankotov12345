@@ -2,13 +2,13 @@ import { Button, Card, Typography } from 'antd';
 
 import styles from './feedback-no-results.module.scss';
 
-type PropsType = {
+type FeedbackNoResulstProps = {
     setIsSendFeedbackOpen: (isSendFeedbackOpen: boolean) => void,
 }
 
 const { Title, Text } = Typography;
 
-export const FeedbacksNoResults: React.FC<PropsType> = ({ setIsSendFeedbackOpen }) => {
+export const FeedbacksNoResults: React.FC<FeedbackNoResulstProps> = ({ setIsSendFeedbackOpen }) => {
   const onClick = () => setIsSendFeedbackOpen(true);
   return (
     <div className={styles.wrapper}>

@@ -1,0 +1,1 @@
+export { TrainingSidebarItem } from './training-sidebar-item';

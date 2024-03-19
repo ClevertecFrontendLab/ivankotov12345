@@ -24,7 +24,7 @@ const tabList = [
 
 export const AuthForm: React.FC = () => {
   const dispatch = useAppDispatch();
-  const [activeTab, setActiveTab] = useState<string>(history.location.pathname);
+  const [activeTab, setActiveTab] = useState(history.location.pathname);
 
   const onTabChange = (key: string) => {
     setActiveTab(key);

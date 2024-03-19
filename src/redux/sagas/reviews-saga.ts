@@ -6,7 +6,7 @@ import { push } from 'redux-first-history';
 import { AxiosPaths } from '@typing/enums/axios-paths';
 import { getReviewsError, getReviewsSuccess } from '@redux/slices/reviews';
 import { Paths } from '@typing/enums/paths';
-import { GetFeedbacksErrorMessage } from '@typing/enums/result-messages';
+import { NavigateErrorMessage } from '@typing/enums/result-messages';
 import { ErrorStatus } from '@typing/enums/error-status';
 
 function* reviewsWorker() {
@@ -24,12 +24,12 @@ function* reviewsWorker() {
       yield put(push(Paths.AUTH));
     } else {
       yield put(getReviewsError({
-        status: GetFeedbacksErrorMessage.status,
-        title: GetFeedbacksErrorMessage.title,
-        subTitle: GetFeedbacksErrorMessage.subTitle,
-        buttonText: GetFeedbacksErrorMessage.buttonText,
+        status: NavigateErrorMessage.status,
+        title: NavigateErrorMessage.title,
+        subTitle: NavigateErrorMessage.subTitle,
+        buttonText: NavigateErrorMessage.buttonText,
         buttonLink: Paths.MAIN,
-      }))
+      }));
     }
   }
 }

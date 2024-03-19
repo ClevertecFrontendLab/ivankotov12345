@@ -14,7 +14,7 @@
         .ant-result-subtitle {
             padding: 0 60px;
 
-            @media (max-width: 675px) {
+            @media (max-width: $screen-mobile) {
                 padding: 0;
             }
         }
@@ -25,7 +25,7 @@
         font-size: $size-semi-small;
     }
 
-    @media (max-width: 675px) {
+    @media (max-width: $screen-mobile) {
         max-width: 328px;
         padding: 32px 14px;
     }

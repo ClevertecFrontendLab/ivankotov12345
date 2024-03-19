@@ -49,7 +49,7 @@
             display: block;
             text-align: center;
             strong {
-                font-weight: 700;
+                font-weight: $font-weight-bold;
             }
         }
     }
@@ -94,13 +94,13 @@
                 display: none;
             }
 
-            @media (max-width: 675px) {
+            @media (max-width: $screen-mobile) {
                 padding: 10px;
             }
         }
     }
 
-    @media (max-width: 675px) {
+    @media (max-width: $screen-mobile) {
         max-width: 328px;
     }
 }

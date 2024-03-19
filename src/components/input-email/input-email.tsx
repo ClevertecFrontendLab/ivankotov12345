@@ -3,7 +3,7 @@ import { ValidateStatus } from 'antd/es/form/FormItem';
 
 import styles from './input-email.module.scss';
 
-type PropsType = {
+type InputEmailProps = {
   name: string,
   emailStatus: ValidateStatus,
   setEmailStatus: (emailStatus: ValidateStatus) => void,
@@ -11,7 +11,7 @@ type PropsType = {
   setIsForgotPassDispabled?: (isForgotPassDispabled: boolean) => void,
 };
 
-export const InputEmail: React.FC<PropsType> = ({
+export const InputEmail: React.FC<InputEmailProps> = ({
   name,
   emailStatus,
   setEmailStatus,
@@ -20,7 +20,7 @@ export const InputEmail: React.FC<PropsType> = ({
  }) => {
   const emailRegExp = /^([a-zA-Z0-9._]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,6})+$/;
   
-  const validateEmail = (email: string) =>  emailRegExp.test(email.toLocaleLowerCase());
+  const validateEmail = (email: string) => emailRegExp.test(email.toLocaleLowerCase());
 
   const handleInpuntChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const email = event.target.value;

@@ -5,12 +5,15 @@ import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { clearError, reviewsSelect } from '@redux/slices/reviews';
 import { clearFeedbackResult } from '@redux/slices/send-feedback';
 import { useScreenWidth } from '@hooks/use-screen-width-hook';
+import { calendarSelect, clearCalendarError } from '@redux/slices/calendar';
 import { MOBILE_WIDTH, MODAL_WIDTH_DESKTOP, MODAL_WIDTH_MOBILE } from '@constants/constants';
 
 import styles from './modal-results.module.scss';
 
+
 export const ModalResults: React.FC = () => {
-  const { message: reviewsMessage, isError } = useAppSelector(reviewsSelect);
+  const { message: reviewsMessage, isError: isReviewsError } = useAppSelector(reviewsSelect);
+  const { message: calendarMessage, isError: isCalendarError } = useAppSelector(calendarSelect);
   const screenWidth = useScreenWidth();
   
   const dispatch = useAppDispatch();
@@ -21,10 +24,14 @@ export const ModalResults: React.FC = () => {
       dispatch(clearError());
       dispatch(clearFeedbackResult());
     }
+    if(calendarMessage) {
+      dispatch(push(calendarMessage.buttonLink));
+      dispatch(clearCalendarError());
+    }
   };
   return (
     <Modal
-      open={isError}
+      open={isReviewsError || isCalendarError}
       closable={false}
       footer={null}
       centered
@@ -39,11 +46,12 @@ export const ModalResults: React.FC = () => {
           ? MODAL_WIDTH_DESKTOP 
           : MODAL_WIDTH_MOBILE
         }
+        data-test-id='modal-no-review'
     >
       <Result
-        status={reviewsMessage?.status}
-        title={reviewsMessage?.title}
-        subTitle={reviewsMessage?.subTitle}
+        status={reviewsMessage?.status || calendarMessage?.status}
+        title={reviewsMessage?.title || calendarMessage?.title}
+        subTitle={reviewsMessage?.subTitle || calendarMessage?.subTitle}
         extra={[
           <Button
             type='primary'
@@ -51,7 +59,7 @@ export const ModalResults: React.FC = () => {
             onClick={onResultButtonClick}
             className={styles.resultButton}
           >
-            {reviewsMessage?.buttonText}
+            {reviewsMessage?.buttonText || calendarMessage?.buttonText}
           </Button>
         ]}
         className={styles.result}

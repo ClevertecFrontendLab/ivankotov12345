@@ -23,3 +23,30 @@
         background: $character-light-background;
     }
 }
+
+@mixin calendar-button-size {
+    width: 14px;
+    height: 14px;
+}
+
+@mixin button-size-big {
+    width: 24px;
+    height: 24px;
+}
+
+@mixin full-width {
+    width: 100%;
+    height: 100%;
+}
+
+@mixin calendar-modal {
+    position: absolute;
+    z-index: 1000;
+    width: 264px;
+
+    
+    @media (max-width: $screen-mobile) {
+        width: calc(100% - 48px);
+        margin-left: 24px;
+    }
+}

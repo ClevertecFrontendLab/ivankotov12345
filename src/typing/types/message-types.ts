@@ -22,3 +22,10 @@ export type MessageResponse = {
   message: string,
   statusCode: number
 }
+
+export type MessageCalendarType = {
+  error: string,
+  title: string,
+  text: string,
+  buttonText: string,
+}

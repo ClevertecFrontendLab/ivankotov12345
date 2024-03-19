@@ -11,12 +11,12 @@ import { MOBILE_WIDTH, MODAL_WIDTH_DESKTOP, MODAL_WIDTH_MOBILE } from '@constant
 import styles from './modal-feedbacks.module.scss';
 
 
-type PropsType = {
+type ModalFeedbacksProps = {
   isSendFeedbackOpen: boolean,
   setIsSendFeedbackOpen: (isSendFeedbackOpen: boolean) => void,
 }
 
-export const ModalFeedbacks: React.FC<PropsType> = ({ isSendFeedbackOpen, setIsSendFeedbackOpen }) => {
+export const ModalFeedbacks: React.FC<ModalFeedbacksProps> = ({ isSendFeedbackOpen, setIsSendFeedbackOpen }) => {
   const { submittedData, clearModalInputs } = useAppSelector(sendFeedbackSelect);
   const id = useId();
   const screenWidth = useScreenWidth();

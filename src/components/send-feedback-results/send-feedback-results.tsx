@@ -8,11 +8,11 @@ import { MOBILE_WIDTH, MODAL_WIDTH_DESKTOP, MODAL_WIDTH_MOBILE } from '@constant
 
 import styles from './send-feedback-results.module.scss';
 
-type PropsType = {
+type SendFeedbackResultsProps = {
   setIsSendFeedbackOpen: (isSendFeedbackOpen: boolean) => void,
 }
 
-export const SendFeedbackResults: React.FC<PropsType> = ({ setIsSendFeedbackOpen }) => {
+export const SendFeedbackResults: React.FC<SendFeedbackResultsProps> = ({ setIsSendFeedbackOpen }) => {
   const { isResult, message, messageError } = useAppSelector(sendFeedbackSelect);
   const screenWidth = useScreenWidth();
 

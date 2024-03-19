@@ -1,14 +1,14 @@
 import { Rate } from 'antd';
 import { StarFilled, StarOutlined } from '@ant-design/icons';
 
-type PropsType = {
+type RatingProps = {
   rating: number
   setRating?: (rating: number) => void
   size: number,
   disabled: boolean
 }
 
-export const Rating: React.FC<PropsType> = ({ rating, setRating, size, disabled }) => {
+export const Rating: React.FC<RatingProps> = ({ rating, setRating, size, disabled }) => {
   const starStyle = {
     fontSize: `${size}px`,
     color: '#faad14'

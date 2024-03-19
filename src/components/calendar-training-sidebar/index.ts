@@ -1,0 +1,1 @@
+export { CalendarTrainingSidebar } from './calendar-training-sidebar';

@@ -1,3 +1,10 @@
+export enum NavigateErrorMessage {
+  status = '500',
+  title = 'Что-то пошло не так',
+  subTitle = 'Произошла ошибка, попробуйте ещё раз.',
+  buttonText = 'Назад',
+}
+
 export enum AuthMessage {
   status = 'warning',
   title = 'Вход не выполнен',
@@ -54,13 +61,6 @@ export enum ChangePasswordErrorMessage {
   buttonText = 'Повторить',
 }
 
-export enum GetFeedbacksErrorMessage {
-  status = '500',
-  title = 'Что-то пошло не так',
-  subTitle = 'Произошла ошибка, попробуйте ещё раз.',
-  buttonText = 'Назад',
-}
-
 export enum SendFeedbackSuccessMessage {
   status = 'success',
   title = 'Отзыв успешно опубликован',
@@ -72,4 +72,18 @@ export enum SendFeedbackErrorMessage {
   subTitle = 'Что-то пошло не так. Попробуйте ещё раз',
   buttonTextWriteMessage = 'Написать отзыв',
   buttonTextClose = 'Закрыть',
+}
+
+export enum GetTrainingListError {
+  status = 'error no training list',
+  title = 'При открытии данных произошла ошибка',
+  text = 'Попробуйте ещё раз',
+  buttonText = 'Обновить',
+}
+
+export enum GetModalCalendarError {
+  status = 'error submit data',
+  title = 'При сохранении данных произошла ошибка',
+  text = 'Придётся попробовать ещё раз',
+  buttonText = 'Закрыть',
 }

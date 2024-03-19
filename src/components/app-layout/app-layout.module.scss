@@ -1,14 +1,11 @@
+@use '../../scss/index' as *;
+
 .layout {
-    height: 100%;
     background: transparent;
-    min-height: 1024px;
+    min-height: 100vh;
 
-    @media (max-width: 834px) {
-        min-height: 1194px;
-    }
-
-    @media (max-width: 675px) {
-        min-height: 1362px;
+    @media (max-width: $screen-tablet) {
+        min-height: auto;
     }
 }
 
@@ -22,14 +19,5 @@
         background: url('./assets/img/background.jpg');
         background-size: cover;
         background-position: center;
-    }
-}
-:global {
-    .ant-layout-content {
-        padding: 24px;
-
-        @media (max-width: 675px) {
-            padding: 24px 18px;
-        }
     }
 }

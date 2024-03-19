@@ -21,7 +21,7 @@
         flex-direction: column;
 
         .textWrapper {
-            padding: 12px 24px;
+            padding: $padding-text-action-card;
             display: flex;
             flex-direction: column;
             gap: 7px;
@@ -29,7 +29,7 @@
             .textLink {
                 color: $primary-light-6;
                 font-size: $size-basic;
-                line-height: 130%;
+                line-height: $line-height;
             }
         }
 
@@ -41,7 +41,7 @@
         }
     }
 
-    @media (max-width: 675px) {
+    @media (max-width: $screen-mobile) {
         flex-direction: column;
         align-items: center;
         gap: 25px;

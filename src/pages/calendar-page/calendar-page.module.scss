@@ -1,0 +1,82 @@
+@use '../../scss/index' as *;
+
+.calendarWrapper {
+    padding: $page-wrapper;
+    background: $primary-light-1;
+    position: relative;
+    bottom: 1px;
+    z-index: 0;
+
+    :global {
+        .ant-picker-panel {
+            background: transparent;
+        }
+
+        .ant-picker-panel,
+        .ant-picker-calendar-header {
+            @media (max-width: $screen-mobile) {
+                background: $character-light-primary-inverse;
+            }
+        }
+
+        .ant-picker-calendar-header {
+            @media (max-width: $screen-mobile) {
+                display: flex;
+
+                .ant-picker-calendar-mode-switch {
+                    margin-top: 0;
+                    margin-left: 8px;
+                }
+            }
+        }
+
+        .ant-picker-calendar-date.ant-picker-calendar-date.ant-picker-calendar-date  {
+            background: $character-light-primary-inverse;
+            height: 143px;
+            overflow: auto;
+
+            @media (max-width: $screen-mobile) {
+                width: 100%;
+                height: 24px;
+            }
+        }
+
+        .ant-picker-calendar-date-today.ant-picker-calendar-date-today.ant-picker-calendar-date-today.ant-picker-calendar-date-today {
+            border-color: $blue-dark-6;
+            color: $character-light-title-85;
+        }
+
+        .ant-picker-calendar-date-value{
+            color: $character-light-title-85 !important;
+
+            @media (max-width: $screen-mobile) {
+                display: none;
+            }
+        }
+    }
+
+    .trainingList {
+        padding: 0;
+        list-style-type: none;
+        margin-bottom: 0;
+        li {
+            height: 16px;
+            .badge {
+                font-size: $size-small;
+                line-height: $line-height;
+            }
+        }
+    }
+
+    .trainingDateMobileFilled,
+    .traningDateMobile {
+        @include full-width;
+        position: absolute;
+        top: 0;
+        z-index: -5;
+    }
+
+    .trainingDateMobileFilled {
+        background-color: $primary-light-1;
+    }
+}

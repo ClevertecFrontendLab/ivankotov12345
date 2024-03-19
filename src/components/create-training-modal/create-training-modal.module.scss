@@ -1,0 +1,84 @@
+@use '../../scss/index' as *;
+
+.card {
+    display: none;
+    @include calendar-modal;
+
+    &.cardOpen {
+        display: block;
+    }
+
+    :global {
+        .ant-card-body {
+            padding: 0;
+        }
+    }
+
+    .headerWrapper {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 10px;
+        gap: 10px;
+
+        .buttonBack {
+            @include calendar-button-size;
+
+            .buttonLogo {
+                color: $character-light-title-85;
+            }
+        }
+
+        
+    .select {
+        width: 100%;
+    }
+    }
+
+    .divider {
+        margin: 0;
+    }
+
+    .exercisesList {
+        margin: 0;
+        padding: 0 12px;
+        list-style-type: none;
+
+        .listItem {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .buttonRedact {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                .editIcon {
+                    color: $primary-light-6
+                }
+                .itemText {
+                    color: $character-light-secondary-45;
+                }
+    
+                .buttonIcon {
+                    color: $primary-light-6;
+                }
+            }
+        }
+    }
+
+    .emptyWrapper {
+        padding: 16px 0;
+    }
+
+    .buttonsWrapper {
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        .buttonSave {
+            color: $primary-light-6;
+        }
+    }
+}

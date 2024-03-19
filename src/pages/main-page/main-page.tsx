@@ -2,6 +2,7 @@ import { Typography } from 'antd';
 import { CalendarTwoTone, HeartTwoTone, IdcardOutlined } from '@ant-design/icons';
 
 import { ActionCard } from '@components/action-card';
+import { ModalResults } from '@components/modal-results';
 
 import 'antd/dist/antd.css';
 import styles from './main-page.module.scss';
@@ -28,6 +29,7 @@ const cardsData = [
 ];
 
 const { Title } = Typography;
+
 
 export const MainPage: React.FC = () => (
     <div className={styles.mainPageWrapper}>
@@ -61,5 +63,6 @@ export const MainPage: React.FC = () => (
         ))
       }
       </ul>
+      <ModalResults />
     </div>
   )

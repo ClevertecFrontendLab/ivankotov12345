@@ -23,7 +23,7 @@
     .resultButton {
         @include color-button-primary;
     }
-    @media (max-width: 675px) {
+    @media (max-width: $screen-mobile) {
         .result {
             padding: 32px 16px;
         }

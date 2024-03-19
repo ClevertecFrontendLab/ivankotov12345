@@ -11,6 +11,7 @@ import { reviewsSelect } from '@redux/slices/reviews';
 import { history } from '@redux/configure-store';
 import { Paths } from '@typing/enums/paths';
 import { authSelect } from '@redux/slices/auth';
+import { calendarSelect } from '@redux/slices/calendar';
 
 import 'antd/dist/antd.css';
 import styles from './app-layout.module.scss';
@@ -19,8 +20,9 @@ const Layout = lazy(() => import('antd').then(module => ({ default: module.Layou
 const Content = lazy(() => import('antd').then(module => ({ default: module.Layout.Content })));
 
 export const AppLayout: React.FC = () => {
-  const [currentLocation, setCurrentLocation] = useState<string>(history.location.pathname);
-  const { isLoading } = useAppSelector(reviewsSelect);
+  const [currentLocation, setCurrentLocation] = useState(history.location.pathname);
+  const { isLoading: isReviewsLoading } = useAppSelector(reviewsSelect);
+  const { isLoading: isCalendarLoading } = useAppSelector(calendarSelect);
   const { token: storeToken } = useAppSelector(authSelect);
   const dispatch = useAppDispatch();
 
@@ -50,7 +52,7 @@ export const AppLayout: React.FC = () => {
   }, [storeToken, dispatch]);
   return (
       <>
-        {isLoading && <Loader />}
+        {(isReviewsLoading || isCalendarLoading) && <Loader />}
         <Layout className={styles.layout}>
           <Suspense fallback={<Loader />}>
           <Sidebar />

@@ -34,7 +34,7 @@
         @include color-button-primary;
     }
 
-    @media (max-width: 675px) {
+    @media (max-width: $screen-mobile) {
         padding-top: 0;
         gap: 50px;
         .card {

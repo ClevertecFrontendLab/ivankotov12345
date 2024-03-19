@@ -10,6 +10,8 @@ import { MOBILE_WIDTH } from '@constants/constants';
 import { ExitOutlined } from '@components/exit-icon-outlined';
 import { SidemenuSwitcher } from '@components/sidemenu-switcher';
 import { Paths } from '@typing/enums/paths';
+import { getCalendarFetch } from '@redux/slices/calendar';
+import { history } from '@redux/configure-store';
 
 import clever from './assets/svg/clever.svg';
 import logo from './assets/svg/fit.svg';
@@ -20,7 +22,7 @@ import styles from './sidebar.module.scss';
 const { Sider } = Layout;
 
 export const Sidebar: React.FC = () => {
-  const [collapsed, setCollapsed] = useState<boolean>(false);
+  const [collapsed, setCollapsed] = useState(true);
 
   const screenWidth = useScreenWidth();
 
@@ -31,6 +33,8 @@ export const Sidebar: React.FC = () => {
     sessionStorage.clear();
     dispatch(push(Paths.AUTH));
   }
+
+  const onCalendarClick = () => dispatch(getCalendarFetch());
 
   const toneColor = '#061178';
   const testId = screenWidth && screenWidth > MOBILE_WIDTH ? 'sider-switch' : 'sider-switch-mobile';
@@ -43,7 +47,9 @@ export const Sidebar: React.FC = () => {
         twoToneColor={toneColor}
       />,
       label: 'Календарь',
+      onClick: onCalendarClick,
       className: styles.menuItem,
+      path: Paths.CALENDAR,
     },
     {
       key: '2',
@@ -79,6 +85,9 @@ export const Sidebar: React.FC = () => {
       className: styles.exitButtonWrapper,
     }
   ];
+
+  const selectedItem = menuItems.find(item => item.path === history.location.pathname);
+  const selectedKey = selectedItem ? selectedItem.key : undefined;
   return (
     <Sider
       collapsible
@@ -98,7 +107,11 @@ export const Sidebar: React.FC = () => {
         <img src={logo} alt='Fit Logo' className={styles.logoFit} />
       </div>
 
-      <Menu items={menuItems} selectable={false} className={styles.sidebarMenu} />
+      <Menu
+        items={menuItems}
+        className={styles.sidebarMenu}
+        selectedKeys={selectedKey ? [selectedKey] : []}
+      />
 
       <SidemenuSwitcher collapsed={collapsed} setCollapsed={setCollapsed} testId={testId} />
     </Sider>

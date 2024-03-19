@@ -5,7 +5,7 @@ import { Rating } from '@components/rating';
 
 import styles from './commentary.module.scss'
 
-type PropsType = {
+type CommentaryProps = {
   createdAt: string,
   fullName: string | null,
   imageSrc: string | null,
@@ -15,7 +15,7 @@ type PropsType = {
 
 const { Text } = Typography;
 
-export const Commentary: React.FC<PropsType> = (
+export const Commentary: React.FC<CommentaryProps> = (
   {
     createdAt,
     fullName,
@@ -27,7 +27,11 @@ export const Commentary: React.FC<PropsType> = (
   return (
     <Card className={styles.commentaryWrapper}>
       <div className={styles.commentaryUser}>
-        <Avatar src={imageSrc || <UserOutlined className={styles.userLogo} />} size={42} className={styles.avatar} />
+        <Avatar 
+          src={imageSrc || <UserOutlined className={styles.userLogo} />}
+          size={42}
+          className={styles.avatar}
+        />
         {fullName &&
           <div>
             {fullNameArr?.map((el) => (
