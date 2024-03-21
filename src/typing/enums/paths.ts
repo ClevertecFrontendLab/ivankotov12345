@@ -4,6 +4,7 @@ export enum Paths {
     AUTH = '/auth',
     FEEDBACKS = '/feedbacks',
     CALENDAR = '/calendar',
+    PROFILE = '/profile',
     REGISTRATION = '/registration',
     CONFIRM_EMAIL = '/confirm-email',
     CHANGE_PASSWORD = '/change-password',

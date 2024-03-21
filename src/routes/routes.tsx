@@ -15,6 +15,7 @@ import { AuthLayout } from '@components/auth-layout';
 import { AuthForm } from '@components/auth-form';
 import { Paths } from '@typing/enums/paths';
 import { ChangePasswordPage } from '@pages/change-password-page';
+import { ProfilePage } from '@pages/profile-page';
 
 
 export const routes = (
@@ -24,6 +25,7 @@ export const routes = (
         <Route index path={Paths.MAIN} element={<MainPage />} />
         <Route index path={Paths.FEEDBACKS} element={<FeedbacksPage />} />
         <Route index path={Paths.CALENDAR} element={<CalendarPage />} />
+        <Route index path={Paths.PROFILE} element={<ProfilePage />} />
       </Route>
     </Route>
 
