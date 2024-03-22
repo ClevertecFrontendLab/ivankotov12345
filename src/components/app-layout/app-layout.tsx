@@ -10,9 +10,9 @@ import { history } from '@redux/configure-store';
 import { authSelect } from '@redux/slices/auth';
 import { calendarSelect } from '@redux/slices/calendar';
 import { reviewsSelect } from '@redux/slices/reviews';
+import { getUserFetch, userSelect } from '@redux/slices/user';
 import { Paths } from '@typing/enums/paths';
 
-import 'antd/dist/antd.css';
 import styles from './app-layout.module.scss';
 
 const Layout = lazy(() => import('antd').then(module => ({ default: module.Layout })));
@@ -22,6 +22,7 @@ export const AppLayout: React.FC = () => {
   const [currentLocation, setCurrentLocation] = useState(history.location.pathname);
   const { isLoading: isReviewsLoading } = useAppSelector(reviewsSelect);
   const { isLoading: isCalendarLoading } = useAppSelector(calendarSelect);
+  const { userData } = useAppSelector(userSelect);
   const { token: storeToken } = useAppSelector(authSelect);
   const dispatch = useAppDispatch();
 
@@ -51,6 +52,12 @@ export const AppLayout: React.FC = () => {
       dispatch(push(Paths.AUTH));
     }
   }, [storeToken, dispatch]);
+
+  useEffect(() => {
+    if(!userData) {
+      dispatch(getUserFetch());
+    }
+  }, [dispatch, userData]);
 
   return (
       <Fragment>

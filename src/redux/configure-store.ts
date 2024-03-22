@@ -13,6 +13,7 @@ import { registrationReducer } from './slices/registration';
 import { reviewsReducer } from './slices/reviews';
 import { sendFeedbackReducer } from './slices/send-feedback';
 import { trainingListReducer } from './slices/training-list';
+import { userReducer } from './slices/user';
 
 const {
     createReduxHistory,
@@ -37,6 +38,7 @@ export const store = configureStore({
     trainingList: trainingListReducer,
     createTraining: createTrainingReducer,
     redactTraining: redactTrainingReducer,
+    user: userReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware()
     .concat(sagaMiddleware, routerMiddleware),

@@ -12,6 +12,7 @@ import { registrationWatcher } from './registration-saga';
 import { reviewsWatcher } from './reviews-saga';
 import { sendFeedbackWatcher } from './send-feedback-saga';
 import { trainingListWatcher } from './training-list-saga';
+import { userWatcher } from './user-saga';
 
 export function* rootSaga() {
   yield all([
@@ -27,5 +28,6 @@ export function* rootSaga() {
     trainingListWatcher(),
     createTrainingWatcher(),
     redactTrainingWatcher(),
+    userWatcher(),
   ]);
 }

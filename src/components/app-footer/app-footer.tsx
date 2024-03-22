@@ -5,6 +5,7 @@ import { Paths } from '@typing/enums/paths';
 import { Button, Typography } from 'antd';
 import { Footer } from 'antd/lib/layout/layout';
 
+import 'antd/dist/antd.css';
 import styles from './app-footer.module.scss';
 
 const { Text } = Typography;

@@ -9,5 +9,6 @@ export enum AxiosPaths {
     CHANGE_PASSWORD = '/auth/change-password',
     FEEDBACK = '/feedback',
     TRAINING = '/training',
-    TRAINING_LIST = '/catalogs/training-list'
+    TRAINING_LIST = '/catalogs/training-list',
+    USER_ME = '/user/me',
 }

@@ -8,6 +8,7 @@ import { Paths } from '@typing/enums/paths';
 import { Button, Layout, Typography } from 'antd';
 import classNames from 'classnames';
 
+import 'antd/dist/antd.css';
 import styles from './header.module.scss';
 
 const { Header } = Layout;

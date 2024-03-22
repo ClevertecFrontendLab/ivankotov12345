@@ -1,5 +1,7 @@
+import { push } from 'redux-first-history';
 import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
 import { getCalendarFetch } from '@redux/slices/calendar';
+import { Paths } from '@typing/enums/paths';
 import { Button, Typography } from 'antd';
 
 import styles from './action-card.module.scss';
@@ -17,6 +19,16 @@ export const ActionCard: React.FC<ActionCardProps> = ({ cardLogo, cardName, butt
   const dispatch = useAppDispatch();
 
   const onCalendarButtonClick = () => dispatch(getCalendarFetch());
+  const onProfileButtonClick = () => dispatch(push(Paths.PROFILE));
+
+  const onClick = () => {
+    if(buttonText === 'Календарь') {
+      onCalendarButtonClick();
+    }
+    if(buttonText === 'Профиль') {
+      onProfileButtonClick();
+    }
+  }
 
   return (
     <li className={styles.card}>
@@ -27,7 +39,7 @@ export const ActionCard: React.FC<ActionCardProps> = ({ cardLogo, cardName, butt
         type='link'
         icon={cardLogo}
         className={styles.cardButton}
-        onClick={buttonText === 'Календарь' ? onCalendarButtonClick : undefined}
+        onClick={onClick}
         data-test-id={buttonText === 'Календарь' ? dataTestIdCalendar : ''}
       >
         {buttonText}
