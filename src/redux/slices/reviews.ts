@@ -1,5 +1,5 @@
 import { RootState } from '@redux/configure-store'
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { createSlice,PayloadAction } from '@reduxjs/toolkit'
 import { MessageType } from '@typing/types/message-types'
 import { FeedbackResponseType } from '@typing/types/response-types'
 

@@ -1,13 +1,12 @@
-import { useEffect, useState } from 'react';
-import { Button } from 'antd';
-
-import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
-import { getReviewsFetch, reviewsSelect } from '@redux/slices/reviews';
+import { Fragment, useEffect, useState } from 'react';
 import { Commentary } from '@components/commentary';
+import { FeedbacksNoResults } from '@components/feedbacks-no-results';
 import { ModalFeedbacks } from '@components/modal-feedbacks';
 import { ModalResults } from '@components/modal-results';
 import { SendFeedbackResults } from '@components/send-feedback-results';
-import { FeedbacksNoResults } from '@components/feedbacks-no-results';
+import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
+import { getReviewsFetch, reviewsSelect } from '@redux/slices/reviews';
+import { Button } from 'antd';
 
 import styles from './feedbacks-page.module.scss';
 
@@ -15,6 +14,7 @@ export const FeedbacksPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const [isFullList, setIsFullList] = useState<boolean>(false);
   const [isSendFeedbackOpen, setIsSendFeedbackOpen] = useState<boolean>(false);
+
   useEffect(() => {
     dispatch(getReviewsFetch());
   }, [dispatch]);
@@ -32,10 +32,11 @@ export const FeedbacksPage: React.FC = () => {
   const onWriteFeedbackButtonClick = () => {
     setIsSendFeedbackOpen(true);
   }
+
   return (
     <section className={styles.feedbacksSection}>
       {feedbacks && feedbacks.length > 0 &&
-        <>
+        <Fragment>
           <ul className={styles.feedbacksList}>
           {sortedFeedbacks
             && sortedFeedbacks
@@ -75,7 +76,7 @@ export const FeedbacksPage: React.FC = () => {
               : 'Развернуть все отзывы'}
           </Button>
         </div>
-        </>}
+        </Fragment>}
       {feedbacks && !feedbacks.length &&
         <FeedbacksNoResults setIsSendFeedbackOpen={setIsSendFeedbackOpen} />
       }

@@ -1,6 +1,6 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { FeedbackValues } from '@typing/types/form-input-values';
 import { RootState } from '@redux/configure-store';
+import { createSlice,PayloadAction } from '@reduxjs/toolkit';
+import { FeedbackValues } from '@typing/types/form-input-values';
 import { MessageFeedbackType, MessageType } from '@typing/types/message-types';
 
 type FeedbackStateType = {

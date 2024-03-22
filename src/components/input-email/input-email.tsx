@@ -24,13 +24,17 @@ export const InputEmail: React.FC<InputEmailProps> = ({
 
   const handleInpuntChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const email = event.target.value;
+
     if(validateEmail(email)) {
       setEmailStatus('');
-      setIsForgotPassDispabled && setIsForgotPassDispabled(false);
+      if(setIsForgotPassDispabled) {
+        setIsForgotPassDispabled(false);
+      }
     } else {
       setEmailStatus('error');
     }
   };
+
   return (
     <Form.Item
       name={name}

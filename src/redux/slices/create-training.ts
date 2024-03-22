@@ -1,5 +1,5 @@
 import { RootState } from '@redux/configure-store';
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice,PayloadAction } from '@reduxjs/toolkit';
 import { ExerciseType } from '@typing/types/exercise-types';
 import { MessageCalendarType } from '@typing/types/message-types';
 import { TrainingRequestType } from '@typing/types/request-types';

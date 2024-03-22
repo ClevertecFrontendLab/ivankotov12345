@@ -1,8 +1,7 @@
-import { Typography } from 'antd';
 import { CalendarTwoTone, HeartTwoTone, IdcardOutlined } from '@ant-design/icons';
-
 import { ActionCard } from '@components/action-card';
 import { ModalResults } from '@components/modal-results';
+import { Typography } from 'antd';
 
 import 'antd/dist/antd.css';
 import styles from './main-page.module.scss';

@@ -1,7 +1,6 @@
 import { UserOutlined } from '@ant-design/icons';
-import { Avatar, Card, Typography } from 'antd';
-
 import { Rating } from '@components/rating';
+import { Avatar, Card, Typography } from 'antd';
 
 import styles from './commentary.module.scss'
 
@@ -24,6 +23,7 @@ export const Commentary: React.FC<CommentaryProps> = (
     rating,
   }) => {
   const fullNameArr = fullName?.split(' ');
+
   return (
     <Card className={styles.commentaryWrapper}>
       <div className={styles.commentaryUser}>

@@ -24,6 +24,7 @@ export const InputPassword: React.FC<InputPasswordProps> = ({
 }) => {
   const validatePassword = (password: string) => {
     const passwordRegExp = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
     return passwordRegExp.test(password);
   };
 
@@ -39,12 +40,14 @@ export const InputPassword: React.FC<InputPasswordProps> = ({
 
   const handleConfirmPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const confirmPassword = event.target.value;
+
     if (passwordValue === confirmPassword) {
       setStatus('');
     } else {
       setStatus('error');
     }
   };
+
   return (
     <Form.Item
       rules={[

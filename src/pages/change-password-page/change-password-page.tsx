@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { InputPassword } from '@components/input-password';
-import { Button, Card, Form, Typography } from 'antd';
-import { ValidateStatus } from 'antd/es/form/FormItem';
-import { FormRecoveryInputValues } from '@typing/types/form-input-values';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { getResetPasswordFetch, recoverySelect } from '@redux/slices/recovery';
+import { FormRecoveryInputValues } from '@typing/types/form-input-values';
+import { Button, Card, Form, Typography } from 'antd';
+import { ValidateStatus } from 'antd/es/form/FormItem';
 
 import styles from './change-password-page.module.scss';
 
@@ -33,6 +33,7 @@ export const ChangePasswordPage: React.FC = () => {
       dispatch(getResetPasswordFetch(submittedNewPass));
     }
   }, [dispatch, submittedNewPass]);
+
   return (
     <Card className={styles.card}>
       <Title level={3} className={styles.cardTitle}>Восстановление аккаунта</Title>
@@ -59,7 +60,7 @@ export const ChangePasswordPage: React.FC = () => {
           type='primary'
           htmlType='submit'
           size='large'
-          block
+          block={true}
           className={styles.buttonSavePassword}
           data-test-id='change-submit-button'
         >

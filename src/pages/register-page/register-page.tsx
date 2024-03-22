@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import { GooglePlusOutlined } from '@ant-design/icons';
-import { Button, Form } from 'antd';
-import { ValidateStatus } from 'antd/es/form/FormItem';
-
 import { InputEmail } from '@components/input-email';
 import { InputPassword } from '@components/input-password';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { getRegistrationFetch, registrationSelect } from '@redux/slices/registration';
 import { FormInputValues } from '@typing/types/form-input-values';
+import { Button, Form } from 'antd';
+import { ValidateStatus } from 'antd/es/form/FormItem';
 
 import styles from './register-page.module.scss';
 
@@ -44,6 +43,7 @@ export const RegisterPage: React.FC = () => {
       dispatch(getRegistrationFetch(submittedData));
     }
   }, [dispatch, message, submittedData]);
+
   return (
     <Form form={form} onFinish={onSubmit} className={styles.form}>
       <div className={styles.inputsWrapper}>
@@ -75,7 +75,7 @@ export const RegisterPage: React.FC = () => {
         <Button
           type='primary'
           htmlType='submit'
-          block
+          block={true}
           size='large'
           disabled={!isFormValid}
           className={styles.buttonRegister}
@@ -85,7 +85,7 @@ export const RegisterPage: React.FC = () => {
         </Button>
         <Button
           icon={<GooglePlusOutlined />}
-          block
+          block={true}
           size='large'
         >
           Регистрация через Google

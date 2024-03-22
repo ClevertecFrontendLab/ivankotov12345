@@ -16,4 +16,4 @@ export const EMPTY_EXERCISE = {
 }
 
 export const FORMAT_DATE_IN_VIEW = 'DD.MM.YYYY';
-export const FORMAT_DATE_PAYLOAD = "YYYY-MM-DDTHH:mm:ss.SSS[Z]"
+export const FORMAT_DATE_PAYLOAD = 'YYYY-MM-DDTHH:mm:ss.SSS[Z]'

@@ -10,6 +10,7 @@ type SidemenuSwitcherProps = {
 
 export const SidemenuSwitcher = ({ collapsed, setCollapsed, testId }: SidemenuSwitcherProps) => {
   const toggleCollapse = () => setCollapsed(!collapsed);
+
   return (
     <button type='button' className={styles.sideMenuButton} onClick={toggleCollapse} data-test-id={testId}>
       {

@@ -1,12 +1,11 @@
-import { Button, Modal, Result } from 'antd';
 import { push } from 'redux-first-history';
-
+import { MOBILE_WIDTH, MODAL_WIDTH_DESKTOP, MODAL_WIDTH_MOBILE } from '@constants/constants';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
-import { clearError, reviewsSelect } from '@redux/slices/reviews';
-import { clearFeedbackResult } from '@redux/slices/send-feedback';
 import { useScreenWidth } from '@hooks/use-screen-width-hook';
 import { calendarSelect, clearCalendarError } from '@redux/slices/calendar';
-import { MOBILE_WIDTH, MODAL_WIDTH_DESKTOP, MODAL_WIDTH_MOBILE } from '@constants/constants';
+import { clearError, reviewsSelect } from '@redux/slices/reviews';
+import { clearFeedbackResult } from '@redux/slices/send-feedback';
+import { Button, Modal, Result } from 'antd';
 
 import styles from './modal-results.module.scss';
 
@@ -29,12 +28,13 @@ export const ModalResults: React.FC = () => {
       dispatch(clearCalendarError());
     }
   };
+
   return (
     <Modal
       open={isReviewsError || isCalendarError}
       closable={false}
       footer={null}
-      centered
+      centered={true}
       className={styles.modal}
       maskStyle={{
         backgroundColor: 'rgba(121, 156, 213, 0.5)',

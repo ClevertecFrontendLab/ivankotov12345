@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react';
-import { Button, Layout, Typography } from 'antd';
 import { SettingOutlined } from '@ant-design/icons';
-
-import { history } from '@redux/configure-store';
-import { useScreenWidth } from '@hooks/use-screen-width-hook';
-import { Paths } from '@typing/enums/paths';
 import { Breadcrumbs } from '@components/breadcrumbs';
 import { MOBILE_WIDTH } from '@constants/constants';
+import { useScreenWidth } from '@hooks/use-screen-width-hook';
+import { history } from '@redux/configure-store';
+import { Paths } from '@typing/enums/paths';
+import { Button, Layout, Typography } from 'antd';
+import classNames from 'classnames';
 
 import styles from './header.module.scss';
-import classNames from 'classnames';
 
 const { Header } = Layout;
 const { Title } = Typography;
@@ -22,10 +21,12 @@ export const AppHeader: React.FC = () => {
     const unlisten = history.listen((update) => {
       setCurrentLocation(update.location.pathname);
     });
+
     return () => {
       unlisten();
     }
   }, []);
+
   return (
     <Header
       className={

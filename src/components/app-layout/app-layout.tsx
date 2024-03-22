@@ -1,17 +1,16 @@
+import { Fragment, lazy, Suspense, useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Suspense, lazy, useEffect, useState } from 'react';
 import { push } from 'redux-first-history';
-
+import { AppFooter } from '@components/app-footer';
+import { AppHeader } from '@components/app-header';
 import { Loader } from '@components/loader';
 import { Sidebar } from '@components/sidebar';
-import { AppHeader } from '@components/app-header';
-import { AppFooter } from '@components/app-footer';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
-import { reviewsSelect } from '@redux/slices/reviews';
 import { history } from '@redux/configure-store';
-import { Paths } from '@typing/enums/paths';
 import { authSelect } from '@redux/slices/auth';
 import { calendarSelect } from '@redux/slices/calendar';
+import { reviewsSelect } from '@redux/slices/reviews';
+import { Paths } from '@typing/enums/paths';
 
 import 'antd/dist/antd.css';
 import styles from './app-layout.module.scss';
@@ -28,6 +27,7 @@ export const AppLayout: React.FC = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+
     if(!token) {
       dispatch(push(Paths.AUTH));
     }
@@ -45,13 +45,15 @@ export const AppLayout: React.FC = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+
     if(!storeToken && !token) {
       sessionStorage.clear();
       dispatch(push(Paths.AUTH));
     }
   }, [storeToken, dispatch]);
+
   return (
-      <>
+      <Fragment>
         {(isReviewsLoading || isCalendarLoading) && <Loader />}
         <Layout className={styles.layout}>
           <Suspense fallback={<Loader />}>
@@ -65,6 +67,6 @@ export const AppLayout: React.FC = () => {
           </Layout>
           </Suspense>
         </Layout>
-      </>
+      </Fragment>
   )
 }

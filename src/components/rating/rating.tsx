@@ -1,5 +1,5 @@
-import { Rate } from 'antd';
 import { StarFilled, StarOutlined } from '@ant-design/icons';
+import { Rate } from 'antd';
 
 type RatingProps = {
   rating: number
@@ -15,16 +15,19 @@ export const Rating: React.FC<RatingProps> = ({ rating, setRating, size, disable
   };
 
   const onRatingClick = (value: number) => setRating && setRating(value);
+
+  const currentCharacter = ({ index = 0, value = 0 }) => (
+    index < value
+      ? <StarFilled style={starStyle} />
+      : <StarOutlined style={starStyle} />
+  )
+
   return (
     <Rate
       disabled={disabled}
       value={rating}
       onChange={onRatingClick}
-      character={({ index = 0, value = 0 }) => (
-        index < value
-          ? <StarFilled style={starStyle} />
-          : <StarOutlined style={starStyle} />
-      )}
+      character={currentCharacter}
     />
   )
 }

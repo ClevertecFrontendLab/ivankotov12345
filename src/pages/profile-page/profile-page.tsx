@@ -1,5 +1,3 @@
-export const ProfilePage: React.FC = () => {
-  return (
+export const ProfilePage: React.FC = () => (
     <div>profile-page</div>
   )
-}

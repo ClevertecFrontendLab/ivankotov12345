@@ -1,8 +1,7 @@
-import { Button, Checkbox, Input, InputNumber, Typography } from 'antd';
-
-import { ExerciseType } from '@typing/types/exercise-types';
 import { useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { redactTrainingSelect } from '@redux/slices/redact-training';
+import { ExerciseType } from '@typing/types/exercise-types';
+import { Button, Checkbox, Input, InputNumber, Typography } from 'antd';
 
 import styles from './training-sidebar-item.module.scss'
 
@@ -32,6 +31,7 @@ export const TrainingSidebarItem: React.FC<PropsType> = ({
     changeExercise(index, {...exercise,  replays: value});
   const incrementApproaches = () => 
     changeExercise(index, {...exercise, approaches: (exercise.approaches || 0) + 1});
+
   return (
     <li>
       <Input

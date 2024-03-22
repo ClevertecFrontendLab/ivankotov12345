@@ -1,12 +1,11 @@
+import { goForward, replace } from 'redux-first-history';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import { instance } from '@axios/axios';
 import { getConfirmEmailError, getConfirmEmailFetch, getConfirmEmailSuccess } from '@redux/slices/recovery'
 import { PayloadAction } from '@reduxjs/toolkit';
-import { call, put, takeLatest } from 'redux-saga/effects';
-
 import { AxiosPaths } from '@typing/enums/axios-paths';
-import { FromRecoveryConfirmEmail } from '@typing/types/form-input-values';
-import { goForward, replace } from 'redux-first-history';
 import { Paths } from '@typing/enums/paths';
+import { FromRecoveryConfirmEmail } from '@typing/types/form-input-values';
 
 function* confirmEmailWorker(action: PayloadAction<FromRecoveryConfirmEmail>) {
   try {

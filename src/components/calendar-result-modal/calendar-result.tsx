@@ -1,14 +1,13 @@
 import { CloseCircleOutlined, CloseOutlined } from '@ant-design/icons';
-import { Button, Modal, Typography } from 'antd';
-
-import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
-import { clearError, getTrainingListFetch, trainingListSelect } from '@redux/slices/training-list';
 import { MODAL_WIDTH_CALENDAR } from '@constants/constants';
+import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
+import { clearCreateTrainingError, closeCreateTrainingModal, createTrainingSelect } from '@redux/slices/create-training';
+import { clearRedactingError, redactTrainingSelect } from '@redux/slices/redact-training';
+import { clearError, getTrainingListFetch, trainingListSelect } from '@redux/slices/training-list';
+import { Button, Modal, Typography } from 'antd';
+import classNames from 'classnames';
 
 import styles from './calendar-result.module.scss'
-import { clearCreateTrainingError, closeCreateTrainingModal, createTrainingSelect } from '@redux/slices/create-training';
-import classNames from 'classnames';
-import { clearRedactingError, redactTrainingSelect } from '@redux/slices/redact-training';
 
 const { Title, Text } = Typography;
 
@@ -61,6 +60,7 @@ export const CalendarResult: React.FC<PrposType> = ({ setIsModalOpen }) => {
   const modalButtonText = trainingListMessage?.buttonText
   || createTrainingMessage?.buttonText
   || redactTrainingMessage?.buttonText
+
   return(
     <Modal
       className={styles.modal}
@@ -70,7 +70,7 @@ export const CalendarResult: React.FC<PrposType> = ({ setIsModalOpen }) => {
         backgroundColor: 'rgba(121, 156, 213, 0.5)',
         backdropFilter: 'blur(5px)'
       }}
-      centered
+      centered={true}
       title={
         <div className={styles.headerWrapper}>
           <CloseCircleOutlined className={

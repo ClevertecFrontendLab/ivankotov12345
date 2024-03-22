@@ -1,18 +1,17 @@
+import { Fragment, useState } from 'react';
+import { CloseOutlined, EditOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
+import { TrainingSidebarItem } from '@components/training-sidebar-item';
+import { DRAWER_WIDTH_DESKTOP, DRAWER_WIDTH_MOBILE, EMPTY_EXERCISE, FORMAT_DATE_IN_VIEW, MOBILE_WIDTH } from '@constants/constants';
+import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
+import { useScreenWidth } from '@hooks/use-screen-width-hook';
+import { createTrainingSelect, setExercisesList } from '@redux/slices/create-training';
+import { redactTrainingSelect } from '@redux/slices/redact-training';
+import { CalendarBadgeColors } from '@typing/enums/calendar-badge-colors';
+import { ExerciseType } from '@typing/types/exercise-types';
 import { Badge, Button, Drawer, Typography } from 'antd';
-import { useState } from 'react';
 import type { Moment } from 'moment';
 
-import { TrainingSidebarItem } from '@components/training-sidebar-item';
-import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
-import { createTrainingSelect, setExercisesList } from '@redux/slices/create-training';
-import { ExerciseType } from '@typing/types/exercise-types';
-import { DRAWER_WIDTH_DESKTOP, DRAWER_WIDTH_MOBILE, EMPTY_EXERCISE, FORMAT_DATE_IN_VIEW, MOBILE_WIDTH } from '@constants/constants';
-import { CloseOutlined, EditOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
-import { CalendarBadgeColors } from '@typing/enums/calendar-badge-colors';
-
 import styles from './calendar-training-sidebar.module.scss';
-import { redactTrainingSelect } from '@redux/slices/redact-training';
-import { useScreenWidth } from '@hooks/use-screen-width-hook';
 
 type CalendarTrainingSidebarProps = {
   isCalendarSidebarOpen: boolean,
@@ -58,6 +57,7 @@ export const CalendarTrainingSidebar: React.FC<CalendarTrainingSidebarProps> = (
 
   const onClose = () => {
     const exercisesNonEmpty = exerciseItems.filter((exercise) => exercise.name);
+
     dispatch(setExercisesList(exercisesNonEmpty));
     setIsCalendarSidebarOpen(false);
   };
@@ -66,6 +66,7 @@ export const CalendarTrainingSidebar: React.FC<CalendarTrainingSidebarProps> = (
     setExerciseItems(exerciseItems.filter((_, index) => !checkedRemoveItems[index]));
     setCheckedRemoveItems(checkedRemoveItems.filter((_, index) => !checkedRemoveItems[index]));
   };
+
   return (
     <Drawer
       open={isCalendarSidebarOpen}
@@ -80,8 +81,8 @@ export const CalendarTrainingSidebar: React.FC<CalendarTrainingSidebarProps> = (
         <Title
           editable={{
             icon: isRedactingMode
-              ? <><EditOutlined className={styles.titleLogo} />Редактирование</>
-              : <><PlusOutlined className={styles.titleLogo} />Добавление упражнений</>,
+              ? <Fragment><EditOutlined className={styles.titleLogo} />Редактирование</Fragment>
+              : <Fragment><PlusOutlined className={styles.titleLogo} />Добавление упражнений</Fragment>,
               tooltip: false,
           }}
           level={4}
@@ -111,7 +112,7 @@ export const CalendarTrainingSidebar: React.FC<CalendarTrainingSidebarProps> = (
         {exerciseItems.map((exercise, index) => (
           <TrainingSidebarItem
             exercise={exercise}
-            key={index}
+            key={`${exercise}`}
             changeExercise={changeExercise}
             index={index}
             handleRemoveChange={handleRemoveChange}

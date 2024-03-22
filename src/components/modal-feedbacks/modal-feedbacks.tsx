@@ -1,12 +1,11 @@
+import { useEffect, useId, useState } from 'react';
+import { Rating } from '@components/rating';
+import { MOBILE_WIDTH, MODAL_WIDTH_DESKTOP, MODAL_WIDTH_MOBILE } from '@constants/constants';
+import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
+import { useScreenWidth } from '@hooks/use-screen-width-hook';
+import { getFeedbackFetch, sendFeedbackSelect } from '@redux/slices/send-feedback';
 import { Button, Modal } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
-import { useEffect, useId, useState } from 'react';
-
-import { Rating } from '@components/rating';
-import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
-import { getFeedbackFetch, sendFeedbackSelect } from '@redux/slices/send-feedback';
-import { useScreenWidth } from '@hooks/use-screen-width-hook';
-import { MOBILE_WIDTH, MODAL_WIDTH_DESKTOP, MODAL_WIDTH_MOBILE } from '@constants/constants';
 
 import styles from './modal-feedbacks.module.scss';
 
@@ -41,15 +40,16 @@ export const ModalFeedbacks: React.FC<ModalFeedbacksProps> = ({ isSendFeedbackOp
     if(rating) {
       dispatch(getFeedbackFetch({
         message: feedback || '',
-        rating: rating,
+        rating,
       }));
       setIsSendFeedbackOpen(false);
     }
   };
+
   return (
     <Modal
       title='Ваш отзыв'
-      centered
+      centered={true}
       open={isSendFeedbackOpen}
       onCancel={onCancel}
       width={
@@ -68,7 +68,7 @@ export const ModalFeedbacks: React.FC<ModalFeedbacksProps> = ({ isSendFeedbackOp
           type='primary'
           size='large'
           className={styles.modalButton}
-          disabled={!rating ? true : false}
+          disabled={!rating}
           onClick={onSubmit}
           data-test-id='new-review-submit-button'
         >

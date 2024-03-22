@@ -1,7 +1,6 @@
-import { Button, Typography } from 'antd';
-
 import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
 import { getCalendarFetch } from '@redux/slices/calendar';
+import { Button, Typography } from 'antd';
 
 import styles from './action-card.module.scss';
 
@@ -18,6 +17,7 @@ export const ActionCard: React.FC<ActionCardProps> = ({ cardLogo, cardName, butt
   const dispatch = useAppDispatch();
 
   const onCalendarButtonClick = () => dispatch(getCalendarFetch());
+
   return (
     <li className={styles.card}>
       <Text

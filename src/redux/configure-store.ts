@@ -1,17 +1,18 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { createReduxHistoryContext } from 'redux-first-history';
 import createSagaMiddleware from 'redux-saga';
-import { createReduxHistoryContext } from "redux-first-history";
+import { configureStore } from '@reduxjs/toolkit';
 import { createBrowserHistory } from 'history';
-import { registrationReducer } from './slices/registration';
+
 import { rootSaga } from './sagas/root-saga';
 import { authReducer } from './slices/auth';
+import { calendarReducer } from './slices/calendar';
+import { createTrainingReducer } from './slices/create-training';
 import { recoveryReducer } from './slices/recovery';
+import { redactTrainingReducer } from './slices/redact-training';
+import { registrationReducer } from './slices/registration';
 import { reviewsReducer } from './slices/reviews';
 import { sendFeedbackReducer } from './slices/send-feedback';
-import { calendarReducer } from './slices/calendar';
 import { trainingListReducer } from './slices/training-list';
-import { createTrainingReducer } from './slices/create-training';
-import { redactTrainingReducer } from './slices/redact-training';
 
 const {
     createReduxHistory,

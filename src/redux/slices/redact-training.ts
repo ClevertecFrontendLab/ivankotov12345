@@ -1,8 +1,7 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-
 import { RootState } from '@redux/configure-store';
-import { TrainingRequestType } from '@typing/types/request-types';
+import { createSlice,PayloadAction } from '@reduxjs/toolkit';
 import { MessageCalendarType } from '@typing/types/message-types';
+import { TrainingRequestType } from '@typing/types/request-types';
 
 type RedactTrainingStateType = {
   isLoading: boolean,
