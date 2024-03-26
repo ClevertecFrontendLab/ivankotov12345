@@ -4,6 +4,7 @@ import { authGoogleWatcher } from './auth-google-saga';
 import { authWatcher } from './auth-saga';
 import { calendarWatcher } from './calendar-saga';
 import { changePasswordWatcher } from './change-password-saga';
+import { changeUserDataWatcher } from './change-user-data-saga';
 import { confirmEmailWatcher } from './confirm-email-saga';
 import { createTrainingWatcher } from './create-training-saga';
 import { forgotPassWatcher } from './frogot-pass-saga';
@@ -29,5 +30,6 @@ export function* rootSaga() {
     createTrainingWatcher(),
     redactTrainingWatcher(),
     userWatcher(),
+    changeUserDataWatcher(),
   ]);
 }

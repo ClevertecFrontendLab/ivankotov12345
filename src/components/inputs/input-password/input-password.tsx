@@ -10,7 +10,8 @@ type InputPasswordProps = {
   placeholder: string,
   name: string,
   help?: string,
-  testId: string,
+  testId?: string,
+  isPasswordRequired: boolean
 }
 
 export const InputPassword: React.FC<InputPasswordProps> = ({
@@ -20,7 +21,8 @@ export const InputPassword: React.FC<InputPasswordProps> = ({
   placeholder,
   name,
   help,
-  testId
+  testId,
+  isPasswordRequired
 }) => {
   const validatePassword = (password: string) => {
     const passwordRegExp = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
@@ -52,7 +54,7 @@ export const InputPassword: React.FC<InputPasswordProps> = ({
     <Form.Item
       rules={[
         {
-          required: true,
+          required: isPasswordRequired,
           message: ''
         },
       ]}

@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { GooglePlusOutlined } from '@ant-design/icons';
-import { InputEmail } from '@components/input-email';
-import { InputPassword } from '@components/input-password';
+import { InputEmail } from '@components/inputs/input-email';
+import { InputPassword } from '@components/inputs/input-password';
 import { MOBILE_WIDTH } from '@constants/constants';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { useScreenWidth } from '@hooks/use-screen-width-hook';
 import { getAuthFetch, getAuthGoogleFetch, toggleRememberMe } from '@redux/slices/auth';
 import { getForgotPassFetch, recoverySelect } from '@redux/slices/recovery';
+import { PlaceholderText } from '@typing/enums/placeholder-text';
 import { FormInputValues } from '@typing/types/form-input-values';
 import { Button, Checkbox, Form } from 'antd';
 import { ValidateStatus } from 'antd/es/form/FormItem';
@@ -18,6 +19,7 @@ export const AuthPage: React.FC = () => {
   const [passwordStatus, setPasswordStatus] = useState<ValidateStatus>('');
   const [isChecked, setIsChecked] = useState(false);
   const [isForgotPassDispabled, setIsForgotPassDispabled] = useState(false);
+  const isPasswordRequired = true;
 
   const screenWidth = useScreenWidth();
 
@@ -86,8 +88,9 @@ export const AuthPage: React.FC = () => {
         name='password'
         status={passwordStatus}
         setStatus={setPasswordStatus}
-        placeholder='Пароль'
+        placeholder={PlaceholderText.PASSWORD}
         testId={testIdPassword}
+        isPasswordRequired={isPasswordRequired}
       />
 
       <div className={styles.logInControls}>

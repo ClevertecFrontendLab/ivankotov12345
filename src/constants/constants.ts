@@ -16,4 +16,7 @@ export const EMPTY_EXERCISE = {
 }
 
 export const FORMAT_DATE_IN_VIEW = 'DD.MM.YYYY';
-export const FORMAT_DATE_PAYLOAD = 'YYYY-MM-DDTHH:mm:ss.SSS[Z]'
+export const FORMAT_DATE_PAYLOAD = 'YYYY-MM-DDTHH:mm:ss.SSS[Z]';
+
+export const MAX_IMAGE_SIZE = 5;
+export const IMAGE_URL_BASE = 'https://training-api.clevertec.ru/';

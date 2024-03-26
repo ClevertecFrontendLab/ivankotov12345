@@ -7,7 +7,7 @@ type InputEmailProps = {
   name: string,
   emailStatus: ValidateStatus,
   setEmailStatus: (emailStatus: ValidateStatus) => void,
-  testId: string,
+  testId?: string,
   setIsForgotPassDispabled?: (isForgotPassDispabled: boolean) => void,
 };
 

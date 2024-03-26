@@ -6,6 +6,7 @@ import { createBrowserHistory } from 'history';
 import { rootSaga } from './sagas/root-saga';
 import { authReducer } from './slices/auth';
 import { calendarReducer } from './slices/calendar';
+import { changeUserDataReducer } from './slices/change-user-data';
 import { createTrainingReducer } from './slices/create-training';
 import { recoveryReducer } from './slices/recovery';
 import { redactTrainingReducer } from './slices/redact-training';
@@ -39,6 +40,7 @@ export const store = configureStore({
     createTraining: createTrainingReducer,
     redactTraining: redactTrainingReducer,
     user: userReducer,
+    changeUserData: changeUserDataReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware()
     .concat(sagaMiddleware, routerMiddleware),

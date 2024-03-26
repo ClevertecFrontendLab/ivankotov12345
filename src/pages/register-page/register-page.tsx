@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { GooglePlusOutlined } from '@ant-design/icons';
-import { InputEmail } from '@components/input-email';
-import { InputPassword } from '@components/input-password';
+import { InputEmail } from '@components/inputs/input-email';
+import { InputPassword } from '@components/inputs/input-password';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { getRegistrationFetch, registrationSelect } from '@redux/slices/registration';
+import { PlaceholderText } from '@typing/enums/placeholder-text';
 import { FormInputValues } from '@typing/types/form-input-values';
 import { Button, Form } from 'antd';
 import { ValidateStatus } from 'antd/es/form/FormItem';
@@ -18,6 +19,8 @@ export const RegisterPage: React.FC = () => {
   const testIdEmail = 'registration-email';
   const testIdPassword = 'registration-password';
   const testIdConfirmPassword = 'registration-confirm-password';
+  const isPasswordRequired = true;
+
 
   const [form] = Form.useForm();
 
@@ -56,18 +59,20 @@ export const RegisterPage: React.FC = () => {
         <InputPassword 
           status={passwordStatus} 
           setStatus={setPasswordStatus}
-          placeholder='Пароль'
+          placeholder={PlaceholderText.PASSWORD}
           name='password'
           help='Пароль не менее 8 символов, с заглавной буквой и цифрой'
           testId={testIdPassword}
+          isPasswordRequired={isPasswordRequired}
         />
         <InputPassword
           passwordValue={form.getFieldValue('password')}
           status={confirmPasswordStatus} 
           setStatus={setConfirmPasswordStatus}
-          placeholder='Повторите пароль'
+          placeholder={PlaceholderText.CONFIRM_PASSWORD}
           name='confirmPassword'
           testId={testIdConfirmPassword}
+          isPasswordRequired={isPasswordRequired}
         />
       </div>
 

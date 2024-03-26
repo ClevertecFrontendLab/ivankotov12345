@@ -1,0 +1,47 @@
+@use '../../../scss/index' as *;
+
+.header {
+    background: $primary-light-1;
+    height: auto;
+    padding: $padding-header;
+
+    @media (max-width: $screen-mobile) {
+        padding: $padding-header-mobile;
+    }
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+
+    .title {
+        font-weight: $font-weight-bold;
+
+        @media (max-width: $screen-tablet) {
+            font-size: $size-header-medium;
+            font-weight: $font-weight-bold-mobile;
+        }
+        @media (max-width: $screen-mobile) {
+            padding: $size-header-medium;
+            line-height: $line-height;
+            font-size: $size-header-small;
+        }
+    }
+
+    .settingsButton {
+
+        .settingsButtonLabel {
+            @media (max-width: $screen-tablet) {
+                display: none;
+            }
+
+            @media (max-width: $screen-mobile) {
+                display: flex;
+            }
+        }
+
+        @media (max-width: $screen-mobile) {
+            margin-top: 0;
+        }
+    }
+}

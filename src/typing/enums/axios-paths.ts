@@ -11,4 +11,6 @@ export enum AxiosPaths {
     TRAINING = '/training',
     TRAINING_LIST = '/catalogs/training-list',
     USER_ME = '/user/me',
+    UPLOAD_IMAGE = '/upload-image',
+    CHANGE_USER_INFO = '/user'
 }

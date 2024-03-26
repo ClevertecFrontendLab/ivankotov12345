@@ -30,12 +30,17 @@ export type TrainingType = {
 }
 
 export type UserResponseType = {
-  email: string,
-  firstName: string,
-  lastName: string,
-  birthday: string,
-  imgSrc: string,
+  email?: string,
+  firstName?: string,
+  lastName?: string,
+  birthday?: string,
+  imgSrc?: string,
   readyForJointTraining: boolean,
   sendNotification: boolean,
   tariff: TariffType,
+}
+
+export type ImageResponseType = {
+  name: string,
+  url: string,
 }

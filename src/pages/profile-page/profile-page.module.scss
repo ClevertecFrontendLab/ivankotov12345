@@ -1,0 +1,11 @@
+@use '../../scss/index' as *;
+
+.layoutProfile {
+    margin: $page-wrapper;
+    padding: $page-wrapper;
+    background-color: $character-light-primary-inverse;
+
+    .form {
+        width: $from-width;
+    }
+}

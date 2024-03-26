@@ -1,0 +1,11 @@
+@use '../../../scss/index' as *;
+
+.header {
+    background: $primary-light-1;
+    height: auto;
+    padding: $padding-header;
+
+    @media (max-width: $screen-mobile) {
+        padding: $padding-header-mobile;
+    }
+}
