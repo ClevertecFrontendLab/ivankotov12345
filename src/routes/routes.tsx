@@ -11,8 +11,9 @@ import {
   FeedbacksPage,
   MainPage,
   MessagePage,
-  RegisterPage } from '@pages/index';
-import { ProfilePage } from '@pages/profile-page';
+  ProfilePage,
+  RegisterPage, 
+  SettingsPage } from '@pages/index';
 import { Paths } from '@typing/enums/paths';
 
 
@@ -24,6 +25,7 @@ export const routes = (
         <Route index={true} path={Paths.FEEDBACKS} element={<FeedbacksPage />} />
         <Route index={true} path={Paths.CALENDAR} element={<CalendarPage />} />
         <Route index={true} path={Paths.PROFILE} element={<ProfilePage />} />
+        <Route index={true} path={Paths.SETTINGS} element={<SettingsPage />} />
       </Route>
     </Route>
 
