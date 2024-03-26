@@ -1,6 +1,9 @@
+import { push } from 'redux-first-history';
 import { SettingOutlined } from '@ant-design/icons';
 import { MOBILE_WIDTH } from '@constants/constants';
+import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
 import { useScreenWidth } from '@hooks/use-screen-width-hook';
+import { Paths } from '@typing/enums/paths';
 import { Breadcrumb, Button, Layout, Typography } from 'antd';
 
 import 'antd/dist/antd.css';
@@ -10,8 +13,10 @@ const { Header } = Layout;
 const { Title } = Typography;
 
 export const HeaderMain: React.FC = () => {
-
+  const dispatch = useAppDispatch()
   const screenWidth = useScreenWidth();
+
+  const onSettingsClick = () => dispatch(push(Paths.SETTINGS))
 
   return (
     <Header className={styles.header}>
@@ -29,6 +34,7 @@ export const HeaderMain: React.FC = () => {
           size='middle'
           shape={screenWidth && screenWidth > MOBILE_WIDTH ? 'default' : 'circle'}
           icon={<SettingOutlined className={styles.settingsButtonLabel} />}
+          onClick={onSettingsClick}
           >
         {screenWidth && screenWidth > MOBILE_WIDTH && 'Настройки'}
         </Button>

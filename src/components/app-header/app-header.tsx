@@ -6,6 +6,7 @@ import { HeaderProfile } from './header-profile/header-profile';
 import { HeaderCalendar } from './header-calendar';
 import { HeaderCommentaries } from './header-commentaries';
 import { HeaderMain } from './header-main';
+import { HeaderSettings } from './header-settings';
 
 export const AppHeader: React.FC = () => {
   const [currentLocation, setCurrentLocation] = useState(history.location.pathname);
@@ -33,6 +34,9 @@ export const AppHeader: React.FC = () => {
     if(currentLocation === Paths.PROFILE) {
       return <HeaderProfile />;
     };
+    if(currentLocation === Paths.SETTINGS) {
+      return <HeaderSettings />
+    }
     
     return null;
   }
