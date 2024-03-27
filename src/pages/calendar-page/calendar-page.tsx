@@ -1,8 +1,8 @@
 import { Fragment, useEffect, useState } from 'react';
 import { CalendarModal } from '@components/calendar-modal/calendar-modal.tsx';
 import { CalendarResult } from '@components/calendar-result-modal/calendar-result.tsx';
-import { CalendarTrainingSidebar } from '@components/calendar-training-sidebar/calendar-training-sidebar.tsx';
 import { CreateTrainingModal } from '@components/create-training-modal/create-training-modal.tsx';
+import { CalendarTrainingSidebar } from '@components/sidebars';
 import { MOBILE_WIDTH } from '@constants/constants.ts';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks.ts';
 import { useScreenWidth } from '@hooks/use-screen-width-hook.ts';

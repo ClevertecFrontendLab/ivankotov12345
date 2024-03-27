@@ -1,0 +1,10 @@
+@use '../../scss/index' as *;
+
+.wrapper {
+    background-color: $character-light-primary-inverse;
+
+
+    .cradsWrapper {
+        display: flex;
+    }
+}

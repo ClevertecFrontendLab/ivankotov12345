@@ -26,7 +26,7 @@
             "@redux/*": ["./src/redux/*"],
             "@typing/*": ["./src/typing/*"],
             "@utils/*": ["./src/utils/*"],
-            "@axios/*": ["./src/axios/*"]
+            "@axios/*": ["./src/axios/*"],
         },
         "plugins": [
             {
