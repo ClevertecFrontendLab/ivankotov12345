@@ -1,0 +1,13 @@
+@use '../../../scss/index' as *;
+
+.uploadButton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: $padding-buttons-wrapper;
+    gap: $gap-small;
+
+    .textImageButton {
+        line-height: $line-height;
+    }
+}

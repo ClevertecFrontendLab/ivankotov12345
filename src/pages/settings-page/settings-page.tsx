@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TariffCard } from '@components/cards';
 import { SettingsItem } from '@components/settings-item';
 import { SettingsSidebar } from '@components/sidebars';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { changeUserDataFetch } from '@redux/slices/change-user-data';
+import { getTariffListFetch } from '@redux/slices/tariff';
 import { getUserFetch, userSelect } from '@redux/slices/user';
 import { Layout, Typography } from 'antd';
 
@@ -46,6 +47,10 @@ export const SettingsPage: React.FC = () => {
       disabled: true,
     },
   ];
+
+  useEffect(() => {
+    dispatch(getTariffListFetch())
+  }, [dispatch])
 
   return (
     <Layout className={styles.wrapper}>

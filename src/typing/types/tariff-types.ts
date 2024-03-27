@@ -1,11 +1,16 @@
 export type TariffType = {
-    tariffId: string,
-    expired: string
-  }
+  tariffId: string,
+  expired: string
+}
 
-export type TableDataType = {
-  title: string,
-  dataIndex: string,
-  key: string,
-  fixed: string,
+export type PeriodsType = {
+  text: string,
+  cost: number,
+  days: number,
+}
+
+export type TariffListType = {
+  _id: string,
+  name: string,
+  periods: PeriodsType[],
 }

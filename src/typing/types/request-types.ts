@@ -7,3 +7,8 @@ export type TrainingRequestType = {
   parameters?: ParametersType,
   exercises: ExerciseType[],
 }
+
+export type PayTariffRequestType = {
+  tariffId: string,
+  days: number,
+}

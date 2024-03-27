@@ -4,10 +4,12 @@ import { instance } from '@axios/axios';
 import { IMAGE_URL_BASE, MAX_IMAGE_SIZE } from '@constants/constants';
 import { AxiosPaths } from '@typing/enums/axios-paths';
 import { ImageResponseType } from '@typing/types/response-types';
-import { Form, Modal, Typography, Upload } from 'antd';
+import { Modal, Typography, Upload } from 'antd';
 import { RcFile, UploadFile } from 'antd/lib/upload';
 import { AxiosResponse } from 'axios';
 import type { UploadRequestOption } from 'rc-upload/lib/interface';
+
+import styles from './upload-image.module.scss'
 
 const { Text } = Typography;
 
@@ -19,9 +21,14 @@ export const UploadImage: React.FC<UploadImagePropsType> = ({ setImageSrc }) => 
   const [fileList, setFileList] = useState<UploadFile[]>([])
 
   const uploadButton = (
-    <div>
+    <div className={styles.uploadButton}>
       <PlusOutlined />
-      <Text>Загрузить фото профиля</Text>
+      <Text
+        type='secondary'
+        className={styles.textImageButton}
+      >
+        Загрузить фото профиля
+      </Text>
     </div>
   );
   
@@ -82,15 +89,13 @@ export const UploadImage: React.FC<UploadImagePropsType> = ({ setImageSrc }) => 
   }
 
   return (
-    <Form.Item>
-      <Upload
-        fileList={fileList}
-        listType="picture-card"
-        beforeUpload={beforeUpload}
-        customRequest={customUpload}
-      >
-        {fileList.length === 0 && uploadButton}
-      </Upload>
-    </Form.Item>
+    <Upload
+      fileList={fileList}
+      listType="picture-card"
+      beforeUpload={beforeUpload}
+      customRequest={customUpload}
+    >
+      {fileList.length === 0 && uploadButton}
+    </Upload>
   )
 }

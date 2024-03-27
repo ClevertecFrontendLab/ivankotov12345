@@ -13,6 +13,7 @@ import { redactTrainingReducer } from './slices/redact-training';
 import { registrationReducer } from './slices/registration';
 import { reviewsReducer } from './slices/reviews';
 import { sendFeedbackReducer } from './slices/send-feedback';
+import { tariffReducer } from './slices/tariff';
 import { trainingListReducer } from './slices/training-list';
 import { userReducer } from './slices/user';
 
@@ -41,6 +42,7 @@ export const store = configureStore({
     redactTraining: redactTrainingReducer,
     user: userReducer,
     changeUserData: changeUserDataReducer,
+    tariff: tariffReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware()
     .concat(sagaMiddleware, routerMiddleware),

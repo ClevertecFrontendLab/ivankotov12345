@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { InputEmail, InputPassword, UploadImage } from '@components/inputs';
-import { FORMAT_DATE_IN_VIEW } from '@constants/constants';
+import { FORMAT_DATE_IN_VIEW, FORMAT_DATE_PAYLOAD } from '@constants/constants';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { changeUserDataFetch } from '@redux/slices/change-user-data';
 import { userSelect } from '@redux/slices/user';
@@ -9,6 +9,7 @@ import { UserDataValues } from '@typing/types/form-input-values';
 import { Button, DatePicker, Form, Input, Layout, Typography } from 'antd';
 import { ValidateStatus } from 'antd/es/form/FormItem';
 import { useForm } from 'antd/lib/form/Form';
+import moment from 'moment';
 
 import styles from './profile-page.module.scss';
 
@@ -20,7 +21,7 @@ export const ProfilePage: React.FC = () => {
   const [confirmNewPasswordStatus, setConfirmNewPasswordStatus] = useState<ValidateStatus>('');
   const [imageSrc, setImageSrc] = useState<string | null>(null)
   const { userData } = useAppSelector(userSelect);
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   const isPasswordRequired = false;
 
@@ -34,7 +35,14 @@ export const ProfilePage: React.FC = () => {
     }
   }, [imageSrc, form]);
 
-  const onSubmit = (data: UserDataValues) => dispatch(changeUserDataFetch(data));
+  const onSubmit = (data: UserDataValues) => {
+    const submittedData = data;
+    
+    if (submittedData.birthday) {
+      submittedData.birthday = moment(submittedData.birthday).format(FORMAT_DATE_PAYLOAD);
+    }
+    dispatch(changeUserDataFetch(submittedData))
+  };
 
   return (
     <Layout className={styles.layoutProfile}>
@@ -45,14 +53,14 @@ export const ProfilePage: React.FC = () => {
         initialValues={{
           firstName: userData?.firstName,
           lastName: userData?.lastName,
-          birthday: userData?.birthday,
+          birthday: moment(userData?.birthday),
           email: userData?.email,
           imgSrc: userData?.imgSrc,
         }}
         onFinish={onSubmit}
       >
         <Title level={5}>Личная информация</Title>
-        <div>
+        <div className={styles.formPersonalInfo}>
           <Form.Item name='imgSrc'>
             <UploadImage setImageSrc={setImageSrc} />
           </Form.Item>
@@ -73,6 +81,7 @@ export const ProfilePage: React.FC = () => {
               <DatePicker
                 placeholder={PlaceholderText.DATE_OF_BIRTH}
                 format={FORMAT_DATE_IN_VIEW}
+                allowClear={false}
               />
             </Form.Item>
           </div>

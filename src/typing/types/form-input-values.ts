@@ -1,3 +1,5 @@
+import type { Moment } from 'moment'
+
 export type FormInputValues = {
   email: string,
   password: string,
@@ -27,7 +29,7 @@ export type UserDataValues = {
   password?: string,
   firstName?: string,
   lastName?: string,
-  birthday?: string,
+  birthday?: Moment | string,
   imgSrc?: string,
   readyForJointTraining?: boolean,
   sendNotification?: boolean,
