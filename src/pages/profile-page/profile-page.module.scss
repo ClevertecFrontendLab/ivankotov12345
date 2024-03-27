@@ -4,12 +4,52 @@
     margin: $page-wrapper;
     padding: $page-wrapper;
     background-color: $character-light-primary-inverse;
+    height: calc(100% - 64px);
 
     .form {
         width: $from-width;
-    }
+        :global {
+            .ant-form-item {
+                margin: 0;
+            }
 
-    .formPersonalInfo {
-        display: flex;
+            .ant-upload.ant-upload-select-picture-card,
+            .ant-upload-list-picture-card-container {
+                margin: 0;
+                @include upload-container-size;
+            }
+        }
+        .title {
+            margin-bottom: $page-wrapper;
+        }
+
+        .formPersonalInfo {
+            display: flex;
+            gap: $gap-big;
+            margin-bottom: $page-wrapper;
+        }
+
+        .inputsWrapper {
+            display: flex;
+            flex-direction: column;
+            gap: $gap-medium;
+            width: 100%;
+
+            .inputItem {
+                height: 40px;
+                width: 100%;
+            }
+        }
+
+        .inputsWrapperAuth {
+            display: flex;
+            flex-direction: column;
+            gap: $gap-big;
+        }
+
+        .button {
+            margin-top: 54px;
+            @include color-button-primary;
+        }
     }
 }

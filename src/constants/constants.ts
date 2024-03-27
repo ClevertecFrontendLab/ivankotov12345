@@ -20,3 +20,5 @@ export const FORMAT_DATE_PAYLOAD = 'YYYY-MM-DDTHH:mm:ss.SSS[Z]';
 
 export const MAX_IMAGE_SIZE = 5;
 export const IMAGE_URL_BASE = 'https://training-api.clevertec.ru/';
+
+export const PRIMARY_LIGHT_6_COLOR = '#2f54eb'

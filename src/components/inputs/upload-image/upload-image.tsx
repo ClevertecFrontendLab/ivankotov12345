@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import { instance } from '@axios/axios';
-import { IMAGE_URL_BASE, MAX_IMAGE_SIZE } from '@constants/constants';
+import { IMAGE_URL_BASE, MAX_IMAGE_SIZE, PRIMARY_LIGHT_6_COLOR } from '@constants/constants';
 import { AxiosPaths } from '@typing/enums/axios-paths';
 import { ImageResponseType } from '@typing/types/response-types';
-import { Modal, Typography, Upload } from 'antd';
+import { Modal, Progress, Typography, Upload } from 'antd';
 import { RcFile, UploadFile } from 'antd/lib/upload';
 import { AxiosResponse } from 'axios';
 import type { UploadRequestOption } from 'rc-upload/lib/interface';
@@ -18,7 +18,9 @@ type UploadImagePropsType = {
 }
 
 export const UploadImage: React.FC<UploadImagePropsType> = ({ setImageSrc }) => {
-  const [fileList, setFileList] = useState<UploadFile[]>([])
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   const uploadButton = (
     <div className={styles.uploadButton}>
@@ -31,6 +33,18 @@ export const UploadImage: React.FC<UploadImagePropsType> = ({ setImageSrc }) => 
       </Text>
     </div>
   );
+
+  const upladProgress = (
+    <div>
+      <Text>Загружаем</Text>
+      <Progress
+        percent={uploadProgress}
+        size='small'
+        showInfo={false}
+        strokeColor={PRIMARY_LIGHT_6_COLOR}
+      />
+    </div>
+  )
   
   const beforeUpload = (file: RcFile) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
@@ -48,7 +62,7 @@ export const UploadImage: React.FC<UploadImagePropsType> = ({ setImageSrc }) => 
   }
 
   const customUpload = async (options: UploadRequestOption) => {
-    const { file } = options;
+    const { file, onProgress } = options;
   
     const formData = new FormData();
   
@@ -56,7 +70,7 @@ export const UploadImage: React.FC<UploadImagePropsType> = ({ setImageSrc }) => 
 
     const uploadFile = file as UploadFile<RcFile>;
 
-    uploadFile.status = 'uploading';
+    setIsUploading(true)
     setFileList([uploadFile]);
   
     try {
@@ -67,6 +81,17 @@ export const UploadImage: React.FC<UploadImagePropsType> = ({ setImageSrc }) => 
           headers: {
             'Content-Type': 'multipart/form-data',
           },
+          onUploadProgress: (progressEvent) => {
+              if (progressEvent.total) {
+                const currentPercent = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+
+                setUploadProgress(currentPercent);
+                if (onProgress) {
+                  onProgress({ percent: currentPercent });
+                }
+              }
+            
+          }
         }
       );
 
@@ -75,8 +100,9 @@ export const UploadImage: React.FC<UploadImagePropsType> = ({ setImageSrc }) => 
       const uploadFileSuccess = file as UploadFile<RcFile>;
 
       uploadFileSuccess.url = `${IMAGE_URL_BASE}${imageUrl}`;
-      uploadFileSuccess.status = 'done';
 
+      setIsUploading(false);
+      setUploadProgress(0);
       setImageSrc(uploadFileSuccess.url)
       setFileList([uploadFileSuccess]);
     }
@@ -84,7 +110,9 @@ export const UploadImage: React.FC<UploadImagePropsType> = ({ setImageSrc }) => 
       const uploadFileError = file as UploadFile<RcFile>;
 
       uploadFileError.status = 'error';
-      setFileList([uploadFileError]);
+      setIsUploading(false);
+      setUploadProgress(0);
+      setFileList([]);
     }
   }
 
@@ -96,6 +124,7 @@ export const UploadImage: React.FC<UploadImagePropsType> = ({ setImageSrc }) => 
       customRequest={customUpload}
     >
       {fileList.length === 0 && uploadButton}
+      {isUploading && upladProgress}
     </Upload>
   )
 }
