@@ -8,6 +8,7 @@ import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
 import { useScreenWidth } from '@hooks/use-screen-width-hook';
 import { history } from '@redux/configure-store';
 import { getCalendarFetch } from '@redux/slices/calendar';
+import { clearUser } from '@redux/slices/user';
 import { Paths } from '@typing/enums/paths';
 import { Layout, Menu } from 'antd';
 
@@ -30,6 +31,7 @@ export const Sidebar: React.FC = () => {
     localStorage.removeItem('token');
     sessionStorage.clear();
     dispatch(push(Paths.AUTH));
+    dispatch(clearUser());
   }
 
   const onCalendarClick = () => dispatch(getCalendarFetch());

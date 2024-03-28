@@ -1,13 +1,14 @@
 import { CloseCircleOutlined, CloseOutlined } from '@ant-design/icons';
 import { MODAL_WIDTH_CALENDAR } from '@constants/constants';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
+import { changeUserDataSelect, clearUserDataError } from '@redux/slices/change-user-data';
 import { clearCreateTrainingError, closeCreateTrainingModal, createTrainingSelect } from '@redux/slices/create-training';
 import { clearRedactingError, redactTrainingSelect } from '@redux/slices/redact-training';
 import { clearError, getTrainingListFetch, trainingListSelect } from '@redux/slices/training-list';
 import { Button, Modal, Typography } from 'antd';
 import classNames from 'classnames';
 
-import styles from './calendar-result.module.scss'
+import styles from './submit-data-result.module.scss'
 
 const { Title, Text } = Typography;
 
@@ -15,7 +16,7 @@ type PrposType = {
   setIsModalOpen: (isModalOpen: boolean) => void,
 }
 
-export const CalendarResult: React.FC<PrposType> = ({ setIsModalOpen }) => {
+export const SubmitDataResult: React.FC<PrposType> = ({ setIsModalOpen }) => {
   const dispatch = useAppDispatch()
   const {
     message: trainingListMessage,
@@ -31,6 +32,11 @@ export const CalendarResult: React.FC<PrposType> = ({ setIsModalOpen }) => {
     isError: isRedactTrainingError,
   } = useAppSelector(redactTrainingSelect);
 
+  const {
+    message: changeUserDataMessage,
+    isError: changeUserDataError,
+  } = useAppSelector(changeUserDataSelect);
+
   const onRetryButtonClick = () => {
     if(isTrainingListError) {
       dispatch(getTrainingListFetch());
@@ -45,21 +51,33 @@ export const CalendarResult: React.FC<PrposType> = ({ setIsModalOpen }) => {
       dispatch(closeCreateTrainingModal());
       setIsModalOpen(false);
     }
+    if(changeUserDataError) {
+      dispatch(clearUserDataError());
+      setIsModalOpen(false)
+    }
   };
 
   const onCloseModalClick = () => dispatch(clearError());
 
-  const modalOpen = isTrainingListError || isCreateTrainingError || isRedactTrainingError;
+  const modalOpen = isTrainingListError
+    || isCreateTrainingError
+    || isRedactTrainingError
+    || changeUserDataError;
+
   const mdoalTitle = trainingListMessage?.title
     || createTrainingMessage?.title
-    || redactTrainingMessage?.title;
+    || redactTrainingMessage?.title
+    || changeUserDataMessage?.title;
+
   const modalText = trainingListMessage?.text
     || createTrainingMessage?.text
-    || redactTrainingMessage?.text;
+    || redactTrainingMessage?.text
+    || changeUserDataMessage?.text;
 
   const modalButtonText = trainingListMessage?.buttonText
-  || createTrainingMessage?.buttonText
-  || redactTrainingMessage?.buttonText
+    || createTrainingMessage?.buttonText
+    || redactTrainingMessage?.buttonText
+    || changeUserDataMessage?.buttonText;
 
   return(
     <Modal

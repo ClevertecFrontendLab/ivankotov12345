@@ -11,3 +11,15 @@
         line-height: $line-height;
     }
 }
+
+.imageWrapper {
+    width: 104px;
+    border: $border-upload-image;
+    border-radius: 2px;
+    padding: 9px;
+}
+
+
+.image {
+    width: 100%;
+}

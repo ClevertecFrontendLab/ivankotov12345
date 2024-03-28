@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { TariffCard } from '@components/cards';
 import { SettingsItem } from '@components/settings-item';
 import { SettingsSidebar } from '@components/sidebars';
+import { TariffResultModal } from '@components/tariff-result-modal';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { changeUserDataFetch } from '@redux/slices/change-user-data';
 import { getTariffListFetch } from '@redux/slices/tariff';
@@ -112,6 +113,8 @@ export const SettingsPage: React.FC = () => {
           setIsSidebarOpen={setIsSidebarOpen}
         />
       </div>
+
+      <TariffResultModal />
     </Layout>
   )
 }

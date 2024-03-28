@@ -26,9 +26,12 @@ export const userSlice = createSlice({
     getUserError: (state) => {
       state.isLoading = false;
     },
+    clearUser: (state) => {
+      state.userData = null;
+    }
   }
 });
 
 export const userReducer = userSlice.reducer;
 export const userSelect = (state: RootState) => state.user;
-export const { getUserFetch, getUserSuccss, getUserError } = userSlice.actions;
+export const { getUserFetch, getUserSuccss, getUserError, clearUser } = userSlice.actions;

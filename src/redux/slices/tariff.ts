@@ -7,12 +7,14 @@ type TariffStateType = {
   isLoading: boolean,
   tariffList: TariffListType[] | null,
   payTariffData: PayTariffRequestType | null,
+  isSuccess: boolean,
 }
 
 const initialState: TariffStateType = {
   isLoading: false,
   tariffList: null,
   payTariffData: null,
+  isSuccess: false,
 }
 
 export const tariffSlice = createSlice({
@@ -35,6 +37,7 @@ export const tariffSlice = createSlice({
     },
     getPayTariffSuccess: (state) => {
       state.isLoading = false;
+      state.isSuccess = true;
     },
     getPayTariffError: (state) => {
       state.isLoading = false;

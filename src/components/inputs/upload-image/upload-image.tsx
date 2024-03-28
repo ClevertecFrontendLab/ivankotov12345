@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import { instance } from '@axios/axios';
 import { IMAGE_URL_BASE, MAX_IMAGE_SIZE, PRIMARY_LIGHT_6_COLOR } from '@constants/constants';
+import { useAppSelector } from '@hooks/typed-react-redux-hooks';
+import { userSelect } from '@redux/slices/user';
 import { AxiosPaths } from '@typing/enums/axios-paths';
 import { ImageResponseType } from '@typing/types/response-types';
 import { Modal, Progress, Typography, Upload } from 'antd';
@@ -18,33 +20,49 @@ type UploadImagePropsType = {
 }
 
 export const UploadImage: React.FC<UploadImagePropsType> = ({ setImageSrc }) => {
+  const { userData } = useAppSelector(userSelect);
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
 
+
+  useEffect(() => {
+    if(userData?.imgSrc) {
+      const initialFileList: UploadFile[] = [{
+        uid: '-1',
+        name: 'avatar.jpg',
+        status: 'done',
+        url: userData?.imgSrc,
+      }];
+
+      setFileList(initialFileList);
+    }
+  }, [userData])
+  
+
   const uploadButton = (
     <div className={styles.uploadButton}>
-      <PlusOutlined />
-      <Text
-        type='secondary'
-        className={styles.textImageButton}
-      >
-        Загрузить фото профиля
-      </Text>
+      {isUploading 
+      ? <Fragment>
+          <Text>Загружаем</Text>
+          <Progress
+            percent={uploadProgress}
+            size='small'
+            showInfo={false}
+            strokeColor={PRIMARY_LIGHT_6_COLOR}
+          />
+       </Fragment>
+     : <Fragment>
+        <PlusOutlined />
+         <Text
+           type='secondary'
+           className={styles.textImageButton}
+         >
+           Загрузить фото профиля
+         </Text>
+      </Fragment>}
     </div>
   );
-
-  const upladProgress = (
-    <div>
-      <Text>Загружаем</Text>
-      <Progress
-        percent={uploadProgress}
-        size='small'
-        showInfo={false}
-        strokeColor={PRIMARY_LIGHT_6_COLOR}
-      />
-    </div>
-  )
   
   const beforeUpload = (file: RcFile) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
@@ -56,6 +74,11 @@ export const UploadImage: React.FC<UploadImagePropsType> = ({ setImageSrc }) => 
         content: `Выберите файл размером до ${MAX_IMAGE_SIZE} МБ.`,
         okText: 'Закрыть',
       })
+
+      const uploadFile = file as UploadFile<RcFile>;
+
+      uploadFile.status = 'error';
+      setFileList([uploadFile])
     }
 
     return isJpgOrPng && isLt5M;
@@ -68,11 +91,8 @@ export const UploadImage: React.FC<UploadImagePropsType> = ({ setImageSrc }) => 
   
     formData.append('file', file);
 
-    const uploadFile = file as UploadFile<RcFile>;
-
     setIsUploading(true)
-    setFileList([uploadFile]);
-  
+
     try {
       const { data }: AxiosResponse<ImageResponseType> = await instance.post(
         AxiosPaths.UPLOAD_IMAGE,
@@ -112,7 +132,7 @@ export const UploadImage: React.FC<UploadImagePropsType> = ({ setImageSrc }) => 
       uploadFileError.status = 'error';
       setIsUploading(false);
       setUploadProgress(0);
-      setFileList([]);
+      setFileList([uploadFileError]);
     }
   }
 
@@ -124,7 +144,6 @@ export const UploadImage: React.FC<UploadImagePropsType> = ({ setImageSrc }) => 
       customRequest={customUpload}
     >
       {fileList.length === 0 && uploadButton}
-      {isUploading && upladProgress}
     </Upload>
   )
 }

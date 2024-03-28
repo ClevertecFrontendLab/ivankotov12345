@@ -1,8 +1,9 @@
-import { call, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import { instance } from '@axios/axios';
-import { changeUserDataFetch } from '@redux/slices/change-user-data';
+import { changeUserDataError, changeUserDataFetch, changeUserDataSuccess } from '@redux/slices/change-user-data';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { AxiosPaths } from '@typing/enums/axios-paths';
+import { ChangeUserDataError } from '@typing/enums/result-messages';
 import { UserDataValues } from '@typing/types/form-input-values';
 
 function* changeUserDataWorker(action: PayloadAction<UserDataValues>) {
@@ -12,8 +13,14 @@ function* changeUserDataWorker(action: PayloadAction<UserDataValues>) {
       AxiosPaths.CHANGE_USER_INFO,
       action.payload,
     )
+    yield put(changeUserDataSuccess());
   } catch(error) {
-    yield
+    yield put(changeUserDataError({
+      error: ChangeUserDataError.status,
+      title: ChangeUserDataError.title,
+      text: ChangeUserDataError.text,
+      buttonText: ChangeUserDataError.buttonText,
+    }));
   }
 };
 

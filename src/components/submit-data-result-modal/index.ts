@@ -1,0 +1,1 @@
+export { SubmitDataResult } from './submit-data-result';

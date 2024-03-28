@@ -1,0 +1,1 @@
+export { TariffResultModal } from './tariff-result-modal';

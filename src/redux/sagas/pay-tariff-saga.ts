@@ -1,6 +1,6 @@
-import { call, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import { instance } from '@axios/axios';
-import { getPayTariffFetch } from '@redux/slices/tariff';
+import { getPayTariffFetch, getPayTariffSuccess } from '@redux/slices/tariff';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { AxiosPaths } from '@typing/enums/axios-paths';
 import { PayTariffRequestType } from '@typing/types/request-types';
@@ -12,6 +12,7 @@ function* payTariffWorker(action: PayloadAction<PayTariffRequestType>) {
       AxiosPaths.PAY_TARIFF,
       action.payload,
     )
+    yield put(getPayTariffSuccess());
   } catch(error) {
     yield
   }
