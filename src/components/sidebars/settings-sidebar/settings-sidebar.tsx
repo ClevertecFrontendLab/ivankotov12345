@@ -1,9 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CloseOutlined } from '@ant-design/icons';
 import { SettingsTable } from '@components/settings-table';
+import { FORMAT_DATE_IN_VIEW_SHORT } from '@constants/constants';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { getPayTariffFetch, tariffSelect } from '@redux/slices/tariff';
+import { userSelect } from '@redux/slices/user';
 import { Button, Drawer, Radio, RadioChangeEvent, Typography } from 'antd';
+import moment from 'moment';
+
+import styles from './settings-sidebar.module.scss'
 
 type SettingsSidebarProps = {
   isSidebarOpen: boolean,
@@ -14,12 +19,16 @@ const { Title, Text } = Typography;
 
 export const SettingsSidebar: React.FC<SettingsSidebarProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const [selectedTariffDays, setSelectedTariffDays] = useState<number | null>(null);
+  const [isButtonPayDisabled, setIsButtonPayDisabled] = useState(true);
   const dispatch = useAppDispatch();
 
   const onClose = () => setIsSidebarOpen(false);
 
   const { tariffList } = useAppSelector(tariffSelect);
-  const tariffId = tariffList && tariffList[0]._id
+  const { userData } = useAppSelector(userSelect);
+
+  const tariffId = tariffList && tariffList[0]._id;
+  const date = userData?.tariff && moment(userData?.tariff.expired).format(FORMAT_DATE_IN_VIEW_SHORT);
 
   const traiffItemsList = tariffList 
     && tariffList.map((item) => item.periods)[0]
@@ -42,33 +51,80 @@ export const SettingsSidebar: React.FC<SettingsSidebarProps> = ({ isSidebarOpen,
     }
   }
 
+  useEffect(() => {
+    if(selectedTariffDays) {
+      setIsButtonPayDisabled(false);
+    }
+  }, [selectedTariffDays])
+
   return (
     <Drawer
       open={isSidebarOpen}
       mask={false}
       closable={true}
       headerStyle={{ display: 'none' }}
-    >
-      <div>
-        <Title level={5}>Сравнить тарифы</Title>
+      footer={[
         <Button
+          onClick={onButtonPayTariff}
+          disabled={isButtonPayDisabled}
+          size='large'
+          type='primary'
+          block={true}
+          className={styles.buttonPay}
+        >
+          Выбрать и оплатить
+        </Button>
+      ]}
+      className={styles.drawer}
+    >
+      <div className={styles.titleWrapper}>
+        <Title
+        level={5}
+        className={styles.title}
+        >
+          Сравнить тарифы
+        </Title>
+
+        <Button
+          type='text'
+          size='small'
           icon={<CloseOutlined />}
           onClick={onClose}
         />
       </div>
-      <SettingsTable />
 
-      <Radio.Group>
-      {traiffItemsList?.map(({ text, cost, days }) => (
-        <Radio value={days} onChange={onChange} key={text}>
-          <Text>{text}</Text>
-          <Text>{`${cost} $`}</Text>
-        </Radio>
-      ))}
-      </Radio.Group>
-      <Button onClick={onButtonPayTariff}>
-        Выбрать и оплатить
-      </Button>
+      {date &&
+        <div className={styles.titleDateWrapper}>
+          <Title level={5} className={styles.titleDate}>Ваш PRO tarif активен до {date}</Title>
+        </div>}
+
+      <SettingsTable />
+      
+      {!userData?.tariff &&
+        <div className={styles.selectTariffWrapper}>
+          <Title level={5} className={styles.selectTariffTitle}>Стоимость тарифа</Title>
+
+          <Radio.Group className={styles.radioWrapper}>
+          {traiffItemsList?.map(({ text, cost, days }) => (
+            <Radio
+              value={days}
+              onChange={onChange}
+              key={text}
+              className={styles.radio}
+            >
+              <Text className={styles.radioText}>{text}</Text>
+
+              <Title
+                level={5}
+                className={styles.textPrice}
+              >
+                {`${cost} $`}
+              </Title>
+            </Radio>
+          ))}
+          </Radio.Group>
+        </div>
+      }
     </Drawer>
   )
 }

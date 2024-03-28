@@ -1,0 +1,74 @@
+@use '../../../scss/index' as *;
+
+.drawer {
+    :global {
+        .ant-drawer-body {
+            padding: 0;
+        }
+    }
+}
+
+.titleWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $padding-drawer-title;    
+    margin-bottom: $page-wrapper;
+
+    .title {
+        margin-bottom: 0;
+    }
+
+    
+}
+
+.titleDateWrapper {
+    margin: $wrapper-big;
+
+    .titleDate {
+        margin-bottom: 0;
+        padding: $padding-date-drawer;
+        text-align: center;
+        background: $primary-light-1;
+    }
+}
+
+.selectTariffWrapper {
+    padding: $padding-drawer-title;
+
+    .selectTariffTitle {
+        margin-bottom: $gap-big;
+    }
+}
+
+.radioWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: $gap-medium;
+
+
+    .radio {
+        span {
+            display: flex;
+            gap: 48px;
+
+            .radioText{
+                display: block;
+                width: 177px;
+            }
+            .textPrice {
+                margin: 0;
+            }
+        }
+        :global {
+            .ant-radio {
+                margin-left: auto;
+                order: 3
+            }
+        }
+    }
+}
+
+.buttonPay {
+    @include color-button-primary;
+}

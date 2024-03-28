@@ -1,0 +1,26 @@
+@use '../../scss/index' as *;
+
+
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+
+    .text {
+        font-size: $size-small;
+        font-weight: $font-weight-bold;
+
+        &_disabled {
+            color: $character-light-disabled;
+        }
+    }
+
+    .logo {
+        color: $character-light-secondary-45;
+    }
+
+    :global {
+        .ant-switch-checked {
+            background-color: $primary-light-6;
+        }
+    }
+}

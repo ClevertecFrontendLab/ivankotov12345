@@ -2,4 +2,36 @@
 
 .tariffCard {
     width: $card-tariff-width;
+    box-shadow: $card-box-shadow;
+
+    :global {
+        .ant-card-body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100px;
+        }
+    }
+
+    .drawerButton {
+        color: $primary-light-6;
+        padding: 0;
+    }
+
+    .tariffCardText {
+        display: block;
+        text-align: center;
+        color: $primary-light-10;
+        font-size: $size-basic;
+        font-weight: $font-weight-bold-mobile;
+        max-width: 89px;
+
+        .logo {
+            color: $primary-light-10
+        }
+    }
+
+    .activateButton {
+        @include color-button-primary;
+    }
 }

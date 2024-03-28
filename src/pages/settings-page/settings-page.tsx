@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { changeUserDataFetch } from '@redux/slices/change-user-data';
 import { getTariffListFetch } from '@redux/slices/tariff';
 import { getUserFetch, userSelect } from '@redux/slices/user';
-import { Layout, Typography } from 'antd';
+import { Button, Layout, Typography } from 'antd';
 
 import styles from './settings-page.module.scss';
 
@@ -17,12 +17,19 @@ export const SettingsPage: React.FC = () => {
   const { userData } = useAppSelector(userSelect);
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  useEffect(() => {
+    if(userData?.tariff) {
+      setIsDisabled(false);
+    }
+  }, [userData]);
 
   const settingsItems = [
     {
       text: 'Открыт для совместных тренировок',
       tooltipText: 'включеная функция позволит участвовать в совместных тренировках',
-      checked: userData?.readyForJointTraining || false,
+      checked: userData?.readyForJointTraining,
       onClick: () => {
         dispatch(changeUserDataFetch({
           readyForJointTraining: !userData?.readyForJointTraining
@@ -36,7 +43,7 @@ export const SettingsPage: React.FC = () => {
       checked: userData?.sendNotification,
       onClick: () => {
         dispatch(changeUserDataFetch({
-          readyForJointTraining: !userData?.sendNotification
+          sendNotification: !userData?.sendNotification
         }));
         dispatch(getUserFetch());
       },
@@ -44,7 +51,7 @@ export const SettingsPage: React.FC = () => {
     {
       text: 'Темная тема',
       tooltipText: 'темная тема доступна для PRO tarif',
-      disabled: true,
+      disabled: isDisabled,
     },
   ];
 
@@ -54,41 +61,57 @@ export const SettingsPage: React.FC = () => {
 
   return (
     <Layout className={styles.wrapper}>
-      <div>
-        <Title level={4}>Мой тариф</Title>
+      <div className={styles.innerContainer}>
+        <div>
+          <Title level={4} className={styles.title}>Мой тариф</Title>
 
-        <div className={styles.cradsWrapper}>
-          <TariffCard 
-            tariff='FREE'
-            setIsSidebarOpen={setIsSidebarOpen}
-          />
-
-          <TariffCard
-            tariff='PRO'
-            setIsSidebarOpen={setIsSidebarOpen}
-          />
-        </div>
-      </div>
-
-      <ul>
-        {
-          settingsItems.map(({ text, tooltipText, disabled, checked, onClick }) => (
-            <SettingsItem
-              text={text}
-              tooltipText={tooltipText}
-              key={text}
-              disabled={disabled}
-              checked={checked}
-              onClick={onClick}
+          <div className={styles.cradsWrapper}>
+            <TariffCard 
+              tariff='FREE'
+              setIsSidebarOpen={setIsSidebarOpen}
             />
-          ))
-        }
-      </ul>
 
-      <SettingsSidebar
-        isSidebarOpen={isSidebarOpen}
-        setIsSidebarOpen={setIsSidebarOpen}
-      />
+            <TariffCard
+              tariff='PRO'
+              setIsSidebarOpen={setIsSidebarOpen}
+            />
+          </div>
+        </div>
+
+        <ul className={styles.switchWrapper}>
+          {
+            settingsItems.map(({ text, tooltipText, disabled, checked, onClick }) => (
+              <SettingsItem
+                text={text}
+                tooltipText={tooltipText}
+                key={text}
+                disabled={disabled}
+                checked={checked}
+                onClick={onClick}
+              />
+            ))
+          }
+        </ul>
+
+        <div>
+          <Button
+            type='primary'
+          >
+            Написать отзыв
+          </Button>
+
+          <Button
+            type='link'
+          >
+            Смотреть все отзывы
+          </Button>
+        </div>
+
+        <SettingsSidebar
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
+        />
+      </div>
     </Layout>
   )
 }

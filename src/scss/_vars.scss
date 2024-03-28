@@ -3,10 +3,14 @@ $charactre-light-dividers: #f0f0f0;
 $character-light-border: #d9d9d9;
 $character-light-background: #f5f5f5;
 $character-light-secondary-45: #8c8c8c;
+$character-light-disabled: #BFBFBF;
 $primary-light-1: #f0f5ff;
 $primary-light-6: #2f54eb;
+$primary-light-7: #1D39C4;
 $primary-light-9: #061178;
+$primary-light-10: #030852;
 $character-light-title-85: #262626;
+$character-light-success: #52C41A;
 $character-light-error: #ff4d4f;
 $character-light-warning: #faad14;
 $blue-dark-6: #177ddc;
@@ -36,6 +40,7 @@ $screen-tablet: 880px;
 
 $page-wrapper: 24px;
 $page-wrapper-mobile: 24px 18px;
+$wrapper-big: 32px 24px;
 
 $padding-text-action-card: 12px 24px;
 $padding-header: 16px 24px;
@@ -43,9 +48,15 @@ $padding-header-mobile: 12px 24px 16px;
 $padding-header-calendar: 16px 24px 6px;
 $padding-tabs: 12px 0;
 $padding-buttons-wrapper: 12px;
+$padding-switch: 18px 0;
+$padding-drawer-title: 32px 24px 16px;
+$padding-thead: 4px 8px;
+$padding-thead-pro: 4px 4px;
+$padding-date-drawer: 14px 40px;
 
 $gap-small: 8px;
 $gap-medium: 16px;
 $gap-big: 24px;
 
 $button-box-shadow: inset 0 1px 0 0 $charactre-light-dividers;
+$card-box-shadow: 0px 2px 8px 0px #00000026;

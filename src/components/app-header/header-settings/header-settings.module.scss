@@ -1,0 +1,17 @@
+@use '../../../scss/index' as *;
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: $primary-light-1;
+    padding: $padding-header;
+
+    .title {
+        margin: 0;
+    }
+
+    @media (max-width: $screen-mobile) {
+        padding: $padding-header-mobile;
+    }
+}

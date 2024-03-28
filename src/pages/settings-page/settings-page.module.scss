@@ -1,10 +1,32 @@
 @use '../../scss/index' as *;
 
 .wrapper {
-    background-color: $character-light-primary-inverse;
+    height: 100%;
+    background-color: $character-light-background;
 
+    .innerContainer {
+        margin: $page-wrapper;
+        padding: $page-wrapper;
+        background-color: $character-light-primary-inverse;
+        height: calc(100% - 64px);
 
-    .cradsWrapper {
+        .title {
+            margin-bottom: $gap-medium;
+        }
+
+        .cradsWrapper {
+            display: flex;
+            gap: $gap-big;
+        }
+    }
+
+    .switchWrapper {
         display: flex;
+        flex-direction: column;
+        gap: $gap-medium;
+        margin-top: $page-wrapper;
+        padding: $padding-switch;
+        list-style-type: none;
+        max-width: 505px;
     }
 }
