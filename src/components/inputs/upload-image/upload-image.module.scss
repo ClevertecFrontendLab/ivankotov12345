@@ -12,6 +12,20 @@
     }
 }
 
+.uploadButtonMobileWrapper {
+    display: flex;
+    align-items: center;
+    gap: $gap-big-mobile;
+
+    .textUploadMobile {
+        font-size: $size-small;
+    }
+
+    .iconMobile {
+        color: $character-light-disabled
+    }
+}
+
 .imageWrapper {
     width: 104px;
     border: $border-upload-image;

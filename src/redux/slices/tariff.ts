@@ -42,6 +42,11 @@ export const tariffSlice = createSlice({
     getPayTariffError: (state) => {
       state.isLoading = false;
     },
+    clearTariff: (state) => {
+      state.tariffList = null;
+      state.payTariffData = null;
+      state.isSuccess = false;
+    }
   }
 });
 
@@ -54,4 +59,5 @@ export const {
   getPayTariffFetch,
   getPayTariffSuccess,
   getPayTariffError,
+  clearTariff,
 } = tariffSlice.actions;

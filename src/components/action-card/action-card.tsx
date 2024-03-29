@@ -12,11 +12,22 @@ type ActionCardProps = {
   buttonText: string,
 }
 
+
 const {Text} = Typography;
-const dataTestIdCalendar ='menu-button-calendar'
+const dataTestIdCalendar = 'menu-button-calendar'
+const dataTestIdProfile = 'menu-button-profile'
 
 export const ActionCard: React.FC<ActionCardProps> = ({ cardLogo, cardName, buttonText }) => {
   const dispatch = useAppDispatch();
+
+  let testId
+
+  if(buttonText === 'Календарь') {
+    testId = dataTestIdCalendar;
+  } else if(buttonText === 'Профиль') {
+    testId = dataTestIdProfile;
+  }
+
 
   const onCalendarButtonClick = () => dispatch(getCalendarFetch());
   const onProfileButtonClick = () => dispatch(push(Paths.PROFILE));
@@ -40,7 +51,7 @@ export const ActionCard: React.FC<ActionCardProps> = ({ cardLogo, cardName, butt
         icon={cardLogo}
         className={styles.cardButton}
         onClick={onClick}
-        data-test-id={buttonText === 'Календарь' ? dataTestIdCalendar : ''}
+        data-test-id={testId}
       >
         {buttonText}
       </Button>

@@ -19,8 +19,9 @@ export const HeaderSettings: React.FC = () => {
         size='large'
         onClick={onBack}
         icon={<ArrowLeftOutlined />}
+        data-test-id='settings-back'
       >
-        Назад
+        Настройки
       </Button>
     </Header>
   )

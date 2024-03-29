@@ -50,7 +50,6 @@ export const InputEmail: React.FC<InputEmailProps> = ({
       ]}
       validateTrigger='onChange'
       validateStatus={emailStatus}
-      data-test-id={testId}
     >
       <Input
         autoComplete='false'
@@ -58,6 +57,7 @@ export const InputEmail: React.FC<InputEmailProps> = ({
         addonBefore='email:'
         onChange={handleInpuntChange}
         className={styles.inputEmail}
+        data-test-id={testId}
       />
     </Form.Item>
   )

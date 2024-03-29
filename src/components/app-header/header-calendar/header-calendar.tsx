@@ -29,6 +29,7 @@ export const HeaderCalendar: React.FC = () => {
             shape={screenWidth && screenWidth > MOBILE_WIDTH ? 'default' : 'circle'}
             icon={<SettingOutlined />}
             onClick={onSettingsClick}
+            data-test-id='header-settings'
           >
             {screenWidth && screenWidth > MOBILE_WIDTH && 'Настройки'}
           </Button>

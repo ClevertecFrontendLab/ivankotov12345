@@ -32,6 +32,8 @@
     .text {
         background-color: $charactre-light-dividers;
         padding: $padding-thead;
+
+        
     }
 
     .textPro {
@@ -41,6 +43,10 @@
 
         .logo {
             color: $character-light-success;
+
+            @media (max-width: $screen-mobile) {
+                display: none;
+            }
         }
     }
 
@@ -51,5 +57,9 @@
             display: block;
             color: $character-light-disabled;
         }
+    }
+
+    @media (max-width: $screen-mobile) {
+        padding: $page-wrapper-mobile;
     }
 }

@@ -10,6 +10,8 @@ type SettingItemProps = {
   checked?: boolean,
   disabled?: boolean,
   onClick?: () => void,
+  testId: string,
+  testIdIcon: string,
 }
 
 const { Text } = Typography;
@@ -19,13 +21,15 @@ export const SettingsItem: React.FC<SettingItemProps> = ({
   tooltipText,
   disabled,
   checked,
-  onClick
+  onClick,
+  testId,
+  testIdIcon,
 }) => (
   <li className={styles.wrapper}>
     <Text
       editable={{
-        icon: <InfoCircleOutlined className={styles.logo} />,
-        tooltip: tooltipText,
+        icon: <InfoCircleOutlined className={styles.logo} data-test-id={testIdIcon} />,
+        tooltip: <span>{tooltipText}</span>,
       }}
       className={disabled
         ? classNames(styles.text, styles.text_disabled)
@@ -38,6 +42,7 @@ export const SettingsItem: React.FC<SettingItemProps> = ({
       disabled={disabled}
       checked={checked}
       onClick={onClick}
+      data-test-id={testId}
     />
   </li>
 )

@@ -14,11 +14,12 @@ import styles from './tariff-card.module.scss';
 type TariffCardProps = {
   tariff: string,
   setIsSidebarOpen: (isSidebarOpen: boolean) => void,
+  testId?: string
 }
 
 const { Text } = Typography;
 
-export const TariffCard: React.FC<TariffCardProps> = ({ tariff, setIsSidebarOpen }) => {
+export const TariffCard: React.FC<TariffCardProps> = ({ tariff, setIsSidebarOpen, testId }) => {
   const { userData } = useAppSelector(userSelect);
 
   let image;
@@ -48,6 +49,7 @@ export const TariffCard: React.FC<TariffCardProps> = ({ tariff, setIsSidebarOpen
     buttonContent = (
       <Text
         className={styles.tariffCardText}
+        data-test-id='activate-tariff-btn'
       >
         {`Активен до ${date}`}
       </Text>
@@ -59,6 +61,8 @@ export const TariffCard: React.FC<TariffCardProps> = ({ tariff, setIsSidebarOpen
         onClick={onButtonClick}
         size='large'
         type='primary'
+        data-test-id='activate-tariff-btn'
+        className={styles.activateButton}
       >
         Активировать
       </Button>
@@ -66,21 +70,24 @@ export const TariffCard: React.FC<TariffCardProps> = ({ tariff, setIsSidebarOpen
   }
 
   return (
-    <Card
-      className={styles.tariffCard}
-      title={`${tariff} tariff`}
-      extra={
-      <Button
-        type='text'
-        className={styles.drawerButton}
-        onClick={onButtonClick}
+    <div data-test-id={testId}>
+      <Card
+        className={styles.tariffCard}
+        title={`${tariff} tariff`}
+        extra={
+        <Button
+          type='text'
+          className={styles.drawerButton}
+          onClick={onButtonClick}
+          
+        >
+          Подробнее
+        </Button>
+      }
+      cover={<img src={image} alt='card cover' />}
       >
-        Подробнее
-      </Button>
-    }
-    cover={<img src={image} alt='card cover' />}
-    >
-      {buttonContent}  
-    </Card>
+        {buttonContent}  
+      </Card>
+    </div>
   )
 }

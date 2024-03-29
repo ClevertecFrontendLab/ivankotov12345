@@ -35,8 +35,9 @@ export const HeaderMain: React.FC = () => {
           shape={screenWidth && screenWidth > MOBILE_WIDTH ? 'default' : 'circle'}
           icon={<SettingOutlined className={styles.settingsButtonLabel} />}
           onClick={onSettingsClick}
-          >
-        {screenWidth && screenWidth > MOBILE_WIDTH && 'Настройки'}
+          data-test-id='header-settings'
+        >
+          {screenWidth && screenWidth > MOBILE_WIDTH && 'Настройки'}
         </Button>
       </div>
     </Header>

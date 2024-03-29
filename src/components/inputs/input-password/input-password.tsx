@@ -57,15 +57,19 @@ export const InputPassword: React.FC<InputPasswordProps> = ({
           required: isPasswordRequired,
           message: ''
         },
+        {
+          pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/,
+          message: ''
+        }
       ]}
       name={name}
       help={status === 'error' && name === 'confirmPassword' ? 'Пароли не совпадают' : help}
       validateTrigger='onChange'
       validateStatus={status}
       className={styles.inputPassword}
-      data-test-id={testId}
     >
       <Input.Password
+        data-test-id={testId}
         autoComplete='false'
         size='large'
         onChange={

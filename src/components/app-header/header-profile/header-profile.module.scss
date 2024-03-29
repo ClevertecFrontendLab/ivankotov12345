@@ -11,6 +11,19 @@
         margin: 0;
     }
 
+    .buttonWrapper {
+        @media (max-width: $screen-tablet) {
+            display: flex;
+            height: auto;
+            justify-content: end;
+        }
+    }
+
+    @media (max-width: $screen-tablet) {
+        display: block;
+        height: auto;
+    }
+
     @media (max-width: $screen-mobile) {
         padding: $padding-header-mobile;
     }

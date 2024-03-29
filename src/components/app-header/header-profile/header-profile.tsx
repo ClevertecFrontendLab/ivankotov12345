@@ -21,7 +21,7 @@ export const HeaderProfile: React.FC = () => {
   return (
     <Header className={styles.header}>
       <Title level={4} className={styles.title}>Профиль</Title>
-        <div>
+        <div className={styles.buttonWrapper}>
           <Button
             className={styles.settingsButton}
             type='text'
@@ -29,6 +29,7 @@ export const HeaderProfile: React.FC = () => {
             shape={screenWidth && screenWidth > MOBILE_WIDTH ? 'default' : 'circle'}
             icon={<SettingOutlined />}
             onClick={onSettingsClick}
+            data-test-id='header-settings'
           >
             {screenWidth && screenWidth > MOBILE_WIDTH && 'Настройки'}
           </Button>

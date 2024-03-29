@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { InputEmail, InputPassword, UploadImage } from '@components/inputs';
 import { SubmitDataResult } from '@components/submit-data-result-modal';
-import { FORMAT_DATE_IN_VIEW, FORMAT_DATE_PAYLOAD } from '@constants/constants';
+import { FORMAT_DATE_IN_VIEW, FORMAT_DATE_PAYLOAD, MOBILE_WIDTH } from '@constants/constants';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
+import { useScreenWidth } from '@hooks/use-screen-width-hook';
 import { changeUserDataFetch, changeUserDataSelect } from '@redux/slices/change-user-data';
 import { userSelect } from '@redux/slices/user';
 import { PlaceholderText } from '@typing/enums/placeholder-text';
@@ -26,7 +27,11 @@ export const ProfilePage: React.FC = () => {
   const { userData } = useAppSelector(userSelect);
   const { isError, isSuccess } = useAppSelector(changeUserDataSelect);
   const dispatch = useAppDispatch();
-  const isPasswordRequired = false
+  const isPasswordRequired = false;
+
+  const screenWidth = useScreenWidth()
+
+  const isMobile = !!(screenWidth && screenWidth <= MOBILE_WIDTH);
 
   useEffect(() => {
     if(isError) {
@@ -90,14 +95,18 @@ export const ProfilePage: React.FC = () => {
       >
         <Title level={5} className={styles.title}>Личная информация</Title>
         <div className={styles.formPersonalInfo}>
-          <Form.Item name='imgSrc'>
-            <UploadImage setImageSrc={setImageSrc}/>
+          <Form.Item name='imgSrc' data-test-id='profile-avatar' className={styles.formItemUpload}>
+            <UploadImage
+              setImageSrc={setImageSrc}
+              setIsButtonSubmitDisabled={setIsButtonSubmitDisabled}
+            />
           </Form.Item>
           <div className={styles.inputsWrapper}>
             <Form.Item name='firstName'>
               <Input
                 placeholder={PlaceholderText.NAME}
                 className={styles.inputItem}
+                data-test-id='profile-name'
               />
             </Form.Item>
 
@@ -105,7 +114,8 @@ export const ProfilePage: React.FC = () => {
               <Input
                 placeholder={PlaceholderText.LAST_NAME}
                 className={styles.inputItem}
-                />
+                data-test-id='profile-surname'
+              />
             </Form.Item>
 
             <Form.Item name='birthday'>
@@ -114,6 +124,7 @@ export const ProfilePage: React.FC = () => {
                 format={FORMAT_DATE_IN_VIEW}
                 allowClear={false}
                 className={styles.inputItem}
+                data-test-id='profile-birthday'
               />
             </Form.Item>
           </div>
@@ -131,7 +142,9 @@ export const ProfilePage: React.FC = () => {
             name='email'
             emailStatus={emailStatus}
             setEmailStatus={setEmailStatus}
+            testId='profile-email'
           />
+
           <InputPassword
             name='password'
             status={newPasswordStatus}
@@ -139,13 +152,16 @@ export const ProfilePage: React.FC = () => {
             placeholder={PlaceholderText.PASSWORD}
             isPasswordRequired={isPasswordRequired}
             help='Пароль не менее 8 символов, с заглавной буквой и цифрой'
+            testId='profile-password'
           />
+
           <InputPassword
             name='confirm password'
             status={confirmNewPasswordStatus}
             setStatus={setConfirmNewPasswordStatus}
             placeholder={PlaceholderText.CONFIRM_PASSWORD}
             isPasswordRequired={isPasswordRequired}
+            testId='profile-repeat-password'
           />
         </div>
 
@@ -155,6 +171,8 @@ export const ProfilePage: React.FC = () => {
           size='large'
           className={styles.button}
           disabled={isButtonSubmitDisabled}
+          data-test-id='profile-submit'
+          block={isMobile}
         >
           Сохранить изменения
         </Button>
@@ -167,6 +185,7 @@ export const ProfilePage: React.FC = () => {
           message='Данные профиля успешно обновлены'
           showIcon={true}
           closable={true}
+          data-test-id='alert'
         />}
     </Layout>
   )

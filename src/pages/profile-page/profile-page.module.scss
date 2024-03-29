@@ -7,7 +7,9 @@
     height: calc(100% - 64px);
 
     .form {
-        width: $from-width;
+        max-width: $from-width;
+        width: 100%;
+        
         :global {
             .ant-form-item {
                 margin: 0;
@@ -27,6 +29,17 @@
             display: flex;
             gap: $gap-big;
             margin-bottom: $page-wrapper;
+
+            .formItemUpload {
+                @media (max-width: $screen-mobile) {
+                    order: 2;
+                }
+            }
+
+            @media (max-width: $screen-mobile) {
+                flex-direction: column;
+            }
+            
         }
 
         .inputsWrapper {
@@ -51,5 +64,9 @@
             margin-top: 54px;
             @include color-button-primary;
         }
+    }
+
+    @media (max-width: $screen-mobile) {
+        margin: 24px 0;
     }
 }

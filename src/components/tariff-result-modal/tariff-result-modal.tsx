@@ -1,7 +1,7 @@
 import { push } from 'redux-first-history';
 import { CloseOutlined } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
-import { tariffSelect } from '@redux/slices/tariff';
+import { clearTariff, tariffSelect } from '@redux/slices/tariff';
 import { clearUser, userSelect } from '@redux/slices/user';
 import { Paths } from '@typing/enums/paths';
 import { Modal, Result } from 'antd';
@@ -18,6 +18,7 @@ export const TariffResultModal: React.FC = () => {
     sessionStorage.clear();
     dispatch(push(Paths.AUTH));
     dispatch(clearUser());
+    dispatch(clearTariff());
   }
 
   return (
@@ -33,6 +34,7 @@ export const TariffResultModal: React.FC = () => {
         backdropFilter: 'blur(5px)'
       }}
       className={styles.resultModal}
+      data-test-id='tariff-modal-success'
     >
       <Result
         status='success'
