@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+import { push } from 'redux-first-history';
 import { TariffCard } from '@components/cards';
+import { ModalFeedbacks } from '@components/modal-feedbacks';
 import { SettingsItem } from '@components/settings-item';
 import { SettingsSidebar } from '@components/sidebars';
 import { TariffResultModal } from '@components/tariff-result-modal';
@@ -7,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { changeUserDataFetch } from '@redux/slices/change-user-data';
 import { getTariffListFetch } from '@redux/slices/tariff';
 import { getUserFetch, userSelect } from '@redux/slices/user';
+import { Paths } from '@typing/enums/paths';
 import { Button, Layout, Typography } from 'antd';
 
 import styles from './settings-page.module.scss';
@@ -19,6 +22,7 @@ export const SettingsPage: React.FC = () => {
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
+  const [isSendFeedbackOpen, setIsSendFeedbackOpen] = useState(false)
 
   useEffect(() => {
     if(userData?.tariff) {
@@ -60,6 +64,9 @@ export const SettingsPage: React.FC = () => {
     dispatch(getTariffListFetch())
   }, [dispatch])
 
+  const onSendFeedbackButton = () => setIsSendFeedbackOpen(true);
+  const onShowFeedbacksButon = () => dispatch(push(Paths.FEEDBACKS));
+
   return (
     <Layout className={styles.wrapper}>
       <div className={styles.innerContainer}>
@@ -97,12 +104,14 @@ export const SettingsPage: React.FC = () => {
         <div>
           <Button
             type='primary'
+            onClick={onSendFeedbackButton}
           >
             Написать отзыв
           </Button>
 
           <Button
             type='link'
+            onClick={onShowFeedbacksButon}
           >
             Смотреть все отзывы
           </Button>
@@ -114,6 +123,10 @@ export const SettingsPage: React.FC = () => {
         />
       </div>
 
+      <ModalFeedbacks
+        isSendFeedbackOpen={isSendFeedbackOpen}
+        setIsSendFeedbackOpen={setIsSendFeedbackOpen} />
+      
       <TariffResultModal />
     </Layout>
   )
