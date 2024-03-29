@@ -11,6 +11,7 @@ import {
   FeedbacksPage,
   MainPage,
   MessagePage,
+  PageNotFound,
   ProfilePage,
   RegisterPage, 
   SettingsPage } from '@pages/index';
@@ -26,6 +27,7 @@ export const routes = (
         <Route index={true} path={Paths.CALENDAR} element={<CalendarPage />} />
         <Route index={true} path={Paths.PROFILE} element={<ProfilePage />} />
         <Route index={true} path={Paths.SETTINGS} element={<SettingsPage />} />
+        <Route index={true} path='*' element={<PageNotFound />} />
       </Route>
     </Route>
 

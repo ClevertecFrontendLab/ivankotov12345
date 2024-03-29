@@ -1,0 +1,14 @@
+@use '../../scss/index' as *;
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100% - 48px);
+    margin: $page-wrapper;
+    background: $character-light-primary-inverse;
+
+    .button {
+        @include color-button-primary;
+    }
+}
