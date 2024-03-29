@@ -1,7 +1,8 @@
-import { Button, Typography } from 'antd';
-
+import { push } from 'redux-first-history';
 import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
 import { getCalendarFetch } from '@redux/slices/calendar';
+import { Paths } from '@typing/enums/paths';
+import { Button, Typography } from 'antd';
 
 import styles from './action-card.module.scss';
 
@@ -11,13 +12,35 @@ type ActionCardProps = {
   buttonText: string,
 }
 
+
 const {Text} = Typography;
-const dataTestIdCalendar ='menu-button-calendar'
+const dataTestIdCalendar = 'menu-button-calendar'
+const dataTestIdProfile = 'menu-button-profile'
 
 export const ActionCard: React.FC<ActionCardProps> = ({ cardLogo, cardName, buttonText }) => {
   const dispatch = useAppDispatch();
 
+  let testId
+
+  if(buttonText === 'Календарь') {
+    testId = dataTestIdCalendar;
+  } else if(buttonText === 'Профиль') {
+    testId = dataTestIdProfile;
+  }
+
+
   const onCalendarButtonClick = () => dispatch(getCalendarFetch());
+  const onProfileButtonClick = () => dispatch(push(Paths.PROFILE));
+
+  const onClick = () => {
+    if(buttonText === 'Календарь') {
+      onCalendarButtonClick();
+    }
+    if(buttonText === 'Профиль') {
+      onProfileButtonClick();
+    }
+  }
+
   return (
     <li className={styles.card}>
       <Text
@@ -27,8 +50,8 @@ export const ActionCard: React.FC<ActionCardProps> = ({ cardLogo, cardName, butt
         type='link'
         icon={cardLogo}
         className={styles.cardButton}
-        onClick={buttonText === 'Календарь' ? onCalendarButtonClick : undefined}
-        data-test-id={buttonText === 'Календарь' ? dataTestIdCalendar : ''}
+        onClick={onClick}
+        data-test-id={testId}
       >
         {buttonText}
       </Button>

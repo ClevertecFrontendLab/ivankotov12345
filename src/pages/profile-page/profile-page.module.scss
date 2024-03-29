@@ -1,0 +1,72 @@
+@use '../../scss/index' as *;
+
+.layoutProfile {
+    margin: $page-wrapper;
+    padding: $page-wrapper;
+    background-color: $character-light-primary-inverse;
+    height: calc(100% - 64px);
+
+    .form {
+        max-width: $from-width;
+        width: 100%;
+        
+        :global {
+            .ant-form-item {
+                margin: 0;
+            }
+
+            .ant-upload.ant-upload-select-picture-card,
+            .ant-upload-list-picture-card-container {
+                margin: 0;
+                @include upload-container-size;
+            }
+        }
+        .title {
+            margin-bottom: $page-wrapper;
+        }
+
+        .formPersonalInfo {
+            display: flex;
+            gap: $gap-big;
+            margin-bottom: $page-wrapper;
+
+            .formItemUpload {
+                @media (max-width: $screen-mobile) {
+                    order: 2;
+                }
+            }
+
+            @media (max-width: $screen-mobile) {
+                flex-direction: column;
+            }
+            
+        }
+
+        .inputsWrapper {
+            display: flex;
+            flex-direction: column;
+            gap: $gap-medium;
+            width: 100%;
+
+            .inputItem {
+                height: 40px;
+                width: 100%;
+            }
+        }
+
+        .inputsWrapperAuth {
+            display: flex;
+            flex-direction: column;
+            gap: $gap-big;
+        }
+
+        .button {
+            margin-top: 54px;
+            @include color-button-primary;
+        }
+    }
+
+    @media (max-width: $screen-mobile) {
+        margin: 24px 0;
+    }
+}

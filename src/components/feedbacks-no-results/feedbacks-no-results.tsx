@@ -10,6 +10,7 @@ const { Title, Text } = Typography;
 
 export const FeedbacksNoResults: React.FC<FeedbackNoResulstProps> = ({ setIsSendFeedbackOpen }) => {
   const onClick = () => setIsSendFeedbackOpen(true);
+
   return (
     <div className={styles.wrapper}>
       <Card className={styles.card}>

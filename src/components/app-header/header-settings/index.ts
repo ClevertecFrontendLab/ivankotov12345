@@ -1,0 +1,1 @@
+export { HeaderSettings } from './header-settings';

@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
-import { Outlet, useNavigate, Navigate } from 'react-router-dom';
-import { Paths } from '@typing/enums/paths';
+import { Navigate, Outlet, useLocation,useNavigate } from 'react-router-dom';
 import { history } from '@redux/configure-store';
+import { Paths } from '@typing/enums/paths';
 
 export const RequireAuth: React.FC = () => {
   let accessToken = localStorage.getItem('token') || sessionStorage.getItem('token');
   const navigate = useNavigate();
+  const location = useLocation();
 
   const query = new URLSearchParams(location.search);
   const queryToken = query.get('accessToken');
@@ -22,6 +23,7 @@ export const RequireAuth: React.FC = () => {
       navigate(Paths.AUTH);
     }
   }, [accessToken, navigate]);
+
   return (
     accessToken ? <Outlet /> : <Navigate to={Paths.AUTH} />
   )

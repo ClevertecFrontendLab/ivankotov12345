@@ -1,29 +1,30 @@
-import { Badge, Calendar } from 'antd';
-import { useEffect, useState } from 'react';
-import moment from 'moment';
-import type { Moment } from 'moment';
-import 'moment/locale/ru';
-
-import { localeRU } from './locale/locale.ts';
-import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks.ts';
-import { getTrainingListFetch } from '@redux/slices/training-list.ts';
+import { Fragment, useEffect, useState } from 'react';
 import { CalendarModal } from '@components/calendar-modal/calendar-modal.tsx';
-import { ModalCoords } from '@typing/types/modal-coords.ts';
 import { CreateTrainingModal } from '@components/create-training-modal/create-training-modal.tsx';
-import { CalendarTrainingSidebar } from '@components/calendar-training-sidebar/calendar-training-sidebar.tsx';
-import { calendarSelect } from '@redux/slices/calendar.tsx';
-import { CalendarBadgeColors } from '@typing/enums/calendar-badge-colors.ts';
+import { CalendarTrainingSidebar } from '@components/sidebars';
+import { SubmitDataResult } from '@components/submit-data-result-modal/submit-data-result.tsx';
+import { MOBILE_WIDTH } from '@constants/constants.ts';
+import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks.ts';
+import { useScreenWidth } from '@hooks/use-screen-width-hook.ts';
+import { calendarSelect } from '@redux/slices/calendar.ts';
 import {
   clearExercisesList,
   closeCreateTrainingModal,
   createTrainingSelect,
   } from '@redux/slices/create-training.ts';
 import { removeIsRedactTrainingMode } from '@redux/slices/redact-training.ts';
-import { useScreenWidth } from '@hooks/use-screen-width-hook.ts';
-import { MOBILE_WIDTH } from '@constants/constants.ts';
-import { CalendarResult } from '@components/calendar-result-modal/calendar-result.tsx';
+import { getTrainingListFetch } from '@redux/slices/training-list.ts';
+import { CalendarBadgeColors } from '@typing/enums/calendar-badge-colors.ts';
+import { ModalCoords } from '@typing/types/modal-coords.ts';
+import { Badge, Calendar } from 'antd';
+import type { Moment } from 'moment';
+import moment from 'moment';
+
+import { localeRU } from './locale/locale.ts';
 
 import styles from './calendar-page.module.scss'
+
+import 'moment/locale/ru';
 
 moment.updateLocale('ru', { week: { dow: 1 } });
 
@@ -46,19 +47,21 @@ export const CalendarPage: React.FC = () => {
 
   const getTrainingsNotifications = (date: Moment) => {
     const trainingsOnDate = trainings?.filter(training => moment(training.date).isSame(date, 'day'));
+
     if(trainingsOnDate?.length) {
-      return trainingsOnDate.map((training) => {
-        return {
+      return trainingsOnDate.map((training) => ({
           color: CalendarBadgeColors[training.name as keyof typeof CalendarBadgeColors],
           name: training.name,
-          key: training._id
-        }
-      })
+          key: training.userId
+        }));
     }
+
+    return [];
   }
 
   const dateCellRender = (date: Moment) => {
     const trainingList = getTrainingsNotifications(date);
+
     return (
       <ul className={styles.trainingList}>
         {trainingList && trainingList.map(({ name, key, color }) => (
@@ -71,29 +74,33 @@ export const CalendarPage: React.FC = () => {
   }
   const dateCellRenderMobile = (date: Moment) => {
     const trainingList = getTrainingsNotifications(date);
+
     if (trainingList && trainingList.length > 0) {
       return (
         <div className={styles.trainingDateMobileFilled}>
           {date.date()}
         </div>
       );
-    } else {
+    }
+ 
       return (
         <div className={styles.traningDateMobile}>
           {date.date()}
         </div>
       )
-    }
+    
   }
+
   useEffect(() => {
     dispatch(getTrainingListFetch());
   }, [dispatch]);
   
   const getModalCoords = () => {
-    const selectedDate = document.querySelector('.ant-picker-cell-selected') as HTMLElement;
-    const rect = selectedDate.getBoundingClientRect();
+    const currentDate = document.querySelector('.ant-picker-cell-selected') as HTMLElement;
+    const rect = currentDate.getBoundingClientRect();
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     const windowWidth = window.innerWidth;
+
     setModalCoords({
       top: rect.top + scrollTop,
       left: rect.left,
@@ -107,6 +114,7 @@ export const CalendarPage: React.FC = () => {
 
   useEffect(() => {
     window.addEventListener('resize', getModalCoords);
+
     return () => {
       window.removeEventListener('resize', getModalCoords);
     };
@@ -121,9 +129,10 @@ export const CalendarPage: React.FC = () => {
     dispatch(clearExercisesList()); 
   }
 
-  const isFullScreen = screenWidth && screenWidth > MOBILE_WIDTH ? true : false;
+  const isFullScreen = !!(screenWidth && screenWidth > MOBILE_WIDTH);
+
   return (
-    <>
+    <Fragment>
       <Calendar
         locale={localeRU}
         onSelect={onSelect}
@@ -153,9 +162,9 @@ export const CalendarPage: React.FC = () => {
         selectedDate={selectedDate}
       />}
 
-      <CalendarResult
+      <SubmitDataResult
         setIsModalOpen={setIsModalOpen}
       />
-    </>
+    </Fragment>
   )
 }

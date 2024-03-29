@@ -1,15 +1,14 @@
-import { AxiosResponse } from 'axios';
-import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { push } from 'redux-first-history';
-
+import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { instance } from '@axios/axios';
 import { getAuthError, getAuthFetch, getAuthSuccess, rememberMeSelect } from '@redux/slices/auth';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { AxiosPaths } from '@typing/enums/axios-paths';
 import { Paths } from '@typing/enums/paths';
+import { AuthMessage } from '@typing/enums/result-messages';
 import { FormInputValues } from '@typing/types/form-input-values';
 import { AuthResponseType } from '@typing/types/response-types';
-import { AuthMessage } from '@typing/enums/result-messages';
+import { AxiosResponse } from 'axios';
 
 function* authWorker(action: PayloadAction<FormInputValues>) {
   try {
@@ -18,6 +17,7 @@ function* authWorker(action: PayloadAction<FormInputValues>) {
       `${AxiosPaths.LOG_IN}`,
       action.payload
     );
+
     yield put(getAuthSuccess(data));
 
     const rememberMe: boolean = yield select(rememberMeSelect)

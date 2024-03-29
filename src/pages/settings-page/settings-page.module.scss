@@ -1,0 +1,57 @@
+@use '../../scss/index' as *;
+
+.wrapper {
+    height: 100%;
+    background-color: $character-light-background;
+
+    .innerContainer {
+        margin: $page-wrapper;
+        padding: $page-wrapper;
+        background-color: $character-light-primary-inverse;
+        height: calc(100% - 64px);
+
+        .title {
+            margin-bottom: $gap-medium;
+        }
+
+        .cradsWrapper {
+            display: flex;
+            gap: $gap-big;
+
+            @media (max-width: $screen-mobile) {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: $screen-mobile) {
+            margin: 24px 0;
+        }
+    }
+
+    .switchWrapper {
+        display: flex;
+        flex-direction: column;
+        gap: $gap-medium;
+        margin-top: $page-wrapper;
+        padding: $padding-switch;
+        list-style-type: none;
+        max-width: 505px;
+    }
+
+    .buttonsFeedbackWrapper {
+        @media (max-width: $screen-mobile) {
+            display: flex;
+            flex-direction: column;
+            gap: $gap-medium;
+        }
+    }
+
+    .buttonCommentary {
+        @include color-button-primary;
+    }
+
+    .buttonCommentaries {
+        color: $primary-light-6;
+    }
+}

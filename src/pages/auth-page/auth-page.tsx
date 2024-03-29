@@ -1,16 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 import { GooglePlusOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form } from 'antd';
-import { ValidateStatus } from 'antd/es/form/FormItem';
-
-import { InputEmail } from '@components/input-email';
-import { InputPassword } from '@components/input-password';
+import { InputEmail } from '@components/inputs/input-email';
+import { InputPassword } from '@components/inputs/input-password';
+import { MOBILE_WIDTH } from '@constants/constants';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
-import { FormInputValues } from '@typing/types/form-input-values';
+import { useScreenWidth } from '@hooks/use-screen-width-hook';
 import { getAuthFetch, getAuthGoogleFetch, toggleRememberMe } from '@redux/slices/auth';
 import { getForgotPassFetch, recoverySelect } from '@redux/slices/recovery';
-import { useScreenWidth } from '@hooks/use-screen-width-hook';
-import { MOBILE_WIDTH } from '@constants/constants';
+import { PlaceholderText } from '@typing/enums/placeholder-text';
+import { FormInputValues } from '@typing/types/form-input-values';
+import { Button, Checkbox, Form } from 'antd';
+import { ValidateStatus } from 'antd/es/form/FormItem';
 
 import styles from './auth-page.module.scss';
 
@@ -19,6 +19,7 @@ export const AuthPage: React.FC = () => {
   const [passwordStatus, setPasswordStatus] = useState<ValidateStatus>('');
   const [isChecked, setIsChecked] = useState(false);
   const [isForgotPassDispabled, setIsForgotPassDispabled] = useState(false);
+  const isPasswordRequired = true;
 
   const screenWidth = useScreenWidth();
 
@@ -41,6 +42,7 @@ export const AuthPage: React.FC = () => {
 
   const onRememberCheckBox = () => {
     const currentCheck = !isChecked;
+
     setIsChecked(currentCheck);
     dispatch(toggleRememberMe(currentCheck));
   };
@@ -51,12 +53,15 @@ export const AuthPage: React.FC = () => {
 
   const onForgetPass = () => {
     const email: string = form.getFieldValue('email');
+
     if (email === null || !form.isFieldTouched('email')) {
       setEmailStatus('error');
       setIsForgotPassDispabled(true);
+
       return;
     }
     const emailValue: string = form.getFieldValue('email');
+
     dispatch(getForgotPassFetch({email: emailValue}));
   };
 
@@ -65,8 +70,8 @@ export const AuthPage: React.FC = () => {
       dispatch(getForgotPassFetch(submittedEmail));
     }
   }, [dispatch, submittedEmail]);
+
   return (
-    <>
     <Form
       className={styles.form}
       form={form} ref={formRef}
@@ -83,8 +88,9 @@ export const AuthPage: React.FC = () => {
         name='password'
         status={passwordStatus}
         setStatus={setPasswordStatus}
-        placeholder='Пароль'
+        placeholder={PlaceholderText.PASSWORD}
         testId={testIdPassword}
+        isPasswordRequired={isPasswordRequired}
       />
 
       <div className={styles.logInControls}>
@@ -111,7 +117,7 @@ export const AuthPage: React.FC = () => {
         <Button
           type='primary'
           htmlType='submit' 
-          block
+          block={true}
           size='large'
           className={styles.buttonEnter}
           data-test-id='login-submit-button'
@@ -120,7 +126,7 @@ export const AuthPage: React.FC = () => {
         </Button>
         <Button
           icon={<GooglePlusOutlined />}
-          block
+          block={true}
           size='large'
           onClick={onGoogleAuthClick}
         >
@@ -128,6 +134,5 @@ export const AuthPage: React.FC = () => {
         </Button>
       </div>
     </Form>
-    </>
   )
 }

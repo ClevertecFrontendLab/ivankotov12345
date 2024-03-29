@@ -1,0 +1,39 @@
+@use '../../../scss/index' as *;
+
+.uploadButton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: $padding-buttons-wrapper;
+    gap: $gap-small;
+
+    .textImageButton {
+        line-height: $line-height;
+    }
+}
+
+.uploadButtonMobileWrapper {
+    display: flex;
+    align-items: center;
+    gap: $gap-big-mobile;
+
+    .textUploadMobile {
+        font-size: $size-small;
+    }
+
+    .iconMobile {
+        color: $character-light-disabled
+    }
+}
+
+.imageWrapper {
+    width: 104px;
+    border: $border-upload-image;
+    border-radius: 2px;
+    padding: 9px;
+}
+
+
+.image {
+    width: 100%;
+}

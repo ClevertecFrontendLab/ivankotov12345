@@ -8,11 +8,12 @@ export const Loader: React.FC = () => {
   const defaultOptions = {
     loop: true,
     autoplay: true,
-    animationData: animationData,
+    animationData,
     rendererSettings: {
       preserveAspectRatio: 'xMidYMid slice'
     }
   }
+
   return (
     <div className={styles.loaderWrapper} data-test-id='loader'>
       <Lottie

@@ -1,11 +1,11 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { PayloadAction } from '@reduxjs/toolkit';
-import { FeedbackValues } from '@typing/types/form-input-values';
 import { instance } from '@axios/axios';
-import { AxiosPaths } from '@typing/enums/axios-paths';
 import { getFeedbackError, getFeedbackSuccess } from '@redux/slices/send-feedback';
-import { SendFeedbackErrorMessage, SendFeedbackSuccessMessage } from '@typing/enums/result-messages';
+import { PayloadAction } from '@reduxjs/toolkit';
+import { AxiosPaths } from '@typing/enums/axios-paths';
 import { Paths } from '@typing/enums/paths';
+import { SendFeedbackErrorMessage, SendFeedbackSuccessMessage } from '@typing/enums/result-messages';
+import { FeedbackValues } from '@typing/types/form-input-values';
 
 
 function* sendFeedBackWorker(action: PayloadAction<FeedbackValues>) {

@@ -1,0 +1,81 @@
+@use '../../../scss/index' as *;
+
+.trainingSidebar {
+    :global {
+        .ant-drawer-content-wrapper,
+        .ant-drawer-content {
+            border-radius: 8px 0 0 8px;
+
+            @media (max-width: 675px) {
+                border-radius: 24px 24px 0 0;
+            }
+        }
+        .ant-drawer-body {
+            padding: 24px 32px;
+
+            @media (max-width: 675px) {
+                padding: 24px 16px;
+            }
+        }
+    }
+    .headerWrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+
+        .title {
+            margin-bottom: 0;
+            div {
+                color: $character-light-title-85;
+            }
+        }
+
+        .buttonClose {
+            color: $character-light-secondary-45;
+        }
+    }
+    .selectedTrainingWrapper {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+
+        .badge,
+        .date {
+            font-size: $size-semi-small;
+            font-weight: $font-weight-bold-mobile;
+            span {
+                color: $character-light-secondary-45;
+            }
+        }
+    }
+
+    .exercisesList {
+        margin: 0;
+        padding: 24px 0 0;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        max-height: 85%;
+        overflow-y: scroll;
+        list-style-type: none;
+    }
+
+    .buttonsWrapper {
+        position: sticky;
+        margin-top: 24px;
+        background-color: $charactre-light-dividers;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .addRemoveButton {
+            color: $primary-light-6;
+        }
+    }
+
+    @media (max-width: $screen-mobile) {
+        margin-top: 85px;
+    }
+}

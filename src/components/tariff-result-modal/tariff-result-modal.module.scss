@@ -1,0 +1,11 @@
+@use '../../scss/index' as *;
+
+.resultModal {
+    padding: 0;
+
+    :global {
+        .ant-result-success .ant-result-icon > .anticon {
+            color: $primary-light-6;
+        }
+    }
+}

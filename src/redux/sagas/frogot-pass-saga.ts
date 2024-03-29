@@ -1,14 +1,14 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
-import { AxiosError } from 'axios';
 import { push } from 'redux-first-history';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import { instance } from '@axios/axios';
-import { AxiosPaths } from '@typing/enums/axios-paths';
-import { PayloadAction } from '@reduxjs/toolkit';
-import { FormRecoveryInputEmail } from '@typing/types/form-input-values';
-import { Paths } from '@typing/enums/paths';
 import { getForgotPassError, getForgotPassFetch, getForgotPassSuccess } from '@redux/slices/recovery';
+import { PayloadAction } from '@reduxjs/toolkit';
+import { AxiosPaths } from '@typing/enums/axios-paths';
+import { Paths } from '@typing/enums/paths';
 import { ChangePasswordEmailExist, ChangePasswordSomethingGoesWrong } from '@typing/enums/result-messages';
+import { FormRecoveryInputEmail } from '@typing/types/form-input-values';
 import { MessageResponse } from '@typing/types/message-types';
+import { AxiosError } from 'axios';
 
 
 function* forgotPassWorker(action: PayloadAction<FormRecoveryInputEmail>) {
@@ -26,6 +26,7 @@ function* forgotPassWorker(action: PayloadAction<FormRecoveryInputEmail>) {
   } catch(error) {
     const { response } = error as AxiosError;
     const responseData = response?.data as MessageResponse
+
     if(responseData.message === 'Email не найден') {
       yield put(getForgotPassError({
         status: ChangePasswordEmailExist.status,

@@ -1,7 +1,7 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '@redux/configure-store';
-import { MessageType } from '@typing/types/message-types';
+import { createSlice,PayloadAction } from '@reduxjs/toolkit';
 import { FormRecoveryInputEmail, FormRecoveryInputValues, FromRecoveryConfirmEmail } from '@typing/types/form-input-values';
+import { MessageType } from '@typing/types/message-types';
 
 type RecoveryStateType = {
     isLoading: boolean,

@@ -1,10 +1,10 @@
-import { Button, Modal, Result } from 'antd';
-
-import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
-import { clearFeedbackInputs, clearFeedbackResult, sendFeedbackSelect } from '@redux/slices/send-feedback';
-import { getReviewsFetch } from '@redux/slices/reviews';
-import { useScreenWidth } from '@hooks/use-screen-width-hook';
+import { Fragment } from 'react';
 import { MOBILE_WIDTH, MODAL_WIDTH_DESKTOP, MODAL_WIDTH_MOBILE } from '@constants/constants';
+import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
+import { useScreenWidth } from '@hooks/use-screen-width-hook';
+import { getReviewsFetch } from '@redux/slices/reviews';
+import { clearFeedbackInputs, clearFeedbackResult, sendFeedbackSelect } from '@redux/slices/send-feedback';
+import { Button, Modal, Result } from 'antd';
 
 import styles from './send-feedback-results.module.scss';
 
@@ -34,9 +34,10 @@ export const SendFeedbackResults: React.FC<SendFeedbackResultsProps> = ({ setIsS
     setIsSendFeedbackOpen(false);
     dispatch(clearFeedbackResult());
   }
+
   return (
     <Modal
-      centered
+      centered={true}
       open={isResult}
       closable={false}
       footer={null}
@@ -62,14 +63,14 @@ export const SendFeedbackResults: React.FC<SendFeedbackResultsProps> = ({ setIsS
               type='primary'
               size='large'
               className={styles.resultButton}
-              block
+              block={true}
               onClick={onSuccessButtonClick}
             >
               {message.buttonText}
             </Button>
           ),
           messageError && (
-            <>
+            <Fragment>
               <Button
                 type='primary'
                 size='large'
@@ -86,7 +87,7 @@ export const SendFeedbackResults: React.FC<SendFeedbackResultsProps> = ({ setIsS
               >
                 {messageError.buttonTextClose}
               </Button>
-            </>
+            </Fragment>
           )
         ]}
         className={styles.result}

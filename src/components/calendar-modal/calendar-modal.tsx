@@ -1,21 +1,21 @@
-import { Badge, Button, Card, Divider, Empty, Typography } from 'antd';
-import type { Moment } from 'moment';
-import moment from 'moment';
-
-import { ModalCoords } from '@typing/types/modal-coords';
+import { Fragment } from 'react';
 import { CloseOutlined, EditOutlined } from '@ant-design/icons';
+import { FORMAT_DATE_IN_VIEW, MOBILE_WIDTH } from '@constants/constants';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
+import { useScreenWidth } from '@hooks/use-screen-width-hook';
 import { calendarSelect } from '@redux/slices/calendar';
-import { CalendarBadgeColors } from '@typing/enums/calendar-badge-colors';
-import { trainingListSelect } from '@redux/slices/training-list';
 import {
   openCreateTrainingModal,
   setExercisesList,
   setSelectedTraining
 } from '@redux/slices/create-training';
 import { setIsRedactingMode, setSelectedTrainingId } from '@redux/slices/redact-training';
-import { useScreenWidth } from '@hooks/use-screen-width-hook';
-import { FORMAT_DATE_IN_VIEW, MOBILE_WIDTH } from '@constants/constants';
+import { trainingListSelect } from '@redux/slices/training-list';
+import { CalendarBadgeColors } from '@typing/enums/calendar-badge-colors';
+import { ModalCoords } from '@typing/types/modal-coords';
+import { Badge, Button, Card, Divider, Empty, Typography } from 'antd';
+import type { Moment } from 'moment';
+import moment from 'moment';
 
 import styles from './calendar-modal.module.scss';
 
@@ -35,7 +35,7 @@ export const CalendarModal: React.FC<CalendarModalProps> = ({
   const currDate = selectedDate.format(FORMAT_DATE_IN_VIEW);
   const today = moment();
   const screenWidth = useScreenWidth();
-  const isDesktop = screenWidth && screenWidth > MOBILE_WIDTH ? true : false;
+  const isDesktop = !!(screenWidth && screenWidth > MOBILE_WIDTH);
 
   const modalPosition = selectedDate.day() === 0
     ? {
@@ -54,6 +54,7 @@ export const CalendarModal: React.FC<CalendarModalProps> = ({
   const currentDateTrainings = trainings
     ?.filter((training) => {
       const trainingDate = moment(training.date).format(FORMAT_DATE_IN_VIEW);
+
       return currDate === trainingDate;
     });
 
@@ -66,17 +67,16 @@ export const CalendarModal: React.FC<CalendarModalProps> = ({
     const currentDateTrainingItem = currentDateTrainings
       ?.find(({ name }) => name === trainingName);
     const currentDateExercises = currentDateTrainingItem?.exercises
-      .map(({ name, replays, weight, approaches, isImplementation }) => {
-        return {
+      .map(({ name, replays, weight, approaches, isImplementation }) => ({
           name,
           replays,
           weight,
           approaches,
           isImplementation
-        }
-      });
+        }));
+
     if(currentDateTrainingItem && currentDateExercises) {
-      dispatch(setSelectedTrainingId(currentDateTrainingItem._id));
+      dispatch(setSelectedTrainingId(currentDateTrainingItem.userId));
       dispatch(setSelectedTraining(currentDateTrainingItem.name));
       dispatch(setExercisesList(currentDateExercises));
     }
@@ -89,6 +89,7 @@ export const CalendarModal: React.FC<CalendarModalProps> = ({
 
   const buttonCreateTrainingDisabled = trainingList
     ?.every((list) => currentDateTrainings?.some(training => training.name === list.name));
+
   return (
     <Card
       className={styles.card}
@@ -131,17 +132,17 @@ export const CalendarModal: React.FC<CalendarModalProps> = ({
                 </li>
               ))}
               </ul>
-            : <>
+            : <Fragment>
                 <Text type='secondary'>Нет активных тренировок</Text>
                 <Empty
-                  image={'https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg'}
+                  image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
                   description={false}
                   className={styles.emptyContainer}
                   imageStyle={{
                     height: 32
                   }}
                 />
-              </>
+              </Fragment>
         }
       </div>
 
@@ -149,7 +150,7 @@ export const CalendarModal: React.FC<CalendarModalProps> = ({
 
       <div className={styles.buttonCreateTraineeWrapper}>
         <Button
-          block
+          block={true}
           type='primary'
           disabled={buttonCreateTrainingDisabled || selectedDate <= today}
           onClick={onCreateTraining}

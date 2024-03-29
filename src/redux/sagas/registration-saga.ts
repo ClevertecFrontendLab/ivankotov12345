@@ -1,19 +1,18 @@
-import { PayloadAction } from '@reduxjs/toolkit';
-import { call, put, takeLatest } from 'redux-saga/effects'
-import { AxiosError } from 'axios';
 import { push } from 'redux-first-history';
-
+import { call, put, takeLatest } from 'redux-saga/effects'
 import { instance } from '@axios/axios';
-import { AxiosPaths } from '@typing/enums/axios-paths';
-import { FormInputValues } from '@typing/types/form-input-values';
-import { Paths } from '@typing/enums/paths';
 import { getRegistrationError, getRegistrationSuccess } from '@redux/slices/registration';
+import { PayloadAction } from '@reduxjs/toolkit';
+import { AxiosPaths } from '@typing/enums/axios-paths';
+import { ErrorStatus } from '@typing/enums/error-status';
+import { Paths } from '@typing/enums/paths';
 import {
   RegistrationMessageEmailExists,
   RegistrationMessageError,
   RegistrationMessageSuccess
 } from '@typing/enums/result-messages';
-import { ErrorStatus } from '@typing/enums/error-status';
+import { FormInputValues } from '@typing/types/form-input-values';
+import { AxiosError } from 'axios';
 
 function* registrationWorker(action: PayloadAction<FormInputValues>) {
   try {
@@ -32,6 +31,7 @@ function* registrationWorker(action: PayloadAction<FormInputValues>) {
     yield put(push(`${Paths.RESULT}${Paths.REGISTRATION_SUCCESS}`));
   } catch (error) {
     const { response } = error as AxiosError;
+
     if(response?.status === ErrorStatus.EMAIL_EXISTS) {
       yield put(getRegistrationError({
         status: RegistrationMessageEmailExists.status,

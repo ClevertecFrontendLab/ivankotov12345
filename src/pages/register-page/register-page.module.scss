@@ -6,7 +6,7 @@
     .inputsWrapper {
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: $gap-big;
     }
 
     :global {
@@ -18,7 +18,7 @@
     .buttonsWrapper {
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: $gap-big;
         margin-top: 40px;
 
         .buttonRegister {

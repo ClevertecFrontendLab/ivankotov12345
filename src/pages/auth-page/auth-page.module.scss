@@ -37,8 +37,8 @@
     .buttonsWrapper {
         display: flex;
         flex-direction: column;
-        gap: 16px;
-        margin-top: 16px;
+        gap: $gap-medium;
+        margin-top: $gap-medium;
 
         .buttonEnter {
             @include color-button-primary;

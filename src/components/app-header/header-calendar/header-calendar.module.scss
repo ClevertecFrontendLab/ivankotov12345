@@ -1,0 +1,20 @@
+@use '../../../scss/index' as *;
+
+.header {
+    background: $primary-light-1;
+    height: auto;
+    padding: $padding-header-calendar;
+
+    @media (max-width: $screen-mobile) {
+        padding: $padding-header-mobile;
+    }
+}
+
+.wrapper {
+    display: flex;
+    justify-content: end;
+
+    @media (max-width: $screen-mobile) {
+        margin-top: 0;
+    }
+}

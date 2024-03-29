@@ -1,13 +1,12 @@
-import { Button, Result } from 'antd';
-import { goBack, push } from 'redux-first-history';
 import { useEffect } from 'react';
-import { history } from '@redux/configure-store';
-
+import { goBack, push } from 'redux-first-history';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
-import { clearRegistration, registrationSelect } from '@redux/slices/registration';
-import { clearRecovery, recoverySelect } from '@redux/slices/recovery';
+import { history } from '@redux/configure-store';
 import { authSelect, clearAuth } from '@redux/slices/auth';
+import { clearRecovery, recoverySelect } from '@redux/slices/recovery';
+import { clearRegistration, registrationSelect } from '@redux/slices/registration';
 import { ResultsTestId } from '@typing/enums/results-test-id';
+import { Button, Result } from 'antd';
 
 import styles from './message-page.module.scss';
 
@@ -63,6 +62,7 @@ export const MessagePage: React.FC = () => {
       dispatch(goBack());
     }
   }, [authMessage, recoveryMessage, registrationMesage, dispatch])
+
   return (
     <Result
       status={authMessage?.status || registrationMesage?.status || recoveryMessage?.status}
@@ -72,13 +72,11 @@ export const MessagePage: React.FC = () => {
         <Button
           type='primary'
           block={
-            recoveryMessage 
+            !(recoveryMessage 
             && (
               recoveryMessage.buttonText === 'Назад'
               || recoveryMessage.buttonText === 'Попробовать снова'
-              )
-            ? false
-            : true
+              ))
             }
           size='large'
           className={styles.messageButton}

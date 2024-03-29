@@ -1,17 +1,16 @@
 import { useState } from 'react';
-import { Layout, Menu } from 'antd';
-import { CalendarTwoTone, HeartTwoTone, IdcardOutlined, TrophyTwoTone } from '@ant-design/icons';
-import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
 import { push } from 'redux-first-history';
-
-import { useScreenWidth } from '@hooks/use-screen-width-hook';
-import { MOBILE_WIDTH } from '@constants/constants';
-
+import { CalendarTwoTone, HeartTwoTone, IdcardOutlined, TrophyTwoTone } from '@ant-design/icons';
 import { ExitOutlined } from '@components/exit-icon-outlined';
 import { SidemenuSwitcher } from '@components/sidemenu-switcher';
-import { Paths } from '@typing/enums/paths';
-import { getCalendarFetch } from '@redux/slices/calendar';
+import { MOBILE_WIDTH } from '@constants/constants';
+import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
+import { useScreenWidth } from '@hooks/use-screen-width-hook';
 import { history } from '@redux/configure-store';
+import { getCalendarFetch } from '@redux/slices/calendar';
+import { clearUser } from '@redux/slices/user';
+import { Paths } from '@typing/enums/paths';
+import { Layout, Menu } from 'antd';
 
 import clever from './assets/svg/clever.svg';
 import logo from './assets/svg/fit.svg';
@@ -32,6 +31,7 @@ export const Sidebar: React.FC = () => {
     localStorage.removeItem('token');
     sessionStorage.clear();
     dispatch(push(Paths.AUTH));
+    dispatch(clearUser());
   }
 
   const onCalendarClick = () => dispatch(getCalendarFetch());
@@ -88,9 +88,10 @@ export const Sidebar: React.FC = () => {
 
   const selectedItem = menuItems.find(item => item.path === history.location.pathname);
   const selectedKey = selectedItem ? selectedItem.key : undefined;
+
   return (
     <Sider
-      collapsible
+      collapsible={true}
       collapsed={collapsed}
       theme='light'
       trigger={null}
@@ -99,9 +100,9 @@ export const Sidebar: React.FC = () => {
       className={styles.sideBar}
       >
       <div className={
-        !collapsed
-        ? styles.logo
-        : styles.logo_hidden
+        collapsed
+        ? styles.logo_hidden
+        : styles.logo
         }>
         <img src={clever} alt='Clever Logo' className={styles.logoClever} />
         <img src={logo} alt='Fit Logo' className={styles.logoFit} />

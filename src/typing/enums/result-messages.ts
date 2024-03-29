@@ -87,3 +87,10 @@ export enum GetModalCalendarError {
   text = 'Придётся попробовать ещё раз',
   buttonText = 'Закрыть',
 }
+
+export enum ChangeUserDataError {
+  status = 'error submit data',
+  title = 'При сохранении данных произошла ошибка',
+  text = 'Придётся попробовать ещё раз',
+  buttonText = 'Закрыть',
+}

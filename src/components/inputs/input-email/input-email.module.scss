@@ -1,0 +1,28 @@
+@use '../../../scss/index' as *;
+
+.inputEmail {
+    :global {
+        .ant-input-group-addon {
+            padding: 0 15px;
+            color: $character-light-title-85;
+        }
+
+        .ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input, 
+        .ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input:hover {
+            border-color: $character-light-border;
+        }
+
+        .ant-input-group-wrapper-status-error .ant-input-group-addon {
+            color: $character-light-title-85;
+        }
+    }
+}
+
+:global {
+    .ant-input-group-wrapper-status-error {
+        border: 1px solid $character-light-error;
+        .ant-input-group-addon {
+            border-color: $character-light-border;
+        }
+     }
+}

@@ -29,3 +29,10 @@ export type MessageCalendarType = {
   text: string,
   buttonText: string,
 }
+
+export type MessageChangeUserData = {
+  error: string,
+  title: string,
+  text: string,
+  buttonText: string,
+}

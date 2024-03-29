@@ -1,0 +1,100 @@
+@use '../../../scss/index' as *;
+
+.drawer {
+    :global {
+        .ant-drawer-content-wrapper,
+        .ant-drawer-content {
+            border-radius: 8px 0 0 8px;
+
+            @media (max-width: 675px) {
+                border-radius: 24px 24px 0 0;
+            }
+        }
+        .ant-drawer-body {
+            padding: 0;
+        }
+    }
+
+    
+    @media (max-width: $screen-mobile) {
+        margin-top: 85px;
+    }
+}
+
+.titleWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $padding-drawer-title;    
+    margin-bottom: $page-wrapper;
+
+    .title {
+        margin-bottom: 0;
+    }
+
+    @media (max-width: $screen-mobile) {
+        padding: $page-wrapper-mobile;
+        margin-bottom: 0;
+    }
+}
+
+.titleDateWrapper {
+    margin: $wrapper-big;
+
+    .titleDate {
+        margin-bottom: 0;
+        padding: $padding-date-drawer;
+        text-align: center;
+        background: $primary-light-1;
+    }
+
+    @media (max-width: $screen-mobile) {
+        padding: $page-wrapper-mobile;
+        margin: 0;
+    }
+}
+
+.selectTariffWrapper {
+    padding: $padding-drawer-title;
+
+    .selectTariffTitle {
+        margin-bottom: $gap-big;
+    }
+}
+
+.radioWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: $gap-medium;
+
+
+    .radio {
+        width: 100%;
+        span {
+            display: flex;
+            gap: 48px;
+
+            .radioText{
+                display: block;
+                width: 177px;
+
+                @media (max-width: $screen-mobile) {
+                    width: 150px;
+                }
+            }
+            .textPrice {
+                margin: 0;
+            }
+        }
+        :global {
+            .ant-radio {
+                margin-left: auto;
+                order: 3
+            }
+        }
+    }
+}
+
+.buttonPay {
+    @include color-button-primary;
+}

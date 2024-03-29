@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { AxiosPaths } from '@typing/enums/axios-paths';
+import axios from 'axios';
 
 export const instance = axios.create({
     baseURL: AxiosPaths.BASE_URL
@@ -8,6 +8,9 @@ export const instance = axios.create({
 instance.interceptors.request.use(config => {
   const token = localStorage.getItem('token') || sessionStorage.getItem('token');
 
-  config.headers.Authorization = token ? `Bearer ${token}` : '';
-  return config;
+  const currentConfig = config;
+
+  currentConfig.headers.Authorization = token ? `Bearer ${token}` : '';
+
+  return currentConfig;
 });

@@ -1,0 +1,65 @@
+@use '../../scss/index' as *;
+
+.table {
+    padding: $page-wrapper;
+
+    :global {
+        .ant-table-thead > tr > th {
+            padding: 0;
+            background: $character-light-primary-inverse;
+            border: none;
+            text-align: center;
+        }
+
+        .ant-table.ant-table-small .ant-table-thead > tr > th {
+            padding: 0;
+        }
+
+        .ant-table-thead > tr > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before {
+            display: none;
+        }
+
+        .ant-table-tbody > tr > td  {
+            border-bottom: none;
+        }
+    }
+
+    .text,
+    .textPro {
+        display: inline;
+    }
+
+    .text {
+        background-color: $charactre-light-dividers;
+        padding: $padding-thead;
+
+        
+    }
+
+    .textPro {
+        background-color: $primary-light-1;
+        padding: $padding-thead-pro;
+        color: $primary-light-7;
+
+        .logo {
+            color: $character-light-success;
+
+            @media (max-width: $screen-mobile) {
+                display: none;
+            }
+        }
+    }
+
+    .item {
+        display: block;
+
+        &_unavailable {
+            display: block;
+            color: $character-light-disabled;
+        }
+    }
+
+    @media (max-width: $screen-mobile) {
+        padding: $page-wrapper-mobile;
+    }
+}

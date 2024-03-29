@@ -1,7 +1,7 @@
 import { RootState } from '@redux/configure-store';
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { MessageType } from '@typing/types/message-types';
+import { createSlice,PayloadAction } from '@reduxjs/toolkit';
 import { FormInputValues } from '@typing/types/form-input-values';
+import { MessageType } from '@typing/types/message-types';
 import { AuthResponseType } from '@typing/types/response-types';
 
 type AuthStateType = {

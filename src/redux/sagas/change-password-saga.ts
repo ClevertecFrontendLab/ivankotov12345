@@ -1,13 +1,12 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
-import { PayloadAction } from '@reduxjs/toolkit';
-import { instance } from '@axios/axios';
-
-import { getResetPasswordError, getResetPasswordFetch, getResetPasswordSuccess } from '@redux/slices/recovery';
-import { AxiosPaths } from '@typing/enums/axios-paths';
-import { FormRecoveryInputValues } from '@typing/types/form-input-values';
 import { goForward, replace } from 'redux-first-history';
+import { call, put, takeLatest } from 'redux-saga/effects';
+import { instance } from '@axios/axios';
+import { getResetPasswordError, getResetPasswordFetch, getResetPasswordSuccess } from '@redux/slices/recovery';
+import { PayloadAction } from '@reduxjs/toolkit';
+import { AxiosPaths } from '@typing/enums/axios-paths';
 import { Paths } from '@typing/enums/paths';
 import { ChangePasswordErrorMessage, ChangePasswordSuccessMessage } from '@typing/enums/result-messages';
+import { FormRecoveryInputValues } from '@typing/types/form-input-values';
 
 
 function* changePasswordWorker(action: PayloadAction<FormRecoveryInputValues>) {
