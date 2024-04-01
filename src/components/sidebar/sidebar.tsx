@@ -34,7 +34,17 @@ export const Sidebar: React.FC = () => {
     dispatch(clearUser());
   }
 
-  const onCalendarClick = () => dispatch(getCalendarFetch());
+  const onCalendarClick = () => {
+    dispatch(getCalendarFetch());
+    dispatch(push(Paths.CALENDAR));
+  };
+
+  const onProfileClick = () => dispatch(push(Paths.PROFILE));
+
+  const onTrainingsClick = () => {
+    dispatch(getCalendarFetch());
+    dispatch(push(Paths.WORKOUTS));
+  }
 
   const toneColor = '#061178';
   const testId = screenWidth && screenWidth > MOBILE_WIDTH ? 'sider-switch' : 'sider-switch-mobile';
@@ -58,6 +68,7 @@ export const Sidebar: React.FC = () => {
         className={styles.iconFilled}
       />,
       label: 'Тренировки',
+      onClick: onTrainingsClick,
       className: styles.menuItem,
     },
     {
@@ -76,6 +87,7 @@ export const Sidebar: React.FC = () => {
       />,
       label: 'Профиль',
       className: styles.menuItem,
+      onClick: onProfileClick,
     },
     {
       key: '5',

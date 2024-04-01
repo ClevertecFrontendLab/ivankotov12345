@@ -14,7 +14,9 @@ import {
   PageNotFound,
   ProfilePage,
   RegisterPage, 
-  SettingsPage } from '@pages/index';
+  SettingsPage, 
+  WorkoutsPage
+} from '@pages/index';
 import { Paths } from '@typing/enums/paths';
 
 
@@ -27,6 +29,7 @@ export const routes = (
         <Route index={true} path={Paths.CALENDAR} element={<CalendarPage />} />
         <Route index={true} path={Paths.PROFILE} element={<ProfilePage />} />
         <Route index={true} path={Paths.SETTINGS} element={<SettingsPage />} />
+        <Route index={true} path={Paths.WORKOUTS} element={<WorkoutsPage />}  />
         <Route index={true} path='*' element={<PageNotFound />} />
       </Route>
     </Route>

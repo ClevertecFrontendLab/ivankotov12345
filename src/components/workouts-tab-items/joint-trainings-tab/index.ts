@@ -1,0 +1,1 @@
+export { JointTrainingsTab } from './joint-trainings-tab';

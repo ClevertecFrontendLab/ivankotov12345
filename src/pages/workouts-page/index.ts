@@ -1,1 +1,1 @@
-export { WorkoutsPage } from './workouts-page'
+export { WorkoutsPage } from './workouts-page';

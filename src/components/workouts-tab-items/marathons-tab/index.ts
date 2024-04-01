@@ -1,0 +1,1 @@
+export { MarathonsTab } from './marathons-tab';

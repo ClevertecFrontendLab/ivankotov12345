@@ -29,8 +29,16 @@ export const ActionCard: React.FC<ActionCardProps> = ({ cardLogo, cardName, butt
   }
 
 
-  const onCalendarButtonClick = () => dispatch(getCalendarFetch());
+  const onCalendarButtonClick = () => {
+    dispatch(getCalendarFetch());
+    dispatch(push(Paths.CALENDAR));
+  }
   const onProfileButtonClick = () => dispatch(push(Paths.PROFILE));
+
+  const onWorkoutsButtonClick = () => {
+    dispatch(getCalendarFetch());
+    dispatch(push(Paths.WORKOUTS));
+  }
 
   const onClick = () => {
     if(buttonText === 'Календарь') {
@@ -39,6 +47,10 @@ export const ActionCard: React.FC<ActionCardProps> = ({ cardLogo, cardName, butt
     if(buttonText === 'Профиль') {
       onProfileButtonClick();
     }
+    if(buttonText === 'Тренировки') {
+      onWorkoutsButtonClick()
+    }
+
   }
 
   return (
