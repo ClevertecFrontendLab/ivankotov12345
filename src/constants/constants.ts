@@ -22,4 +22,13 @@ export const FORMAT_DATE_PAYLOAD = 'YYYY-MM-DDTHH:mm:ss.SSS[Z]';
 export const MAX_IMAGE_SIZE = 5;
 export const IMAGE_URL_BASE = 'https://training-api.clevertec.ru/';
 
-export const PRIMARY_LIGHT_6_COLOR = '#2f54eb'
+export const PRIMARY_LIGHT_6_COLOR = '#2f54eb';
+
+export const PERIODS_MAP = new Map()
+              .set(1,'Через 1 день')
+              .set(2, 'Через 2 дня')
+              .set(3, 'Через 3 дня')
+              .set(4, 'Через 4 дня')
+              .set(5, 'Через 5 дней')
+              .set(6, 'Через 6 дней')
+              .set(7, 'Через 1 неделю')

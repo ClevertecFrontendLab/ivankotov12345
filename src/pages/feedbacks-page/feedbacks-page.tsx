@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState } from 'react';
 import { Commentary } from '@components/commentary';
-import { FeedbacksNoResults } from '@components/feedbacks-no-results';
+import { FeedbacksNoResults } from '@components/empty';
 import { ModalFeedbacks } from '@components/modal-feedbacks';
 import { ModalResults } from '@components/modal-results';
 import { SendFeedbackResults } from '@components/send-feedback-results';

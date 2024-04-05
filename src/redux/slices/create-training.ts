@@ -12,6 +12,8 @@ type CreatetrainingStateType = {
   selectedTraining: string | null,
   message: MessageCalendarType | null,
   isError: boolean,
+  repeat: boolean,
+  period: number | null,
 }
 
 const initialState: CreatetrainingStateType = {
@@ -22,6 +24,8 @@ const initialState: CreatetrainingStateType = {
   selectedTraining: null,
   message: null,
   isError: false,
+  repeat: false,
+  period: null,
 }
 
 export const createTrainingSlice = createSlice({
@@ -61,7 +65,7 @@ export const createTrainingSlice = createSlice({
     clearCreateTrainingError: (state) => {
       state.isError = false;
       state.message = null;
-    }
+    },
   }
 });
 
@@ -76,5 +80,5 @@ export const {
   clearExercisesList,
   openCreateTrainingModal,
   closeCreateTrainingModal,
-  clearCreateTrainingError
+  clearCreateTrainingError,
 } = createTrainingSlice.actions;

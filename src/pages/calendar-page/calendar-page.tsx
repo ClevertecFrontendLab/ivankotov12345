@@ -156,11 +156,12 @@ export const CalendarPage: React.FC = () => {
         setIsCalendarSidebarOpen={setIsCalendarSidebarOpen}
         selectedDate={selectedDate}
       />}
-      {isCalendarSidebarOpen && <CalendarTrainingSidebar
-        isCalendarSidebarOpen={isCalendarSidebarOpen}
-        setIsCalendarSidebarOpen={setIsCalendarSidebarOpen}
-        selectedDate={selectedDate}
-      />}
+      {isCalendarSidebarOpen && 
+        <CalendarTrainingSidebar
+          isCalendarSidebarOpen={isCalendarSidebarOpen}
+          setIsCalendarSidebarOpen={setIsCalendarSidebarOpen}
+          selectedDate={selectedDate}
+        />}
 
       <SubmitDataResult
         setIsModalOpen={setIsModalOpen}

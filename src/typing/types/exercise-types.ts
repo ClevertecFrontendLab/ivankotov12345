@@ -1,8 +1,8 @@
 export type ParametersType = {
-  repeat: boolean,
-  period: number,
-  jointTraining: boolean,
-  participants: string[],
+  repeat?: boolean,
+  period?: number,
+  jointTraining?: boolean,
+  participants?: string[],
 }
 
 export type ExerciseType = {

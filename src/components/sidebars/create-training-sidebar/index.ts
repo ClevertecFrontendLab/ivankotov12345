@@ -1,0 +1,1 @@
+export { CreateTrainingSidebar } from './create-training-sidebar'
