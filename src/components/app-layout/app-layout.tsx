@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { history } from '@redux/configure-store';
 import { authSelect } from '@redux/slices/auth';
 import { calendarSelect } from '@redux/slices/calendar';
+import { jointTrainingsSelect } from '@redux/slices/joint-trainings';
 import { reviewsSelect } from '@redux/slices/reviews';
 import { getUserFetch, userSelect } from '@redux/slices/user';
 import { Paths } from '@typing/enums/paths';
@@ -22,6 +23,7 @@ export const AppLayout: React.FC = () => {
   const [currentLocation, setCurrentLocation] = useState(history.location.pathname);
   const { isLoading: isReviewsLoading } = useAppSelector(reviewsSelect);
   const { isLoading: isCalendarLoading } = useAppSelector(calendarSelect);
+  const { isLoading: isJointTrainingsLoading } = useAppSelector(jointTrainingsSelect);
   const { userData } = useAppSelector(userSelect);
   const { token: storeToken } = useAppSelector(authSelect);
   const dispatch = useAppDispatch();
@@ -61,7 +63,7 @@ export const AppLayout: React.FC = () => {
 
   return (
       <Fragment>
-        {(isReviewsLoading || isCalendarLoading) && <Loader />}
+        {(isReviewsLoading || isCalendarLoading || isJointTrainingsLoading) && <Loader />}
         <Layout className={styles.layout}>
           <Suspense fallback={<Loader />}>
           <Sidebar />

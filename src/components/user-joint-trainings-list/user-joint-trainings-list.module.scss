@@ -1,0 +1,7 @@
+@use '../../scss/index' as *;
+
+.cardsWrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 234px);
+    gap: $gap-medium;
+}

@@ -1,2 +1,1 @@
-export { TariffCard } from './tariff-card';
 export { ActiveUserCard } from './active-user-card';
