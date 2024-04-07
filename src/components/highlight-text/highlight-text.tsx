@@ -12,7 +12,7 @@ export const HighlightText: React.FC<HighlightTextProps> = ({ name, searchValue 
 
   for (let i = 0; i < name.length; i++) {
       if (searchValue.includes(name[i])) {
-          highlightedText.push(<Text style={{color: 'red'}}>{name[i]}</Text>);
+          highlightedText.push(<Text type='danger'>{name[i]}</Text>);
       } else {
           highlightedText.push(name[i]);
       }

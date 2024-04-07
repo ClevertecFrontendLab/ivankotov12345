@@ -76,7 +76,7 @@ export const CalendarModal: React.FC<CalendarModalProps> = ({
         }));
 
     if(currentDateTrainingItem && currentDateExercises) {
-      dispatch(setSelectedTrainingId(currentDateTrainingItem.userId));
+      dispatch(setSelectedTrainingId(currentDateTrainingItem._id));
       dispatch(setSelectedTraining(currentDateTrainingItem.name));
       dispatch(setExercisesList(currentDateExercises));
     }

@@ -1,12 +1,13 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { CloseOutlined, EditOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { TrainingSidebarItem } from '@components/training-sidebar-item';
 import { EMPTY_EXERCISE, FORMAT_DATE_IN_VIEW, FORMAT_DATE_PAYLOAD } from '@constants/constants';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { createTrainingSelect, getCreateTrainingFetch, setSelectedTraining } from '@redux/slices/create-training';
-import { redactTrainingSelect } from '@redux/slices/redact-training';
+import { getRedactTrainingFetch, redactTrainingSelect } from '@redux/slices/redact-training';
 import { trainingListSelect } from '@redux/slices/training-list';
 import { ExerciseType } from '@typing/types/exercise-types';
+import { CalendarResponseItemType } from '@typing/types/response-types';
 import { Button, Checkbox, DatePicker, Drawer, Select, Typography } from 'antd';
 import type { Moment } from 'moment';
 import moment from 'moment';
@@ -16,6 +17,7 @@ import styles from './create-training-sidebar.module.scss'
 type CreateTrainingSidebarProps = {
   isSidebarOpen: boolean,
   setIsSidebarOpen: (isSidebarOpen: boolean) => void,
+  selectedTraining?: CalendarResponseItemType | null,
 }
 
 const selectOptions = [
@@ -54,12 +56,14 @@ const { Title } = Typography;
 export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
   isSidebarOpen,
   setIsSidebarOpen,
+  selectedTraining
 }) => {
   const dispatch = useAppDispatch()
 
   const { trainingList } = useAppSelector(trainingListSelect);
   const { isRedactingMode } = useAppSelector(redactTrainingSelect);
-  const { exercises, selectedTraining } = useAppSelector(createTrainingSelect);
+  const { exercises, selectedTraining: selectedTrainingName } = useAppSelector(createTrainingSelect);
+  const today = moment();
 
   const [exerciseItems, setExerciseItems] = useState<ExerciseType[]>(
     exercises.length === 0
@@ -67,9 +71,22 @@ export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
     : [...exercises]);
   const [isRepeatChecked, setIsRepeatChecked] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Moment>(() => moment());
-  const [selectedPeriod, setSelectedPeriod] = useState<number | undefined>();
+  const [selectedPeriod, setSelectedPeriod] = 
+    useState<number | undefined>(selectedTraining?.parameters.period);
   const [checkedRemoveItems, setCheckedRemoveItems] = 
     useState<boolean[]>(new Array(exerciseItems.length).fill(false));
+
+  useEffect(() => {
+    if(selectedTraining?.parameters.repeat) {
+      setIsRepeatChecked(selectedTraining.parameters.repeat);
+    }
+  }, [selectedTraining]);
+
+  useEffect(() => {
+    if(selectedTraining?.date) {
+      setSelectedDate(moment(selectedTraining.date));
+    }
+  }, [selectedTraining])
 
   const selectTrainingOptions = trainingList && trainingList
   .map((training) => ({
@@ -101,9 +118,9 @@ export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
   const onButtonSave = () => {
     const exercisesNonEmpty = exerciseItems.filter((exercise) => exercise.name);
 
-    if(selectedTraining && exercisesNonEmpty) {
+    if(selectedTrainingName && exercisesNonEmpty) {
       dispatch(getCreateTrainingFetch({
-        name: selectedTraining,
+        name: selectedTrainingName,
         date: selectedDate.format(FORMAT_DATE_PAYLOAD),
         parameters: {
           repeat: isRepeatChecked,
@@ -113,6 +130,19 @@ export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
       }))
     }
   };
+
+  const onButtonSaveRedact = () => {
+    if(selectedTraining && exerciseItems) {
+      dispatch(getRedactTrainingFetch({
+        name: selectedTraining?.name,
+        date: selectedDate.format(FORMAT_DATE_PAYLOAD),
+        exercises: exerciseItems,
+        isImplementation: selectedDate <= today,
+      }))
+    }
+  }
+
+  const onButtonClose = () => setIsSidebarOpen(false);
 
   return (
     <Drawer
@@ -124,7 +154,7 @@ export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
           block={true}
           size='large'
           type='primary'
-          onClick={onButtonSave}
+          onClick={isRedactingMode ? onButtonSaveRedact : onButtonSave}
         >
           Сохранить
         </Button>
@@ -151,6 +181,7 @@ export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
           type='link'
           size='small'
           className={styles.buttonClose}
+          onClick={onButtonClose}
         />
       </div>
 
@@ -159,12 +190,15 @@ export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
           options={selectTrainingOptions}
           onChange={onSelectTraining}
           placeholder='Выбор типа тренировки'
+          value={selectedTraining?.name}
+          disabled={isRedactingMode}
         />
 
         <div className={styles.datePickWrapper}>
           <DatePicker
             format={FORMAT_DATE_IN_VIEW}
             onSelect={onDateChange}
+            value={selectedDate || ''}
           />
           <Checkbox
             checked={isRepeatChecked}
@@ -178,6 +212,7 @@ export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
           <Select
             options={selectOptions}
             onChange={onSelectPeriod}
+            value={selectedPeriod}
           />
         }
       </div>

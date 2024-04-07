@@ -1,12 +1,15 @@
 import { useState } from 'react';
+import { EditOutlined } from '@ant-design/icons';
 import { EmptyTrainings } from '@components/empty';
 import { CreateTrainingSidebar } from '@components/sidebars';
 import { PERIODS_MAP } from '@constants/constants';
-import { useAppSelector } from '@hooks/typed-react-redux-hooks';
+import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { calendarSelect } from '@redux/slices/calendar';
+import { setExercisesList } from '@redux/slices/create-training';
+import { setIsRedactingMode, setSelectedTrainingId } from '@redux/slices/redact-training';
 import { CalendarBadgeColors } from '@typing/enums/calendar-badge-colors';
 import { CalendarResponseItemType } from '@typing/types/response-types';
-import { Badge, Layout, Select, Table, Typography } from 'antd';
+import { Badge, Button, Layout, Select, Table, Typography } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
 
 const selectOptions = [
@@ -31,10 +34,28 @@ const selectOptions = [
 const { Text } = Typography;
 
 export const MyTrainingsTab: React.FC = () => {
+  const dispatch = useAppDispatch()
   const { trainings } = useAppSelector(calendarSelect);
+  
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  
+  const [selectedTraining, setSelectedTraining] = useState<CalendarResponseItemType | null>(null);
+
+  const onRedactTraining = (id: string) => {
+    dispatch(setSelectedTrainingId(id));
+    const currTraining = trainings && trainings.find(training => training._id === id);
+
+    if(currTraining) {
+      setSelectedTraining(currTraining);
+      const currExercises = currTraining.exercises;
+
+      dispatch(setExercisesList(currExercises))
+    };
+
+    dispatch(setIsRedactingMode());
+    setIsSidebarOpen(true);
+  }
+
   const columns: ColumnsType<CalendarResponseItemType> = [
     {
       title: 'Тип тренировки',
@@ -58,8 +79,15 @@ export const MyTrainingsTab: React.FC = () => {
     },
     {
       title: '',
-      dataIndex: 'redacting',
+      dataIndex: '_id',
       key: 'redacting',
+      render: (_id) => (
+        <Button
+          icon={<EditOutlined />}
+          type='text'
+          onClick={() => onRedactTraining(_id)}
+        />
+      )
     },
   ]
   
@@ -69,12 +97,14 @@ export const MyTrainingsTab: React.FC = () => {
         ? <Table
            columns={columns}
            dataSource={trainings}
+           rowKey={(item) => item._id}
           />
         : <EmptyTrainings setIsSidebarOpen={setIsSidebarOpen} />}
 
       {isSidebarOpen && <CreateTrainingSidebar
         setIsSidebarOpen={setIsSidebarOpen}
         isSidebarOpen={isSidebarOpen}
+        selectedTraining={selectedTraining}
       />}
     </Layout>
   )
