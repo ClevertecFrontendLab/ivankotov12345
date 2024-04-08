@@ -17,4 +17,5 @@ export enum AxiosPaths {
     PAY_TARIFF = '/tariff',
     TRAININGS_PALS = '/catalogs/training-pals',
     USER_JOINT_TRAINING_LIST = '/catalogs/user-joint-training-list',
+    INVITE = '/invite',
 }

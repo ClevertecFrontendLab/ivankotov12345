@@ -8,6 +8,7 @@ import { changeUserDataWatcher } from './change-user-data-saga';
 import { confirmEmailWatcher } from './confirm-email-saga';
 import { createTrainingWatcher } from './create-training-saga';
 import { forgotPassWatcher } from './frogot-pass-saga';
+import { inviteUserWatcher } from './invite-user-saga';
 import { palsWatcher } from './pals-saga';
 import { payTariffWatcher } from './pay-tariff-saga';
 import { redactTrainingWatcher } from './redact-training-saga';
@@ -39,5 +40,6 @@ export function* rootSaga() {
     payTariffWatcher(),
     palsWatcher(),
     userJointTrainingListWatcher(),
+    inviteUserWatcher(),
   ]);
 }

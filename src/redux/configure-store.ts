@@ -8,6 +8,7 @@ import { authReducer } from './slices/auth';
 import { calendarReducer } from './slices/calendar';
 import { changeUserDataReducer } from './slices/change-user-data';
 import { createTrainingReducer } from './slices/create-training';
+import { inviteReducer } from './slices/invite';
 import { jointTrainingsReducer } from './slices/joint-trainings';
 import { recoveryReducer } from './slices/recovery';
 import { redactTrainingReducer } from './slices/redact-training';
@@ -45,6 +46,7 @@ export const store = configureStore({
     changeUserData: changeUserDataReducer,
     tariff: tariffReducer,
     jointTrainings: jointTrainingsReducer,
+    invite: inviteReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware()
     .concat(sagaMiddleware, routerMiddleware),

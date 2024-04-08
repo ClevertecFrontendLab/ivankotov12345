@@ -3,10 +3,12 @@ import { createSlice,PayloadAction } from '@reduxjs/toolkit';
 import { ExerciseType } from '@typing/types/exercise-types';
 import { MessageCalendarType } from '@typing/types/message-types';
 import { TrainingRequestType } from '@typing/types/request-types';
+import { CalendarResponseItemType } from '@typing/types/response-types';
 
 type CreatetrainingStateType = {
   isLoading: boolean,
   submittedData: TrainingRequestType | null,
+  createdTraining: CalendarResponseItemType | null,
   exercises: ExerciseType[],
   isModalTrainingsOpen: boolean,
   selectedTraining: string | null,
@@ -19,6 +21,7 @@ type CreatetrainingStateType = {
 const initialState: CreatetrainingStateType = {
   isLoading: false,
   submittedData: null,
+  createdTraining: null,
   exercises: [],
   isModalTrainingsOpen: false,
   selectedTraining: null,
@@ -36,9 +39,10 @@ export const createTrainingSlice = createSlice({
       state.isLoading = true;
       state.submittedData = action.payload;
     },
-    getCreateTrainingSuccess: (state) => {
+    getCreateTrainingSuccess: (state, action: PayloadAction<CalendarResponseItemType>) => {
       state.isLoading = false;
       state.isModalTrainingsOpen = false;
+      state.createdTraining = action.payload;
     },
     getCreateTrainingError: (state, action: PayloadAction<MessageCalendarType>) => {
       state.isLoading = false;
@@ -70,6 +74,7 @@ export const createTrainingSlice = createSlice({
 });
 
 export const createTrainingSelect = (state: RootState) => state.createTraining;
+
 export const createTrainingReducer = createTrainingSlice.reducer;
 export const {
   getCreateTrainingFetch,

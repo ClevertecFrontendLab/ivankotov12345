@@ -7,6 +7,7 @@ const breadcrumbNamesMap: Record<string, string> = {
   [Paths.MAIN]: 'Главная',
   [Paths.FEEDBACKS]: 'Отзывы пользователей',
   [Paths.CALENDAR]: 'Календарь',
+  [Paths.WORKOUTS]: 'Тренировки',
 };
 
 export const Breadcrumbs: React.FC = () => {

@@ -43,7 +43,7 @@ export const jointTrainingSlice = createSlice({
     },
     clearUsersJointTrainingsList: (state) => {
       state.userJointTrainingsList = [];
-    }
+    },
   }
 });
 

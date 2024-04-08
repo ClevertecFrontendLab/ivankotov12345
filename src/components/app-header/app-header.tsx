@@ -2,11 +2,12 @@ import { Fragment, useEffect, useState } from 'react';
 import { history } from '@redux/configure-store';
 import { Paths } from '@typing/enums/paths';
 
-import { HeaderProfile } from './header-profile/header-profile';
 import { HeaderCalendar } from './header-calendar';
 import { HeaderCommentaries } from './header-commentaries';
 import { HeaderMain } from './header-main';
+import { HeaderProfile } from './header-profile';
 import { HeaderSettings } from './header-settings';
+import { HeaderTrainings } from './header-trainings';
 
 export const AppHeader: React.FC = () => {
   const [currentLocation, setCurrentLocation] = useState(history.location.pathname);
@@ -36,7 +37,10 @@ export const AppHeader: React.FC = () => {
     };
     if(currentLocation === Paths.SETTINGS) {
       return <HeaderSettings />
-    }
+    };
+    if(currentLocation === Paths.WORKOUTS) {
+      return <HeaderTrainings />
+    };
     
     return null;
   }

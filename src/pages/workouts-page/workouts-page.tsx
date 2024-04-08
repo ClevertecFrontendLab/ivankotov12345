@@ -4,7 +4,8 @@ import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
 import { getTrainingListFetch } from '@redux/slices/training-list';
 import { Layout, Tabs } from 'antd';
 
-
+import 'antd/dist/antd.css';
+import styles from './workouts-page.module.scss';
 
 export const WorkoutsPage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -32,7 +33,7 @@ export const WorkoutsPage: React.FC = () => {
   }, [dispatch]);
   
   return (
-    <Layout>
+    <Layout className={styles.layoutWorkouts}>
       <Tabs items={tabs} />
     </Layout>
   )

@@ -1,14 +1,24 @@
 import { Fragment, useEffect, useState } from 'react';
 import { CloseOutlined, EditOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { TrainingSidebarItem } from '@components/training-sidebar-item';
-import { EMPTY_EXERCISE, FORMAT_DATE_IN_VIEW, FORMAT_DATE_PAYLOAD } from '@constants/constants';
+import {
+  EMPTY_EXERCISE,
+  FORMAT_DATE_IN_VIEW,
+  FORMAT_DATE_PAYLOAD
+} from '@constants/constants';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
-import { createTrainingSelect, getCreateTrainingFetch, setSelectedTraining } from '@redux/slices/create-training';
+import {
+  createTrainingSelect,
+  getCreateTrainingFetch,
+  setSelectedTraining
+} from '@redux/slices/create-training';
 import { getRedactTrainingFetch, redactTrainingSelect } from '@redux/slices/redact-training';
 import { trainingListSelect } from '@redux/slices/training-list';
+import { CalendarBadgeColors } from '@typing/enums/calendar-badge-colors';
 import { ExerciseType } from '@typing/types/exercise-types';
 import { CalendarResponseItemType } from '@typing/types/response-types';
-import { Button, Checkbox, DatePicker, Drawer, Select, Typography } from 'antd';
+import { UserJointTrainingsType } from '@typing/types/user-joint-trainings-types';
+import { Avatar, Badge, Button, Checkbox, DatePicker, Drawer, Select, Typography } from 'antd';
 import type { Moment } from 'moment';
 import moment from 'moment';
 
@@ -18,6 +28,7 @@ type CreateTrainingSidebarProps = {
   isSidebarOpen: boolean,
   setIsSidebarOpen: (isSidebarOpen: boolean) => void,
   selectedTraining?: CalendarResponseItemType | null,
+  selectedUser?: UserJointTrainingsType,
 }
 
 const selectOptions = [
@@ -51,12 +62,13 @@ const selectOptions = [
   },
 ]
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
   isSidebarOpen,
   setIsSidebarOpen,
-  selectedTraining
+  selectedTraining,
+  selectedUser
 }) => {
   const dispatch = useAppDispatch()
 
@@ -86,7 +98,13 @@ export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
     if(selectedTraining?.date) {
       setSelectedDate(moment(selectedTraining.date));
     }
-  }, [selectedTraining])
+  }, [selectedTraining]);
+
+  useEffect(() => {
+    if(selectedUser) {
+      dispatch(setSelectedTraining(selectedUser.trainingType))
+    }
+  }, [dispatch, selectedUser])
 
   const selectTrainingOptions = trainingList && trainingList
   .map((training) => ({
@@ -129,7 +147,10 @@ export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
         exercises: exerciseItems
       }))
     }
+
+    setIsSidebarOpen(false);
   };
+
 
   const onButtonSaveRedact = () => {
     if(selectedTraining && exerciseItems) {
@@ -140,6 +161,8 @@ export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
         isImplementation: selectedDate <= today,
       }))
     }
+
+    setIsSidebarOpen(false);
   }
 
   const onButtonClose = () => setIsSidebarOpen(false);
@@ -169,7 +192,7 @@ export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
                 </Fragment>
               : <Fragment>
                   <PlusOutlined />
-                  Новая тренировка
+                  {selectedUser ? 'Совместная тренировка' : 'Новая тренировка'}
                 </Fragment>,
               tooltip: false,
           }}
@@ -185,14 +208,29 @@ export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
         />
       </div>
 
-      <div className={styles.selectsWrapper}>
-        <Select
-          options={selectTrainingOptions}
-          onChange={onSelectTraining}
-          placeholder='Выбор типа тренировки'
-          value={selectedTraining?.name}
-          disabled={isRedactingMode}
+      {selectedUser &&
+      <div>
+        <div>
+        <Avatar src={selectedUser.imageSrc} />
+        <Text>{selectedUser.name}</Text>
+        </div>
+
+        <Badge
+          color={CalendarBadgeColors[selectedUser.trainingType as keyof typeof CalendarBadgeColors]}
+          text={selectedTrainingName}
         />
+      </div>
+      }
+
+      <div className={styles.selectsWrapper}>
+        {!selectedUser &&
+           <Select
+            options={selectTrainingOptions}
+            onChange={onSelectTraining}
+            placeholder='Выбор типа тренировки'
+            value={selectedTraining?.name}
+            disabled={isRedactingMode}
+          />}
 
         <div className={styles.datePickWrapper}>
           <DatePicker

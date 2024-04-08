@@ -1,0 +1,15 @@
+@use '../../scss/index' as *;
+
+.layoutWorkouts {
+    margin: $page-wrapper;
+    padding: $page-wrapper;
+    background-color: $character-light-primary-inverse;
+    height: calc(100% - 64px);
+
+    :global {
+        .ant-tabs > .ant-tabs-nav .ant-tabs-nav-list {
+            width: 100% !important;
+            justify-content: space-between !important;
+        }
+    }
+}
