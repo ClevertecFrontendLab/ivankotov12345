@@ -5,7 +5,7 @@ export type UserJointTrainingsType = {
   imageSrc: string | null,
   avgWeightInWeek: number,
   inviteId: string,
-  status: string,
+  status: string | null,
 }
 
 export type InviteType = {

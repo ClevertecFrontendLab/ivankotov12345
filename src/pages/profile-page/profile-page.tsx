@@ -62,7 +62,7 @@ export const ProfilePage: React.FC = () => {
       form.setFieldsValue({
         firstName: userData?.firstName,
         lastName: userData?.lastName,
-        birthday: userData.birthday ? moment(userData?.birthday) : '',
+        birthday: userData.birthday ? moment(userData?.birthday) : null,
         email: userData?.email,
         imgSrc: userData?.imgSrc,
       });

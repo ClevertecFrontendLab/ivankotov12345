@@ -1,15 +1,28 @@
-import { Button, Typography } from 'antd'
+import { Button, Result, Typography } from 'antd';
 
-const { Title } = Typography;
+import styles from './empty-trainings.module.scss'
+
+const {Title} = Typography;
 
 type EmptyTrainingsProps = {
   setIsSidebarOpen: (isSidebarOpen: boolean) => void,
 }
 
 export const EmptyTrainings: React.FC<EmptyTrainingsProps> = ({ setIsSidebarOpen }) => (
-  <div>
-    <Title level={2}>У вас ещё нет созданных тренировок</Title>
-    <Button onClick={() => setIsSidebarOpen(true)}>Создать тренировку</Button>
-  </div>
+  <Result
+    icon={null}
+    className={styles.emptyContainer}
+    title={<Title level={3} className={styles.title}>У вас ещё нет созданных тренировок</Title>}
+    extra={[
+      <Button
+        key='buttonEmpty'
+        onClick={() => setIsSidebarOpen(true)}
+        type='primary'
+        className={styles.buttonCreateTraining}
+      >
+        Создать тренировку
+      </Button>
+    ]}
+  />
 )
 

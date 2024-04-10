@@ -1,0 +1,1 @@
+export { WorkoutsTrainingSidebar } from './workouts-training-sidebar';

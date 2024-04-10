@@ -1,0 +1,13 @@
+@use '../../../scss/index' as *;
+
+.emptyContainer {
+    margin-top: 5%;
+
+    .title {
+        padding: 56px 130px;
+    }
+
+    .buttonCreateTraining {
+        @include color-button-primary;
+    }
+}

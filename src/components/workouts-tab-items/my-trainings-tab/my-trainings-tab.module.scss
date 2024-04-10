@@ -1,0 +1,98 @@
+@use '../../../scss/index' as *;
+
+.trainingsTabWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: $gap-big;
+    .table {
+        width: $table-width;
+        margin-top: $gap-big;
+
+        .titleType {
+            display: block;
+            width: 259px;
+            height: 32px;
+            padding: $gap-small;
+            font-size: $size-small;
+            text-align: start;
+            background: $charactre-light-dividers;
+        }
+
+        .workout {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-right: $gap-big;
+        }
+
+        .select {
+            font-size: $size-small;
+            :global {
+                .ant-select-selector {
+                    border: none;
+                    background: transparent;
+                    padding-left: 0;
+                }
+
+                .ant-select-arrow {
+                    color: $character-primary;
+                }
+            }
+        }
+
+        :global {
+            .ant-table-thead {
+                margin-bottom: $gap-big;
+            }
+            .ant-table-thead > tr > th {
+                padding: 0;
+                background: $character-light-primary-inverse;
+                border: none;
+                text-align: center;
+            }
+
+            .ant-table.ant-table-small .ant-table-tbody > tr > td {
+                padding: 0;
+            }
+            .ant-table.ant-table-small .ant-table-tbody > tr > td:last-child {
+                border-bottom: none;
+            }
+
+            td.ant-table-column-sort {
+                background: $character-light-primary-inverse;
+            }
+
+            .ant-table-column-sorters {
+                display: flex;
+                align-items: center;
+                height: 32px;
+                padding: 0 8px;
+                background: $charactre-light-dividers;
+            }
+
+            ::before,
+            ::after {
+                display: none;
+            }
+
+            .ant-select-single.ant-select-show-arrow .ant-select-selection-item {
+                display: flex;
+                align-items: center;
+            }
+        }
+    }
+
+    .buttonEdit {
+        color: $primary-light-6;
+
+        .logo {
+            width: 25px;
+            height: 25px;
+        }
+    }
+
+    .buttonNewTraining {
+        @include color-button-primary;
+    }
+
+}

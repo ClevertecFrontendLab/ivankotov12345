@@ -1,5 +1,5 @@
-import { getMyInvitationsFetch } from '@redux/slices/invite';
 import { takeLatest } from 'redux-saga/effects';
+import { getMyInvitationsFetch } from '@redux/slices/invite';
 
 function* myInvitationsWorker() {
   yield

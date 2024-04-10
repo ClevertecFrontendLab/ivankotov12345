@@ -1,0 +1,42 @@
+@use '../../../scss/index' as *;
+
+.jointTabContainer {
+    display: flex;
+    flex-direction: column;
+
+    .searchWrapper {
+        display: flex;
+    }
+
+    .selectUserContainer {
+        background: $neutral-gray-2;
+
+        .textWrapper {
+            padding: $wrapper-big;
+            text-align: center;
+            padding: $page-wrapper;
+
+            .title {
+                color: $primary-light-9;
+            }
+        }
+    
+        .buttonsWrapper {
+            display: flex;
+            justify-content: space-around;
+            padding: $padding-buttons-select-user;
+
+            .buttonRandom {
+                color: $primary-light-6;
+            }
+        }
+    
+        .divider {
+            margin: 0;
+        }
+    }
+
+    .palsWrapper {
+        margin-top: 40px;
+    }
+}

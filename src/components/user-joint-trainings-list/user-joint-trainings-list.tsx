@@ -1,9 +1,11 @@
 import { Fragment, useEffect, useState } from 'react';
+import { CheckCircleFilled, ExclamationCircleOutlined, UserOutlined } from '@ant-design/icons';
 import { HighlightText } from '@components/highlight-text';
-import { CreateTrainingSidebar } from '@components/sidebars';
+import { WorkoutsTrainingSidebar } from '@components/sidebars';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { setInviteUserId } from '@redux/slices/invite';
 import { jointTrainingsSelect } from '@redux/slices/joint-trainings';
+import { JointStatus } from '@typing/enums/joint-status';
 import { UserJointTrainingsType } from '@typing/types/user-joint-trainings-types';
 import { Avatar, Button, Card, List, Typography } from 'antd';
 
@@ -31,6 +33,42 @@ export const UserJointTrainingsList: React.FC<UserJointTrainingsListProps> = ({ 
     setCurrentUsers(filteredUsers);
   }, [searchValue, userJointTrainingsList]);
 
+  const currentUsesrStatus = (status: string | null) => {
+    if(status === JointStatus.PENDING) {
+      return (
+        <Text className={styles.status}>ожидает подтверждения</Text>
+      )
+    } 
+    if(status === JointStatus.ACCEPTED) {
+      return (
+        <Text
+          editable={{
+            icon: <CheckCircleFilled className={styles.iconSucess} />,
+            tooltip: false
+          }}
+          className={styles.status}
+        >
+          тренировка одобрена
+        </Text>
+      )
+    } 
+    if (status === JointStatus.REJECTED) {
+      return (
+        <Text
+          editable={{
+          icon: <ExclamationCircleOutlined />,
+          tooltip: false
+          }}
+          className={styles.status}
+        >
+          тренировка отклонена
+        </Text>
+      )
+    }
+
+    return null;
+  }
+
   const onSelectUser = (user: UserJointTrainingsType) => {
     setIsSidebarOpen(true);
     setSelectedUser(user);
@@ -39,43 +77,65 @@ export const UserJointTrainingsList: React.FC<UserJointTrainingsListProps> = ({ 
 
   return (
     <Fragment>
-    <List
-      grid={{ gutter: 16, column: 4 }}
-      dataSource={currentUsers}
-      pagination={{
-        pageSize: 12,
-      }}
-      renderItem={(item) => (
-        <List.Item key={item.id}>
-          <Card>
-            <div>
-              <Avatar src={item.imageSrc} />
-              <HighlightText
-                name={item.name}
-                searchValue={searchValue}
-              />
-            </div>
+      <List
+        className={styles.cardsWrapper}
+        grid={{ gutter: 16, column: 4 }}
+        dataSource={currentUsers}
+        pagination={{
+          pageSize: 12,
+        }}
+        renderItem={(item) => (
+          <List.Item key={item.id}>
+            <Card className={styles.card}>
+              <div className={styles.cardUser}>
+                <Avatar
+                  className={styles.avatar}
+                  src={item.imageSrc}
+                  size='large'
+                  icon={<UserOutlined className={styles.avatarIcon} />}
+                />
 
-            <p>
-              <Text>Тип тренировки:</Text>
-              <Text>{item.trainingType}</Text>
-            </p>
-            <p>
-              <Text>Средняя нагрузка:</Text>
-              <Text>{item.avgWeightInWeek} кг/нед</Text>
-            </p>
+                <HighlightText
+                  name={item.name}
+                  searchValue={searchValue}
+                />
+              </div>
 
-            <Button onClick={() => onSelectUser(item)}>Создать тренировку</Button>
-          </Card>
-        </List.Item>
-      )}
-    />
-    {isSidebarOpen &&
-      <CreateTrainingSidebar
-        isSidebarOpen={isSidebarOpen}
-        setIsSidebarOpen={setIsSidebarOpen}
-        selectedUser={selectedUser}
-      />}
+              <ul className={styles.cardItemsList}>
+                <li>
+                  <Text className={styles.description} type='secondary'>Тип тренировки:</Text>
+                  <Text className={styles.text}>{item.trainingType}</Text>
+                </li>
+
+                <li>
+                  <Text className={styles.description} type='secondary'>Средняя нагрузка:</Text>
+                  <Text className={styles.text}>{item.avgWeightInWeek} кг/нед</Text>
+                </li>
+              </ul>
+
+              <Button
+                onClick={() => onSelectUser(item)}
+                type='primary'
+                size='small'
+                block={true}
+                className={styles.cardButton}
+                disabled={item.status === JointStatus.PENDING}
+              >
+                Создать тренировку
+              </Button>
+
+              {currentUsesrStatus(item.status)}
+            </Card>
+          </List.Item>
+        )}
+      />
+
+      {isSidebarOpen &&
+        <WorkoutsTrainingSidebar
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
+          selectedUser={selectedUser}
+        />}
     </Fragment>
   )
 }

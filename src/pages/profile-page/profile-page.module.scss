@@ -5,6 +5,7 @@
     padding: $page-wrapper;
     background-color: $character-light-primary-inverse;
     height: calc(100% - 64px);
+    border-radius: $border-radius-content;
 
     .form {
         max-width: $from-width;

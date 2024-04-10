@@ -2,17 +2,22 @@ import { Fragment, useEffect, useState } from 'react';
 import { CloseOutlined, EditOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { TrainingSidebarItem } from '@components/training-sidebar-item';
 import {
+  DRAWER_WIDTH_DESKTOP,
+  DRAWER_WIDTH_MOBILE,
   EMPTY_EXERCISE,
   FORMAT_DATE_IN_VIEW,
-  FORMAT_DATE_PAYLOAD
+  FORMAT_DATE_PAYLOAD,
+  MOBILE_WIDTH
 } from '@constants/constants';
+import { localeRU } from '@constants/locale';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
+import { useScreenWidth } from '@hooks/use-screen-width-hook';
 import {
   createTrainingSelect,
   getCreateTrainingFetch,
   setSelectedTraining
 } from '@redux/slices/create-training';
-import { getRedactTrainingFetch, redactTrainingSelect } from '@redux/slices/redact-training';
+import { getRedactTrainingFetch, redactTrainingSelect, removeIsRedactTrainingMode } from '@redux/slices/redact-training';
 import { trainingListSelect } from '@redux/slices/training-list';
 import { CalendarBadgeColors } from '@typing/enums/calendar-badge-colors';
 import { ExerciseType } from '@typing/types/exercise-types';
@@ -22,7 +27,7 @@ import { Avatar, Badge, Button, Checkbox, DatePicker, Drawer, Select, Typography
 import type { Moment } from 'moment';
 import moment from 'moment';
 
-import styles from './create-training-sidebar.module.scss'
+import styles from './workouts-training-sidebar.module.scss';
 
 type CreateTrainingSidebarProps = {
   isSidebarOpen: boolean,
@@ -64,7 +69,7 @@ const selectOptions = [
 
 const { Title, Text } = Typography;
 
-export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
+export const WorkoutsTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
   isSidebarOpen,
   setIsSidebarOpen,
   selectedTraining,
@@ -82,11 +87,24 @@ export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
     ? [EMPTY_EXERCISE]
     : [...exercises]);
   const [isRepeatChecked, setIsRepeatChecked] = useState(false);
-  const [selectedDate, setSelectedDate] = useState<Moment>(() => moment());
+  const [selectedDate, setSelectedDate] = useState<Moment | null>(null);
   const [selectedPeriod, setSelectedPeriod] = 
     useState<number | undefined>(selectedTraining?.parameters.period);
   const [checkedRemoveItems, setCheckedRemoveItems] = 
     useState<boolean[]>(new Array(exerciseItems.length).fill(false));
+
+    const screenWidth = useScreenWidth();
+
+  const drawerWidth = screenWidth && screenWidth > MOBILE_WIDTH
+    ? DRAWER_WIDTH_DESKTOP
+    : DRAWER_WIDTH_MOBILE;
+
+  const disabledDate = (currentDate: Moment | null): boolean =>
+    currentDate ? currentDate.isSameOrBefore(moment(), 'day') : false;
+
+  const drawerPlacement = screenWidth && screenWidth > MOBILE_WIDTH
+    ? 'right'
+    : 'bottom';
 
   useEffect(() => {
     if(selectedTraining?.parameters.repeat) {
@@ -136,7 +154,7 @@ export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
   const onButtonSave = () => {
     const exercisesNonEmpty = exerciseItems.filter((exercise) => exercise.name);
 
-    if(selectedTrainingName && exercisesNonEmpty) {
+    if(selectedTrainingName && exercisesNonEmpty && selectedDate) {
       dispatch(getCreateTrainingFetch({
         name: selectedTrainingName,
         date: selectedDate.format(FORMAT_DATE_PAYLOAD),
@@ -153,7 +171,7 @@ export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
 
 
   const onButtonSaveRedact = () => {
-    if(selectedTraining && exerciseItems) {
+    if(selectedTraining && exerciseItems && selectedDate) {
       dispatch(getRedactTrainingFetch({
         name: selectedTraining?.name,
         date: selectedDate.format(FORMAT_DATE_PAYLOAD),
@@ -165,21 +183,32 @@ export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
     setIsSidebarOpen(false);
   }
 
-  const onButtonClose = () => setIsSidebarOpen(false);
+  const onButtonClose = () => {
+    setIsSidebarOpen(false);
+    dispatch(removeIsRedactTrainingMode());
+  }
 
   return (
     <Drawer
       open={isSidebarOpen}
       headerStyle={{ display: 'none' }}
+      mask={false}
+      closable={true}
       className={styles.trainingSidebar}
+      width={drawerWidth}
+      placement={drawerPlacement}
       footer={[
         <Button
+          key='workoutsDrawerButton'
           block={true}
           size='large'
           type='primary'
+          className={styles.footerButton}
           onClick={isRedactingMode ? onButtonSaveRedact : onButtonSave}
         >
-          Сохранить
+          {selectedUser
+            ? 'Отправить приглашение'
+            : 'Сохранить'}    
         </Button>
       ]}
     >
@@ -208,35 +237,38 @@ export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
         />
       </div>
 
-      {selectedUser &&
-      <div>
-        <div>
-        <Avatar src={selectedUser.imageSrc} />
-        <Text>{selectedUser.name}</Text>
-        </div>
-
-        <Badge
-          color={CalendarBadgeColors[selectedUser.trainingType as keyof typeof CalendarBadgeColors]}
-          text={selectedTrainingName}
-        />
-      </div>
-      }
-
       <div className={styles.selectsWrapper}>
-        {!selectedUser &&
-           <Select
-            options={selectTrainingOptions}
-            onChange={onSelectTraining}
-            placeholder='Выбор типа тренировки'
-            value={selectedTraining?.name}
-            disabled={isRedactingMode}
-          />}
+        {selectedUser 
+          ? <div>
+              <div>
+              <Avatar src={selectedUser.imageSrc} />
+              <Text>{selectedUser.name}</Text>
+              </div>
+
+              <Badge
+                color={CalendarBadgeColors[selectedUser.trainingType as keyof typeof CalendarBadgeColors]}
+                text={selectedTrainingName}
+              />
+            </div>
+
+          : <Select
+              options={selectTrainingOptions}
+              onChange={onSelectTraining}
+              placeholder='Выбор типа тренировки'
+              value={selectedTraining?.name}
+              disabled={isRedactingMode}
+              className={styles.selectTraining}
+            />}
 
         <div className={styles.datePickWrapper}>
           <DatePicker
             format={FORMAT_DATE_IN_VIEW}
             onSelect={onDateChange}
-            value={selectedDate || ''}
+            value={selectedDate}
+            className={styles.datePicker}
+            locale={localeRU}
+            disabled={isRedactingMode}
+            disabledDate={disabledDate}
           />
           <Checkbox
             checked={isRepeatChecked}
@@ -248,6 +280,7 @@ export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
 
         {isRepeatChecked &&
           <Select
+            placeholder='Периодичность'
             options={selectOptions}
             onChange={onSelectPeriod}
             value={selectedPeriod}
@@ -255,7 +288,7 @@ export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
         }
       </div>
 
-      <ul>
+      <ul className={styles.exercisesList}>
         {exerciseItems.map((exercise, index) => (
           <TrainingSidebarItem
             exercise={exercise}
@@ -267,14 +300,17 @@ export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
         ))}
       </ul>
 
-      <div>
+      <div className={styles.buttonsWrapper}>
         <Button
           type='link'
           size='large'
           onClick={addItem}
           icon={<PlusOutlined/>}
+          className={styles.addRemoveButton}
         >
-          Добавить ещё
+          {isRedactingMode
+            ? 'Добавить ещё'
+            : 'Добавить ещё упражнение'}
         </Button>
 
         {isRedactingMode &&
@@ -283,6 +319,7 @@ export const CreateTrainingSidebar: React.FC<CreateTrainingSidebarProps> = ({
           icon={<MinusOutlined />}
           onClick={removeCheckedItems}
           disabled={checkedRemoveItems.every(el => el === false)}
+          className={styles.addRemoveButton}
         >
           Удалить
         </Button>}

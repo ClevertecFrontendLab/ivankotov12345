@@ -4,6 +4,7 @@ import { CreateTrainingModal } from '@components/create-training-modal/create-tr
 import { CalendarTrainingSidebar } from '@components/sidebars';
 import { SubmitDataResult } from '@components/submit-data-result-modal/submit-data-result.tsx';
 import { MOBILE_WIDTH } from '@constants/constants.ts';
+import { localeRU } from '@constants/locale';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks.ts';
 import { useScreenWidth } from '@hooks/use-screen-width-hook.ts';
 import { calendarSelect } from '@redux/slices/calendar.ts';
@@ -19,8 +20,6 @@ import { ModalCoords } from '@typing/types/modal-coords.ts';
 import { Badge, Calendar } from 'antd';
 import type { Moment } from 'moment';
 import moment from 'moment';
-
-import { localeRU } from './locale/locale.ts';
 
 import styles from './calendar-page.module.scss'
 

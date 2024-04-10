@@ -1,0 +1,1 @@
+export { WorkoutsPopover } from './workouts-popover';

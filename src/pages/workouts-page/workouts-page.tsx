@@ -7,26 +7,28 @@ import { Layout, Tabs } from 'antd';
 import 'antd/dist/antd.css';
 import styles from './workouts-page.module.scss';
 
+const tabs = [
+  {
+    label: 'Мои тренировки',
+    key: 'myTrainings',
+    children: <MyTrainingsTab />
+  },
+  { 
+    label: 'Совместные тренировки',
+    key: 'jontTrainings',
+    children: <JointTrainingsTab />
+  },
+  { 
+    label: 'Марафоны',
+    key: 'marathons',
+    children: <MarathonsTab />
+  },
+]
+
 export const WorkoutsPage: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const tabs = [
-    {
-      label: 'Мои тренировки',
-      key: 'myTrainings',
-      children: <MyTrainingsTab />
-    },
-    { 
-      label: 'Совместные тренировки',
-      key: 'jontTrainings',
-      children: <JointTrainingsTab />
-    },
-    { 
-      label: 'Марафоны',
-      key: 'marathons',
-      children: <MarathonsTab />
-    },
-  ]
+
 
   useEffect(() => {
     dispatch(getTrainingListFetch());

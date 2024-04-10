@@ -12,6 +12,8 @@ import {
 import { trainingListSelect } from '@redux/slices/training-list';
 import { Button, Divider, Input, Layout, Typography } from 'antd';
 
+import styles from './joint-trainings-tab.module.scss';
+
 const { Title, Paragraph } = Typography;
 const { Search } = Input;
 
@@ -76,8 +78,8 @@ export const JointTrainingsTab: React.FC = () => {
 
   return userJointTrainingsList.length > 0
   ? (
-      <Layout>
-        <div>
+      <Layout className={styles.jointTabContainer}>
+        <div className={styles.searchWrapper}>
           <Button
             icon={<ArrowLeftOutlined />}
             onClick={onBack}
@@ -93,25 +95,33 @@ export const JointTrainingsTab: React.FC = () => {
       </Layout>
     )
   : (
-    <Layout>
-      <div>
-        <Title>
-          Хочешь тренироваться с тем, кто разделяет твои цели и темп? Можешь найти друга для совместных тренировок среди других пользователей.
-        </Title>
-      
-        <Paragraph>
-          Можешь воспользоваться случайным выбором или выбрать друга с похожим на твой уровень и вид тренировки, и мы найдем тебе идеального спортивного друга.
-        </Paragraph>
+    <Layout className={styles.jointTabContainer}>
+      <div className={styles.selectUserContainer}>
+        <div className={styles.textWrapper}>
+          <Title level={3} className={styles.title}>
+            Хочешь тренироваться с тем, кто разделяет твои цели и темп? Можешь найти друга для совместных тренировок среди других пользователей.
+          </Title>
 
-        <Divider />
+          <Paragraph type='secondary'>
+            Можешь воспользоваться случайным выбором или выбрать друга с похожим на твой уровень и вид тренировки, и мы найдем тебе идеального спортивного друга.
+          </Paragraph>
+        </div>
 
-        <div>
+        <Divider className={styles.divider} />
+
+        <div className={styles.buttonsWrapper}>
           <Button
+            type='text'
+            size='large'
             onClick={onRandomUsersClick}
+            className={styles.buttonRandom}
           >
             Случайный выбор
           </Button>
+
           <Button
+            type='text'
+            size='large'
             onClick={onTrainingsTypeUsersClick}
           >
             Выбор друга по моим видам тренировок
@@ -119,9 +129,10 @@ export const JointTrainingsTab: React.FC = () => {
         </div>
       </div>
 
-      <div>
-        <Title>Мои партнёры по тренировкам</Title>
-        <Paragraph>У вас пока нет партнёров для совместных тренировок</Paragraph>
+      <div className={styles.palsWrapper}>
+        <Title level={4}>Мои партнёры по тренировкам</Title>
+
+        <Paragraph type='secondary'>У вас пока нет партнёров для совместных тренировок</Paragraph>
       </div>
     </Layout>
   )

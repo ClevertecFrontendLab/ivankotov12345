@@ -1,0 +1,35 @@
+@use '../../scss/index' as *;
+
+.popover {
+    padding: 0;
+    width: 260px;
+
+    :global {
+        .ant-popover-inner-content {
+            padding: 0;
+            width: 100%;
+        }
+    }
+
+    .divider {
+        margin: 0;
+    }
+
+    .buttonBack {
+        margin: 6px 0;
+    }
+
+    .exercisesList {
+        height: 130px;
+        margin: 0;
+        padding: 12px;
+        list-style-type: none;
+    }
+
+    .buttonAddExercisesWrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: $padding-buttons-wrapper;
+    }
+}

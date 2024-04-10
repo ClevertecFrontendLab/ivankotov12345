@@ -1,7 +1,72 @@
 @use '../../scss/index' as *;
 
 .cardsWrapper {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 234px);
-    gap: $gap-medium;
+    max-width: 984px;
+
+    :global {
+        .ant-pagination {
+            display: flex;
+        }
+    }
+
+    .card {
+        background-color: $primary-light-1;
+        height: 194px;
+         :global {
+            .ant-card-body {
+                padding: $padding-cards;
+            }
+         }
+
+         .cardUser {
+            display: flex;
+            align-items: center;
+            gap: $gap-small;
+            height: 42px;
+            margin-bottom: $size-small;
+
+            .avatar {
+                background-color: $character-light-background;
+            }
+            .avatarIcon {
+                color: $character-light-title-85;
+            }
+         }
+
+         .cardItemsList {
+            padding: 0;
+            list-style-type: none;
+
+            li {
+                display: grid;
+                grid-template-columns: 1fr .7fr;
+                gap: $gap-small;
+
+                .description {
+                    font-size: $size-small;
+                    white-space: nowrap; 
+                }
+
+                .text {
+                    color: $primary-light-6;
+                    white-space: nowrap; 
+                }
+            }
+         }
+
+         .cardButton {
+            @include color-button-primary;
+         }
+
+         .status {
+            display: block;
+            margin-top: $gap-semi;
+            text-align: center;
+            font-size: $size-small;
+
+            .iconSuccess {
+                color: $character-light-success;
+            }
+         }
+    }
 }
