@@ -1,0 +1,1 @@
+export { PalModal } from './pal-modal';

@@ -1,0 +1,38 @@
+@use '../../scss/index' as *;
+
+.cardUser {
+    display: flex;
+    align-items: center;
+    gap: $gap-small;
+    margin-bottom: $size-small;
+
+    .avatar {
+        @include avatar;
+    }
+
+    .nameWrapper {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.cardItemsList {
+    padding: 0;
+    list-style-type: none;
+
+    li {
+        display: grid;
+        grid-template-columns: 1fr .7fr;
+        gap: $gap-small;
+
+        .description {
+            font-size: $size-small;
+            white-space: nowrap; 
+        }
+
+        .text {
+            color: $primary-light-6;
+            white-space: nowrap; 
+        }
+    }
+ }

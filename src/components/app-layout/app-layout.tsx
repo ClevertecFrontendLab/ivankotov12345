@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { history } from '@redux/configure-store';
 import { authSelect } from '@redux/slices/auth';
 import { calendarSelect } from '@redux/slices/calendar';
+import { getMyInvitationsFetch } from '@redux/slices/invite';
 import { jointTrainingsSelect } from '@redux/slices/joint-trainings';
 import { reviewsSelect } from '@redux/slices/reviews';
 import { getUserFetch, userSelect } from '@redux/slices/user';
@@ -58,6 +59,12 @@ export const AppLayout: React.FC = () => {
   useEffect(() => {
     if(!userData) {
       dispatch(getUserFetch());
+    }
+  }, [dispatch, userData]);
+
+  useEffect(() => {
+    if(userData?.sendNotification) {
+      dispatch(getMyInvitationsFetch());
     }
   }, [dispatch, userData]);
 

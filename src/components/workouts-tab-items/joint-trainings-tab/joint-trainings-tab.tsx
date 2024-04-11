@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import { ArrowLeftOutlined } from '@ant-design/icons';
+import { InvitationsList } from '@components/invitations-list';
+import { PalsList } from '@components/pals-list';
 import { UserJointTrainingsList } from '@components/user-joint-trainings-list';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { calendarSelect } from '@redux/slices/calendar';
+import { inviteSelect } from '@redux/slices/invite';
 import {
   clearUsersJointTrainingsList,
   getPalsFetch,
@@ -20,7 +23,8 @@ const { Search } = Input;
 export const JointTrainingsTab: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const { userJointTrainingsList } = useAppSelector(jointTrainingsSelect);
+  const { userJointTrainingsList, pals } = useAppSelector(jointTrainingsSelect);
+  const { responseData } = useAppSelector(inviteSelect);
   const { trainings } = useAppSelector(calendarSelect);
   const { trainingList } = useAppSelector(trainingListSelect);
   const [searchValue, setSearchValue] = useState('');
@@ -68,7 +72,14 @@ export const JointTrainingsTab: React.FC = () => {
   }, [dispatch]);
 
   const onRandomUsersClick = () => dispatch(getUserJointTrainingsListFetch(null));
-  const onTrainingsTypeUsersClick = () => dispatch(getUserJointTrainingsListFetch(trainingType));
+  const onTrainingsTypeUsersClick = () => {
+    if(trainingType) {
+      dispatch(getUserJointTrainingsListFetch(trainingType));
+    } else {
+      dispatch(getUserJointTrainingsListFetch(null));
+    }
+
+  };
   const onBack = () => dispatch(clearUsersJointTrainingsList());
   const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const currentSearchValue = event.target.value;
@@ -83,11 +94,17 @@ export const JointTrainingsTab: React.FC = () => {
           <Button
             icon={<ArrowLeftOutlined />}
             onClick={onBack}
+            type='text'
+            size='large'
           >
             Назад
           </Button>
 
-          <Search value={searchValue} onChange={onSearchChange} />
+          <Search
+            value={searchValue}
+            onChange={onSearchChange}
+            className={styles.search}
+          />
         </div>
         <UserJointTrainingsList
           searchValue={searchValue}
@@ -96,6 +113,8 @@ export const JointTrainingsTab: React.FC = () => {
     )
   : (
     <Layout className={styles.jointTabContainer}>
+      {responseData.length > 0 && <InvitationsList />}
+
       <div className={styles.selectUserContainer}>
         <div className={styles.textWrapper}>
           <Title level={3} className={styles.title}>
@@ -132,7 +151,9 @@ export const JointTrainingsTab: React.FC = () => {
       <div className={styles.palsWrapper}>
         <Title level={4}>Мои партнёры по тренировкам</Title>
 
-        <Paragraph type='secondary'>У вас пока нет партнёров для совместных тренировок</Paragraph>
+        {pals.length > 0 
+          ? <PalsList />
+          : <Paragraph type='secondary'>У вас пока нет партнёров для совместных тренировок</Paragraph>}
       </div>
     </Layout>
   )

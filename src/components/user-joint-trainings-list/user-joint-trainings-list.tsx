@@ -3,7 +3,7 @@ import { CheckCircleFilled, ExclamationCircleOutlined, UserOutlined } from '@ant
 import { HighlightText } from '@components/highlight-text';
 import { WorkoutsTrainingSidebar } from '@components/sidebars';
 import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
-import { setInviteUserId } from '@redux/slices/invite';
+import { getDeleteInvitationFetch, setInviteUserId } from '@redux/slices/invite';
 import { jointTrainingsSelect } from '@redux/slices/joint-trainings';
 import { JointStatus } from '@typing/enums/joint-status';
 import { UserJointTrainingsType } from '@typing/types/user-joint-trainings-types';
@@ -18,7 +18,7 @@ type UserJointTrainingsListProps = {
 const { Text } = Typography;
 
 export const UserJointTrainingsList: React.FC<UserJointTrainingsListProps> = ({ searchValue }) => {
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const { userJointTrainingsList } = useAppSelector(jointTrainingsSelect);
 
   const [currentUsers, setCurrentUsers] = useState(userJointTrainingsList);
@@ -43,7 +43,7 @@ export const UserJointTrainingsList: React.FC<UserJointTrainingsListProps> = ({ 
       return (
         <Text
           editable={{
-            icon: <CheckCircleFilled className={styles.iconSucess} />,
+            icon: <CheckCircleFilled className={styles.iconSuccess} />,
             tooltip: false
           }}
           className={styles.status}
@@ -56,8 +56,8 @@ export const UserJointTrainingsList: React.FC<UserJointTrainingsListProps> = ({ 
       return (
         <Text
           editable={{
-          icon: <ExclamationCircleOutlined />,
-          tooltip: false
+          icon: <ExclamationCircleOutlined className={styles.iconInfo} />,
+          tooltip: 'Повторный запрос будет доступен через 2 недели'
           }}
           className={styles.status}
         >
@@ -75,8 +75,13 @@ export const UserJointTrainingsList: React.FC<UserJointTrainingsListProps> = ({ 
     dispatch(setInviteUserId(user.id));
   }
 
+  const onCancelTraining = (user: UserJointTrainingsType) => {
+    dispatch(getDeleteInvitationFetch(user.inviteId))
+  }
+
   return (
     <Fragment>
+
       <List
         className={styles.cardsWrapper}
         grid={{ gutter: 16, column: 4 }}
@@ -114,14 +119,21 @@ export const UserJointTrainingsList: React.FC<UserJointTrainingsListProps> = ({ 
               </ul>
 
               <Button
-                onClick={() => onSelectUser(item)}
-                type='primary'
+                onClick={item.status === JointStatus.ACCEPTED
+                  ? () => onCancelTraining(item)
+                  : () => onSelectUser(item)
+                  }
+                type={item.status === JointStatus.ACCEPTED ? 'default' : 'primary'}
                 size='small'
                 block={true}
-                className={styles.cardButton}
-                disabled={item.status === JointStatus.PENDING}
+                className={JointStatus.ACCEPTED ? undefined : styles.cardButton}
+                disabled={item.status === JointStatus.PENDING || item.status === JointStatus.REJECTED}
               >
-                Создать тренировку
+                {item.status === JointStatus.ACCEPTED
+                  ? 'Отменить тренировку'
+                  : 'Создать тренировку'
+                }
+                
               </Button>
 
               {currentUsesrStatus(item.status)}

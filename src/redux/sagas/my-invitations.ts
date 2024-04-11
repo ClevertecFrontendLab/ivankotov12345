@@ -1,8 +1,15 @@
-import { takeLatest } from 'redux-saga/effects';
-import { getMyInvitationsFetch } from '@redux/slices/invite';
+import { call, put, takeLatest } from 'redux-saga/effects';
+import { instance } from '@axios/axios';
+import { getMyInvitationsFetch, getMyInvitationsSucces } from '@redux/slices/invite';
+import { AxiosPaths } from '@typing/enums/axios-paths';
 
 function* myInvitationsWorker() {
-  yield
+  const { data } = yield call(
+    instance.get,
+    AxiosPaths.INVITE,
+  );
+
+  yield put(getMyInvitationsSucces(data)); 
 }
 
 export function* myInvitationsWatcher() {

@@ -6,6 +6,11 @@
     background-color: $character-light-primary-inverse;
     height: calc(100% - 64px);
     border-radius: $border-radius-content;
+    overflow-y: auto;
+
+    .badge {
+        width: 24px;
+    }
 
     :global {
         .ant-tabs > .ant-tabs-nav .ant-tabs-nav-list {
@@ -22,11 +27,20 @@
             padding: 0;
             font-size: $size-header-medium;
             font-weight: $font-weight-bold-mobile;
+
+            .ant-typography {
+                font-size: $size-header-medium;
+                font-weight: $font-weight-bold-mobile;
+            }
         }
         .ant-tabs-tab-active {
 
             .ant-tabs-tab-btn {
                 color: $primary-light-6;
+
+                .ant-typography {
+                    color: $primary-light-6;
+                }
             }
         }
     }

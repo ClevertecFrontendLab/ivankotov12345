@@ -1,17 +1,21 @@
 import { RootState } from '@redux/configure-store';
 import { createSlice,PayloadAction } from '@reduxjs/toolkit';
-import { InviteType } from '@typing/types/user-joint-trainings-types';
+import { InvitationResponseType, InviteType, MyInvitationsType } from '@typing/types/user-joint-trainings-types';
 
 type InviteTrainingStateType = {
   isLoading: boolean,
   submittedData: InviteType | null,
   inviteUserId: string | null,
+  responseData: MyInvitationsType[],
+  invitationResponse?: InvitationResponseType,
+  idToDelete?: string,
 }
 
 const initialState: InviteTrainingStateType = {
   isLoading: false,
   submittedData: null,
   inviteUserId: null,
+  responseData: [],
 }
 
 export const inviteSlice = createSlice({
@@ -23,7 +27,7 @@ export const inviteSlice = createSlice({
     },
     getSendInviteFetch: (state, action: PayloadAction<InviteType>) => {
       state.isLoading = true;
-      state.submittedData = action.payload
+      state.submittedData = action.payload;
     },
     getSendInviteSuccess: (state) => {
       state.isLoading = false;
@@ -34,12 +38,33 @@ export const inviteSlice = createSlice({
     getMyInvitationsFetch: (state) => {
       state.isLoading = true
     },
-    getMyInvitationsSucces: (state) => {
+    getMyInvitationsSucces: (state, action: PayloadAction<MyInvitationsType[]>) => {
       state.isLoading = false;
+      state.responseData = action.payload;
     },
     getMyInvitationsError: (state) => {
       state.isLoading = false;
-    }
+    },
+    getInvitationResponseFetch: (state, action: PayloadAction<InvitationResponseType>) => {
+      state.isLoading = true;
+      state.invitationResponse = action.payload;
+    },
+    getInvitationResponseSuccess: (state) => {
+      state.isLoading = false;
+    },
+    getInvitationResponseError: (state) => {
+      state.isLoading = false;
+    },
+    getDeleteInvitationFetch: (state, action: PayloadAction<string>) => {
+      state.isLoading = true;
+      state.idToDelete = action.payload;
+    },
+    getDeleteInvitationSuccess: (state) => {
+      state.isLoading = false;
+    },
+    getDeleteInvitationError: (state) => {
+      state.isLoading = false;
+    },
   }
 });
 
@@ -55,4 +80,10 @@ export const {
   getMyInvitationsFetch,
   getMyInvitationsSucces,
   getMyInvitationsError,
+  getInvitationResponseFetch,
+  getInvitationResponseSuccess,
+  getInvitationResponseError,
+  getDeleteInvitationFetch,
+  getDeleteInvitationSuccess,
+  getDeleteInvitationError,
 } = inviteSlice.actions;

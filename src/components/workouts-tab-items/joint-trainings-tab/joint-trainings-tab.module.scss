@@ -6,6 +6,13 @@
 
     .searchWrapper {
         display: flex;
+        align-items: center;
+        gap: 160px;
+        margin: 27px 0;
+
+        .search {
+            max-width: 484px;
+        }
     }
 
     .selectUserContainer {

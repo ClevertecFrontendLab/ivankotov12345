@@ -15,13 +15,13 @@ export const HighlightText: React.FC<HighlightTextProps> = ({ name, searchValue 
   for (let i = 0; i < name.length; i++) {
       if (name[i] === ' ' && !foundSpace) {
           highlightedText.push(
-          <Fragment>
+          <Fragment key={i}>
             <Text>{name[i]}</Text>
             <br />
           </Fragment>);
           foundSpace = true;
       } else if (searchValue.includes(name[i])) {
-          highlightedText.push(<Text type='danger'>{name[i]}</Text>);
+          highlightedText.push(<Text type='danger' key={i}>{name[i]}</Text>);
       } else {
           highlightedText.push(<Text>{name[i]}</Text>);
       }

@@ -1,0 +1,48 @@
+@use '../../scss/index' as *;
+
+.popoverButton {
+    width: fit-content;
+    padding: 0;
+    color: $primary-light-6;
+}
+
+.divider {
+    margin: 0;
+}
+
+.popover {
+    padding: 0;
+    width: $popover-width;
+
+    .titleWrapper {
+        display: flex;
+        justify-content: space-between;
+        padding: $padding-popover-title;
+    }
+
+    .contentWrapper {
+        padding: $padding-text-action-card;
+        list-style-type: none;
+        li {
+            display: flex;
+            justify-content: space-between;
+
+            .textPeriod {
+                font-size: $size-basic;
+                font-weight: $font-weight-bold-card;
+            }
+
+            .textExercisesNumbers {
+                color: $primary-light-6;
+                font-weight: $size-semi-small;
+            }
+        }
+    }
+}
+
+:global {
+    .ant-popover-inner-content {
+        width: 100%;
+        padding: 0;
+    }
+}

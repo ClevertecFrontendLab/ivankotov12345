@@ -55,3 +55,11 @@
     width: 104px;
     height: 105px;
 }
+
+@mixin avatar {
+    background-color: $character-light-background;
+    
+    span {
+        color: $character-light-title-85;
+    }
+}

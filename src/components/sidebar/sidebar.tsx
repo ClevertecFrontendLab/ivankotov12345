@@ -4,13 +4,14 @@ import { CalendarTwoTone, HeartTwoTone, IdcardOutlined, TrophyTwoTone } from '@a
 import { ExitOutlined } from '@components/exit-icon-outlined';
 import { SidemenuSwitcher } from '@components/sidemenu-switcher';
 import { MOBILE_WIDTH } from '@constants/constants';
-import { useAppDispatch } from '@hooks/typed-react-redux-hooks';
+import { useAppDispatch, useAppSelector } from '@hooks/typed-react-redux-hooks';
 import { useScreenWidth } from '@hooks/use-screen-width-hook';
 import { history } from '@redux/configure-store';
 import { getCalendarFetch } from '@redux/slices/calendar';
+import { inviteSelect } from '@redux/slices/invite';
 import { clearUser } from '@redux/slices/user';
 import { Paths } from '@typing/enums/paths';
-import { Layout, Menu } from 'antd';
+import { Badge, Layout, Menu } from 'antd';
 
 import clever from './assets/svg/clever.svg';
 import logo from './assets/svg/fit.svg';
@@ -49,6 +50,10 @@ export const Sidebar: React.FC = () => {
   const toneColor = '#061178';
   const testId = screenWidth && screenWidth > MOBILE_WIDTH ? 'sider-switch' : 'sider-switch-mobile';
 
+  const { responseData } = useAppSelector(inviteSelect);
+
+  const invitesQuantity = responseData.length;
+
   const menuItems = [
     {
       key: '1',
@@ -63,20 +68,23 @@ export const Sidebar: React.FC = () => {
     },
     {
       key: '2',
-      icon: <HeartTwoTone
-        twoToneColor={toneColor}
-        className={styles.iconFilled}
-      />,
+      icon: <Badge count={invitesQuantity} size='small'>
+              <HeartTwoTone
+                twoToneColor={toneColor}
+                className={styles.iconFilled}
+            />
+            </Badge>,
       label: 'Тренировки',
       onClick: onTrainingsClick,
       className: styles.menuItem,
+      path: Paths.WORKOUTS,
     },
     {
       key: '3',
       icon: <TrophyTwoTone
-        twoToneColor={toneColor}
-        className={styles.iconFilled}
-      />,
+          twoToneColor={toneColor}
+          className={styles.iconFilled}
+        />,
       label: 'Достижения',
       className: styles.menuItem,
     },
@@ -88,6 +96,7 @@ export const Sidebar: React.FC = () => {
       label: 'Профиль',
       className: styles.menuItem,
       onClick: onProfileClick,
+      path: Paths.PROFILE,
     },
     {
       key: '5',

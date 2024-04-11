@@ -1,0 +1,62 @@
+@use '../../scss/index' as *;
+
+.modalWrapper {
+    :global {
+       .ant-modal-body {
+        display: grid;
+        align-items: center;
+        grid-template: 1fr 1fr / 1fr 1fr;
+       }
+    }
+
+    .cardUser {
+        display: flex;
+        align-items: center;
+        gap: $gap-small;
+        margin-bottom: $size-small;
+    
+        .avatar {
+            @include avatar;
+        }
+    
+        .nameWrapper {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    .cardItemsList {
+        padding: 0;
+        list-style-type: none;
+    
+        li {
+            display: grid;
+            grid-template-columns: 1fr .7fr;
+            gap: $gap-small;
+    
+            .description {
+                font-size: $size-small;
+                white-space: nowrap; 
+            }
+    
+            .text {
+                color: $primary-light-6;
+                white-space: nowrap; 
+            }
+        }
+    }
+
+    .status {
+        display: block;
+        text-align: start;
+        font-size: $size-small;
+
+        .iconSuccess {
+            color: $character-light-success;
+        }
+
+        .iconInfo {
+            color: $character-light-secondary-45;
+        }
+     }
+}

@@ -1,0 +1,73 @@
+@use '../../scss/index' as *;
+
+.invitationsListWrapper {
+    background-color: $neutral-gray-2;
+    padding: $page-wrapper;
+
+    :global {
+        .ant-list-split .ant-list-item {
+            border: none;
+        }
+
+        .ant-list-split.ant-list-something-after-last-item .ant-spin-container > .ant-list-items > .ant-list-item:last-child {
+            border: none;
+        }
+    }
+
+    .card {
+        border-radius: 2px 16px 16px 16px;
+        :global {
+            .ant-card-body {
+                display: flex;
+                gap: $gap-small;
+            }
+        }
+
+        .userContainer {
+            max-width: 174px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            white-space: nowrap;
+
+            .avatar {
+                @include avatar;
+            }
+
+            .textWrapper {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
+        .textContainer {
+            display: flex;
+            flex-direction: column;
+            gap: $gap-small;
+
+            .text {
+                font-size: $size-basic;
+                color: $primary-light-9;
+                font-weight: $font-weight-bold;
+                margin: 0;
+            }
+        }
+
+        .buttonsContainer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: $gap-big;
+
+            .buttonApply {
+                @include color-button-primary
+            }
+        }
+    }
+
+    .buttonShowFullList {
+        color: $primary-light-6;
+    }
+}
