@@ -1,14 +1,11 @@
-import { Outlet, type RouteObject } from 'react-router';
+import { type RouteObject } from 'react-router';
 
+import { Layout } from '~/components/layout';
 import { ROUTER_PATHS } from '~/constants/router-paths';
 
 export const homePage: RouteObject = {
     path: ROUTER_PATHS.homePage,
-    element: (
-        <div>
-            <Outlet />
-        </div>
-    ),
+    element: <Layout />,
     children: [
         {
             index: true,
