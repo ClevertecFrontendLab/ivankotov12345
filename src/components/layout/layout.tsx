@@ -4,7 +4,7 @@ import { Outlet } from 'react-router';
 export const Layout = () => (
     <Grid
         gridTemplateAreas={`"header header header"
-                        "navigation main aside"`}
+                            "navigation main aside"`}
         gridTemplateColumns='256px 1fr 200px'
         gridTemplateRows='80px 1fr'
     >
