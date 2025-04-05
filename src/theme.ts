@@ -4,6 +4,9 @@ export const theme = extendTheme({
     colors: {
         lime: {
             50: '#FFFFD3',
+            100: '#EAFFC7',
+            300: '#C4FF61',
+            800: '#134B00',
         },
     },
     fonts: {
