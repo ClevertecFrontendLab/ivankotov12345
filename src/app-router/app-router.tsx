@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router';
 
-import { homePage } from './routes/root';
+import { rootPage } from './routes/root';
 
-export const AppRouter = createBrowserRouter([homePage]);
+export const AppRouter = createBrowserRouter([rootPage]);

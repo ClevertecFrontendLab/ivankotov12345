@@ -2,14 +2,15 @@ import { type RouteObject } from 'react-router';
 
 import { Layout } from '~/components/layout';
 import { ROUTER_PATHS } from '~/constants/router-paths';
+import { HomePage } from '~/pages/home-page';
 
-export const homePage: RouteObject = {
+export const rootPage: RouteObject = {
     path: ROUTER_PATHS.homePage,
     element: <Layout />,
     children: [
         {
             index: true,
-            element: <div>homePage</div>,
+            element: <HomePage />,
         },
         {
             path: ROUTER_PATHS.juiciestPage,
