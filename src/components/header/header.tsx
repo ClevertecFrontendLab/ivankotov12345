@@ -5,7 +5,7 @@ import pan from './assets/svg/pan.svg';
 import yeeDaa from './assets/svg/yee-daa.svg';
 
 export const Header: React.FC = () => (
-    <Flex w='100%' h='100%' maxW='1920px' alignItems='center' pt={4} pb={4} pl={4} gap={32}>
+    <Flex w='full' h='full' maxW='1920px' alignItems='center' pt={4} pb={4} pl={4} gap={32}>
         <Stack direction='row' alignItems='flex-end'>
             <Image src={pan} alt='pan' />
             <Image src={yeeDaa} alt='yee daa' />
