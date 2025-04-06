@@ -11,12 +11,12 @@ export const Layout: React.FC = () => (
         </GridItem>
 
         <GridItem justifyItems='center'>
-            <Grid gridTemplate='1fr / 256px 1fr 200px' maxW='1920px' w='full'>
+            <Grid gridTemplate='1fr / 256px 1fr 280px' maxW='1920px' w='full'>
                 <GridItem>
                     <Navigation />
                 </GridItem>
 
-                <GridItem>
+                <GridItem ml={6}>
                     <Outlet />
                 </GridItem>
 

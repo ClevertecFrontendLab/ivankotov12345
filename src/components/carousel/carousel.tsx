@@ -1,4 +1,5 @@
-import { Box, Heading, HStack } from '@chakra-ui/react';
+import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
+import { Box, Heading, HStack, IconButton } from '@chakra-ui/react';
 
 import { CAROUSEL_CARD_DATA } from '~/constants/carousel-card-data';
 
@@ -9,10 +10,37 @@ export const Сarousel: React.FC = () => (
         <Heading as='h2' fontSize='5xl' fontWeight='medium' lineHeight='none' mb={6}>
             Новые рецепты
         </Heading>
-        <HStack gap={6}>
-            {CAROUSEL_CARD_DATA.map((props) => (
-                <CarouselCard key={props.title} {...props} />
-            ))}
-        </HStack>
+        <Box pos='relative'>
+            <IconButton
+                size='lg'
+                icon={<ArrowBackIcon />}
+                aria-label='carousel button back'
+                pos='absolute'
+                top='calc(50% - 24px)'
+                transform='translate(-25%, -50%)'
+                zIndex={2}
+                bg='black'
+                color='white'
+            />
+
+            <HStack justifyContent='space-between'>
+                {CAROUSEL_CARD_DATA.map((props) => (
+                    <CarouselCard key={props.title} {...props} />
+                ))}
+            </HStack>
+
+            <IconButton
+                size='lg'
+                icon={<ArrowForwardIcon />}
+                aria-label='carousel button forward'
+                pos='absolute'
+                top='calc(50% - 24px)'
+                transform='translate(25%, -50%)'
+                right='0'
+                zIndex={2}
+                bg='black'
+                color='white'
+            />
+        </Box>
     </Box>
 );
