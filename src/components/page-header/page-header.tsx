@@ -1,6 +1,6 @@
 import { Heading, VStack } from '@chakra-ui/react';
 
-import { PAGE_HEADER_MAX_WIDTH } from '~/constants/sizes';
+import { PAGE_HEADER_MAX_WIDTH } from '~/constants/styles';
 
 import { SearchPanel } from '../search-panel';
 

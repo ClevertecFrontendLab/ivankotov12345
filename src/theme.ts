@@ -5,7 +5,9 @@ export const theme = extendTheme({
         lime: {
             50: '#FFFFD3',
             100: '#EAFFC7',
+            150: '#D7FF94',
             300: '#C4FF61',
+            600: '#2DB100',
             800: '#134B00',
         },
     },
