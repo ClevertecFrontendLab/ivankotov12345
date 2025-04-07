@@ -1,5 +1,8 @@
 import { extendTheme } from '@chakra-ui/react';
 
+import { buttonTheme } from './components/button';
+import { headingTheme } from './components/heading';
+
 export const theme = extendTheme({
     colors: {
         lime: {
@@ -7,6 +10,7 @@ export const theme = extendTheme({
             100: '#EAFFC7',
             150: '#D7FF94',
             300: '#C4FF61',
+            400: '#B1FF2E',
             600: '#2DB100',
             800: '#134B00',
         },
@@ -20,5 +24,9 @@ export const theme = extendTheme({
                 color: 'black',
             },
         },
+    },
+    components: {
+        Heading: headingTheme,
+        Button: buttonTheme,
     },
 });

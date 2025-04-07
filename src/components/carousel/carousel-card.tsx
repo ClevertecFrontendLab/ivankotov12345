@@ -29,7 +29,7 @@ export const CarouselCard: React.FC<CardData> = ({
         <CardBody p={0}>
             <Image src={imgSrc} alt={title} />
             <Box pt={4} px={6}>
-                <Heading as='h3' mb={2} noOfLines={1} fontSize='xl' lineHeight='short'>
+                <Heading as='h3' mb={2} variant='card'>
                     {title}
                 </Heading>
                 <Text noOfLines={3} fontSize='sm'>

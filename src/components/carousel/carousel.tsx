@@ -7,7 +7,7 @@ import { CarouselCard } from './carousel-card';
 
 export const Сarousel: React.FC = () => (
     <Box as='section' mb={10}>
-        <Heading as='h2' fontSize='5xl' fontWeight='medium' lineHeight='none' mb={6}>
+        <Heading as='h2' variant='section' mb={6}>
             Новые рецепты
         </Heading>
         <Box pos='relative'>
@@ -19,13 +19,12 @@ export const Сarousel: React.FC = () => (
                 top='calc(50% - 24px)'
                 transform='translate(-25%, -50%)'
                 zIndex={2}
-                bg='black'
-                color='white'
+                variant='black'
             />
 
             <HStack justifyContent='space-between'>
                 {CAROUSEL_CARD_DATA.map((props) => (
-                    <CarouselCard key={props.title} {...props} />
+                    <CarouselCard key={props.id} {...props} />
                 ))}
             </HStack>
 
@@ -38,8 +37,7 @@ export const Сarousel: React.FC = () => (
                 transform='translate(25%, -50%)'
                 right='0'
                 zIndex={2}
-                bg='black'
-                color='white'
+                variant='black'
             />
         </Box>
     </Box>
