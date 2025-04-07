@@ -1,31 +1,14 @@
-import { ArrowForwardIcon } from '@chakra-ui/icons';
-import { Box, Button, Flex, Heading, SimpleGrid, Spacer } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 
 import { Сarousel } from '~/components/carousel/carousel';
-import { FoodCard } from '~/components/food-card';
+import { JuiciestSection } from '~/components/juiciest-section';
 import { PageHeader } from '~/components/page-header';
-import { JUICIEST_CARD_DATA } from '~/constants/juiciest-card-data';
 import { PAGE_TITLES } from '~/constants/page-titles';
 
 export const HomePage: React.FC = () => (
     <Box>
         <PageHeader title={PAGE_TITLES.home} />
         <Сarousel />
-
-        <Box as='section'>
-            <Flex mb={6}>
-                <Heading variant='section'>{PAGE_TITLES.juiciest}</Heading>
-                <Spacer />
-                <Button rightIcon={<ArrowForwardIcon />} bg='lime.400' size='lg'>
-                    Вся подборка
-                </Button>
-            </Flex>
-
-            <SimpleGrid columns={2} spacing={6}>
-                {JUICIEST_CARD_DATA.map((props) => (
-                    <FoodCard key={props.id} {...props} />
-                ))}
-            </SimpleGrid>
-        </Box>
+        <JuiciestSection />
     </Box>
 );
