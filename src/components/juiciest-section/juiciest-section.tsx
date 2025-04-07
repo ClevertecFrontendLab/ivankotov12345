@@ -7,7 +7,7 @@ import { PAGE_TITLES } from '~/constants/page-titles';
 import { FoodCard } from '../food-card';
 
 export const JuiciestSection: React.FC = () => (
-    <Box as='section'>
+    <Box as='section' mb={10}>
         <Flex mb={6}>
             <Heading variant='section'>{PAGE_TITLES.juiciest}</Heading>
             <Spacer />

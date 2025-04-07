@@ -13,3 +13,15 @@ export type CardData = {
     favorites?: number;
     recommendedBy?: RecommendedByType;
 };
+
+export type UserData = {
+    avatar: string;
+    name: string;
+    email: string;
+};
+
+export type BlogCardData = {
+    id: number;
+    user: UserData;
+    message: string;
+};
