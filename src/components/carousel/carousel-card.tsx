@@ -1,5 +1,4 @@
 import {
-    Badge,
     Box,
     Card,
     CardBody,
@@ -14,6 +13,7 @@ import React from 'react';
 
 import { CardData } from '~/types/card-data';
 
+import { CardBadge } from '../card-badge';
 import { FavoriteIcon, LikeIcon } from '../icons';
 import { StatButton } from '../stat-button';
 
@@ -39,16 +39,7 @@ export const CarouselCard: React.FC<CardData> = ({
 
             <CardFooter display='block' mt={6} px={6} pb={5}>
                 <Flex alignItems='center'>
-                    <Badge
-                        borderRadius='base'
-                        py={0.5}
-                        px={2}
-                        bg='lime.150'
-                        fontSize='sm'
-                        fontWeight='normal'
-                    >
-                        {category}
-                    </Badge>
+                    <CardBadge backgroundColor='lime.150' category={category} />
 
                     <Spacer />
 

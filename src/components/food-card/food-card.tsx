@@ -16,15 +16,24 @@ import {
 import { FOOD_CARD_IMAGE_MAX_WIDTH } from '~/constants/styles';
 import { CardData } from '~/types/card-data';
 
+import { CardBadge } from '../card-badge';
 import { FavoriteIcon, LikeIcon } from '../icons';
 import { StatButton } from '../stat-button';
 
-export const FoodCard: React.FC<CardData> = ({ imgSrc, title, description, likes, favorites }) => (
-    <Card direction='row' overflow='hidden'>
+export const FoodCard: React.FC<CardData> = ({
+    imgSrc,
+    title,
+    description,
+    likes,
+    favorites,
+    category,
+}) => (
+    <Card direction='row' overflow='hidden' borderRadius='lg'>
         <Image src={imgSrc} alt={title} maxW={FOOD_CARD_IMAGE_MAX_WIDTH} objectFit='contain' />
         <VStack py={5} px={6}>
             <CardHeader p={0}>
                 <Flex>
+                    <CardBadge backgroundColor='lime.50' category={category} />
                     {likes && <StatButton quantity={likes} icon={<LikeIcon />} size='sm' />}
                     {favorites && (
                         <StatButton quantity={favorites} icon={<FavoriteIcon />} size='sm' />
