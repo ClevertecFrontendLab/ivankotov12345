@@ -1,3 +1,8 @@
+type RecommendedByType = {
+    avatarSrc?: string;
+    name: string;
+};
+
 export type CardData = {
     id: number;
     imgSrc: string;
@@ -6,4 +11,5 @@ export type CardData = {
     category: string;
     likes?: number;
     favorites?: number;
+    recommendedBy?: RecommendedByType;
 };

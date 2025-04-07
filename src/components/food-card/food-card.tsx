@@ -1,4 +1,5 @@
 import {
+    Avatar,
     Box,
     Button,
     ButtonGroup,
@@ -9,6 +10,8 @@ import {
     Flex,
     Heading,
     Image,
+    Tag,
+    TagLabel,
     Text,
     VStack,
 } from '@chakra-ui/react';
@@ -27,9 +30,20 @@ export const FoodCard: React.FC<CardData> = ({
     likes,
     favorites,
     category,
+    recommendedBy,
 }) => (
     <Card direction='row' overflow='hidden' borderRadius='lg'>
         <Image src={imgSrc} alt={title} maxW={FOOD_CARD_IMAGE_MAX_WIDTH} objectFit='contain' />
+
+        {recommendedBy && (
+            <Tag pos='absolute' left={6} bottom={5} size='md' bg='lime.150' py={0.5} px={2}>
+                <Avatar src={recommendedBy.avatarSrc} name={recommendedBy.name} w={4} h={4} />
+                <TagLabel ml={2} fontWeight='normal'>
+                    {recommendedBy.name} рекомендует
+                </TagLabel>
+            </Tag>
+        )}
+
         <VStack py={5} px={6}>
             <CardHeader p={0}>
                 <Flex>
