@@ -6,10 +6,12 @@ import { PAGE_TITLES } from '~/constants/page-titles';
 
 import { FoodCard } from '../food-card';
 
+const { title } = PAGE_TITLES.juiciest;
+
 export const JuiciestSection: React.FC = () => (
     <Box as='section' mb={10}>
         <Flex mb={6}>
-            <Heading variant='section'>{PAGE_TITLES.juiciest}</Heading>
+            <Heading variant='section'>{title}</Heading>
             <Spacer />
             <Button rightIcon={<ArrowForwardIcon />} bg='lime.400' size='lg'>
                 Вся подборка

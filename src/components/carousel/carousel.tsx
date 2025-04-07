@@ -2,13 +2,16 @@ import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
 import { Box, Heading, HStack, IconButton } from '@chakra-ui/react';
 
 import { CAROUSEL_CARD_DATA } from '~/constants/carousel-card-data';
+import { PAGE_TITLES } from '~/constants/page-titles';
 
 import { CarouselCard } from './carousel-card';
+
+const { title } = PAGE_TITLES.newest;
 
 export const Сarousel: React.FC = () => (
     <Box as='section' mb={10}>
         <Heading as='h2' variant='section' mb={6}>
-            Новые рецепты
+            {title}
         </Heading>
         <Box pos='relative'>
             <IconButton

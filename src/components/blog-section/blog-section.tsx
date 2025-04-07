@@ -6,11 +6,13 @@ import { PAGE_TITLES } from '~/constants/page-titles';
 
 import { BlogCard } from './blog-card';
 
+const { title } = PAGE_TITLES.blog;
+
 export const BlogSection: React.FC = () => (
     <Box as='section' mb={10} p={6} borderRadius='2xl' bg='lime.300'>
         <Flex mb={6}>
             <Heading as='h2' variant='section'>
-                {PAGE_TITLES.blog}
+                {title}
             </Heading>
 
             <Spacer />
