@@ -27,7 +27,7 @@ export const JUICIEST_CARD_DATA: CardData[] = [
         likes: 159,
         favorites: 257,
         recommendedBy: {
-            avatarSrc: bloger1,
+            avatar: bloger1,
             name: 'Елена Высоцкая',
         },
     },
@@ -41,7 +41,7 @@ export const JUICIEST_CARD_DATA: CardData[] = [
         likes: 258,
         favorites: 342,
         recommendedBy: {
-            avatarSrc: bloger2,
+            avatar: bloger2,
             name: 'Alex Cook',
         },
     },

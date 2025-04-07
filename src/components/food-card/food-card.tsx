@@ -37,7 +37,7 @@ export const FoodCard: React.FC<CardData> = ({
 
         {recommendedBy && (
             <Tag pos='absolute' left={6} bottom={5} size='md' bg='lime.150' py={0.5} px={2}>
-                <Avatar src={recommendedBy.avatarSrc} name={recommendedBy.name} w={4} h={4} />
+                <Avatar src={recommendedBy.avatar} name={recommendedBy.name} w={4} h={4} />
                 <TagLabel ml={2} fontWeight='normal'>
                     {recommendedBy.name} рекомендует
                 </TagLabel>

@@ -1,6 +1,7 @@
-type RecommendedByType = {
-    avatarSrc?: string;
+export type UserData = {
+    avatar?: string;
     name: string;
+    email: string;
 };
 
 export type CardData = {
@@ -11,13 +12,7 @@ export type CardData = {
     category: string;
     likes?: number;
     favorites?: number;
-    recommendedBy?: RecommendedByType;
-};
-
-export type UserData = {
-    avatar: string;
-    name: string;
-    email: string;
+    recommendedBy?: Omit<UserData, 'email'>;
 };
 
 export type BlogCardData = {
