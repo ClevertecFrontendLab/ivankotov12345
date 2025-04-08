@@ -1,0 +1,30 @@
+import { defineStyleConfig } from '@chakra-ui/react';
+
+export const AccordionTheme = defineStyleConfig({
+    baseStyle: {
+        root: {
+            py: 2.5,
+            pl: 2.5,
+            pr: 4,
+        },
+        button: {
+            maxW: 60,
+            gap: 3,
+            py: 3,
+            px: 2,
+            borderRadius: 0,
+            fontWeight: 'medium',
+            _hover: {
+                bg: 'lime.50',
+                color: 'black',
+            },
+            _expanded: {
+                bg: 'lime.100',
+                fontWeight: 'bold',
+            },
+        },
+        panel: {
+            p: 0,
+        },
+    },
+});

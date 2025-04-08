@@ -135,7 +135,7 @@ export const NAV_MENU_ITEMS: NavMenuItem[] = [
         ],
     },
     {
-        category: 'Национальные блюда',
+        category: 'Национальные',
         imgSrc: international,
         subCategories: [
             'Американская кухня',
@@ -161,20 +161,6 @@ export const NAV_MENU_ITEMS: NavMenuItem[] = [
         subCategories: ['Соусы мясные', 'Соусы сырные', 'Маринады'],
     },
     {
-        category: 'Домашние заготовки',
-        imgSrc: pickles,
-        subCategories: [
-            'Мясные заготовки',
-            'Рыбные заготовки',
-            'Из огурцов',
-            'Из томатов',
-            'Из грибов',
-            'Овощные заготовки',
-            'Салаты, икра',
-            'Из фруктов и ягод',
-        ],
-    },
-    {
         category: 'Напитки',
         imgSrc: mug,
         subCategories: [
@@ -187,6 +173,20 @@ export const NAV_MENU_ITEMS: NavMenuItem[] = [
             'Квас',
             'Коктейли',
             'Алкогольные',
+        ],
+    },
+    {
+        category: 'Заготовки',
+        imgSrc: pickles,
+        subCategories: [
+            'Мясные заготовки',
+            'Рыбные заготовки',
+            'Из огурцов',
+            'Из томатов',
+            'Из грибов',
+            'Овощные заготовки',
+            'Салаты, икра',
+            'Из фруктов и ягод',
         ],
     },
 ];

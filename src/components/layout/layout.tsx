@@ -25,7 +25,7 @@ export const Layout: React.FC = () => (
                 gridTemplateAreas='"nav main aside"'
                 position='relative'
             >
-                <GridItem sx={fixedContainer} gridArea='nav'>
+                <GridItem sx={fixedContainer} gridArea='nav' pt={6} boxShadow='navBoxShadow'>
                     <Navigation />
                 </GridItem>
 

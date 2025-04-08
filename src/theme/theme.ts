@@ -1,5 +1,6 @@
 import { extendTheme } from '@chakra-ui/react';
 
+import { AccordionTheme } from './components/accordion';
 import { buttonTheme } from './components/button';
 import { headingTheme } from './components/heading';
 
@@ -21,6 +22,10 @@ export const theme = extendTheme({
     borders: {
         blackAlpha: '1px solid var(--chakra-colors-blackAlpha-200)',
     },
+    shadows: {
+        navBoxShadow:
+            '0px 1px 3px 0px rgba(0, 0, 0, 0.12), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.20);',
+    },
     styles: {
         global: {
             '@font-face': {
@@ -34,5 +39,6 @@ export const theme = extendTheme({
     components: {
         Heading: headingTheme,
         Button: buttonTheme,
+        Accordion: AccordionTheme,
     },
 });
