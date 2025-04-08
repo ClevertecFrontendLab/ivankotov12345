@@ -1,6 +1,7 @@
 import { Grid, GridItem } from '@chakra-ui/react';
 import { Outlet } from 'react-router';
 
+import { Aside } from '../aside';
 import { Header } from '../header';
 import { Navigation } from '../navigation';
 
@@ -21,7 +22,7 @@ export const Layout: React.FC = () => (
                 </GridItem>
 
                 <GridItem>
-                    <div>aside</div>
+                    <Aside />
                 </GridItem>
             </Grid>
         </GridItem>
