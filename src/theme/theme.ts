@@ -18,6 +18,9 @@ export const theme = extendTheme({
     fonts: {
         body: `Inter, system-ui, Avenir, Helvetica, Arial, sans-serif`,
     },
+    borders: {
+        blackAlpha: '1px solid var(--chakra-colors-blackAlpha-200)',
+    },
     styles: {
         global: {
             body: {
