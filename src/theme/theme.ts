@@ -23,6 +23,9 @@ export const theme = extendTheme({
     },
     styles: {
         global: {
+            '@font-face': {
+                src: `url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap')`,
+            },
             body: {
                 color: 'black',
             },
