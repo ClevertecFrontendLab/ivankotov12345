@@ -6,13 +6,7 @@ import { CategoryItem } from './category-item';
 import { ExitIcon } from './exit-icon';
 
 export const Navigation: React.FC = () => (
-    <VStack
-        justifyContent='space-between'
-        h='full'
-        pos='relative'
-        overflowY='auto'
-        height='calc(100vh - 80px)'
-    >
+    <VStack justifyContent='space-between' h='full' overflowY='auto'>
         <Accordion>
             {NAV_MENU_ITEMS.map(({ category, imgSrc, subCategories }) => (
                 <CategoryItem

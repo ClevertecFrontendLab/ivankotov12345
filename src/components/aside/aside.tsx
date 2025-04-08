@@ -5,7 +5,7 @@ import { FavoriteIcon, LikeIcon, PeopleIcon } from '../icons';
 import { StatButton } from '../stat-button';
 
 export const Aside: React.FC = () => (
-    <Flex direction='column' h='calc(100vh - 80px)'>
+    <Flex direction='column' h='full'>
         <VStack px={4} py={16}>
             <StatButton quantity={185} icon={<LikeIcon />} size='lg' />
             <StatButton quantity={589} icon={<PeopleIcon />} size='lg' />

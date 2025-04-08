@@ -1,30 +1,42 @@
-import { Grid, GridItem } from '@chakra-ui/react';
+import { Box, Grid, GridItem } from '@chakra-ui/react';
 import { Outlet } from 'react-router';
 
 import { Aside } from '../aside';
 import { Header } from '../header';
 import { Navigation } from '../navigation';
 
-export const Layout: React.FC = () => (
-    <Grid gridTemplateRows='80px 1fr' height='100vh'>
-        <GridItem justifyItems='center' backgroundColor='lime.50'>
-            <Header />
-        </GridItem>
+const fixedContainer = {
+    position: 'fixed',
+    top: 'var(--chakra-space-20)',
+    height: 'calc(100vh - var(--chakra-space-20))',
+};
 
-        <GridItem justifyItems='center'>
-            <Grid gridTemplate='1fr / 256px 1fr 280px' maxW='1920px' w='full'>
-                <GridItem>
+export const Layout: React.FC = () => (
+    <Box height='100vh'>
+        <Box justifyItems='center' backgroundColor='lime.50' position='fixed' w='full' zIndex={12}>
+            <Header />
+        </Box>
+
+        <Box justifyItems='center'>
+            <Grid
+                gridTemplate='1fr / 256px 1fr 280px'
+                maxW='1920px'
+                w='full'
+                gridTemplateAreas='"nav main aside"'
+                position='relative'
+            >
+                <GridItem sx={fixedContainer} gridArea='nav'>
                     <Navigation />
                 </GridItem>
 
-                <GridItem ml={6}>
+                <GridItem ml={6} gridArea='main' mt={20}>
                     <Outlet />
                 </GridItem>
 
-                <GridItem>
+                <GridItem gridArea='aside' sx={fixedContainer} justifySelf='end'>
                     <Aside />
                 </GridItem>
             </Grid>
-        </GridItem>
-    </Grid>
+        </Box>
+    </Box>
 );
