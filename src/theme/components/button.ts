@@ -8,5 +8,8 @@ const buttonBlack = defineStyle({
 export const buttonTheme = defineStyleConfig({
     variants: {
         black: buttonBlack,
+        ghost: {
+            color: 'black',
+        },
     },
 });

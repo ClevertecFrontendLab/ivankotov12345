@@ -3,6 +3,7 @@ import { defineStyleConfig } from '@chakra-ui/react';
 export const AccordionTheme = defineStyleConfig({
     baseStyle: {
         root: {
+            h: 'full',
             py: 2.5,
             pl: 2.5,
             pr: 4,

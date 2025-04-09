@@ -3,6 +3,7 @@ import { extendTheme } from '@chakra-ui/react';
 import { AccordionTheme } from './components/accordion';
 import { buttonTheme } from './components/button';
 import { headingTheme } from './components/heading';
+import { linkTheme } from './components/link';
 
 export const theme = extendTheme({
     colors: {
@@ -40,5 +41,6 @@ export const theme = extendTheme({
         Heading: headingTheme,
         Button: buttonTheme,
         Accordion: AccordionTheme,
+        Link: linkTheme,
     },
 });

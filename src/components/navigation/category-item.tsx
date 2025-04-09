@@ -17,7 +17,7 @@ import { ArrowIcon } from '../icons';
 
 export const CategoryItem: React.FC<NavMenuItem> = ({ category, imgSrc, subCategories }) => (
     <AccordionItem border='none'>
-        <NavLink to={ROUTER_PATHS.veganPage}>
+        <NavLink to={`${ROUTER_PATHS.veganPage}${subCategories[0].path}`}>
             <AccordionButton>
                 <Image src={imgSrc} />
                 <Text flex='1' textAlign='start'>
@@ -27,15 +27,16 @@ export const CategoryItem: React.FC<NavMenuItem> = ({ category, imgSrc, subCateg
             </AccordionButton>
         </NavLink>
 
-        <AccordionPanel
-            _hover={{
-                color: 'black',
-            }}
-        >
+        <AccordionPanel>
             <VStack alignItems='start' gap={0}>
-                {subCategories.map((subCategory) => (
-                    <Link as={NavLink} to={ROUTER_PATHS.veganPage} key={subCategory} w='full'>
-                        {subCategory}
+                {subCategories.map(({ category, path }) => (
+                    <Link
+                        key={category}
+                        as={NavLink}
+                        to={`${ROUTER_PATHS.veganPage}${path}`}
+                        variant='navigationLink'
+                    >
+                        {category}
                     </Link>
                 ))}
             </VStack>
