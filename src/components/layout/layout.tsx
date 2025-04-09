@@ -33,7 +33,13 @@ export const Layout: React.FC = () => (
                     <Outlet />
                 </GridItem>
 
-                <GridItem gridArea='aside' sx={fixedContainer} justifySelf='end'>
+                <GridItem
+                    gridArea='aside'
+                    sx={fixedContainer}
+                    justifySelf='end'
+                    maxW='280px'
+                    w='full'
+                >
                     <Aside />
                 </GridItem>
             </Grid>
