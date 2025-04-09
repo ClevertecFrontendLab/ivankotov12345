@@ -6,8 +6,8 @@ type RelevantCardMiniType = Pick<CardData, 'imgSrc' | 'title'>;
 
 export const RelevantCardMini: React.FC<RelevantCardMiniType> = ({ imgSrc, title }) => (
     <Card w='full'>
-        <CardBody px={3} py={4}>
-            <Flex alignItems='center' gap={2}>
+        <CardBody py={3.5} pl={9} pr={6}>
+            <Flex alignItems='center' gap={3}>
                 <Image src={imgSrc} alt={title} />
                 <Heading as='h3' variant='card'>
                     {title}
@@ -16,7 +16,7 @@ export const RelevantCardMini: React.FC<RelevantCardMiniType> = ({ imgSrc, title
                 <Spacer />
 
                 <Button size='sm' variant='outline' color='lime.600' borderColor='lime.600'>
-                    Готово
+                    Готовить
                 </Button>
             </Flex>
         </CardBody>

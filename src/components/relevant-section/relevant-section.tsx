@@ -3,7 +3,6 @@ import { Box, Flex, Heading, SimpleGrid, Spacer, Text, VStack } from '@chakra-ui
 import { PAGE_TITLES } from '~/constants/page-titles';
 import { VEGAN_RELEVANT_CARD_DATA } from '~/constants/relevant-card-data';
 import { VEGAN_RELEVANT_CARD_DATA_MINI } from '~/constants/relevant-card-data-mini';
-import { SUBTITLE_WIDTH } from '~/constants/styles';
 
 import { RelevantCardMini } from './relevant-card-mini';
 import { RelevantSectionCard } from './relevant-section-card';
@@ -12,18 +11,20 @@ const { title, subtitle } = PAGE_TITLES.vegan;
 
 export const RelevantSection: React.FC = () => (
     <Box as='section' borderTop='blackAlpha'>
-        <Flex py={6}>
+        <Flex py={5}>
             <Heading as='h2' variant='section'>
                 {title}
             </Heading>
 
             <Spacer />
 
-            <Text w={SUBTITLE_WIDTH}>{subtitle}</Text>
+            <Text color='blackAlpha.600' w='50%'>
+                {subtitle}
+            </Text>
         </Flex>
 
         <SimpleGrid columns={2}>
-            <SimpleGrid columns={2}>
+            <SimpleGrid columns={2} spacing={6}>
                 {VEGAN_RELEVANT_CARD_DATA.map((props) => (
                     <RelevantSectionCard key={props.id} {...props} />
                 ))}

@@ -1,4 +1,4 @@
-import { Box, Card, CardBody, CardFooter, Flex, Heading, Spacer, Text } from '@chakra-ui/react';
+import { Card, CardBody, CardFooter, Flex, Heading, Spacer, Text } from '@chakra-ui/react';
 
 import { CardData } from '~/types/card-data';
 
@@ -16,19 +16,18 @@ export const RelevantSectionCard: React.FC<RelevantSectionCardProps> = ({
     favorites,
 }) => (
     <Card p={6}>
-        <CardBody p={0}>
-            <Box>
-                <Heading as='h3' variant='card'>
-                    {title}
-                </Heading>
-                <Text noOfLines={3} fontSize='sm'>
-                    {description}
-                </Text>
-            </Box>
+        <CardBody p={0} gap={2}>
+            <Heading as='h3' variant='card' mb={2}>
+                {title}
+            </Heading>
+
+            <Text noOfLines={3} fontSize='sm'>
+                {description}
+            </Text>
         </CardBody>
 
-        <CardFooter p={0}>
-            <Flex alignItems='center'>
+        <CardFooter p={0} w='full'>
+            <Flex alignItems='center' w='full'>
                 <CardBadge backgroundColor='lime.50' category={category} />
 
                 <Spacer />
