@@ -7,7 +7,7 @@ import { User } from '../user';
 export const BlogCard: React.FC<BlogCardData> = ({ user, message }) => (
     <Card>
         <CardBody pt={6} px={6} pb={5}>
-            <VStack spacing={7} align='start'>
+            <VStack spacing={5} align='start'>
                 <User {...user} />
                 <Text>{message}</Text>
             </VStack>

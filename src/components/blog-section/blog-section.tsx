@@ -11,13 +11,13 @@ const { title } = PAGE_TITLES.blog;
 export const BlogSection: React.FC = () => (
     <Box as='section' mb={10} p={6} borderRadius='2xl' bg='lime.300'>
         <Flex mb={6}>
-            <Heading as='h2' variant='section'>
+            <Heading as='h2' fontSize='4xl' lineHeight='none'>
                 {title}
             </Heading>
 
             <Spacer />
 
-            <Button variant='ghost' rightIcon={<ArrowForwardIcon />}>
+            <Button variant='ghost' size='lg' rightIcon={<ArrowForwardIcon />}>
                 Все авторы
             </Button>
         </Flex>
