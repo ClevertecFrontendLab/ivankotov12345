@@ -1,7 +1,5 @@
 import { Heading, VStack } from '@chakra-ui/react';
 
-import { PAGE_HEADER_MAX_WIDTH } from '~/constants/styles';
-
 import { SearchPanel } from '../search-panel';
 
 type PageHeaderProps = {
@@ -9,8 +7,10 @@ type PageHeaderProps = {
 };
 
 export const PageHeader: React.FC<PageHeaderProps> = ({ title }) => (
-    <VStack as='section' maxW={PAGE_HEADER_MAX_WIDTH} mx='auto' py={8} gap={8}>
-        <Heading as='h1'>{title}</Heading>
+    <VStack as='section' maxW='pageHeaderMaxWidth' mx='auto' mb={6} py={8} gap={8}>
+        <Heading as='h1' fontSize='5xl' lineHeight='none'>
+            {title}
+        </Heading>
         <SearchPanel />
     </VStack>
 );

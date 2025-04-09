@@ -26,6 +26,7 @@ export const SearchPanel: React.FC = () => (
             <InputGroup size='lg'>
                 <Input
                     placeholder='Название или ингредиент...'
+                    borderColor='blackAlpha.600'
                     _placeholder={{
                         color: 'lime.800',
                     }}
@@ -37,8 +38,10 @@ export const SearchPanel: React.FC = () => (
         </HStack>
 
         <HStack w='full' gap={4}>
-            <HStack gap={3}>
-                <Text whiteSpace='nowrap'>Исключить мои аллергены</Text>
+            <HStack gap={8}>
+                <Text whiteSpace='nowrap' fontWeight='medium'>
+                    Исключить мои аллергены
+                </Text>
                 <Switch />
             </HStack>
 
