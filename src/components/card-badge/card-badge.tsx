@@ -1,4 +1,4 @@
-import { Badge, Image } from '@chakra-ui/react';
+import { Image, Tag, Text } from '@chakra-ui/react';
 
 import { CARD_BADGE_ITEMS } from '~/constants/card-badge-items';
 
@@ -8,19 +8,8 @@ type CardBadgeProps = {
 };
 
 export const CardBadge: React.FC<CardBadgeProps> = ({ backgroundColor, category }) => (
-    <Badge
-        display='flex'
-        alignItems='center'
-        borderRadius='base'
-        gap={1.5}
-        py={0.5}
-        px={2}
-        bg={backgroundColor}
-        fontSize='sm'
-        fontWeight='normal'
-        textTransform='none'
-    >
+    <Tag gap={1.5} py={0.5} px={2} bg={backgroundColor}>
         <Image src={CARD_BADGE_ITEMS[category]} alt={category} />
-        {category}
-    </Badge>
+        <Text>{category}</Text>
+    </Tag>
 );

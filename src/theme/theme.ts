@@ -19,6 +19,7 @@ export const theme = extendTheme({
     },
     fonts: {
         body: `Inter, system-ui, Avenir, Helvetica, Arial, sans-serif`,
+        heading: `Inter, system-ui, Avenir, Helvetica, Arial, sans-serif`,
     },
     sizes: {
         pageHeaderMaxWidth: '900px',
@@ -32,7 +33,9 @@ export const theme = extendTheme({
     },
     styles: {
         global: {
-            '@import': `url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap')`,
+            '@font-face': {
+                src: `url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap')`,
+            },
             body: {
                 color: 'black',
             },

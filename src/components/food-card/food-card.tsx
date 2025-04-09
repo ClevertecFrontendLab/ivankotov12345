@@ -10,6 +10,7 @@ import {
     Flex,
     Heading,
     Image,
+    Spacer,
     Tag,
     TagLabel,
     Text,
@@ -36,18 +37,21 @@ export const FoodCard: React.FC<CardData> = ({
         <Image src={imgSrc} alt={title} maxW={FOOD_CARD_IMAGE_MAX_WIDTH} objectFit='contain' />
 
         {recommendedBy && (
-            <Tag pos='absolute' left={6} bottom={5} size='md' bg='lime.150' py={0.5} px={2}>
+            <Tag pos='absolute' left={6} bottom={5} bg='lime.150' py={1} px={2}>
                 <Avatar src={recommendedBy.avatar} name={recommendedBy.name} w={4} h={4} />
-                <TagLabel ml={2} fontWeight='normal'>
+                <TagLabel ml={2} fontSize='sm' fontWeight='normal' lineHeight='short'>
                     {recommendedBy.name} рекомендует
                 </TagLabel>
             </Tag>
         )}
 
-        <VStack py={5} px={6}>
-            <CardHeader p={0}>
+        <VStack pt={3} px={6} pb={6} spacing={6}>
+            <CardHeader w='full' p={0}>
                 <Flex>
                     <CardBadge backgroundColor='lime.50' category={category} />
+
+                    <Spacer />
+
                     {likes && <StatButton quantity={likes} icon={<LikeIcon />} size='sm' />}
                     {favorites && (
                         <StatButton quantity={favorites} icon={<FavoriteIcon />} size='sm' />
