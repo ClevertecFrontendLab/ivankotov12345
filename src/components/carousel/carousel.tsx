@@ -19,8 +19,8 @@ export const Сarousel: React.FC = () => (
                 icon={<ArrowBackIcon />}
                 aria-label='carousel button back'
                 pos='absolute'
-                top='calc(50% - 24px)'
-                transform='translate(-25%, -50%)'
+                top='calc(50% - 38px)'
+                transform='translate(-10%, -50%)'
                 zIndex={2}
                 variant='black'
             />
@@ -36,8 +36,8 @@ export const Сarousel: React.FC = () => (
                 icon={<ArrowForwardIcon />}
                 aria-label='carousel button forward'
                 pos='absolute'
-                top='calc(50% - 24px)'
-                transform='translate(25%, -50%)'
+                top='calc(50% - 38px)'
+                transform='translate(20%, -50%)'
                 right='0'
                 zIndex={2}
                 variant='black'

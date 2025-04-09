@@ -37,7 +37,7 @@ export const CarouselCard: React.FC<CardData> = ({
                 </Text>
             </Box>
 
-            <CardFooter display='block' mt={6} px={6} pb={5}>
+            <CardFooter display='block' mt={1.5} px={6} pb={5}>
                 <Flex alignItems='center'>
                     <CardBadge backgroundColor='lime.150' category={category} />
 
