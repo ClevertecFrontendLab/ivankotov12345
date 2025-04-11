@@ -18,7 +18,7 @@ export const RelevantSection: React.FC<RelevantSectionProps> = ({
     cardData,
     cardDataMini,
 }) => (
-    <Box as='section' borderTop='blackAlpha' mb={20}>
+    <Box as='section' borderTop='blackAlpha' mb={{ base: 20, lg: 0 }}>
         <SimpleGrid
             gridTemplateColumns={{
                 base: '1fr',

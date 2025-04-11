@@ -8,23 +8,18 @@ type PageHeaderProps = {
 };
 
 export const PageHeader: React.FC<PageHeaderProps> = ({ title, subtitle }) => (
-    <VStack
-        as='section'
-        maxW='pageHeaderMaxWidth'
-        mx='auto'
-        mb={{ base: 0, lg: 6 }}
-        py={8}
-        gap={{ base: 6, lg: 8 }}
-    >
-        <Heading as='h1' fontSize={{ base: '2xl', lg: '5xl' }} lineHeight='none'>
-            {title}
-        </Heading>
+    <VStack as='section' maxW='pageHeaderMaxWidth' mx='auto' py={8} gap={{ base: 6, lg: 8 }}>
+        <VStack gap={3}>
+            <Heading as='h1' fontSize={{ base: '2xl', lg: '5xl' }} lineHeight='none'>
+                {title}
+            </Heading>
 
-        {subtitle && (
-            <Text textAlign='center' color='blackAlpha.600'>
-                {subtitle}
-            </Text>
-        )}
+            {subtitle && (
+                <Text textAlign='center' color='blackAlpha.600' px={24}>
+                    {subtitle}
+                </Text>
+            )}
+        </VStack>
 
         <SearchPanel />
     </VStack>

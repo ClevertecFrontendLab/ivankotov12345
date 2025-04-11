@@ -9,7 +9,7 @@ import { CarouselCard } from './carousel-card';
 const { title } = PAGE_TITLES.newest;
 
 export const Сarousel: React.FC = () => (
-    <Box as='section' mb={{ base: 8, xl: 10 }}>
+    <Box as='section' mt={{ base: 0, lg: 6 }} mb={{ base: 8, xl: 10 }}>
         <Heading as='h2' variant='section' mb={6}>
             {title}
         </Heading>

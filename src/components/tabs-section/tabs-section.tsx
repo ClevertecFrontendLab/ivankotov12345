@@ -1,4 +1,4 @@
-import { Button, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import { Button, Center, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import { NavLink } from 'react-router';
 
 import { CARD_DATA } from '~/constants/card-data';
@@ -11,8 +11,8 @@ import { FoodCard } from '../food-card';
 const tabs = NAV_MENU_ITEMS.find((item) => item.category === 'Веганские блюда')?.subCategories;
 
 export const TabsSection: React.FC = () => (
-    <Tabs as='section'>
-        <TabList>
+    <Tabs as='section' mb={10}>
+        <TabList justifyContent='center'>
             {tabs &&
                 tabs.map(({ category, path }) => (
                     <Tab
@@ -20,6 +20,8 @@ export const TabsSection: React.FC = () => (
                         to={`${ROUTER_PATHS.veganPage}${path}`}
                         key={category}
                         flexShrink={0}
+                        px={4}
+                        py={2}
                         color='lime.800'
                         _selected={{
                             color: 'lime.600',
@@ -34,7 +36,7 @@ export const TabsSection: React.FC = () => (
         <TabPanels>
             {tabs &&
                 tabs.map(({ category }) => (
-                    <TabPanel key={category}>
+                    <TabPanel key={category} pt={6} px={0}>
                         <CardsWrapper>
                             {CARD_DATA.map((props) => (
                                 <FoodCard {...props} key={props.id} />
@@ -42,7 +44,12 @@ export const TabsSection: React.FC = () => (
                         </CardsWrapper>
                     </TabPanel>
                 ))}
-            <Button bg='lime.400'>Загрузить ещё</Button>
+
+            <Center>
+                <Button bg='lime.400' px={5}>
+                    Загрузить ещё
+                </Button>
+            </Center>
         </TabPanels>
     </Tabs>
 );
