@@ -1,15 +1,23 @@
 import { Box, Heading, SimpleGrid, Text, VStack } from '@chakra-ui/react';
 
-import { PAGE_TITLES } from '~/constants/page-titles';
-import { VEGAN_RELEVANT_CARD_DATA } from '~/constants/relevant-card-data';
-import { VEGAN_RELEVANT_CARD_DATA_MINI } from '~/constants/relevant-card-data-mini';
+import { CardData } from '~/types/card-data';
 
 import { RelevantCardMini } from './relevant-card-mini';
 import { RelevantSectionCard } from './relevant-section-card';
 
-const { title, subtitle } = PAGE_TITLES.vegan;
+type RelevantSectionProps = {
+    title: string;
+    subtitle: string;
+    cardData: Omit<CardData, 'imgSrc' | 'recommendedBy'>[];
+    cardDataMini: Pick<CardData, 'id' | 'imgSrc' | 'title'>[];
+};
 
-export const RelevantSection: React.FC = () => (
+export const RelevantSection: React.FC<RelevantSectionProps> = ({
+    title,
+    subtitle,
+    cardData,
+    cardDataMini,
+}) => (
     <Box as='section' borderTop='blackAlpha' mb={20}>
         <SimpleGrid
             gridTemplateColumns={{
@@ -44,13 +52,13 @@ export const RelevantSection: React.FC = () => (
             gap={{ base: 4, '2xl': 6 }}
         >
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 4, '2xl': 6 }}>
-                {VEGAN_RELEVANT_CARD_DATA.map((props) => (
+                {cardData.map((props) => (
                     <RelevantSectionCard key={props.id} {...props} />
                 ))}
             </SimpleGrid>
 
             <VStack spacing={{ base: 2, '2xl': 3 }}>
-                {VEGAN_RELEVANT_CARD_DATA_MINI.map((props) => (
+                {cardDataMini.map((props) => (
                     <RelevantCardMini key={props.id} {...props} />
                 ))}
             </VStack>
