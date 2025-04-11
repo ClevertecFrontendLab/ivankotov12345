@@ -15,7 +15,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({ title, subtitle }) => (
             </Heading>
 
             {subtitle && (
-                <Text textAlign='center' color='blackAlpha.600' px={24}>
+                <Text textAlign='center' color='blackAlpha.600' px={{ base: 0, lg: 24 }}>
                     {subtitle}
                 </Text>
             )}

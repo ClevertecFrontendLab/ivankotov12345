@@ -12,7 +12,13 @@ const tabs = NAV_MENU_ITEMS.find((item) => item.category === 'Веганские
 
 export const TabsSection: React.FC = () => (
     <Tabs as='section' mb={10}>
-        <TabList justifyContent='center'>
+        <TabList
+            justifyContent='center'
+            overflow='hidden'
+            gap={1}
+            borderBottom='1px solid'
+            borderColor='blackAlpha.200'
+        >
             {tabs &&
                 tabs.map(({ category, path }) => (
                     <Tab
@@ -20,13 +26,12 @@ export const TabsSection: React.FC = () => (
                         to={`${ROUTER_PATHS.veganPage}${path}`}
                         key={category}
                         flexShrink={0}
-                        px={4}
-                        py={2}
                         color='lime.800'
                         _selected={{
                             color: 'lime.600',
                             borderColor: 'lime.600',
                         }}
+                        py={{ base: 0, lg: 2 }}
                     >
                         {category}
                     </Tab>
