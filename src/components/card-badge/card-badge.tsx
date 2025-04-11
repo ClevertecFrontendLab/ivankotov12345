@@ -8,8 +8,10 @@ type CardBadgeProps = {
 };
 
 export const CardBadge: React.FC<CardBadgeProps> = ({ backgroundColor, category }) => (
-    <Tag gap={1.5} py={0.5} px={2} bg={backgroundColor}>
+    <Tag bg={backgroundColor} py={0.5} px={{ base: 1, lg: 2 }}>
         <Image src={CARD_BADGE_ITEMS[category]} alt={category} />
-        <Text>{category}</Text>
+        <Text whiteSpace='nowrap' fontWeight='normal'>
+            {category}
+        </Text>
     </Tag>
 );

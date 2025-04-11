@@ -17,7 +17,6 @@ import {
     VStack,
 } from '@chakra-ui/react';
 
-import { FOOD_CARD_IMAGE_MAX_WIDTH } from '~/constants/styles';
 import { CardData } from '~/types/card-data';
 
 import { CardBadge } from '../card-badge';
@@ -34,10 +33,24 @@ export const FoodCard: React.FC<CardData> = ({
     recommendedBy,
 }) => (
     <Card direction='row' overflow='hidden' borderRadius='lg'>
-        <Image src={imgSrc} alt={title} maxW={FOOD_CARD_IMAGE_MAX_WIDTH} objectFit='contain' />
+        <Image
+            src={imgSrc}
+            alt={title}
+            maxW={{ base: 'carouselItem.sm', lg: 'carouselItem.xl' }}
+            minH='128px'
+            objectFit='cover'
+        />
 
         {recommendedBy && (
-            <Tag pos='absolute' left={6} bottom={5} bg='lime.150' py={1} px={2}>
+            <Tag
+                pos='absolute'
+                left={6}
+                bottom={5}
+                bg='lime.150'
+                py={1}
+                px={2}
+                display={{ base: 'none', lg: 'flex' }}
+            >
                 <Avatar src={recommendedBy.avatar} name={recommendedBy.name} w={4} h={4} />
                 <TagLabel ml={2} fontSize='sm' fontWeight='normal' lineHeight='short'>
                     {recommendedBy.name} рекомендует
@@ -45,26 +58,45 @@ export const FoodCard: React.FC<CardData> = ({
             </Tag>
         )}
 
-        <VStack pt={3} px={6} pb={6} spacing={6}>
+        <VStack
+            w='full'
+            alignItems='start'
+            pt={{ base: 2, lg: 5 }}
+            px={{ base: 2, lg: 6 }}
+            pb={{ base: 1, lg: 5 }}
+            spacing={{ base: 2, lg: 4 }}
+        >
             <CardHeader w='full' p={0}>
                 <Flex>
-                    <CardBadge backgroundColor='lime.50' category={category} />
+                    <Box layerStyle='absolute' top={2} left={2}>
+                        <CardBadge backgroundColor='lime.50' category={category} />
+                    </Box>
 
-                    <Spacer />
+                    <Spacer display={{ base: 'none', lg: 'flex' }} />
 
-                    {likes && <StatButton quantity={likes} icon={<LikeIcon />} size='sm' />}
+                    {likes && (
+                        <StatButton
+                            quantity={likes}
+                            icon={<LikeIcon />}
+                            size={{ base: 'xs', lg: 'sm' }}
+                        />
+                    )}
                     {favorites && (
-                        <StatButton quantity={favorites} icon={<FavoriteIcon />} size='sm' />
+                        <StatButton
+                            quantity={favorites}
+                            icon={<FavoriteIcon />}
+                            size={{ base: 'xs', lg: 'sm' }}
+                        />
                     )}
                 </Flex>
             </CardHeader>
 
             <CardBody p={0}>
                 <Box>
-                    <Heading as='h3' variant='card'>
+                    <Heading as='h3' variant='card' mb={2}>
                         {title}
                     </Heading>
-                    <Text noOfLines={3} fontSize='sm'>
+                    <Text noOfLines={3} fontSize='sm' display={{ base: 'none', lg: '-webkit-box' }}>
                         {description}
                     </Text>
                 </Box>
@@ -75,12 +107,14 @@ export const FoodCard: React.FC<CardData> = ({
                     <Button
                         variant='outline'
                         leftIcon={<LikeIcon />}
-                        size='sm'
+                        size={{ base: 'xs', lg: 'sm' }}
                         borderColor='blackAlpha.600'
+                        iconSpacing={{ base: 0, lg: 0.5 }}
                     >
-                        Сохранить
+                        <Text display={{ base: 'none', lg: 'inline' }}>Сохранить</Text>
                     </Button>
-                    <Button size='sm' variant='black'>
+
+                    <Button size={{ base: 'xs', lg: 'sm' }} variant='black'>
                         Готовить
                     </Button>
                 </ButtonGroup>

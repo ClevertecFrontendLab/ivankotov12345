@@ -1,7 +1,8 @@
-import { Box, Grid, GridItem } from '@chakra-ui/react';
+import { Box, Grid, GridItem, useMediaQuery } from '@chakra-ui/react';
 import { Outlet } from 'react-router';
 
 import { Aside } from '../aside';
+import { Footer } from '../footer';
 import { Header } from '../header';
 import { Navigation } from '../navigation';
 
@@ -11,38 +12,69 @@ const fixedContainer = {
     height: 'calc(100vh - var(--chakra-space-20))',
 };
 
-export const Layout: React.FC = () => (
-    <Box height='100vh'>
-        <Box justifyItems='center' backgroundColor='lime.50' position='fixed' w='full' zIndex={12}>
-            <Header />
-        </Box>
+export const Layout: React.FC = () => {
+    const [isTablet] = useMediaQuery('(max-width: 74rem)');
+    return (
+        <Box height='100vh'>
+            <Box justifyItems='center' bg='lime.50' position='fixed' w='full' zIndex={12}>
+                <Header />
+            </Box>
 
-        <Box justifyItems='center'>
-            <Grid
-                gridTemplate='1fr / 256px 1fr 280px'
-                maxW='1920px'
-                w='full'
-                gridTemplateAreas='"nav main aside"'
-                position='relative'
-            >
-                <GridItem sx={fixedContainer} gridArea='nav' pt={6} boxShadow='navBoxShadow'>
-                    <Navigation />
-                </GridItem>
-
-                <GridItem ml={6} gridArea='main' mt={20}>
-                    <Outlet />
-                </GridItem>
-
-                <GridItem
-                    gridArea='aside'
-                    sx={fixedContainer}
-                    justifySelf='end'
-                    maxW='280px'
-                    w='full'
+            <Box justifyItems='center'>
+                <Grid
+                    gridTemplate={{
+                        base: '1fr / 1fr',
+                        lg: '1fr / 256px 1fr clamp(220px, 20%, 260px)',
+                    }}
+                    maxW='1920px'
+                    gridTemplateAreas={{ base: '"main"', lg: '"nav main aside"' }}
+                    position='relative'
                 >
-                    <Aside />
-                </GridItem>
-            </Grid>
+                    <GridItem
+                        sx={fixedContainer}
+                        gridArea='nav'
+                        pt={6}
+                        boxShadow='navBoxShadow'
+                        display={{ base: 'none', lg: 'block' }}
+                    >
+                        <Navigation />
+                    </GridItem>
+
+                    <GridItem
+                        mt={{ base: 12, lg: 20 }}
+                        px={{ base: 5, lg: 6 }}
+                        gridArea='main'
+                        overflow='hidden'
+                    >
+                        <Outlet />
+                    </GridItem>
+
+                    <GridItem
+                        gridArea='aside'
+                        sx={fixedContainer}
+                        justifySelf='end'
+                        minW='220px'
+                        maxW='260px'
+                        w='auto'
+                        display={{ base: 'none', lg: 'block' }}
+                    >
+                        <Aside />
+                    </GridItem>
+                </Grid>
+            </Box>
+
+            {isTablet && (
+                <Box
+                    position='fixed'
+                    bottom={0}
+                    justifyItems='center'
+                    bg='lime.50'
+                    w='full'
+                    zIndex={15}
+                >
+                    <Footer />
+                </Box>
+            )}
         </Box>
-    </Box>
-);
+    );
+};

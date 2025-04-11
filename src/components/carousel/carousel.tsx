@@ -9,7 +9,7 @@ import { CarouselCard } from './carousel-card';
 const { title } = PAGE_TITLES.newest;
 
 export const Сarousel: React.FC = () => (
-    <Box as='section' mb={10}>
+    <Box as='section' mb={{ base: 8, xl: 10 }}>
         <Heading as='h2' variant='section' mb={6}>
             {title}
         </Heading>
@@ -23,13 +23,20 @@ export const Сarousel: React.FC = () => (
                 transform='translate(-10%, -50%)'
                 zIndex={2}
                 variant='black'
+                display={{ base: 'none', lg: 'block' }}
             />
 
-            <HStack justifyContent='space-between'>
-                {CAROUSEL_CARD_DATA.map((props) => (
-                    <CarouselCard key={props.id} {...props} />
-                ))}
-            </HStack>
+            <Box overflowX='hidden'>
+                <HStack
+                    justifyContent='space-between'
+                    width='max-content'
+                    gap={{ base: 3, '2xl': 6 }}
+                >
+                    {CAROUSEL_CARD_DATA.map((props) => (
+                        <CarouselCard key={props.id} {...props} />
+                    ))}
+                </HStack>
+            </Box>
 
             <IconButton
                 size='lg'
@@ -41,6 +48,7 @@ export const Сarousel: React.FC = () => (
                 right='0'
                 zIndex={2}
                 variant='black'
+                display={{ base: 'none', lg: 'block' }}
             />
         </Box>
     </Box>

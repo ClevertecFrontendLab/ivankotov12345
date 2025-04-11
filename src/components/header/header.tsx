@@ -1,21 +1,51 @@
-import { Flex, Image, Spacer, Stack, Text } from '@chakra-ui/react';
+import { Flex, IconButton, Image, Spacer, Stack, Text, useMediaQuery } from '@chakra-ui/react';
 
+import avatar from '~/assets/img/avatar.jpg';
+
+import { BurgerIcon } from '../icons/burger';
+import { Stats } from '../stats';
 import { User } from '../user';
-import avatar from './assets/img/Avatar.jpg';
 import pan from './assets/svg/pan.svg';
 import yeeDaa from './assets/svg/yee-daa.svg';
 
-export const Header: React.FC = () => (
-    <Flex maxW='1920px' w='full' h='full' alignItems='center' py={4} pl={4} pr={24} gap={32}>
-        <Stack direction='row' alignItems='flex-end'>
-            <Image src={pan} alt='pan' />
-            <Image src={yeeDaa} alt='yee daa' />
-        </Stack>
+export const Header: React.FC = () => {
+    const [isTablet] = useMediaQuery('(max-width: 74rem)');
 
-        <Text>Главная</Text>
+    return (
+        <Flex
+            maxW='1920px'
+            w='full'
+            h='full'
+            alignItems='center'
+            py={{ base: 1, lg: 4 }}
+            pl={{ base: 5, lg: 4 }}
+            pr={{ base: 5, lg: 24 }}
+            gap={{ base: 0, lg: 32 }}
+        >
+            <Stack direction='row' alignItems='flex-end'>
+                <Image src={pan} alt='pan' />
+                <Image src={yeeDaa} alt='yee daa' display={{ base: 'none', md: 'block' }} />
+            </Stack>
 
-        <Spacer />
+            {!isTablet && <Text>Главная</Text>}
 
-        <User avatar={avatar} name='Екатерина Константинопольская' email='@bake_and_pie' />
-    </Flex>
-);
+            <Spacer />
+
+            {!isTablet && (
+                <User avatar={avatar} name='Екатерина Константинопольская' email='@bake_and_pie' />
+            )}
+
+            {isTablet && (
+                <>
+                    <Stats size='xs' />
+                    <IconButton
+                        icon={<BurgerIcon />}
+                        variant='ghost'
+                        aria-label='burger-button'
+                        size='lg'
+                    />
+                </>
+            )}
+        </Flex>
+    );
+};

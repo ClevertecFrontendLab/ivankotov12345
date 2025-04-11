@@ -3,7 +3,7 @@ import { Button } from '@chakra-ui/react';
 type StatButtonProps = {
     quantity: number;
     icon: React.ReactElement;
-    size: string;
+    size: string | Record<string, string>;
 };
 
 export const StatButton: React.FC<StatButtonProps> = ({ quantity, icon, size }) => (

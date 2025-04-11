@@ -1,6 +1,7 @@
 import { extendTheme } from '@chakra-ui/react';
 
 import { AccordionTheme } from './components/accordion';
+import { absolute } from './components/box';
 import { buttonTheme } from './components/button';
 import { headingTheme } from './components/heading';
 import { linkTheme } from './components/link';
@@ -21,8 +22,25 @@ export const theme = extendTheme({
         body: `Inter, system-ui, Avenir, Helvetica, Arial, sans-serif`,
         heading: `Inter, system-ui, Avenir, Helvetica, Arial, sans-serif`,
     },
+    breakpoints: {
+        sm: '30em',
+        md: '40em',
+        lg: '74rem',
+        xl: '90rem',
+        '2xl': '112rem',
+    },
     sizes: {
         pageHeaderMaxWidth: '900px',
+        carouselItem: {
+            sm: '158px',
+            md: '277px',
+            lg: '322px',
+            xl: '346px',
+        },
+        imageHeight: {
+            md: '128px',
+            lg: '230px',
+        },
     },
     borders: {
         blackAlpha: '1px solid var(--chakra-colors-blackAlpha-200)',
@@ -41,9 +59,13 @@ export const theme = extendTheme({
             },
         },
     },
+    layerStyles: {
+        absolute,
+    },
     components: {
         Heading: headingTheme,
         Button: buttonTheme,
+        IconButton: buttonTheme,
         Accordion: AccordionTheme,
         Link: linkTheme,
     },
