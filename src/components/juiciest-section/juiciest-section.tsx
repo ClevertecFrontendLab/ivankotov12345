@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, SimpleGrid, Spacer, useMediaQuery } from '@chakra-ui/react';
+import { Box, Flex, Heading, SimpleGrid, Spacer } from '@chakra-ui/react';
 
 import { JUICIEST_CARD_DATA } from '~/constants/juiciest-card-data';
 import { PAGE_TITLES } from '~/constants/page-titles';
@@ -8,30 +8,26 @@ import { JuiciestButton } from './juiciest-button';
 
 const { title } = PAGE_TITLES.juiciest;
 
-export const JuiciestSection: React.FC = () => {
-    const [isTablet] = useMediaQuery('(max-width: 74rem)');
+export const JuiciestSection: React.FC = () => (
+    <Box as='section' mb={{ base: 8, lg: 10 }}>
+        <Flex alignItems='center' mb={{ base: 4, '2xl': 6 }}>
+            <Heading variant='section'>{title}</Heading>
 
-    return (
-        <Box as='section' mb={{ base: 8, lg: 10 }}>
-            <Flex alignItems='center' mb={{ base: 4, '2xl': 6 }}>
-                <Heading variant='section'>{title}</Heading>
+            <Spacer />
 
-                <Spacer />
+            <Box display={{ base: 'none', lg: 'block' }}>
+                <JuiciestButton testId='juiciest-link' />
+            </Box>
+        </Flex>
 
-                {!isTablet && <JuiciestButton />}
-            </Flex>
+        <SimpleGrid columns={{ md: 2, lg: 1, '2xl': 2 }} spacing={{ base: 3, lg: 4, '2xl': 6 }}>
+            {JUICIEST_CARD_DATA.map((props) => (
+                <FoodCard key={props.id} {...props} />
+            ))}
+        </SimpleGrid>
 
-            <SimpleGrid columns={{ md: 2, lg: 1, '2xl': 2 }} spacing={{ base: 3, lg: 4, '2xl': 6 }}>
-                {JUICIEST_CARD_DATA.map((props) => (
-                    <FoodCard key={props.id} {...props} />
-                ))}
-            </SimpleGrid>
-
-            {isTablet && (
-                <Flex justifyContent='center' pt={2}>
-                    <JuiciestButton />
-                </Flex>
-            )}
-        </Box>
-    );
-};
+        <Flex justifyContent='center' pt={4} display={{ base: 'flex', lg: 'none' }}>
+            <JuiciestButton testId='juiciest-link-mobile' />
+        </Flex>
+    </Box>
+);

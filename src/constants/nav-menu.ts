@@ -103,7 +103,7 @@ export const NAV_MENU_ITEMS: NavMenuItem[] = [
         ],
     },
     {
-        category: 'Веганские блюда',
+        category: 'Веганская кухня',
         path: '/vegan',
         imgSrc: leave,
         subCategories: [

@@ -16,7 +16,13 @@ export const Layout: React.FC = () => {
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
     return (
         <Box height='100vh'>
-            <Box justifyItems='center' bg='lime.50' position='fixed' w='full' zIndex={12}>
+            <Box
+                justifyItems='center'
+                bg='lime.50'
+                position={{ base: 'fixed', lg: 'inherit' }}
+                w='full'
+                zIndex={12}
+            >
                 <Header />
             </Box>
 
@@ -40,12 +46,7 @@ export const Layout: React.FC = () => {
                         <Navigation />
                     </GridItem>
 
-                    <GridItem
-                        mt={{ base: 12, lg: 20 }}
-                        px={{ base: 5, lg: 6 }}
-                        gridArea='main'
-                        overflow='hidden'
-                    >
+                    <GridItem mt={{ base: 12, lg: 20 }} px={5} gridArea='main' overflow='hidden'>
                         <Outlet />
                     </GridItem>
 

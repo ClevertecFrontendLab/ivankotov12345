@@ -7,7 +7,15 @@ import { HomeIcon } from '../icons';
 import { FooterItem } from './footer-item';
 
 export const Footer: React.FC = () => (
-    <SimpleGrid as='footer' columns={4} spacing={0} py={2.5} w='full' overflow='hidden'>
+    <SimpleGrid
+        as='footer'
+        columns={4}
+        spacing={0}
+        py={2.5}
+        w='full'
+        overflow='hidden'
+        data-test-id='footer'
+    >
         <FooterItem icon={<HomeIcon />} description='Главная' variant='highlighted' />
         <FooterItem
             icon={<SearchIcon w={6} h={6} />}
