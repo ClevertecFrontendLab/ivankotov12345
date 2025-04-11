@@ -7,6 +7,17 @@ export const AccordionTheme = defineStyleConfig({
             py: 2.5,
             pl: 2.5,
             pr: 4,
+            '&::-webkit-scrollbar': {
+                w: 2,
+            },
+            '&::-webkit-scrollbar-track': {
+                background: 'blackAlpha.50',
+                borderRadius: 'full',
+            },
+            '&::-webkit-scrollbar-thumb': {
+                background: 'blackAlpha.300',
+                borderRadius: 'full',
+            },
         },
         button: {
             maxW: 60,
