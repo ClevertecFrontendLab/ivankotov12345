@@ -8,7 +8,7 @@ import { ROUTER_PATHS } from '~/constants/router-paths';
 import { CardsWrapper } from '../cards-wrapper';
 import { FoodCard } from '../food-card';
 
-const tabs = NAV_MENU_ITEMS.find((item) => item.category === 'Веганские блюда')?.subCategories;
+const tabs = NAV_MENU_ITEMS.find((item) => item.category === 'Веганская кухня')?.subCategories;
 
 export const TabsSection: React.FC = () => (
     <Tabs as='section' mb={10}>
