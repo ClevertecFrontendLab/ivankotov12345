@@ -46,7 +46,7 @@ export const Layout: React.FC = () => {
                         <Navigation />
                     </GridItem>
 
-                    <GridItem mt={{ base: 12, lg: 20 }} px={5} gridArea='main' overflow='hidden'>
+                    <GridItem mt={{ base: 12, lg: 0 }} px={5} gridArea='main' overflow='hidden'>
                         <Outlet />
                     </GridItem>
 
