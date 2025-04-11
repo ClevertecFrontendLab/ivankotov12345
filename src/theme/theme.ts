@@ -3,6 +3,7 @@ import { extendTheme } from '@chakra-ui/react';
 import { AccordionTheme } from './components/accordion';
 import { absolute } from './components/box';
 import { buttonTheme } from './components/button';
+import { cardTheme } from './components/card';
 import { headingTheme } from './components/heading';
 import { linkTheme } from './components/link';
 
@@ -68,5 +69,6 @@ export const theme = extendTheme({
         IconButton: buttonTheme,
         Accordion: AccordionTheme,
         Link: linkTheme,
+        Card: cardTheme,
     },
 });
