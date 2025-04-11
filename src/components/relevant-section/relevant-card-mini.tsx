@@ -1,36 +1,26 @@
-import { Button, Card, CardBody, Flex, Heading, Image, Spacer } from '@chakra-ui/react';
+import { Button, Card, Heading, HStack, Image } from '@chakra-ui/react';
 
 import { CardData } from '~/types/card-data';
 
 type RelevantCardMiniType = Pick<CardData, 'imgSrc' | 'title'>;
 
 export const RelevantCardMini: React.FC<RelevantCardMiniType> = ({ imgSrc, title }) => (
-    <Card w='full'>
-        <CardBody py={{ base: 3, xl: 3.5 }} pl={{ base: 5, xl: 9 }} pr={{ base: 2, xl: 6 }}>
-            <Flex alignItems='center'>
-                <Image src={imgSrc} alt={title} />
-                <Heading
-                    as='h3'
-                    fontSize={{ base: 'md', lg: 'xl' }}
-                    fontWeight='medium'
-                    noOfLines={1}
-                    ml={2}
-                >
-                    {title}
-                </Heading>
+    <Card w='full' p={0}>
+        <HStack py={{ base: 2, lg: 3 }} px={{ base: 3, lg: 6 }}>
+            <Image src={imgSrc} />
+            <Heading
+                as='h3'
+                fontSize={{ base: 'md', md: 'xl' }}
+                noOfLines={1}
+                fontWeight='medium'
+                w='full'
+            >
+                {title}
+            </Heading>
 
-                <Spacer />
-
-                <Button
-                    fontSize={{ base: 'xs', lg: 'sm' }}
-                    size='sm'
-                    variant='outline'
-                    color='lime.600'
-                    borderColor='lime.600'
-                >
-                    Готовить
-                </Button>
-            </Flex>
-        </CardBody>
+            <Button variant='outline' color='lime.600' borderColor='lime.600' size='sm'>
+                Готовить
+            </Button>
+        </HStack>
     </Card>
 );
