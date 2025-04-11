@@ -1,7 +1,8 @@
-import { Flex, IconButton, Image, Spacer, Stack, Text, useMediaQuery } from '@chakra-ui/react';
+import { Flex, IconButton, Image, Spacer, Stack, useMediaQuery } from '@chakra-ui/react';
 
 import avatar from '~/assets/img/avatar.jpg';
 
+import { Breadcrumbs } from '../breadcrumbs';
 import { BurgerIcon } from '../icons/burger';
 import { Stats } from '../stats';
 import { User } from '../user';
@@ -27,7 +28,7 @@ export const Header: React.FC = () => {
                 <Image src={yeeDaa} alt='yee daa' display={{ base: 'none', md: 'block' }} />
             </Stack>
 
-            {!isTablet && <Text>Главная</Text>}
+            {!isTablet && <Breadcrumbs />}
 
             <Spacer />
 

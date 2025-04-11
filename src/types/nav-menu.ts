@@ -6,5 +6,6 @@ type SubCategory = {
 export type NavMenuItem = {
     category: string;
     imgSrc: string;
+    path: string;
     subCategories: SubCategory[];
 };

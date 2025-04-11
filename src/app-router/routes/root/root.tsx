@@ -19,7 +19,11 @@ export const rootPage: RouteObject = {
             element: <JuiciestPage />,
         },
         {
-            path: `${ROUTER_PATHS.veganPage}/*`,
+            path: ROUTER_PATHS.veganPage,
+            element: <VeganPage />,
+        },
+        {
+            path: '*',
             element: <VeganPage />,
         },
     ],
