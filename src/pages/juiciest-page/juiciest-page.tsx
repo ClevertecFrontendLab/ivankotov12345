@@ -1,4 +1,4 @@
-import { Box, Button } from '@chakra-ui/react';
+import { Box, Button, Center } from '@chakra-ui/react';
 import React from 'react';
 
 import { CardsWrapper } from '~/components/cards-wrapper';
@@ -17,13 +17,19 @@ export const JuiciestPage: React.FC = () => (
     <Box>
         <PageHeader title={juiciestPageTitle} />
 
-        <CardsWrapper>
-            {CARD_DATA.map((props) => (
-                <FoodCard key={props.id} {...props} />
-            ))}
-        </CardsWrapper>
+        <Box mb={10}>
+            <CardsWrapper>
+                {CARD_DATA.map((props) => (
+                    <FoodCard key={props.id} {...props} />
+                ))}
+            </CardsWrapper>
 
-        <Button bg='lime.400'>Загрузить ещё</Button>
+            <Center mt={4}>
+                <Button bg='lime.400' px={5}>
+                    Загрузить ещё
+                </Button>
+            </Center>
+        </Box>
 
         <RelevantSection
             title={veganPageTitle}
