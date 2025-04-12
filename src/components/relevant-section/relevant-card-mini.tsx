@@ -18,7 +18,14 @@ export const RelevantCardMini: React.FC<RelevantCardMiniType> = ({ imgSrc, title
                 {title}
             </Heading>
 
-            <Button variant='outline' color='lime.600' borderColor='lime.600' size='sm'>
+            <Button
+                variant='outline'
+                color='lime.600'
+                borderColor='lime.600'
+                size='sm'
+                p={2}
+                flexShrink={0}
+            >
                 Готовить
             </Button>
         </HStack>

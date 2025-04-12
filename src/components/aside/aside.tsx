@@ -9,7 +9,7 @@ export const Aside: React.FC = () => (
 
         <Spacer />
 
-        <VStack pb={14} pl={14}>
+        <VStack pb={14} pl={5}>
             <IconButton
                 aria-label='edit button'
                 icon={<EditIcon w={6} h={6} />}
@@ -17,7 +17,14 @@ export const Aside: React.FC = () => (
                 color='white'
                 borderRadius='full'
                 size='lg'
-                variant='highlighted'
+                _after={{
+                    content: '""',
+                    position: 'absolute',
+                    zIndex: -1,
+                    w: '208px',
+                    h: '208px',
+                    bg: 'radial-gradient(50% 50% at 50% 50%, rgba(196, 255, 97, 0.70) 0%, rgba(255, 255, 255, 0.00) 100%)',
+                }}
             />
             <Text fontSize='xs' color='blackAlpha.600'>
                 Записать рецепт

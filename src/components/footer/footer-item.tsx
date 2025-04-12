@@ -13,7 +13,7 @@ export const FooterItem: React.FC<FooterItemProps> = ({
     variant,
     textColor,
 }) => (
-    <VStack gap={1}>
+    <VStack gap={1} py={2.5}>
         <IconButton
             aria-label='edit button'
             icon={icon}

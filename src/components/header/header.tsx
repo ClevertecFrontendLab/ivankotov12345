@@ -22,7 +22,6 @@ export const Header: React.FC = () => {
             pl={{ base: 5, lg: 4 }}
             pr={{ base: 5, lg: 24 }}
             gap={{ base: 0, lg: 32 }}
-            data-test-id='header'
         >
             <Stack direction='row' alignItems='flex-end'>
                 <Image src={pan} alt='pan' />

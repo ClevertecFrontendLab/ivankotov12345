@@ -27,7 +27,7 @@ export const RelevantSection: React.FC<RelevantSectionProps> = ({
             }}
             columns={2}
             gap={5}
-            py={{ base: 3, '2xl': 5 }}
+            py={{ base: 6, '2xl': 5 }}
         >
             <Heading as='h2' variant='section' pr={3.5}>
                 {title}

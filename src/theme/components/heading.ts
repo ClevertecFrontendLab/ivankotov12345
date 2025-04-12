@@ -15,11 +15,13 @@ const sectionHeading = defineStyle({
     fontSize: '5xl',
     fontWeight: 'medium',
     lineHeight: 'none',
+    letterSpacing: '3px',
     '@media (max-width: 90rem)': {
         fontSize: '4xl',
     },
     '@media (max-width: 74rem)': {
         fontSize: '2xl',
+        letterSpacing: 0,
     },
 });
 

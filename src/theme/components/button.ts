@@ -14,7 +14,7 @@ const buttonHighlighted = defineStyle({
         zIndex: -1,
         w: '208px',
         h: '208px',
-        bg: 'radial-gradient(50% 50% at 50% 50%, rgba(196, 255, 97, 0.70) 0%, rgba(255, 255, 255, 0.00) 100%)',
+        bg: 'radial-gradient(20% 20% at 50% 50%, rgba(196, 255, 97, 0.70) 0%, rgba(255, 255, 255, 0.00) 100%)',
     },
 });
 

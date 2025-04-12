@@ -16,6 +16,7 @@ export const StatButton: React.FC<StatButtonProps> = ({ quantity, icon, size }) 
         _hover={{
             borderColor: 'white',
         }}
+        iconSpacing={1.5}
     >
         {quantity}
     </Button>

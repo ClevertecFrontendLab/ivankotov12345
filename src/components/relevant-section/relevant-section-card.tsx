@@ -15,7 +15,7 @@ export const RelevantSectionCard: React.FC<RelevantSectionCardProps> = ({
     likes,
     favorites,
 }) => (
-    <Card p={{ base: 4, '2xl': 6 }}>
+    <Card p={{ base: 2, '2xl': 6 }}>
         <CardBody p={0} gap={2}>
             <Heading as='h3' variant='card' mb={2}>
                 {title}
