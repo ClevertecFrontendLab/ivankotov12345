@@ -24,17 +24,17 @@ import { FavoriteIcon, LikeIcon } from '../icons';
 import { StatButton } from '../stat-button';
 
 export const FoodCard: React.FC<CardData> = ({
-    imgSrc,
+    image,
     title,
     description,
+    bookmarks,
     likes,
-    favorites,
     category,
     recommendedBy,
 }) => (
     <Card direction='row' overflow='hidden' borderRadius='lg'>
         <Image
-            src={imgSrc}
+            src={image}
             alt={title}
             maxW={{ base: 'carouselItem.sm', lg: 'carouselItem.xl' }}
             minH='128px'
@@ -68,22 +68,24 @@ export const FoodCard: React.FC<CardData> = ({
         >
             <CardHeader w='full' p={0}>
                 <Flex>
-                    <Box layerStyle='absolute' top={2} left={2}>
-                        <CardBadge backgroundColor='lime.50' category={category} />
-                    </Box>
+                    <VStack w='full' alignItems='start' layerStyle='absolute' top={2} left={2}>
+                        {category.map((item) => (
+                            <CardBadge backgroundColor='lime.50' key={item} category={item} />
+                        ))}
+                    </VStack>
 
                     <Spacer display={{ base: 'none', lg: 'flex' }} />
 
-                    {likes && (
+                    {bookmarks && (
                         <StatButton
-                            quantity={likes}
+                            quantity={bookmarks}
                             icon={<LikeIcon />}
                             size={{ base: 'xs', lg: 'sm' }}
                         />
                     )}
-                    {favorites && (
+                    {likes && (
                         <StatButton
-                            quantity={favorites}
+                            quantity={likes}
                             icon={<FavoriteIcon />}
                             size={{ base: 'xs', lg: 'sm' }}
                         />

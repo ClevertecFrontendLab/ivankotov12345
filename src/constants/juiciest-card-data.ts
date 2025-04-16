@@ -9,23 +9,23 @@ import { CardData } from '~/types/card-data';
 export const JUICIEST_CARD_DATA: CardData[] = [
     {
         id: 1,
-        imgSrc: knelli,
+        image: knelli,
         title: 'Кнели со спагетти',
         description:
             'Как раз после праздников, когда мясные продукты еще остались, но никто их уже не хочет, время варить солянку.',
         category: 'Вторые блюда',
-        likes: 85,
-        favorites: 152,
+        bookmarks: 85,
+        likes: 152,
     },
     {
         id: 2,
-        imgSrc: ham,
+        image: ham,
         title: 'Пряная ветчина по итальянски',
         description:
             'Как раз после праздников, когда мясные продукты еще остались, но никто их уже не хочет, время варить солянку.',
         category: 'Вторые блюда',
-        likes: 159,
-        favorites: 257,
+        bookmarks: 159,
+        likes: 257,
         recommendedBy: {
             avatar: bloger1,
             name: 'Елена Высоцкая',
@@ -33,13 +33,13 @@ export const JUICIEST_CARD_DATA: CardData[] = [
     },
     {
         id: 3,
-        imgSrc: noodles,
+        image: noodles,
         title: 'Лапша с курицей и шафраном',
         description:
             'Как раз после праздников, когда мясные продукты еще остались, но никто их уже не хочет, время варить солянку.',
         category: 'Вторые блюда',
-        likes: 258,
-        favorites: 342,
+        bookmarks: 258,
+        likes: 342,
         recommendedBy: {
             avatar: bloger2,
             name: 'Alex Cook',
@@ -47,12 +47,12 @@ export const JUICIEST_CARD_DATA: CardData[] = [
     },
     {
         id: 4,
-        imgSrc: tomYam,
+        image: tomYam,
         title: 'Том-ям с капустой кимчи',
         description:
             'Как раз после праздников, когда мясные продукты еще остались, но никто их уже не хочет, время варить солянку.',
         category: 'Национальные',
-        likes: 124,
-        favorites: 324,
+        bookmarks: 124,
+        likes: 324,
     },
 ];

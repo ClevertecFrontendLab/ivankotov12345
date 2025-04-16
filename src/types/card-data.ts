@@ -1,17 +1,15 @@
+import { RecepieType } from './recepie';
+
 export type UserData = {
     avatar?: string;
     name: string;
     email: string;
 };
 
-export type CardData = {
-    id: number;
-    imgSrc: string;
-    title: string;
-    description: string;
-    category: string;
-    likes?: number;
-    favorites?: number;
+export type CardData = Pick<
+    RecepieType,
+    'id' | 'image' | 'title' | 'description' | 'category' | 'bookmarks' | 'likes'
+> & {
     recommendedBy?: Omit<UserData, 'email'>;
 };
 

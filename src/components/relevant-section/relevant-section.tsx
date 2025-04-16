@@ -8,8 +8,8 @@ import { RelevantSectionCard } from './relevant-section-card';
 type RelevantSectionProps = {
     title: string;
     subtitle: string;
-    cardData: Omit<CardData, 'imgSrc' | 'recommendedBy'>[];
-    cardDataMini: Pick<CardData, 'id' | 'imgSrc' | 'title'>[];
+    cardData: Omit<CardData, 'image' | 'recommendedBy'>[];
+    cardDataMini: Pick<CardData, 'id' | 'image' | 'title'>[];
 };
 
 export const RelevantSection: React.FC<RelevantSectionProps> = ({

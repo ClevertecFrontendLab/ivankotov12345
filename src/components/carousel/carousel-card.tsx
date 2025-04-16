@@ -8,6 +8,7 @@ import {
     Image,
     Spacer,
     Text,
+    VStack,
 } from '@chakra-ui/react';
 import React from 'react';
 
@@ -18,21 +19,22 @@ import { FavoriteIcon, LikeIcon } from '../icons';
 import { StatButton } from '../stat-button';
 
 export const CarouselCard: React.FC<CardData> = ({
-    imgSrc,
+    image,
     title,
     description,
     category,
+    bookmarks,
     likes,
-    favorites,
 }) => (
     <Card
         w={{ base: 'carouselItem.sm', lg: 'carouselItem.md', '2xl': 'carouselItem.lg' }}
         minH='220px'
         overflow='hidden'
         borderRadius='lg'
+        h='full'
     >
-        <CardBody p={0}>
-            <Image src={imgSrc} alt={title} h={{ base: 'imageHeight.md', lg: 'imageHeight.lg' }} />
+        <CardBody as={Flex} flexDirection='column' p={0}>
+            <Image src={image} alt={title} h={{ base: 'imageHeight.md', lg: 'imageHeight.lg' }} />
             <Box pt={{ base: 3, '2xl': 4 }} px={{ base: 3, '2xl': 6 }}>
                 <Heading as='h3' mb={2} variant='card'>
                     {title}
@@ -43,24 +45,28 @@ export const CarouselCard: React.FC<CardData> = ({
             </Box>
 
             <CardFooter
-                display='block'
+                flexDirection='column'
+                flexGrow={1}
+                justifyContent='end'
                 mt={6}
                 p={0}
                 px={{ base: 3, '2xl': 6 }}
                 pb={{ base: 3, '2xl': 5 }}
             >
-                <Flex alignItems='center'>
-                    <Box layerStyle='absolute' top={2} left={2}>
-                        <CardBadge backgroundColor='lime.150' category={category} />
-                    </Box>
+                <Flex alignItems='start'>
+                    <VStack layerStyle='absolute' top={2} left={2} alignItems='start'>
+                        {category.map((item) => (
+                            <CardBadge backgroundColor='lime.150' key={item} category={item} />
+                        ))}
+                    </VStack>
 
                     <Spacer />
 
                     <Box layerStyle='absolute' bottom={2} left={2}>
-                        {likes && <StatButton size='xs' quantity={likes} icon={<LikeIcon />} />}
-                        {favorites && (
-                            <StatButton size='xs' quantity={favorites} icon={<FavoriteIcon />} />
+                        {bookmarks && (
+                            <StatButton size='xs' quantity={bookmarks} icon={<LikeIcon />} />
                         )}
+                        {likes && <StatButton size='xs' quantity={likes} icon={<FavoriteIcon />} />}
                     </Box>
                 </Flex>
             </CardFooter>

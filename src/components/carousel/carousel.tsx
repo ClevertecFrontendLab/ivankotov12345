@@ -6,12 +6,17 @@ import { useRef } from 'react';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
-import { CAROUSEL_CARD_DATA } from '~/constants/carousel-card-data';
+import { CARD_DATA } from '~/constants/card-data';
 import { PAGE_TITLES } from '~/constants/page-titles';
 
 import { CarouselCard } from './carousel-card';
 
 const { title } = PAGE_TITLES.newest;
+
+const carouselCardsData = CARD_DATA.sort((a, b) => +new Date(b.date) - +new Date(a.date)).slice(
+    0,
+    10,
+);
 
 export const Сarousel: React.FC = () => {
     const swiperRef = useRef<SwiperRef | null>(null);
@@ -52,7 +57,7 @@ export const Сarousel: React.FC = () => {
                         1600: { slidesPerView: 4 },
                     }}
                 >
-                    {CAROUSEL_CARD_DATA.map((props) => (
+                    {carouselCardsData.map((props) => (
                         <SwiperSlide key={props.id}>
                             <CarouselCard {...props} />
                         </SwiperSlide>

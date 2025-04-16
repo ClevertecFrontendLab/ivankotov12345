@@ -7,17 +7,17 @@ import pot from '~/assets/svg/pot.svg';
 export const VEGAN_RELEVANT_CARD_DATA_MINI = [
     {
         id: 1,
-        imgSrc: pan,
+        image: pan,
         title: 'Стейк для вегетарианцев',
     },
     {
         id: 2,
-        imgSrc: pan,
+        image: pan,
         title: 'Котлеты из гречки и фасоли',
     },
     {
         id: 3,
-        imgSrc: pot,
+        image: pot,
         title: 'Сырный суп с лапшой и брокколи',
     },
 ];
@@ -25,17 +25,17 @@ export const VEGAN_RELEVANT_CARD_DATA_MINI = [
 export const DESSERTS_RELEVANT_CARD_DATA_MINI = [
     {
         id: 1,
-        imgSrc: kid,
+        image: kid,
         title: 'Домашние сырные палочки',
     },
     {
         id: 2,
-        imgSrc: international,
+        image: international,
         title: 'Панкейки',
     },
     {
         id: 3,
-        imgSrc: leave,
+        image: leave,
         title: 'Воздушное банановое печенье на сковороде',
     },
 ];

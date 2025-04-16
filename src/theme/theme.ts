@@ -55,6 +55,9 @@ export const theme = extendTheme({
             body: {
                 color: 'black',
             },
+            '.swiper-slide': {
+                height: 'auto',
+            },
         },
     },
     layerStyles: {
