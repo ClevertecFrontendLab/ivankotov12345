@@ -5,7 +5,11 @@ import { NavLink, useLocation } from 'react-router';
 import { NAV_MENU_ITEMS } from '~/constants/nav-menu';
 import { ROUTER_PATHS } from '~/constants/router-paths';
 
-export const Breadcrumbs: React.FC = () => {
+type BreadcrumbProps = {
+    off?: () => void;
+};
+
+export const Breadcrumbs: React.FC<BreadcrumbProps> = ({ off }) => {
     const { pathname } = useLocation();
 
     const [secondItemPath, thirdItemPath] = pathname.split('/').filter(Boolean);
@@ -21,7 +25,15 @@ export const Breadcrumbs: React.FC = () => {
             ({ path }) => path === `/${thirdItemPath}`,
         )?.category;
     return (
-        <Breadcrumb separator={<ChevronRightIcon />} display={{ base: 'none', lg: 'block' }}>
+        <Breadcrumb
+            separator={<ChevronRightIcon />}
+            px={{ base: 5, lg: 0 }}
+            pt={{ base: 4, lg: 0 }}
+            listProps={{
+                flexWrap: 'wrap',
+            }}
+            onClick={off}
+        >
             <BreadcrumbItem color={secondItemPath ? 'blackAlpha.700' : 'inherit'}>
                 <BreadcrumbLink as={NavLink} to={ROUTER_PATHS.homePage}>
                     Главная

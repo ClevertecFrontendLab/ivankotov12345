@@ -36,7 +36,7 @@ export const Layout: React.FC = () => (
                 gridTemplateAreas={{
                     base: '"main"',
                     lg: `"nav main aside"
-                                                              "footer footer footer"`,
+                        "footer footer footer"`,
                 }}
                 position='relative'
             >
@@ -73,7 +73,6 @@ export const Layout: React.FC = () => (
                     justifyItems='center'
                     bg='lime.50'
                     w='full'
-                    zIndex={12}
                     data-test-id='footer'
                     display={{ base: 'block', lg: 'none' }}
                 >

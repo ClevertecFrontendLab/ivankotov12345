@@ -1,17 +1,27 @@
-import { Flex, IconButton, Image, Spacer, Stack, useMediaQuery } from '@chakra-ui/react';
+import { Flex, Image, Spacer, Stack, useBoolean, useMediaQuery } from '@chakra-ui/react';
+import { useEffect } from 'react';
 
 import avatar from '~/assets/img/avatar.jpg';
 
 import { Breadcrumbs } from '../breadcrumbs';
-import { BurgerIcon } from '../icons/burger';
+import { BurgerMenu } from '../burger-menu';
 import { Stats } from '../stats';
 import { User } from '../user';
 import pan from './assets/svg/pan.svg';
 import yeeDaa from './assets/svg/yee-daa.svg';
 
 export const Header: React.FC = () => {
+    const [isOpen, setIsOpen] = useBoolean();
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
 
+    useEffect(() => {
+        isOpen
+            ? (document.body.style.overflow = 'hidden')
+            : (document.body.style.overflow = 'auto');
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, [isOpen]);
     return (
         <Flex
             maxW='1920px'
@@ -22,6 +32,7 @@ export const Header: React.FC = () => {
             pl={{ base: 5, lg: 4 }}
             pr={{ base: 5, lg: 24 }}
             gap={{ base: 0, lg: 32 }}
+            bg={isOpen ? 'white' : 'lime.50'}
         >
             <Stack direction='row' alignItems='flex-end'>
                 <Image src={pan} alt='pan' />
@@ -38,13 +49,8 @@ export const Header: React.FC = () => {
 
             {isTablet && (
                 <>
-                    <Stats size='xs' />
-                    <IconButton
-                        icon={<BurgerIcon />}
-                        variant='ghost'
-                        aria-label='burger-button'
-                        size='lg'
-                    />
+                    <Stats size='xs' isOpen={isOpen} />
+                    <BurgerMenu isOpen={isOpen} toggle={setIsOpen.toggle} off={setIsOpen.off} />
                 </>
             )}
         </Flex>

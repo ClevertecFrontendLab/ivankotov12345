@@ -7,8 +7,10 @@ export const AccordionTheme = defineStyleConfig({
             py: 2.5,
             pl: 2.5,
             pr: 4,
-            boxShadow:
-                ' 0px 4px 6px -1px rgba(0, 0, 0, 0.10), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)',
+            boxShadow: {
+                base: 'none',
+                lg: ' 0px 4px 6px -1px rgba(0, 0, 0, 0.10), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)',
+            },
             '&::-webkit-scrollbar': {
                 w: 2,
             },
@@ -22,7 +24,7 @@ export const AccordionTheme = defineStyleConfig({
             },
         },
         button: {
-            maxW: 60,
+            maxW: 80,
             gap: 3,
             py: 3,
             px: 2,

@@ -32,6 +32,7 @@ export const theme = extendTheme({
     },
     sizes: {
         pageHeaderMaxWidth: '900px',
+        burgerMenuMaxWidth: '344px',
         carouselItem: {
             sm: '158px',
             md: '277px',
