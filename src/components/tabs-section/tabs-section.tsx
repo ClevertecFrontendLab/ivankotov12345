@@ -12,7 +12,7 @@ export const TabsSection: React.FC = () => {
 
     const [currentCategory, currentSubcategory] = pathname.split('/').filter(Boolean);
 
-    const tabs = NAV_MENU_ITEMS.find((item) => item.path === `/${currentCategory}`)?.subCategories;
+    const tabs = NAV_MENU_ITEMS.find((item) => item.path === `/${currentCategory}`)?.subcategories;
     const activeIndex = tabs?.findIndex((tab) => tab.path === `/${currentSubcategory}`);
 
     const currentCategoryRecepiesList = CARD_DATA.filter(({ category }) =>

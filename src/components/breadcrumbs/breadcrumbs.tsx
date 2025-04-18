@@ -21,7 +21,7 @@ export const Breadcrumbs: React.FC<BreadcrumbProps> = ({ off }) => {
 
     const thirdItemName =
         thirdItemPath &&
-        NAV_MENU_ITEMS.find(({ path }) => path === `/${secondItemPath}`)?.subCategories.find(
+        NAV_MENU_ITEMS.find(({ path }) => path === `/${secondItemPath}`)?.subcategories.find(
             ({ path }) => path === `/${thirdItemPath}`,
         )?.category;
     return (

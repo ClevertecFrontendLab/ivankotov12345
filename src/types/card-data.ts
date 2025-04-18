@@ -8,7 +8,7 @@ export type UserData = {
 
 export type CardData = Pick<
     RecepieType,
-    'id' | 'image' | 'title' | 'description' | 'category' | 'bookmarks' | 'likes'
+    'id' | 'image' | 'title' | 'description' | 'category' | 'subcategory' | 'bookmarks' | 'likes'
 > & {
     recommendedBy?: Omit<UserData, 'email'>;
 };

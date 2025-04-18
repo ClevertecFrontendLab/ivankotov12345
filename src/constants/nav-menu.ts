@@ -18,7 +18,7 @@ export const NAV_MENU_ITEMS: NavMenuItem[] = [
         category: 'Салаты',
         path: '/salads',
         image: eggplant,
-        subCategories: [
+        subcategories: [
             { category: 'Мясные салаты', path: '/meat' },
             { category: 'Рыбные салаты', path: '/fish' },
             { category: 'Овощные салаты', path: '/vegetables' },
@@ -29,7 +29,7 @@ export const NAV_MENU_ITEMS: NavMenuItem[] = [
         category: 'Закуски',
         path: '/snacks',
         image: fruit,
-        subCategories: [
+        subcategories: [
             { category: 'Мясные закуски', path: '/meat' },
             { category: 'Рыбные закуски', path: '/fish' },
             { category: 'Овощные закуски', path: '/vegetables-snacks' },
@@ -42,7 +42,7 @@ export const NAV_MENU_ITEMS: NavMenuItem[] = [
         category: 'Первые блюда',
         path: '/first-dish',
         image: pot,
-        subCategories: [
+        subcategories: [
             { category: 'Мясные супы', path: '/meat' },
             { category: 'Овощные супы', path: '/vegetable' },
             { category: 'Бульоны', path: '/broths' },
@@ -54,7 +54,7 @@ export const NAV_MENU_ITEMS: NavMenuItem[] = [
         category: 'Вторые блюда',
         path: '/second-dish',
         image: pan,
-        subCategories: [
+        subcategories: [
             { category: 'Мясные', path: '/meat' },
             { category: 'Рыбные', path: '/fish' },
             { category: 'Овощные', path: '/vegetables' },
@@ -73,7 +73,7 @@ export const NAV_MENU_ITEMS: NavMenuItem[] = [
         category: 'Десерты и выпечка',
         path: '/desserts',
         image: bread,
-        subCategories: [
+        subcategories: [
             { category: 'Блины и оладьи', path: '/pancakes' },
             { category: 'Пироги и пончики', path: '/pies-donuts' },
             { category: 'Торты', path: '/cakes' },
@@ -93,7 +93,7 @@ export const NAV_MENU_ITEMS: NavMenuItem[] = [
         category: 'Блюда на гриле',
         path: '/grill',
         image: grill,
-        subCategories: [
+        subcategories: [
             { category: 'Говядина', path: '/beef' },
             { category: 'Свинина', path: '/pork' },
             { category: 'Птица', path: '/poultry' },
@@ -106,7 +106,7 @@ export const NAV_MENU_ITEMS: NavMenuItem[] = [
         category: 'Веганская кухня',
         path: '/vegan',
         image: leave,
-        subCategories: [
+        subcategories: [
             { category: 'Закуски', path: '/snacks' },
             { category: 'Первые блюда', path: '/first' },
             { category: 'Вторые блюда', path: '/second-dish' },
@@ -121,7 +121,7 @@ export const NAV_MENU_ITEMS: NavMenuItem[] = [
         category: 'Детские блюда',
         path: '/kid',
         image: kid,
-        subCategories: [
+        subcategories: [
             { category: 'Первые блюда', path: '/first' },
             { category: 'Вторые блюда', path: '/second-dish' },
             { category: 'Гарниры', path: '/side-dishes' },
@@ -136,7 +136,7 @@ export const NAV_MENU_ITEMS: NavMenuItem[] = [
         category: 'Лечебное питание',
         path: '/medical',
         image: potWithCross,
-        subCategories: [
+        subcategories: [
             { category: 'Детская диета', path: '/children-diet' },
             { category: 'Диета №1', path: '/diet-1' },
             { category: 'Диета №2', path: '/diet-2' },
@@ -159,7 +159,7 @@ export const NAV_MENU_ITEMS: NavMenuItem[] = [
         category: 'Национальные',
         path: '/national',
         image: international,
-        subCategories: [
+        subcategories: [
             { category: 'Американская кухня', path: '/american' },
             { category: 'Армянская кухня', path: '/armenian' },
             { category: 'Греческая кухня', path: '/greek' },
@@ -181,7 +181,7 @@ export const NAV_MENU_ITEMS: NavMenuItem[] = [
         category: 'Соусы',
         path: '/sauces',
         image: mortairAndPestle,
-        subCategories: [
+        subcategories: [
             { category: 'Соусы мясные', path: '/meat-sauces' },
             { category: 'Соусы сырные', path: '/cheese-sauces' },
             { category: 'Маринады', path: '/marinades' },
@@ -191,7 +191,7 @@ export const NAV_MENU_ITEMS: NavMenuItem[] = [
         category: 'Напитки',
         path: '/drinks',
         image: mug,
-        subCategories: [
+        subcategories: [
             { category: 'Соки и фреши', path: '/juices' },
             { category: 'Смузи', path: '/smoothies' },
             { category: 'Компоты', path: '/compotes' },
@@ -207,7 +207,7 @@ export const NAV_MENU_ITEMS: NavMenuItem[] = [
         category: 'Заготовки',
         path: '/pickled',
         image: pickles,
-        subCategories: [
+        subcategories: [
             { category: 'Мясные заготовки', path: '/meat' },
             { category: 'Рыбные заготовки', path: '/fish' },
             { category: 'Из огурцов', path: '/cucumber' },
