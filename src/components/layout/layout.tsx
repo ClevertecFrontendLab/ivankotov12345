@@ -44,7 +44,6 @@ export const Layout: React.FC = () => (
                     sx={fixedContainer}
                     gridArea='nav'
                     pt={6}
-                    boxShadow='navBoxShadow'
                     display={{ base: 'none', lg: 'block' }}
                 >
                     <Navigation />

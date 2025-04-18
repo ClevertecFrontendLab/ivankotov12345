@@ -24,7 +24,10 @@ export const AccordionTheme = defineStyleConfig({
             },
         },
         button: {
-            maxW: 80,
+            maxW: {
+                base: 80,
+                lg: 60,
+            },
             gap: 3,
             py: 3,
             px: 2,

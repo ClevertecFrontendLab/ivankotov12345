@@ -8,7 +8,7 @@ import { CategoryItem } from './category-item';
 import { ExitIcon } from './exit-icon';
 
 type NavigationProps = {
-    off: () => void;
+    off?: () => void;
 };
 
 export const Navigation: React.FC<NavigationProps> = ({ off }) => {
@@ -24,19 +24,18 @@ export const Navigation: React.FC<NavigationProps> = ({ off }) => {
         <VStack
             position={{ base: 'absolute', lg: 'initial' }}
             maxW='burgerMenuMaxWidth'
-            width='full'
             justifyContent={{ base: 'start', lg: 'space-between' }}
             alignItems='start'
             h={{ base: 'calc(100% - 140px)', lg: 'full' }}
             gap={{ base: 6, lg: 8 }}
-            bg='white'
+            bg={{ base: 'white', lg: 'transparent' }}
             right={2}
             ref={navRef}
             borderBottomRadius={{ base: 'xl', lg: 'none' }}
         >
             {isTablet && <Breadcrumbs off={off} />}
 
-            <Accordion overflowY='auto' w='full'>
+            <Accordion overflowY='auto' w={{ base: 'full', lg: 'auto' }}>
                 {NAV_MENU_ITEMS.map((props) => (
                     <CategoryItem {...props} key={props.category} />
                 ))}
