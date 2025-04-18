@@ -10,10 +10,17 @@ import { FoodCard } from '../food-card';
 export const TabsSection: React.FC = () => {
     const { pathname } = useLocation();
 
-    const [category, subCategory] = pathname.split('/').filter(Boolean);
+    const [currentCategory, currentSubcategory] = pathname.split('/').filter(Boolean);
 
-    const tabs = NAV_MENU_ITEMS.find((item) => item.path === `/${category}`)?.subCategories;
-    const activeIndex = tabs?.findIndex((tab) => tab.path === `/${subCategory}`);
+    const tabs = NAV_MENU_ITEMS.find((item) => item.path === `/${currentCategory}`)?.subCategories;
+    const activeIndex = tabs?.findIndex((tab) => tab.path === `/${currentSubcategory}`);
+
+    const currentCategoryRecepiesList = CARD_DATA.filter(({ category }) =>
+        category.includes(currentCategory),
+    )
+        .filter(({ subcategory }) => subcategory.includes(currentSubcategory))
+        .slice(0, 8);
+
     return (
         <Tabs as='section' mb={10} index={activeIndex}>
             <TabList
@@ -26,11 +33,11 @@ export const TabsSection: React.FC = () => {
                 borderColor='blackAlpha.200'
             >
                 {tabs &&
-                    tabs.map(({ category: itemCategory, path }) => (
+                    tabs.map(({ category, path }) => (
                         <Tab
                             as={NavLink}
-                            to={`/${category}${path}`}
-                            key={itemCategory}
+                            to={`/${currentCategory}${path}`}
+                            key={category}
                             flexShrink={0}
                             color='lime.800'
                             _selected={{
@@ -39,7 +46,7 @@ export const TabsSection: React.FC = () => {
                             }}
                             py={{ base: 0, lg: 2 }}
                         >
-                            {itemCategory}
+                            {category}
                         </Tab>
                     ))}
             </TabList>
@@ -49,7 +56,7 @@ export const TabsSection: React.FC = () => {
                     tabs.map(({ category }) => (
                         <TabPanel key={category} pt={6} px={0}>
                             <CardsWrapper>
-                                {CARD_DATA.map((props) => (
+                                {currentCategoryRecepiesList.map((props) => (
                                     <FoodCard {...props} key={props.id} />
                                 ))}
                             </CardsWrapper>
