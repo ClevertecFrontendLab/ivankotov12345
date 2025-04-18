@@ -10,7 +10,7 @@ import { DESSERTS_RELEVANT_CARD_DATA_MINI } from '~/constants/relevant-card-data
 const { title: veganPageTitle, subtitle: veganPageSubtitle } = PAGE_TITLES.vegan;
 const { title: dessertsPageTitle, subtitle: dessertsPageSubtitle } = PAGE_TITLES.desserts;
 
-export const VeganPage: React.FC = () => (
+export const CategoryPage: React.FC = () => (
     <Box>
         <PageHeader title={veganPageTitle} subtitle={veganPageSubtitle} />
         <TabsSection />
