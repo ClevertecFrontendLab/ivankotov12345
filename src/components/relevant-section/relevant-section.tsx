@@ -8,7 +8,7 @@ import { RelevantSectionCard } from './relevant-section-card';
 type RelevantSectionProps = {
     title: string;
     subtitle: string;
-    cardData: Omit<CardData, 'image' | 'recommendedBy'>[];
+    cardData: Omit<CardData, 'image' | 'recommendedBy' | 'time' | 'subcategory'>[];
     cardDataMini: Pick<CardData, 'id' | 'image' | 'title'>[];
 };
 

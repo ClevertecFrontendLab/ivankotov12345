@@ -6,7 +6,7 @@ import { CardBadge } from '../card-badge';
 import { FavoriteIcon, LikeIcon } from '../icons';
 import { StatButton } from '../stat-button';
 
-type RelevantSectionCardProps = Omit<CardData, 'image' | 'recommendedBy'>;
+type RelevantSectionCardProps = Omit<CardData, 'image' | 'recommendedBy' | 'time' | 'subcategory'>;
 
 export const RelevantSectionCard: React.FC<RelevantSectionCardProps> = ({
     title,

@@ -32,6 +32,7 @@ export const Layout: React.FC = () => (
                     base: '1fr / 1fr',
                     lg: '1fr / 256px 1fr clamp(220px, 20%, 260px)',
                 }}
+                w='full'
                 maxW='1920px'
                 gridTemplateAreas={{
                     base: '"main"',

@@ -6,7 +6,7 @@ import { StatButton } from '../stat-button';
 
 type StatsPropsType = {
     size: string;
-    isOpen: boolean;
+    isOpen?: boolean;
 };
 
 export const Stats: React.FC<StatsPropsType> = ({ size, isOpen }) => (

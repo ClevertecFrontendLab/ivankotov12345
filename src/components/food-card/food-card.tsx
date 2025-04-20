@@ -43,7 +43,7 @@ export const FoodCard: React.FC<CardData> = ({
                 src={image}
                 alt={title}
                 maxW={{ base: 'carouselItem.sm', lg: 'carouselItem.xl' }}
-                minH='128px'
+                minH='imageHeight.md'
                 objectFit='cover'
             />
 

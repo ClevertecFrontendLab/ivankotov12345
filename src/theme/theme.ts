@@ -6,6 +6,7 @@ import { buttonTheme } from './components/button';
 import { cardTheme } from './components/card';
 import { headingTheme } from './components/heading';
 import { linkTheme } from './components/link';
+import { textTheme } from './components/text';
 
 export const theme = extendTheme({
     colors: {
@@ -33,11 +34,13 @@ export const theme = extendTheme({
     sizes: {
         pageHeaderMaxWidth: '900px',
         burgerMenuMaxWidth: '344px',
+        recepieDetailsMaxWidth: '670px',
         carouselItem: {
             sm: '158px',
             md: '277px',
             lg: '322px',
             xl: '346px',
+            '2xl': '553px',
         },
         imageHeight: {
             md: '128px',
@@ -66,6 +69,7 @@ export const theme = extendTheme({
     },
     components: {
         Heading: headingTheme,
+        Text: textTheme,
         Button: buttonTheme,
         IconButton: buttonTheme,
         Accordion: AccordionTheme,

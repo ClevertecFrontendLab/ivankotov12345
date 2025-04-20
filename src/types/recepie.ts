@@ -1,17 +1,17 @@
-type NutritionsValueType = {
+export type NutritionsValueType = {
     calories: number;
     proteins: number;
     fats: number;
     carbohydrates: number;
 };
 
-type IngredientType = {
+export type IngredientType = {
     title: string;
     count: string;
     measureUnit: string;
 };
 
-type RecepieStepType = {
+export type RecepieStepType = {
     stepNumber: number;
     description: string;
     image?: string;
