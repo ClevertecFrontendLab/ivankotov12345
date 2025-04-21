@@ -56,7 +56,7 @@ export const Navigation: React.FC<NavigationProps> = ({ off }) => {
                 <Text color='blackAlpha.700'>
                     Все права защищены, ученический файл, <br /> ©Клевер Технолоджи, 2025
                 </Text>
-                <Button leftIcon={<ExitIcon />} variant='ghost' p={0} size='2xs'>
+                <Button leftIcon={<ExitIcon />} variant='none' p={0} size='2xs'>
                     Выйти
                 </Button>
             </VStack>

@@ -13,13 +13,13 @@ export const Footer: React.FC = () => (
             icon={<SearchIcon w={6} h={6} />}
             description='Поиск'
             textColor='blackAlpha.600'
-            variant='ghost'
+            variant='none'
         />
         <FooterItem
             icon={<EditIcon w={6} h={6} />}
             description='Записать'
             textColor='blackAlpha.600'
-            variant='ghost'
+            variant='none'
         />
 
         <VStack gap={1} py={2.5}>

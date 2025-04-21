@@ -41,7 +41,7 @@ export const RecepiePageCard: React.FC<RecepiePageCardProps> = ({
         flexDirection='row'
         w='full'
         gap={6}
-        variant='ghost'
+        variant='none'
         _hover={{
             boxShadow: 'none',
         }}

@@ -12,7 +12,7 @@ export const StatButton: React.FC<StatButtonProps> = ({ quantity, icon, size }) 
         color='lime.600'
         size={size}
         px={1}
-        variant='ghost'
+        variant='none'
         _hover={{
             borderColor: 'white',
         }}

@@ -18,11 +18,27 @@ const buttonHighlighted = defineStyle({
     },
 });
 
+const menuButton = defineStyle({
+    iconSpacing: 3,
+    border: '1px solid',
+    borderColor: 'blackAlpha.200',
+    borderRadius: 'md',
+    color: 'blackAlpha.700',
+    _active: {
+        background: 'white',
+        borderColor: 'lime.300',
+    },
+    _hover: {
+        background: 'white',
+    },
+});
+
 export const buttonTheme = defineStyleConfig({
     variants: {
         black: buttonBlack,
         highlighted: buttonHighlighted,
-        ghost: {
+        menuButton: menuButton,
+        none: {
             color: 'black',
         },
     },

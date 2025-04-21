@@ -28,7 +28,7 @@ export const Сarousel: React.FC = () => {
             <Heading as='h2' variant='section' mb={6}>
                 {title}
             </Heading>
-            <Box pos='relative'>
+            <Box pos='relative' zIndex={0}>
                 <IconButton
                     size='lg'
                     icon={<ArrowBackIcon />}

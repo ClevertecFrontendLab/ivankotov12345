@@ -4,8 +4,11 @@ import { AccordionTheme } from './components/accordion';
 import { absolute } from './components/box';
 import { buttonTheme } from './components/button';
 import { cardTheme } from './components/card';
+import { checkboxTheme } from './components/checkbox';
 import { headingTheme } from './components/heading';
+import { inputTheme } from './components/input';
 import { linkTheme } from './components/link';
+import { switchTheme } from './components/switch';
 import { textTheme } from './components/text';
 
 export const theme = extendTheme({
@@ -53,9 +56,14 @@ export const theme = extendTheme({
     shadows: {
         navBoxShadow:
             '0px 1px 3px 0px rgba(0, 0, 0, 0.12), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.20);',
+        selectBoxShadow:
+            '0px 1px 3px 0px rgba(0, 0, 0, 0.10), 0px 1px 2px 0px rgba(0, 0, 0, 0.06);',
     },
     styles: {
         global: {
+            '*:focus': {
+                boxShadow: 'none !important',
+            },
             body: {
                 color: 'black',
             },
@@ -75,5 +83,8 @@ export const theme = extendTheme({
         Accordion: AccordionTheme,
         Link: linkTheme,
         Card: cardTheme,
+        Checkbox: checkboxTheme,
+        Switch: switchTheme,
+        Input: inputTheme,
     },
 });
