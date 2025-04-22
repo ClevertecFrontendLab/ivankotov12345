@@ -5,7 +5,7 @@ import { CardData } from '~/types/card-data';
 
 type PathType = Pick<CardData, 'id' | 'category' | 'subcategory'>;
 
-export const useRecepiePath = ({ id, category, subcategory }: PathType) => {
+export const useRecipePath = ({ id, category, subcategory }: PathType) => {
     const { pathname } = useLocation();
 
     const [currCategory, currSubcategory] = pathname.split('/').filter(Boolean);

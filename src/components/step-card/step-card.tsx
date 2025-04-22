@@ -1,8 +1,8 @@
 import { Card, CardBody, Image, Tag, TagLabel, Text, VStack } from '@chakra-ui/react';
 
-import { RecepieStepType } from '~/types/recepie';
+import { RecipeStepType } from '~/types/recipe';
 
-export const StepCard: React.FC<RecepieStepType & { background: string }> = ({
+export const StepCard: React.FC<RecipeStepType & { background: string }> = ({
     stepNumber,
     description,
     image,

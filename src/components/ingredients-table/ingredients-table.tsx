@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
-import { IngredientType } from '~/types/recepie';
+import { IngredientType } from '~/types/recipe';
 
 type IngredientsTableProps = {
     ingredients: IngredientType[];

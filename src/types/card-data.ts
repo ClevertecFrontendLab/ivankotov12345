@@ -1,4 +1,4 @@
-import { RecepieType } from './recepie';
+import { RecipeType } from './recipe';
 
 export type UserData = {
     avatar?: string;
@@ -7,7 +7,7 @@ export type UserData = {
 };
 
 export type CardData = Pick<
-    RecepieType,
+    RecipeType,
     | 'id'
     | 'image'
     | 'title'

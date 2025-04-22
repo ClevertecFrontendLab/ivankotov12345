@@ -17,18 +17,18 @@ import {
     VStack,
 } from '@chakra-ui/react';
 
-import { RecepieType } from '~/types/recepie';
+import { RecipeType } from '~/types/recipe';
 
 import { CardBadge } from '../card-badge';
 import { FavoriteIcon, LikeIcon, TimerIcon } from '../icons';
 import { StatButton } from '../stat-button';
 
-export type RecepiePageCardProps = Pick<
-    RecepieType,
+export type RecipePageCardProps = Pick<
+    RecipeType,
     'image' | 'title' | 'description' | 'category' | 'bookmarks' | 'likes' | 'time'
 >;
 
-export const RecepiePageCard: React.FC<RecepiePageCardProps> = ({
+export const RecipePageCard: React.FC<RecipePageCardProps> = ({
     image,
     title,
     description,

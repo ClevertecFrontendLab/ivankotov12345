@@ -4,17 +4,17 @@ import { useLocation } from 'react-router';
 import { Сarousel } from '~/components/carousel';
 import { IngredientsTable } from '~/components/ingredients-table';
 import { NutritionValueSection } from '~/components/nutrition-value-section';
-import { RecepiePageCard } from '~/components/recepie-page-card';
+import { RecipePageCard } from '~/components/recipe-page-card';
 import { StepCard } from '~/components/step-card';
 import { UserCard } from '~/components/user-card';
 import { CARD_DATA } from '~/constants/card-data';
-import { RecepieType } from '~/types/recepie';
+import { RecipeType } from '~/types/recipe';
 
-export const RecepiePage: React.FC = () => {
+export const RecipePage: React.FC = () => {
     const { pathname } = useLocation();
 
     const [, , currId] = pathname.split('/').filter(Boolean);
-    const recepie = CARD_DATA.find(({ id }) => id === currId);
+    const recipe = CARD_DATA.find(({ id }) => id === currId);
 
     const {
         image,
@@ -28,10 +28,10 @@ export const RecepiePage: React.FC = () => {
         ingredients,
         steps,
         portions,
-    } = recepie as unknown as RecepieType;
+    } = recipe as unknown as RecipeType;
     return (
         <VStack gap={10}>
-            <RecepiePageCard
+            <RecipePageCard
                 image={image}
                 title={title}
                 description={description}
@@ -41,7 +41,7 @@ export const RecepiePage: React.FC = () => {
                 time={time}
             />
 
-            <VStack gap={10} maxW='recepieDetailsMaxWidth'>
+            <VStack gap={10} maxW='recipeDetailsMaxWidth'>
                 <NutritionValueSection {...nutritionValue} />
                 <IngredientsTable ingredients={ingredients} portions={portions} />
 

@@ -37,7 +37,7 @@ export const theme = extendTheme({
     sizes: {
         pageHeaderMaxWidth: '900px',
         burgerMenuMaxWidth: '344px',
-        recepieDetailsMaxWidth: '670px',
+        recipeDetailsMaxWidth: '670px',
         carouselItem: {
             sm: '158px',
             md: '277px',
@@ -52,6 +52,7 @@ export const theme = extendTheme({
     },
     borders: {
         blackAlpha: '1px solid var(--chakra-colors-blackAlpha-200)',
+        lime: '1px solid var(--chakra-colors-lime-400)',
     },
     shadows: {
         navBoxShadow:

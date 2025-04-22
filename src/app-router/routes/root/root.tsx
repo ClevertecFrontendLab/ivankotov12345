@@ -5,7 +5,7 @@ import { ROUTER_PATHS } from '~/constants/router-paths';
 import { CategoryPage } from '~/pages/category-page';
 import { HomePage } from '~/pages/home-page';
 import { JuiciestPage } from '~/pages/juiciest-page';
-import { RecepiePage } from '~/pages/recepie-page';
+import { RecipePage } from '~/pages/recipe-page';
 
 export const rootPage: RouteObject = {
     path: ROUTER_PATHS.homePage,
@@ -27,8 +27,8 @@ export const rootPage: RouteObject = {
                     element: <CategoryPage />,
                 },
                 {
-                    path: ROUTER_PATHS.recepie,
-                    element: <RecepiePage />,
+                    path: ROUTER_PATHS.recipe,
+                    element: <RecipePage />,
                 },
             ],
         },

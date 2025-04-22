@@ -18,7 +18,7 @@ import {
 } from '@chakra-ui/react';
 import { NavLink } from 'react-router';
 
-import { useRecepiePath } from '~/hooks/use-path-to-recepie';
+import { useRecipePath } from '~/hooks/use-path-to-recipe';
 import { CardData } from '~/types/card-data';
 
 import { CardBadge } from '../card-badge';
@@ -36,7 +36,7 @@ export const FoodCard: React.FC<CardData> = ({
     subcategory,
     recommendedBy,
 }) => {
-    const recepiePath = useRecepiePath({ id, category, subcategory });
+    const recipePath = useRecipePath({ id, category, subcategory });
     return (
         <Card direction='row' overflow='hidden' borderRadius='lg'>
             <Image
@@ -128,7 +128,7 @@ export const FoodCard: React.FC<CardData> = ({
 
                         <Button
                             as={NavLink}
-                            to={recepiePath}
+                            to={recipePath}
                             size={{ base: 'xs', lg: 'sm' }}
                             variant='black'
                         >

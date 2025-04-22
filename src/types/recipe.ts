@@ -11,13 +11,13 @@ export type IngredientType = {
     measureUnit: string;
 };
 
-export type RecepieStepType = {
+export type RecipeStepType = {
     stepNumber: number;
     description: string;
     image?: string;
 };
 
-export type RecepieType = {
+export type RecipeType = {
     id: string;
     title: string;
     description: string;
@@ -31,7 +31,7 @@ export type RecepieType = {
     portions?: number;
     nutritionValue: NutritionsValueType;
     ingredients: IngredientType[];
-    steps: RecepieStepType[];
+    steps: RecipeStepType[];
     meat?: string;
     side?: string;
 };

@@ -3,9 +3,14 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { apiSlice } from '~/query/create-api';
 
 import appReducer, { appSlice } from './app-slice';
+import { allergensReducer, allergensSlice } from './slices/allergens-slice';
+import { filterRecipeReducer, filterRecipeSlice } from './slices/flter-recipe-slice';
+
 const isProduction = false;
 const rootReducer = combineReducers({
     [appSlice.name]: appReducer,
+    [allergensSlice.name]: allergensReducer,
+    [filterRecipeSlice.name]: filterRecipeReducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
 });
 

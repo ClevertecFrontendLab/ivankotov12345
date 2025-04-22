@@ -13,9 +13,9 @@ import potatoRolls from '~/assets/img/potato-rolls.png';
 import puri from '~/assets/img/puri.png';
 import tefteli from '~/assets/img/tefteli.png';
 import tomYam from '~/assets/img/tom-yam.jpg';
-import { RecepieType } from '~/types/recepie';
+import { RecipeType } from '~/types/recipe';
 
-export const CARD_DATA: RecepieType[] = [
+export const CARD_DATA: RecipeType[] = [
     {
         id: '0',
         title: 'Картошка, тушенная с болгарским перцем и фасолью в томатном соусе',

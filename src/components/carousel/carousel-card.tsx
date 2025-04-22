@@ -13,7 +13,7 @@ import {
 import React from 'react';
 import { NavLink } from 'react-router';
 
-import { useRecepiePath } from '~/hooks/use-path-to-recepie';
+import { useRecipePath } from '~/hooks/use-path-to-recipe';
 import { CardData } from '~/types/card-data';
 
 import { CardBadge } from '../card-badge';
@@ -30,11 +30,11 @@ export const CarouselCard: React.FC<CardData> = ({
     bookmarks,
     likes,
 }) => {
-    const recepiePath = useRecepiePath({ id, category, subcategory });
+    const recipePath = useRecipePath({ id, category, subcategory });
     return (
         <Card
             as={NavLink}
-            to={recepiePath}
+            to={recipePath}
             w={{ base: 'carouselItem.sm', lg: 'carouselItem.md', '2xl': 'carouselItem.lg' }}
             minH='220px'
             overflow='hidden'

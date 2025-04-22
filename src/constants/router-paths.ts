@@ -4,5 +4,5 @@ export const ROUTER_PATHS = {
     veganPage: '/vegan',
     category: ':category',
     subcategory: ':category/:subcategory',
-    recepie: ':id',
+    recipe: ':id',
 };
