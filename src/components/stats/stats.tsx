@@ -4,12 +4,12 @@ import React from 'react';
 import { FavoriteIcon, LikeIcon, PeopleIcon } from '../icons';
 import { StatButton } from '../stat-button';
 
-type StatsPropsType = {
+type StatsProps = {
     size: string;
     isOpen?: boolean;
 };
 
-export const Stats: React.FC<StatsPropsType> = ({ size, isOpen }) => (
+export const Stats: React.FC<StatsProps> = ({ size, isOpen }) => (
     <Stack
         px={{ base: 4, lg: 16 }}
         py={4}

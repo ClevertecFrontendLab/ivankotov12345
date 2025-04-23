@@ -17,12 +17,12 @@ export const Breadcrumbs: React.FC<BreadcrumbProps> = ({ off }) => {
     const secondItemName =
         secondItemPath && secondItemPath === 'juiciest'
             ? 'Самое сочное'
-            : NAV_MENU_ITEMS.find(({ path }) => path === `/${secondItemPath}`)?.category;
+            : NAV_MENU_ITEMS.find(({ path }) => path === secondItemPath)?.category;
 
     const thirdItemName =
         thirdItemPath &&
-        NAV_MENU_ITEMS.find(({ path }) => path === `/${secondItemPath}`)?.subcategories.find(
-            ({ path }) => path === `/${thirdItemPath}`,
+        NAV_MENU_ITEMS.find(({ path }) => path === secondItemPath)?.subcategories.find(
+            ({ path }) => path === thirdItemPath,
         )?.category;
     return (
         <Breadcrumb

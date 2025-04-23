@@ -19,11 +19,15 @@ const buttonHighlighted = defineStyle({
 });
 
 const menuButton = defineStyle({
+    w: 'full',
+    textAlign: 'start',
     iconSpacing: 3,
     border: '1px solid',
     borderColor: 'blackAlpha.200',
     borderRadius: 'md',
     color: 'blackAlpha.700',
+    px: 4,
+    py: 2.5,
     _active: {
         background: 'white',
         borderColor: 'lime.300',

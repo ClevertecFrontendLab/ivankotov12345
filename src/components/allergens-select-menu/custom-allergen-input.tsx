@@ -2,14 +2,14 @@ import { HStack, IconButton, Input } from '@chakra-ui/react';
 import { useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import { addAllergen, selectAllergens } from '~/store/slices/allergens-slice';
+import { addAllergen, selectAllergensFilter } from '~/store/slices/filters-slice';
 
 import { PlusIcon } from '../icons';
 
 export const CustomAllergenInput: React.FC = () => {
     const [customAllergen, setCustomAllergen] = useState('');
 
-    const { selectedAllergensList } = useAppSelector(selectAllergens);
+    const selectedAllergens = useAppSelector(selectAllergensFilter);
     const dispatch = useAppDispatch();
 
     const onCustomAllergenInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,7 +18,7 @@ export const CustomAllergenInput: React.FC = () => {
 
     const handleAddCustomAllergen = () => {
         const currAlergen = customAllergen.trim().toLowerCase();
-        if (currAlergen && !selectedAllergensList.includes(currAlergen)) {
+        if (currAlergen && !selectedAllergens.includes(currAlergen)) {
             dispatch(addAllergen(customAllergen));
             setCustomAllergen('');
         }

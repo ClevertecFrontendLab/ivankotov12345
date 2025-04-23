@@ -11,17 +11,6 @@ export const AccordionTheme = defineStyleConfig({
                 base: 'none',
                 lg: ' 0px 4px 6px -1px rgba(0, 0, 0, 0.10), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)',
             },
-            '&::-webkit-scrollbar': {
-                w: 2,
-            },
-            '&::-webkit-scrollbar-track': {
-                background: 'blackAlpha.50',
-                borderRadius: 'full',
-            },
-            '&::-webkit-scrollbar-thumb': {
-                background: 'blackAlpha.300',
-                borderRadius: 'full',
-            },
         },
         button: {
             maxW: {

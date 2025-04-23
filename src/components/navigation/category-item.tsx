@@ -18,7 +18,7 @@ import { ArrowIcon } from '../icons';
 export const CategoryItem: React.FC<NavMenuItem> = ({ path, category, image, subcategories }) => (
     <AccordionItem border='none'>
         <NavLink
-            to={`${path}${subcategories[0].path}`}
+            to={`/${path}/${subcategories[0].path}`}
             data-test-id={path === ROUTER_PATHS.veganPage && 'vegan-cuisine'}
         >
             <AccordionButton>
@@ -36,7 +36,7 @@ export const CategoryItem: React.FC<NavMenuItem> = ({ path, category, image, sub
                     <Link
                         key={subcategory.category}
                         as={NavLink}
-                        to={`${path}${subcategory.path}`}
+                        to={`/${path}/${subcategory.path}`}
                         variant='navigationLink'
                     >
                         {subcategory.category}

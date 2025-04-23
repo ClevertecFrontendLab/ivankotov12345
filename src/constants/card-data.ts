@@ -501,5 +501,6 @@ export const CARD_DATA: RecipeType[] = [
                 image: step8,
             },
         ],
+        author: 'Екатерина Константинопольская',
     },
 ];

@@ -20,13 +20,7 @@ export const BurgerMenu: React.FC<BurgerMenuType> = ({ isOpen, toggle, off }) =>
             onClick={toggle}
         />
 
-        <MenuList
-            bg='var(--blackAlpha-300, rgba(0, 0, 0, 0.16))'
-            backdropFilter='blur(2px)'
-            p={0}
-            w='100vw'
-            h='100vh'
-        >
+        <MenuList bg='shadowed' backdropFilter='blur(2px)' p={0} w='100vw' h='100vh'>
             <Navigation off={off} />
         </MenuList>
     </Menu>

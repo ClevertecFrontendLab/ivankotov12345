@@ -11,11 +11,11 @@ export const useRecipePath = ({ id, category, subcategory }: PathType) => {
     const [currCategory, currSubcategory] = pathname.split('/').filter(Boolean);
 
     const firstSubcategory = NAV_MENU_ITEMS.find(
-        ({ path }) => path === `/${category[0]}`,
-    )?.subcategories.filter(({ path }) => subcategory.includes(path.slice(1)))[0].path;
+        ({ path }) => path === category[0],
+    )?.subcategories.filter(({ path }) => subcategory.includes(path))[0].path;
 
     if (currCategory && currSubcategory) {
         return `${id}`;
     }
-    return `${category[0]}${firstSubcategory}/${id}`;
+    return `/${category[0]}/${firstSubcategory}/${id}`;
 };

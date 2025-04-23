@@ -2,18 +2,18 @@ import { useEffect } from 'react';
 
 import { filterRecipesByAllergens } from '~/helpers/filter-recipe';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import { selectAllergens } from '~/store/slices/allergens-slice';
+import { selectAllergensFilter } from '~/store/slices/filters-slice';
 import { setFilteredRecipes } from '~/store/slices/flter-recipe-slice';
 import { RecipeType } from '~/types/recipe';
 
 export const useAllergenFilter = (recipes: RecipeType[]) => {
     const dispatch = useAppDispatch();
-    const { selectedAllergensList } = useAppSelector(selectAllergens);
+    const selectedAllergens = useAppSelector(selectAllergensFilter);
 
     useEffect(() => {
         if (!recipes.length) return;
-        const filteredCards = filterRecipesByAllergens(selectedAllergensList, recipes);
+        const filteredCards = filterRecipesByAllergens(selectedAllergens, recipes);
 
         dispatch(setFilteredRecipes(filteredCards));
-    }, [dispatch, selectedAllergensList, recipes]);
+    }, [dispatch, selectedAllergens, recipes]);
 };

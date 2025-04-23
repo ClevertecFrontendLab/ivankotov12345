@@ -4,7 +4,7 @@ import { NavLink, useLocation } from 'react-router';
 
 import { CARD_DATA } from '~/constants/card-data';
 import { NAV_MENU_ITEMS } from '~/constants/nav-menu';
-import { useAllergenFilter } from '~/hooks/useAllergenFilter';
+import { useAllergenFilter } from '~/hooks/use-allergen-filters';
 import { useAppSelector } from '~/store/hooks';
 import { selectFilteredRecipes } from '~/store/slices/flter-recipe-slice';
 
@@ -17,8 +17,8 @@ export const TabsSection: React.FC = () => {
 
     const [currentCategory, currentSubcategory] = pathname.split('/').filter(Boolean);
 
-    const tabs = NAV_MENU_ITEMS.find((item) => item.path === `/${currentCategory}`)?.subcategories;
-    const activeIndex = tabs?.findIndex((tab) => tab.path === `/${currentSubcategory}`);
+    const tabs = NAV_MENU_ITEMS.find((item) => item.path === currentCategory)?.subcategories;
+    const activeIndex = tabs?.findIndex((tab) => tab.path === currentSubcategory);
 
     const currentCategoryRecipesList = useMemo(
         () =>
@@ -49,7 +49,7 @@ export const TabsSection: React.FC = () => {
                     tabs.map(({ category, path }) => (
                         <Tab
                             as={NavLink}
-                            to={`/${currentCategory}${path}`}
+                            to={`/${currentCategory}/${path}`}
                             key={category}
                             flexShrink={0}
                             color='lime.800'

@@ -53,6 +53,7 @@ export const theme = extendTheme({
     borders: {
         blackAlpha: '1px solid var(--chakra-colors-blackAlpha-200)',
         lime: '1px solid var(--chakra-colors-lime-400)',
+        shadowed: 'var(--blackAlpha-300, rgba(0, 0, 0, 0.16))',
     },
     shadows: {
         navBoxShadow:
@@ -70,6 +71,17 @@ export const theme = extendTheme({
             },
             '.swiper-slide': {
                 height: 'auto',
+            },
+            '&::-webkit-scrollbar': {
+                w: 2,
+            },
+            '&::-webkit-scrollbar-track': {
+                background: 'blackAlpha.50',
+                borderRadius: 'full',
+            },
+            '&::-webkit-scrollbar-thumb': {
+                background: 'blackAlpha.300',
+                borderRadius: 'full',
             },
         },
     },

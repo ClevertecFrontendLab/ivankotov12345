@@ -11,10 +11,12 @@ import {
 import { useEffect } from 'react';
 
 import { useAppDispatch } from '~/store/hooks';
-import { clearAllergens } from '~/store/slices/allergens-slice';
+import { openDrawer } from '~/store/slices/filter-drawer-slice';
+import { clearFilters } from '~/store/slices/filters-slice';
 import { clearFilterRecipes } from '~/store/slices/flter-recipe-slice';
 
 import { AllergensSelectMenu } from '../allergens-select-menu';
+import { FilterDrawer } from '../filter-drawer';
 import { FilterIcon } from './filter-icon';
 
 export const SearchPanel: React.FC = () => {
@@ -23,7 +25,7 @@ export const SearchPanel: React.FC = () => {
 
     useEffect(
         () => () => {
-            dispatch(clearAllergens());
+            dispatch(clearFilters());
             dispatch(clearFilterRecipes());
         },
         [dispatch],
@@ -39,6 +41,7 @@ export const SearchPanel: React.FC = () => {
                     width={{ base: 8, lg: 12 }}
                     borderColor='blackAlpha.600'
                     px={0}
+                    onClick={() => dispatch(openDrawer())}
                 />
                 <InputGroup size={{ base: 'sm', lg: 'lg' }}>
                     <Input
@@ -62,6 +65,8 @@ export const SearchPanel: React.FC = () => {
                     <AllergensSelectMenu />
                 </HStack>
             )}
+
+            <FilterDrawer />
         </VStack>
     );
 };

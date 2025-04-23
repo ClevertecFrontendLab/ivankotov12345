@@ -6,12 +6,10 @@ import { ApplicationState } from '../configure-store';
 
 type FilterRecipesStateType = {
     filteredRecipes: RecipeType[];
-    isFiltered: boolean;
 };
 
 const initialState: FilterRecipesStateType = {
     filteredRecipes: [],
-    isFiltered: false,
 };
 
 export const filterRecipeSlice = createSlice({
@@ -20,11 +18,9 @@ export const filterRecipeSlice = createSlice({
     reducers: {
         setFilteredRecipes: (state, action: PayloadAction<RecipeType[]>) => {
             state.filteredRecipes = action.payload;
-            state.isFiltered = action.payload.length > 0;
         },
         clearFilterRecipes: (state) => {
             state.filteredRecipes = [];
-            state.isFiltered = false;
         },
     },
 });

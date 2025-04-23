@@ -10,3 +10,25 @@ export const filterRecipesByAllergens = (allergens: string[], recipes: RecipeTyp
         (recipe) => !recipe.ingredients.some((ingredient) => regExp.test(ingredient.title)),
     );
 };
+
+export const filterRecipesByCategories = (categories: string[], recipes: RecipeType[]) => {
+    if (!categories.length) return recipes;
+    return recipes.filter(({ category }) =>
+        category.some((category) => categories.includes(category)),
+    );
+};
+
+export const filterRecipesByMeatType = (meatType: string[], recipes: RecipeType[]) => {
+    if (!meatType.length) return recipes;
+    return recipes.filter(({ meat }) => meat && meatType.includes(meat));
+};
+
+export const filterRecipesBySidesType = (sideType: string[], recipes: RecipeType[]) => {
+    if (!sideType.length) return recipes;
+    return recipes.filter(({ side }) => side && sideType.includes(side));
+};
+
+export const filterRecipesByAuthorType = (authors: string[], recipes: RecipeType[]) => {
+    if (!authors.length) return recipes;
+    return recipes.filter(({ author }) => author && authors.includes(author));
+};
