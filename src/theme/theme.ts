@@ -22,6 +22,7 @@ export const theme = extendTheme({
             600: '#2DB100',
             800: '#134B00',
         },
+        shadowed: 'var(--blackAlpha-300, rgba(0, 0, 0, 0.16))',
     },
     fonts: {
         body: `Inter, system-ui, Avenir, Helvetica, Arial, sans-serif`,
@@ -53,7 +54,6 @@ export const theme = extendTheme({
     borders: {
         blackAlpha: '1px solid var(--chakra-colors-blackAlpha-200)',
         lime: '1px solid var(--chakra-colors-lime-400)',
-        shadowed: 'var(--blackAlpha-300, rgba(0, 0, 0, 0.16))',
     },
     shadows: {
         navBoxShadow:
@@ -61,6 +61,9 @@ export const theme = extendTheme({
         selectBoxShadow:
             '0px 1px 3px 0px rgba(0, 0, 0, 0.10), 0px 1px 2px 0px rgba(0, 0, 0, 0.06);',
     },
+    /*     background: {
+        shadowed: 'var(--blackAlpha-300, rgba(0, 0, 0, 0.16))',
+    }, */
     styles: {
         global: {
             '*:focus': {

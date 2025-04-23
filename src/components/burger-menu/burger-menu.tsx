@@ -18,6 +18,7 @@ export const BurgerMenu: React.FC<BurgerMenuType> = ({ isOpen, toggle, off }) =>
             variant='none'
             aria-label='burger'
             onClick={toggle}
+            size='sm'
         />
 
         <MenuList bg='shadowed' backdropFilter='blur(2px)' p={0} w='100vw' h='100vh'>

@@ -24,9 +24,10 @@ export const Navigation: React.FC<NavigationProps> = ({ off }) => {
         <VStack
             position={{ base: 'absolute', lg: 'initial' }}
             maxW='burgerMenuMaxWidth'
+            w={{ base: 'full', md: 'auto' }}
+            h={{ base: 'calc(100% - 140px)', lg: 'full' }}
             justifyContent={{ base: 'start', lg: 'space-between' }}
             alignItems='start'
-            h={{ base: 'calc(100% - 140px)', lg: 'full' }}
             gap={{ base: 6, lg: 8 }}
             bg={{ base: 'white', lg: 'transparent' }}
             right={2}
