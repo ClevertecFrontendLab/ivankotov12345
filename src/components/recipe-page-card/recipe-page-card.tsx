@@ -1,6 +1,5 @@
 import {
     Button,
-    ButtonGroup,
     Card,
     CardBody,
     CardFooter,
@@ -38,27 +37,27 @@ export const RecipePageCard: React.FC<RecipePageCardProps> = ({
     time,
 }) => (
     <Card
-        flexDirection='row'
+        flexDirection={{ base: 'column', md: 'row' }}
         w='full'
-        gap={6}
+        gap={{ base: 4, lg: 6 }}
         variant='none'
         _hover={{
             boxShadow: 'none',
         }}
     >
         <Image
-            maxW='carouselItem.2xl'
-            flexShrink={0}
+            maxW={{ base: 'full', md: 'recipeImageWidth.md', lg: 'recipeImageWidth.lg' }}
             w='full'
+            height={{ base: 'auto', lg: 'imageHeight.xl' }}
             src={image}
             alt={title}
             borderRadius='lg'
             overflow='hidden'
-            objectFit='contain'
+            objectFit='cover'
         />
 
         <VStack alignItems='start'>
-            <CardHeader w='full'>
+            <CardHeader w='full' p={0}>
                 <Flex>
                     <HStack flexWrap='wrap'>
                         {category.map((item) => (
@@ -86,14 +85,19 @@ export const RecipePageCard: React.FC<RecipePageCardProps> = ({
             </CardHeader>
 
             <CardBody p={0}>
-                <Heading fontSize='5xl' fontWeight='bold' mb={6} maxW={{ base: '100%', lg: '80%' }}>
+                <Heading
+                    fontSize={{ base: '2xl', lg: '5xl' }}
+                    fontWeight='bold'
+                    mb={6}
+                    maxW={{ base: '100%', '2xl': '80%' }}
+                >
                     {title}
                 </Heading>
 
-                <Text>{description}</Text>
+                <Text maxW={{ base: '100%', '2xl': '90%' }}>{description}</Text>
             </CardBody>
 
-            <CardFooter as={Flex} w='full' alignItems='end'>
+            <CardFooter as={Flex} flexWrap='wrap' w='full' alignItems='end' gap={3} p={0}>
                 <Tag h={5} py={0.5} px={{ base: 1, lg: 2 }} bg='blackAlpha.100'>
                     <TagLeftIcon as={TimerIcon} />
                     <TagLabel>{time}</TagLabel>
@@ -101,9 +105,9 @@ export const RecipePageCard: React.FC<RecipePageCardProps> = ({
 
                 <Spacer />
 
-                <ButtonGroup gap={3}>
+                <HStack gap={3}>
                     <Button
-                        size='sm'
+                        size={{ base: 'xs', lg: 'sm', '2xl': 'lg' }}
                         leftIcon={<FavoriteIcon />}
                         variant='outline'
                         borderColor='blackAlpha.600'
@@ -113,15 +117,21 @@ export const RecipePageCard: React.FC<RecipePageCardProps> = ({
                         Оценить рецепт
                     </Button>
                     <Button
-                        size='sm'
+                        size={{ base: 'xs', lg: 'sm', '2xl': 'lg' }}
                         leftIcon={<LikeIcon />}
                         fontWeight='semibold'
                         background='lime.400'
                     >
                         Сохранить в закладки
                     </Button>
-                </ButtonGroup>
+                </HStack>
             </CardFooter>
         </VStack>
     </Card>
 );
+
+/* as={Flex}
+flexDirection={{ base: 'column', md: 'row' }}
+w='full'
+alignItems={{ base: 'start', md: 'end' }}
+p={0} */

@@ -66,7 +66,7 @@ export const IngredientsTable: React.FC<IngredientsTableProps> = ({ ingredients,
                 </Tr>
             </Thead>
 
-            <Tbody>
+            <Tbody fontSize='sm' fontWeight='medium' color='blackAlpha.900'>
                 {currentIngredients.map(({ title, count, measureUnit }) => (
                     <Tr key={title}>
                         <Td>{title}</Td>

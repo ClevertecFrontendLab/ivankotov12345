@@ -30,7 +30,7 @@ export const RecipePage: React.FC = () => {
         portions,
     } = recipe as unknown as RecipeType;
     return (
-        <VStack gap={10}>
+        <VStack gap={10} mt={{ base: 6, lg: 14 }} mb={20}>
             <RecipePageCard
                 image={image}
                 title={title}
@@ -45,7 +45,7 @@ export const RecipePage: React.FC = () => {
                 <NutritionValueSection {...nutritionValue} />
                 <IngredientsTable ingredients={ingredients} portions={portions} />
 
-                <VStack as='section' gap={5}>
+                <VStack as='section' w='full' gap={5} alignItems='start'>
                     <Heading variant='sectionHeader'>Шаги приготовления</Heading>
                     {steps.map((step, index) => (
                         <StepCard

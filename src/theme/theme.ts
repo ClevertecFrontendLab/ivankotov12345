@@ -49,6 +49,11 @@ export const theme = extendTheme({
         imageHeight: {
             md: '128px',
             lg: '230px',
+            xl: '430px',
+        },
+        recipeImageWidth: {
+            md: '30%',
+            lg: '40%',
         },
     },
     borders: {

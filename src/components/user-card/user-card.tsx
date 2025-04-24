@@ -15,23 +15,39 @@ const userData = {
 const { avatar, name, email, followers } = userData;
 
 export const UserCard: React.FC = () => (
-    <Card bg='lime.300' w='full' flexDirection='row' alignItems='center' p={6} gap={4}>
+    <Card
+        bg='lime.300'
+        w='full'
+        flexDirection='row'
+        alignItems='center'
+        p={{ base: 3, md: 6 }}
+        gap={4}
+    >
         <Avatar src={avatar} name={name} w={24} h={24} />
         <VStack w='full' gap={4}>
-            <Box position='relative' w='full'>
-                <Text fontSize='2xl' fontWeight='bold'>
+            <Text
+                position='absolute'
+                right={{ base: 1, md: 6 }}
+                top={{ base: 1, md: 6 }}
+                fontSize='sm'
+            >
+                Автор рецепта
+            </Text>
+
+            <Box w='full'>
+                <Text
+                    fontSize={{ base: 'sm', md: '2xl' }}
+                    fontWeight={{ base: 'semibold', md: 'bold' }}
+                >
                     {name}
                 </Text>
+
                 <Text fontSize='sm' color='blackAlpha.700'>
                     {email}
                 </Text>
-
-                <Text position='absolute' right={0} top={0} fontSize='sm'>
-                    Автор рецепта
-                </Text>
             </Box>
 
-            <Flex w='full' alignItems='end'>
+            <Flex w='full' alignItems='center'>
                 <Button leftIcon={<SignUp />} variant='black' size='xs'>
                     Подписаться
                 </Button>

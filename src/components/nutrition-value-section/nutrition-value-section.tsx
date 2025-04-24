@@ -27,7 +27,7 @@ export const NutritionValueSection: React.FC<NutritionsValueType> = ({
             * Калорийность на 1 порцию
         </Text>
 
-        <SimpleGrid columns={4} gap={6}>
+        <SimpleGrid columns={{ base: 1, md: 4 }} gap={6}>
             <NutritionValueCard
                 description={nutritionValues.calories}
                 value={calories}
