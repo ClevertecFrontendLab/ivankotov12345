@@ -9,6 +9,7 @@ import { headingTheme } from './components/heading';
 import { inputTheme } from './components/input';
 import { linkTheme } from './components/link';
 import { switchTheme } from './components/switch';
+import { tabsTheme } from './components/tabs';
 import { textTheme } from './components/text';
 
 export const theme = extendTheme({
@@ -66,9 +67,6 @@ export const theme = extendTheme({
         selectBoxShadow:
             '0px 1px 3px 0px rgba(0, 0, 0, 0.10), 0px 1px 2px 0px rgba(0, 0, 0, 0.06);',
     },
-    /*     background: {
-        shadowed: 'var(--blackAlpha-300, rgba(0, 0, 0, 0.16))',
-    }, */
     styles: {
         global: {
             '*:focus': {
@@ -107,5 +105,6 @@ export const theme = extendTheme({
         Checkbox: checkboxTheme,
         Switch: switchTheme,
         Input: inputTheme,
+        Tabs: tabsTheme,
     },
 });

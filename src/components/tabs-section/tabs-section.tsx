@@ -35,30 +35,11 @@ export const TabsSection: React.FC = () => {
         : currentCategoryRecipesList.slice(0, 8);
 
     return (
-        <Tabs as='section' mb={10} index={activeIndex}>
-            <TabList
-                flexWrap='wrap'
-                justifyContent='center'
-                alignItems='center'
-                gap={1}
-                pb={0}
-                borderBottom='1px solid'
-                borderColor='blackAlpha.200'
-            >
+        <Tabs as='section' mb={10} index={activeIndex} variant='limeTabs'>
+            <TabList>
                 {tabs &&
                     tabs.map(({ category, path }) => (
-                        <Tab
-                            as={NavLink}
-                            to={`/${currentCategory}/${path}`}
-                            key={category}
-                            flexShrink={0}
-                            color='lime.800'
-                            _selected={{
-                                color: 'lime.600',
-                                borderColor: 'lime.600',
-                            }}
-                            py={{ base: 0, lg: 2 }}
-                        >
+                        <Tab as={NavLink} to={`/${currentCategory}/${path}`} key={category}>
                             {category}
                         </Tab>
                     ))}
