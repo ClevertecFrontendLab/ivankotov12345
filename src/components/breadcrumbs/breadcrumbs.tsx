@@ -61,7 +61,7 @@ export const Breadcrumbs: React.FC<BreadcrumbProps> = ({ off }) => {
 
             {thirdItemPath && (
                 <BreadcrumbItem>
-                    <BreadcrumbLink as={NavLink} to={`/${thirdItemPath}`}>
+                    <BreadcrumbLink as={NavLink} to={`/${secondItemPath}/${thirdItemPath}`}>
                         {thirdItemName}
                     </BreadcrumbLink>
                 </BreadcrumbItem>

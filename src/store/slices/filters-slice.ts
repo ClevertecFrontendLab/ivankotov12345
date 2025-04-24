@@ -35,19 +35,25 @@ export const filtersSlice = createSlice({
             );
         },
         addCategory: (state, action: PayloadAction<string>) => {
-            state.selectedCategories.push(action.payload);
+            if (!state.selectedCategories.includes(action.payload)) {
+                state.selectedCategories.push(action.payload);
+            }
         },
         removeCategory: (state, action: PayloadAction<string>) => {
             state.selectedCategories.filter((item) => item !== action.payload);
         },
         addAuthor: (state, action: PayloadAction<string>) => {
-            state.selectedAuthors.push(action.payload);
+            if (!state.selectedAuthors.includes(action.payload)) {
+                state.selectedAuthors.push(action.payload);
+            }
         },
         removeAuthor: (state, action: PayloadAction<string>) => {
             state.selectedAuthors.filter((item) => item !== action.payload);
         },
         addMeat: (state, action: PayloadAction<string>) => {
-            state.selectedMeatTypes.push(action.payload);
+            if (!state.selectedMeatTypes.includes(action.payload)) {
+                state.selectedMeatTypes.push(action.payload);
+            }
         },
         removeMeat: (state, action: PayloadAction<string>) => {
             state.selectedMeatTypes = state.selectedMeatTypes.filter(
@@ -55,7 +61,9 @@ export const filtersSlice = createSlice({
             );
         },
         addSides: (state, action: PayloadAction<string>) => {
-            state.selectedSidesTypes.push(action.payload);
+            if (!state.selectedSidesTypes.includes(action.payload)) {
+                state.selectedSidesTypes.push(action.payload);
+            }
         },
         removeSides: (state, action: PayloadAction<string>) => {
             state.selectedSidesTypes = state.selectedMeatTypes.filter(

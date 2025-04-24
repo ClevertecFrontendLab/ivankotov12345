@@ -9,11 +9,12 @@ import {
     DrawerOverlay,
     Flex,
     Heading,
+    HStack,
     IconButton,
     Spacer,
     VStack,
 } from '@chakra-ui/react';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { CARD_DATA } from '~/constants/card-data';
 import {
@@ -48,6 +49,7 @@ import { setFilteredRecipes } from '~/store/slices/flter-recipe-slice';
 import { AllergensSelectMenu } from '../allergens-select-menu';
 import { DrawerMenu } from './drawer-menu';
 import { FilterCheckboxGroup } from './filter-checkbox-group';
+import { FilterDrawerTag } from './filter-drawer-tag';
 
 const categoryItems = NAV_MENU_ITEMS.map((item) => ({
     label: item.category,
@@ -64,6 +66,8 @@ export const FilterDrawer: React.FC = () => {
         dispatch(closeDrawer());
     };
 
+    const onClearFiltersClick = () => dispatch(clearFilters());
+
     const onFindRecipeClick = () => {
         let currentCardData = [...CARD_DATA];
         currentCardData = filterRecipesByCategories(filters.selectedCategories, currentCardData);
@@ -74,6 +78,17 @@ export const FilterDrawer: React.FC = () => {
         dispatch(setFilteredRecipes(currentCardData));
         dispatch(closeDrawer());
     };
+
+    const allTagsValues = Object.values(filters).flat();
+
+    const allFilterItems = useMemo(
+        () =>
+            [...categoryItems, ...DRAWER_MEAT_ITEMS, ...DRAWER_SIDES_ITEMS, ...AUTHORS_LIST]
+                .filter(({ item }) => allTagsValues.includes(item))
+                .map(({ label }) => label)
+                .concat(filters.selectedAllergens),
+        [allTagsValues, filters],
+    );
 
     return (
         <Drawer isOpen={isOpen} onClose={onClose} placement='right' size='sm'>
@@ -127,10 +142,20 @@ export const FilterDrawer: React.FC = () => {
                     />
 
                     <AllergensSelectMenu isDrawerType={true} />
+
+                    {allFilterItems.length && (
+                        <HStack flexWrap='wrap'>
+                            {allFilterItems.map((tag) => (
+                                <FilterDrawerTag key={tag} label={tag} />
+                            ))}
+                        </HStack>
+                    )}
                 </DrawerBody>
 
                 <DrawerFooter justifyContent='center' p={8} gap={2}>
-                    <Button variant='outline'>Очистить фильтр</Button>
+                    <Button variant='outline' onClick={onClearFiltersClick}>
+                        Очистить фильтр
+                    </Button>
                     <Button variant='black' onClick={onFindRecipeClick}>
                         Найти рецепт
                     </Button>
