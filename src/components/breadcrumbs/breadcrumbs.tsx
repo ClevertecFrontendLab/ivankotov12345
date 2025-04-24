@@ -14,6 +14,9 @@ export const Breadcrumbs: React.FC<BreadcrumbProps> = ({ off }) => {
 
     const [secondItemPath, thirdItemPath] = pathname.split('/').filter(Boolean);
 
+    const firstSubcategoryPath = NAV_MENU_ITEMS.find(({ path }) => path === secondItemPath)
+        ?.subcategories[0].path;
+
     const secondItemName =
         secondItemPath && secondItemPath === 'juiciest'
             ? 'Самое сочное'
@@ -44,7 +47,7 @@ export const Breadcrumbs: React.FC<BreadcrumbProps> = ({ off }) => {
                 <BreadcrumbItem>
                     <BreadcrumbLink
                         as={NavLink}
-                        to={`/${secondItemPath}`}
+                        to={`/${secondItemPath}/${firstSubcategoryPath}`}
                         color={thirdItemPath ? 'blackAlpha.700' : 'inherit'}
                     >
                         {secondItemName}
