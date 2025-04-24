@@ -7,12 +7,14 @@ import { allergensReducer, allergensSlice } from './slices/allergens-slice';
 import { filterDrawerReducer, filterDrawerSlice } from './slices/filter-drawer-slice';
 import { filtersReducer, filtersSlice } from './slices/filters-slice';
 import { filterRecipeReducer, filterRecipeSlice } from './slices/flter-recipe-slice';
+import { selectedRecipeReducer, selectedRecipeSlice } from './slices/selected-recipe-slice';
 
 const isProduction = false;
 const rootReducer = combineReducers({
     [appSlice.name]: appReducer,
     [allergensSlice.name]: allergensReducer,
     [filtersSlice.name]: filtersReducer,
+    [selectedRecipeSlice.name]: selectedRecipeReducer,
     [filterRecipeSlice.name]: filterRecipeReducer,
     [filterDrawerSlice.name]: filterDrawerReducer,
     [apiSlice.reducerPath]: apiSlice.reducer,

@@ -129,9 +129,3 @@ export const RecipePageCard: React.FC<RecipePageCardProps> = ({
         </VStack>
     </Card>
 );
-
-/* as={Flex}
-flexDirection={{ base: 'column', md: 'row' }}
-w='full'
-alignItems={{ base: 'start', md: 'end' }}
-p={0} */

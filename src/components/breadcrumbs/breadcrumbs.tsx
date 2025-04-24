@@ -4,6 +4,8 @@ import { NavLink, useLocation } from 'react-router';
 
 import { NAV_MENU_ITEMS } from '~/constants/nav-menu';
 import { ROUTER_PATHS } from '~/constants/router-paths';
+import { useAppSelector } from '~/store/hooks';
+import { selectSelectedRecipe } from '~/store/slices/selected-recipe-slice';
 
 type BreadcrumbProps = {
     off?: () => void;
@@ -11,6 +13,7 @@ type BreadcrumbProps = {
 
 export const Breadcrumbs: React.FC<BreadcrumbProps> = ({ off }) => {
     const { pathname } = useLocation();
+    const { selectedRecipe } = useAppSelector(selectSelectedRecipe);
 
     const [secondItemPath, thirdItemPath] = pathname.split('/').filter(Boolean);
 
@@ -27,10 +30,11 @@ export const Breadcrumbs: React.FC<BreadcrumbProps> = ({ off }) => {
         NAV_MENU_ITEMS.find(({ path }) => path === secondItemPath)?.subcategories.find(
             ({ path }) => path === thirdItemPath,
         )?.category;
+
     return (
         <Breadcrumb
             separator={<ChevronRightIcon />}
-            px={{ base: 5, lg: 0 }}
+            px={{ base: 5, lg: 32 }}
             pt={{ base: 4, lg: 0 }}
             listProps={{
                 flexWrap: 'wrap',
@@ -60,6 +64,11 @@ export const Breadcrumbs: React.FC<BreadcrumbProps> = ({ off }) => {
                     <BreadcrumbLink as={NavLink} to={`/${thirdItemPath}`}>
                         {thirdItemName}
                     </BreadcrumbLink>
+                </BreadcrumbItem>
+            )}
+            {selectedRecipe && (
+                <BreadcrumbItem>
+                    <BreadcrumbLink>{selectedRecipe.title}</BreadcrumbLink>
                 </BreadcrumbItem>
             )}
         </Breadcrumb>

@@ -1,4 +1,5 @@
 import { Box, Heading, VStack } from '@chakra-ui/react';
+import { useEffect } from 'react';
 import { useLocation } from 'react-router';
 
 import { Сarousel } from '~/components/carousel';
@@ -8,13 +9,23 @@ import { RecipePageCard } from '~/components/recipe-page-card';
 import { StepCard } from '~/components/step-card';
 import { UserCard } from '~/components/user-card';
 import { CARD_DATA } from '~/constants/card-data';
+import { useAppDispatch } from '~/store/hooks';
+import { clearSelectedRecipe, setSelectedRecipe } from '~/store/slices/selected-recipe-slice';
 import { RecipeType } from '~/types/recipe';
 
 export const RecipePage: React.FC = () => {
     const { pathname } = useLocation();
 
     const [, , currId] = pathname.split('/').filter(Boolean);
-    const recipe = CARD_DATA.find(({ id }) => id === currId);
+    const recipe = CARD_DATA.find(({ id }) => id === currId) || null;
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(setSelectedRecipe(recipe));
+        return () => {
+            dispatch(clearSelectedRecipe());
+        };
+    }, [recipe, dispatch]);
 
     const {
         image,

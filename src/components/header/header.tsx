@@ -31,7 +31,6 @@ export const Header: React.FC = () => {
             py={{ base: 1, lg: 4 }}
             pl={{ base: 5, lg: 4 }}
             pr={{ base: 5, lg: 24 }}
-            gap={{ base: 0, lg: 32 }}
             bg={isOpen ? 'white' : 'lime.50'}
         >
             <Stack direction='row' alignItems='flex-end'>
