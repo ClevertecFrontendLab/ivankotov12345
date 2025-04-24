@@ -1,7 +1,6 @@
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
     Button,
-    Checkbox,
     HStack,
     Menu,
     MenuButton,
@@ -14,13 +13,9 @@ import {
 import { ALLERGENS_LIST } from '~/constants/drawer-filter-items';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectAllergens, toggleAllergenDisabled } from '~/store/slices/allergens-slice';
-import {
-    addAllergen,
-    clearFilters,
-    removeAllergen,
-    selectAllergensFilter,
-} from '~/store/slices/filters-slice';
+import { clearFilters, selectAllergensFilter } from '~/store/slices/filters-slice';
 
+import { AllergenCheckbox } from './allergen-checkbox';
 import { AllergenTag } from './allergen-tag';
 import { CustomAllergenInput } from './custom-allergen-input';
 
@@ -32,16 +27,6 @@ export const AllergensSelectMenu: React.FC<AllergensSelectMenuProps> = ({ isDraw
     const { isDisabled } = useAppSelector(selectAllergens);
     const selectedAllergens = useAppSelector(selectAllergensFilter);
     const dispatch = useAppDispatch();
-
-    const toggleAllergen = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-
-        if (selectedAllergens.includes(value)) {
-            dispatch(removeAllergen(value));
-        } else {
-            dispatch(addAllergen(value));
-        }
-    };
 
     const toggleAllergenSwitch = () => {
         dispatch(toggleAllergenDisabled());
@@ -55,11 +40,20 @@ export const AllergensSelectMenu: React.FC<AllergensSelectMenuProps> = ({ isDraw
                 <Text whiteSpace='nowrap' fontWeight='medium'>
                     Исключить мои аллергены
                 </Text>
-                <Switch isChecked={!isDisabled} onChange={toggleAllergenSwitch} />
+                <Switch
+                    name='allergen switch'
+                    isChecked={!isDisabled}
+                    onChange={toggleAllergenSwitch}
+                />
             </HStack>
 
             <Menu matchWidth closeOnSelect={false} isOpen={isDisabled ? false : undefined}>
-                <MenuButton as={Button} rightIcon={<ChevronDownIcon />} variant='menuButton'>
+                <MenuButton
+                    as={Button}
+                    rightIcon={<ChevronDownIcon />}
+                    variant='menuButton'
+                    height='auto'
+                >
                     <HStack alignItems='start' rowGap={1} columnGap={2} flexWrap='wrap'>
                         {selectedAllergens.length && !isDrawerType ? (
                             selectedAllergens.map((allergen) => (
@@ -80,9 +74,7 @@ export const AllergensSelectMenu: React.FC<AllergensSelectMenuProps> = ({ isDraw
                             px={4}
                             py={1.5}
                         >
-                            <Checkbox variant='limeCheckbox' value={item} onChange={toggleAllergen}>
-                                {label}
-                            </Checkbox>
+                            <AllergenCheckbox item={item} label={label} />
                         </MenuItem>
                     ))}
 

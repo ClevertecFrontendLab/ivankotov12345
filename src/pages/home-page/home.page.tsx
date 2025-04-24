@@ -24,7 +24,7 @@ export const HomePage: React.FC = () => {
         <Box>
             <PageHeader title={homePageTitle} />
 
-            {!filteredRecipes.length && (
+            {filteredRecipes.length === 0 ? (
                 <>
                     <Сarousel />
                     <JuiciestSection />
@@ -36,8 +36,9 @@ export const HomePage: React.FC = () => {
                         cardDataMini={VEGAN_RELEVANT_CARD_DATA_MINI}
                     />
                 </>
+            ) : (
+                <div>123</div>
             )}
-            {filteredRecipes.length && <div>123</div>}
         </Box>
     );
 };

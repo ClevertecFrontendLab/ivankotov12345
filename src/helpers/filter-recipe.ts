@@ -6,8 +6,8 @@ export const filterRecipesByAllergens = (allergens: string[], recipes: RecipeTyp
 
     const regExp = new RegExp(matchString, 'i');
 
-    return recipes.filter(
-        (recipe) => !recipe.ingredients.some((ingredient) => regExp.test(ingredient.title)),
+    return recipes.filter((recipe) =>
+        recipe.ingredients.some((ingredient) => regExp.test(ingredient.title)),
     );
 };
 

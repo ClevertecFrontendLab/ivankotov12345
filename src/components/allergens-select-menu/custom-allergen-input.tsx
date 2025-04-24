@@ -26,6 +26,7 @@ export const CustomAllergenInput: React.FC = () => {
     return (
         <HStack py={2} pl={6} pr={2}>
             <Input
+                name='custom allergen'
                 placeholder='Другой аллерген'
                 size='sm'
                 borderRadius='base'

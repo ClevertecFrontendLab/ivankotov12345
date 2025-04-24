@@ -16,6 +16,10 @@ const limeCheckbox = definePartsStyle({
         _checked: {
             background: 'lime.400',
             borderColor: 'lime.400',
+            _hover: {
+                background: 'lime.400',
+                borderColor: 'lime.400',
+            },
         },
     },
     icon: {

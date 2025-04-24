@@ -45,6 +45,7 @@ export const SearchPanel: React.FC = () => {
                 />
                 <InputGroup size={{ base: 'sm', lg: 'lg' }}>
                     <Input
+                        name='search'
                         placeholder='Название или ингредиент...'
                         borderColor='blackAlpha.600'
                         _focus={{
@@ -61,7 +62,7 @@ export const SearchPanel: React.FC = () => {
             </HStack>
 
             {!isTablet && (
-                <HStack w='full' gap={4}>
+                <HStack w='full' gap={4} maxH={12} h='full'>
                     <AllergensSelectMenu />
                 </HStack>
             )}

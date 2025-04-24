@@ -25,7 +25,9 @@ export const filtersSlice = createSlice({
         addAllergen: (state, action: PayloadAction<string>) => {
             const allergen = action.payload.trim().toLowerCase();
 
-            state.selectedAllergens.push(allergen);
+            if (!state.selectedAllergens.includes(allergen)) {
+                state.selectedAllergens.push(allergen);
+            }
         },
         removeAllergen: (state, action: PayloadAction<string>) => {
             state.selectedAllergens = state.selectedAllergens.filter(
