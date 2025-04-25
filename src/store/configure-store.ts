@@ -4,6 +4,7 @@ import { apiSlice } from '~/query/create-api';
 
 import appReducer, { appSlice } from './app-slice';
 import { allergensReducer, allergensSlice } from './slices/allergens-slice';
+import { burgerReducer, burgerSlice } from './slices/burger-slice';
 import { filterDrawerReducer, filterDrawerSlice } from './slices/filter-drawer-slice';
 import { filtersReducer, filtersSlice } from './slices/filters-slice';
 import { filterRecipeReducer, filterRecipeSlice } from './slices/flter-recipe-slice';
@@ -14,6 +15,7 @@ const isProduction = false;
 const rootReducer = combineReducers({
     [appSlice.name]: appReducer,
     [allergensSlice.name]: allergensReducer,
+    [burgerSlice.name]: burgerReducer,
     [filtersSlice.name]: filtersReducer,
     [selectedRecipeSlice.name]: selectedRecipeReducer,
     [filterRecipeSlice.name]: filterRecipeReducer,

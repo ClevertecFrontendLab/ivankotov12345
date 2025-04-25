@@ -38,8 +38,13 @@ export const TabsSection: React.FC = () => {
         <Tabs as='section' mb={10} index={activeIndex} variant='limeTabs'>
             <TabList>
                 {tabs &&
-                    tabs.map(({ category, path }) => (
-                        <Tab as={NavLink} to={`/${currentCategory}/${path}`} key={category}>
+                    tabs.map(({ category, path }, index) => (
+                        <Tab
+                            as={NavLink}
+                            to={`/${currentCategory}/${path}`}
+                            key={category}
+                            data-test-id={index === activeIndex && `${path}-active`}
+                        >
                             {category}
                         </Tab>
                     ))}

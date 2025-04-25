@@ -1,7 +1,9 @@
-import { Flex, HStack, Image, Spacer, Stack, useBoolean, useMediaQuery } from '@chakra-ui/react';
+import { Flex, HStack, Image, Spacer, Stack, useMediaQuery } from '@chakra-ui/react';
 import { useEffect } from 'react';
 
 import avatar from '~/assets/img/avatar.jpg';
+import { useAppSelector } from '~/store/hooks';
+import { selectBurger } from '~/store/slices/burger-slice';
 
 import { Breadcrumbs } from '../breadcrumbs';
 import { BurgerMenu } from '../burger-menu';
@@ -11,8 +13,8 @@ import pan from './assets/svg/pan.svg';
 import yeeDaa from './assets/svg/yee-daa.svg';
 
 export const Header: React.FC = () => {
-    const [isOpen, setIsOpen] = useBoolean();
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
+    const { isOpen } = useAppSelector(selectBurger);
 
     useEffect(() => {
         isOpen
@@ -48,7 +50,7 @@ export const Header: React.FC = () => {
 
             <HStack display={{ base: 'flex', lg: 'none' }}>
                 <Stats size='xs' isOpen={isOpen} />
-                <BurgerMenu isOpen={isOpen} toggle={setIsOpen.toggle} off={setIsOpen.off} />
+                <BurgerMenu />
             </HStack>
         </Flex>
     );

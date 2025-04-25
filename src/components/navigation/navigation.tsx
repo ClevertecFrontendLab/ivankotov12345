@@ -3,17 +3,21 @@ import { useRef } from 'react';
 import { useLocation } from 'react-router';
 
 import { NAV_MENU_ITEMS } from '~/constants/nav-menu';
+import { useAppDispatch } from '~/store/hooks';
+import { closeBurgerMenu } from '~/store/slices/burger-slice';
 
 import { Breadcrumbs } from '../breadcrumbs';
 import { CategoryItem } from './category-item';
 import { ExitIcon } from './exit-icon';
 
 type NavigationProps = {
-    off?: () => void;
+    buttonRef: React.RefObject<HTMLButtonElement | null>;
 };
 
-export const Navigation: React.FC<NavigationProps> = ({ off }) => {
+export const Navigation: React.FC<NavigationProps> = ({ buttonRef }) => {
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
+    const dispatch = useAppDispatch();
+
     const navRef = useRef<HTMLDivElement | null>(null);
 
     const { pathname } = useLocation();
@@ -24,12 +28,16 @@ export const Navigation: React.FC<NavigationProps> = ({ off }) => {
 
     useOutsideClick({
         ref: navRef as unknown as React.RefObject<HTMLElement>,
-        handler: off,
+        handler: (event) => {
+            if (!buttonRef.current?.contains(event.target as Node)) {
+                dispatch(closeBurgerMenu());
+            }
+        },
     });
 
     return (
         <VStack
-            position={{ base: 'absolute', lg: 'initial' }}
+            position={{ base: 'fixed', lg: 'initial' }}
             maxW='burgerMenuMaxWidth'
             w={{ base: 'full', lg: 'auto' }}
             h={{ base: 'calc(100% - 140px)', lg: 'full' }}
@@ -43,7 +51,7 @@ export const Navigation: React.FC<NavigationProps> = ({ off }) => {
             borderBottomRadius={{ base: 'xl', lg: 'none' }}
             data-test-id='nav'
         >
-            {isTablet && <Breadcrumbs off={off} />}
+            {isTablet && <Breadcrumbs />}
 
             <Accordion overflowY='auto' w={{ base: 'full', lg: 'auto' }} defaultIndex={activeIndex}>
                 {NAV_MENU_ITEMS.map((props) => (

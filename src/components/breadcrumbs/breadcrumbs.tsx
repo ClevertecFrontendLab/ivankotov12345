@@ -4,15 +4,13 @@ import { NavLink, useLocation } from 'react-router';
 
 import { NAV_MENU_ITEMS } from '~/constants/nav-menu';
 import { ROUTER_PATHS } from '~/constants/router-paths';
-import { useAppSelector } from '~/store/hooks';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { closeBurgerMenu } from '~/store/slices/burger-slice';
 import { selectSelectedRecipe } from '~/store/slices/selected-recipe-slice';
 
-type BreadcrumbProps = {
-    off?: () => void;
-};
-
-export const Breadcrumbs: React.FC<BreadcrumbProps> = ({ off }) => {
+export const Breadcrumbs: React.FC = () => {
     const { pathname } = useLocation();
+    const dispatch = useAppDispatch();
     const { selectedRecipe } = useAppSelector(selectSelectedRecipe);
 
     const [secondItemPath, thirdItemPath] = pathname.split('/').filter(Boolean);
@@ -39,7 +37,7 @@ export const Breadcrumbs: React.FC<BreadcrumbProps> = ({ off }) => {
             listProps={{
                 flexWrap: 'wrap',
             }}
-            onClick={off}
+            onClick={() => dispatch(closeBurgerMenu())}
             data-test-id='breadcrumbs'
         >
             <BreadcrumbItem color={secondItemPath ? 'blackAlpha.700' : 'inherit'}>
