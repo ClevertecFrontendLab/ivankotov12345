@@ -1,6 +1,6 @@
 export const ROUTER_PATHS = {
     homePage: '/',
-    juiciestPage: '/juiciest',
+    juiciestPage: '/the-juiciest',
     veganPage: '/vegan',
     category: ':category',
     subcategory: ':category/:subcategory',

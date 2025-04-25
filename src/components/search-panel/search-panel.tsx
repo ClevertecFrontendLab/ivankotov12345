@@ -20,7 +20,7 @@ import {
     selectFilteredRecipes,
     setFilteredRecipes,
 } from '~/store/slices/flter-recipe-slice';
-import { selectSearchInput, setSearchInputValue } from '~/store/slices/search-input-slice';
+import { setSearchInputValue } from '~/store/slices/search-input-slice';
 
 import { AllergensSelectMenu } from '../allergens-select-menu';
 import { FilterDrawer } from '../filter-drawer';
@@ -30,11 +30,9 @@ export const SearchPanel: React.FC = () => {
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
     const dispatch = useAppDispatch();
     const [currentSearchValue, setCurrentSearchValue] = useState('');
-
-    const { searchInputValue } = useAppSelector(selectSearchInput);
     const { filteredRecipes } = useAppSelector(selectFilteredRecipes);
 
-    const [isSearchButtonDisabled, setIsSearchButtonDisabled] = useState(true);
+    const isSearchButtonDisabled = currentSearchValue.length < 3;
 
     useEffect(
         () => () => {
@@ -44,11 +42,7 @@ export const SearchPanel: React.FC = () => {
         [dispatch],
     );
 
-    useEffect(() => {
-        searchInputValue.length < 3
-            ? setIsSearchButtonDisabled(true)
-            : setIsSearchButtonDisabled(false);
-    }, [searchInputValue, setIsSearchButtonDisabled]);
+    console.log(isSearchButtonDisabled);
 
     const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value.trim().toLowerCase();
@@ -94,6 +88,7 @@ export const SearchPanel: React.FC = () => {
 
                     <InputRightElement>
                         <IconButton
+                            pointerEvents={isSearchButtonDisabled ? 'none' : 'auto'}
                             aria-label='search'
                             variant='none'
                             icon={<SearchIcon />}

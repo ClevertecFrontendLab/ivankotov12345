@@ -21,7 +21,7 @@ export const Breadcrumbs: React.FC<BreadcrumbProps> = ({ off }) => {
         ?.subcategories[0].path;
 
     const secondItemName =
-        secondItemPath && secondItemPath === 'juiciest'
+        secondItemPath && secondItemPath === 'the-juiciest'
             ? 'Самое сочное'
             : NAV_MENU_ITEMS.find(({ path }) => path === secondItemPath)?.category;
 

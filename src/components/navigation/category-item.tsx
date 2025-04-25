@@ -20,7 +20,10 @@ export const CategoryItem: React.FC<NavMenuItem> = ({ path, category, image, sub
 
     return (
         <AccordionItem border='none'>
-            <NavLink to={`/${path}/${subcategories[0].path}`} data-test-id={category}>
+            <NavLink
+                to={`/${path}/${subcategories[0].path}`}
+                data-test-id={path === 'vegan' ? 'vegan-cuisine' : category}
+            >
                 <AccordionButton>
                     <Image src={image} />
                     <Text flex='1' textAlign='start'>

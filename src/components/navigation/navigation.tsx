@@ -21,7 +21,6 @@ export const Navigation: React.FC<NavigationProps> = ({ off }) => {
     const [firstItemPath] = pathname.split('/').filter(Boolean);
 
     const activeIndex = NAV_MENU_ITEMS.findIndex(({ path }) => path === firstItemPath);
-    console.log(activeIndex);
 
     useOutsideClick({
         ref: navRef as unknown as React.RefObject<HTMLElement>,
@@ -38,6 +37,7 @@ export const Navigation: React.FC<NavigationProps> = ({ off }) => {
             alignItems='start'
             gap={{ base: 6, lg: 8 }}
             bg={{ base: 'white', lg: 'transparent' }}
+            top={16}
             right={2}
             ref={navRef}
             borderBottomRadius={{ base: 'xl', lg: 'none' }}

@@ -1,4 +1,4 @@
-import { Flex, Image, Spacer, Stack, useBoolean, useMediaQuery } from '@chakra-ui/react';
+import { Flex, HStack, Image, Spacer, Stack, useBoolean, useMediaQuery } from '@chakra-ui/react';
 import { useEffect } from 'react';
 
 import avatar from '~/assets/img/avatar.jpg';
@@ -46,12 +46,10 @@ export const Header: React.FC = () => {
                 <User avatar={avatar} name='Екатерина Константинопольская' email='@bake_and_pie' />
             )}
 
-            {isTablet && (
-                <>
-                    <Stats size='xs' isOpen={isOpen} />
-                    <BurgerMenu isOpen={isOpen} toggle={setIsOpen.toggle} off={setIsOpen.off} />
-                </>
-            )}
+            <HStack display={{ base: 'flex', lg: 'none' }}>
+                <Stats size='xs' isOpen={isOpen} />
+                <BurgerMenu isOpen={isOpen} toggle={setIsOpen.toggle} off={setIsOpen.off} />
+            </HStack>
         </Flex>
     );
 };

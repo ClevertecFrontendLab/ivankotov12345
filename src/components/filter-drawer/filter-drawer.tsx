@@ -90,16 +90,10 @@ export const FilterDrawer: React.FC = () => {
     );
 
     return (
-        <Drawer
-            isOpen={isOpen}
-            onClose={onClose}
-            placement='right'
-            size='sm'
-            data-test-id='filter-drawer'
-        >
+        <Drawer isOpen={isOpen} onClose={onClose} placement='right' size='sm'>
             <DrawerOverlay bg='shadowed' backdropFilter='blur(2px)' />
 
-            <DrawerContent>
+            <DrawerContent data-test-id='filter-drawer'>
                 <DrawerHeader as={Flex} px={8} pt={8} pb={10}>
                     <Heading fontSize='2xl' fontWeight='bold'>
                         Фильтр
