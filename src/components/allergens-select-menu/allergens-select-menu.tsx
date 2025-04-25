@@ -44,6 +44,7 @@ export const AllergensSelectMenu: React.FC<AllergensSelectMenuProps> = ({ isDraw
                     name='allergen switch'
                     isChecked={!isDisabled}
                     onChange={toggleAllergenSwitch}
+                    data-test-id={isDrawerType ? 'allergens-switcher-filter' : 'allergens-switcher'}
                 />
             </HStack>
 
@@ -53,6 +54,9 @@ export const AllergensSelectMenu: React.FC<AllergensSelectMenuProps> = ({ isDraw
                     rightIcon={<ChevronDownIcon />}
                     variant='menuButton'
                     height='auto'
+                    data-test-id={
+                        isDrawerType ? 'allergens-menu-button-filter' : 'allergens-menu-button'
+                    }
                 >
                     <HStack alignItems='start' rowGap={1} columnGap={2} flexWrap='wrap'>
                         {selectedAllergens.length && !isDrawerType ? (
@@ -65,7 +69,7 @@ export const AllergensSelectMenu: React.FC<AllergensSelectMenuProps> = ({ isDraw
                     </HStack>
                 </MenuButton>
 
-                <MenuList boxShadow='selectBoxShadow' border='none'>
+                <MenuList boxShadow='selectBoxShadow' border='none' data-test-id='allergens-menu'>
                     {ALLERGENS_LIST.map(({ item, label }, index) => (
                         <MenuItem
                             key={item}
@@ -74,7 +78,7 @@ export const AllergensSelectMenu: React.FC<AllergensSelectMenuProps> = ({ isDraw
                             px={4}
                             py={1.5}
                         >
-                            <AllergenCheckbox item={item} label={label} />
+                            <AllergenCheckbox item={item} label={label} index={index} />
                         </MenuItem>
                     ))}
 

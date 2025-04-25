@@ -75,6 +75,7 @@ export const SearchPanel: React.FC = () => {
                     borderColor='blackAlpha.600'
                     px={0}
                     onClick={() => dispatch(openDrawer())}
+                    data-test-id='filter-button'
                 />
                 <InputGroup size={{ base: 'sm', lg: 'lg' }}>
                     <Input
@@ -88,6 +89,7 @@ export const SearchPanel: React.FC = () => {
                             borderColor: 'blackAlpha.600',
                         }}
                         onChange={onSearchChange}
+                        data-test-id='search-input'
                     />
 
                     <InputRightElement>
@@ -97,6 +99,7 @@ export const SearchPanel: React.FC = () => {
                             icon={<SearchIcon />}
                             disabled={isSearchButtonDisabled}
                             onClick={onSearchClick}
+                            data-test-id='search-button'
                         />
                     </InputRightElement>
                 </InputGroup>

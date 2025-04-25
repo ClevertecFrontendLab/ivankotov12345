@@ -50,8 +50,8 @@ export const TabsSection: React.FC = () => {
                     tabs.map(({ category }) => (
                         <TabPanel key={category} pt={6} px={0}>
                             <CardsWrapper>
-                                {tabCardData.map((props) => (
-                                    <FoodCard {...props} key={props.id} />
+                                {tabCardData.map((props, index) => (
+                                    <FoodCard {...props} key={props.id} index={index} />
                                 ))}
                             </CardsWrapper>
                         </TabPanel>

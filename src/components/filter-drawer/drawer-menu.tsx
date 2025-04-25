@@ -10,9 +10,16 @@ type DrawerProps = {
     items: FilterItem[];
     addItem: ActionCreatorWithPayload<string, string>;
     removeItem: ActionCreatorWithPayload<string, string>;
+    testId?: string;
 };
 
-export const DrawerMenu: React.FC<DrawerProps> = ({ placeholder, items, addItem, removeItem }) => {
+export const DrawerMenu: React.FC<DrawerProps> = ({
+    placeholder,
+    items,
+    addItem,
+    removeItem,
+    testId,
+}) => {
     const dispatch = useAppDispatch();
 
     const toggleItem = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +34,13 @@ export const DrawerMenu: React.FC<DrawerProps> = ({ placeholder, items, addItem,
     };
     return (
         <Menu matchWidth closeOnSelect={false}>
-            <MenuButton as={Button} rightIcon={<ChevronDownIcon />} variant='menuButton' w='full'>
+            <MenuButton
+                as={Button}
+                rightIcon={<ChevronDownIcon />}
+                variant='menuButton'
+                w='full'
+                data-test-id={testId}
+            >
                 {placeholder}
             </MenuButton>
             <MenuList>
@@ -39,7 +52,12 @@ export const DrawerMenu: React.FC<DrawerProps> = ({ placeholder, items, addItem,
                         px={4}
                         py={1.5}
                     >
-                        <Checkbox variant='limeCheckbox' value={item} onChange={toggleItem}>
+                        <Checkbox
+                            variant='limeCheckbox'
+                            value={item}
+                            onChange={toggleItem}
+                            data-test-id={`checkbox-${label.toLowerCase()}`}
+                        >
                             {label}
                         </Checkbox>
                     </MenuItem>

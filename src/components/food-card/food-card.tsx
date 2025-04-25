@@ -38,11 +38,17 @@ export const FoodCard: React.FC<CardData> = ({
     category,
     subcategory,
     recommendedBy,
+    index,
 }) => {
     const { searchInputValue } = useAppSelector(selectSearchInput);
     const recipePath = useRecipePath({ id, category, subcategory });
     return (
-        <Card direction='row' overflow='hidden' borderRadius='lg'>
+        <Card
+            direction='row'
+            overflow='hidden'
+            borderRadius='lg'
+            data-test-id={`food-card-${index}`}
+        >
             <Image
                 src={image}
                 alt={title}
@@ -137,6 +143,7 @@ export const FoodCard: React.FC<CardData> = ({
                             to={recipePath}
                             size={{ base: 'xs', lg: 'sm' }}
                             variant='black'
+                            data-test-id={`card-link-${index}`}
                         >
                             Готовить
                         </Button>

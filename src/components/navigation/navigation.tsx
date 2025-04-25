@@ -1,5 +1,6 @@
 import { Accordion, Button, Text, useMediaQuery, useOutsideClick, VStack } from '@chakra-ui/react';
 import { useRef } from 'react';
+import { useLocation } from 'react-router';
 
 import { NAV_MENU_ITEMS } from '~/constants/nav-menu';
 
@@ -14,6 +15,13 @@ type NavigationProps = {
 export const Navigation: React.FC<NavigationProps> = ({ off }) => {
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
     const navRef = useRef<HTMLDivElement | null>(null);
+
+    const { pathname } = useLocation();
+
+    const [firstItemPath] = pathname.split('/').filter(Boolean);
+
+    const activeIndex = NAV_MENU_ITEMS.findIndex(({ path }) => path === firstItemPath);
+    console.log(activeIndex);
 
     useOutsideClick({
         ref: navRef as unknown as React.RefObject<HTMLElement>,
@@ -33,10 +41,11 @@ export const Navigation: React.FC<NavigationProps> = ({ off }) => {
             right={2}
             ref={navRef}
             borderBottomRadius={{ base: 'xl', lg: 'none' }}
+            data-test-id='nav'
         >
             {isTablet && <Breadcrumbs off={off} />}
 
-            <Accordion overflowY='auto' w={{ base: 'full', lg: 'auto' }}>
+            <Accordion overflowY='auto' w={{ base: 'full', lg: 'auto' }} defaultIndex={activeIndex}>
                 {NAV_MENU_ITEMS.map((props) => (
                     <CategoryItem {...props} key={props.category} />
                 ))}

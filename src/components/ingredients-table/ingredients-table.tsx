@@ -57,8 +57,8 @@ export const IngredientsTable: React.FC<IngredientsTableProps> = ({ ingredients,
                             >
                                 <NumberInputField />
                                 <NumberInputStepper>
-                                    <NumberIncrementStepper />
-                                    <NumberDecrementStepper />
+                                    <NumberIncrementStepper data-test-id='increment-stepper' />
+                                    <NumberDecrementStepper data-test-id='decrement-stepper' />
                                 </NumberInputStepper>
                             </NumberInput>
                         </HStack>
@@ -67,11 +67,14 @@ export const IngredientsTable: React.FC<IngredientsTableProps> = ({ ingredients,
             </Thead>
 
             <Tbody fontSize='sm' fontWeight='medium' color='blackAlpha.900'>
-                {currentIngredients.map(({ title, count, measureUnit }) => (
+                {currentIngredients.map(({ title, count, measureUnit }, index) => (
                     <Tr key={title}>
                         <Td>{title}</Td>
                         <Td display='flex' justifyContent='end'>
-                            {+count > 0 && count} {measureUnit}
+                            <Text data-test-id={`ingredient-quantity-${index}`}>
+                                {+count > 0 && count}
+                            </Text>
+                            <Text>{measureUnit}</Text>
                         </Td>
                     </Tr>
                 ))}

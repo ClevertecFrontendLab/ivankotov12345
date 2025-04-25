@@ -40,6 +40,7 @@ export const Breadcrumbs: React.FC<BreadcrumbProps> = ({ off }) => {
                 flexWrap: 'wrap',
             }}
             onClick={off}
+            data-test-id='breadcrumbs'
         >
             <BreadcrumbItem color={secondItemPath ? 'blackAlpha.700' : 'inherit'}>
                 <BreadcrumbLink as={NavLink} to={ROUTER_PATHS.homePage}>

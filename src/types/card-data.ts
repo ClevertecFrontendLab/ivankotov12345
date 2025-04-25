@@ -18,6 +18,7 @@ export type CardData = Pick<
     | 'likes'
     | 'time'
 > & {
+    index?: number;
     recommendedBy?: Omit<UserData, 'email'>;
 };
 

@@ -40,8 +40,8 @@ export const HomePage: React.FC = () => {
                 </>
             ) : (
                 <CardsWrapper>
-                    {filteredRecipes.map((card) => (
-                        <FoodCard key={card.id} {...card} />
+                    {filteredRecipes.map((card, index) => (
+                        <FoodCard key={card.id} {...card} index={index} />
                     ))}
                 </CardsWrapper>
             )}

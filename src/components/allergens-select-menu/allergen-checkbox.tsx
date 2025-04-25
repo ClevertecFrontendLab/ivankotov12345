@@ -8,9 +8,10 @@ import { addAllergen, removeAllergen, selectAllergensFilter } from '~/store/slic
 type AllergenCheckboxPropsType = {
     item: string;
     label: string;
+    index: number;
 };
 
-export const AllergenCheckbox: React.FC<AllergenCheckboxPropsType> = ({ item, label }) => {
+export const AllergenCheckbox: React.FC<AllergenCheckboxPropsType> = ({ item, label, index }) => {
     const [isChecked, setIsChecked] = useState(false);
 
     const selectedAllergens = useAppSelector(selectAllergensFilter);
@@ -41,6 +42,7 @@ export const AllergenCheckbox: React.FC<AllergenCheckboxPropsType> = ({ item, la
             value={item}
             isChecked={isDisabled === true ? false : isChecked}
             onChange={toggleAllergen}
+            data-test-id={`allergen-${index}`}
         >
             {label}
         </Checkbox>

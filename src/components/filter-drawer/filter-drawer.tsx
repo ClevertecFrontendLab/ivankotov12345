@@ -90,7 +90,13 @@ export const FilterDrawer: React.FC = () => {
     );
 
     return (
-        <Drawer isOpen={isOpen} onClose={onClose} placement='right' size='sm'>
+        <Drawer
+            isOpen={isOpen}
+            onClose={onClose}
+            placement='right'
+            size='sm'
+            data-test-id='filter-drawer'
+        >
             <DrawerOverlay bg='shadowed' backdropFilter='blur(2px)' />
 
             <DrawerContent>
@@ -108,6 +114,7 @@ export const FilterDrawer: React.FC = () => {
                         borderRadius='full'
                         size='xs'
                         onClick={onClose}
+                        data-test-id='close-filter-drawer'
                     />
                 </DrawerHeader>
 
@@ -117,6 +124,7 @@ export const FilterDrawer: React.FC = () => {
                         items={categoryItems}
                         addItem={addCategory}
                         removeItem={removeCategory}
+                        testId='filter-menu-button-категория'
                     />
 
                     <DrawerMenu
@@ -152,10 +160,18 @@ export const FilterDrawer: React.FC = () => {
                 </DrawerBody>
 
                 <DrawerFooter justifyContent='center' p={8} gap={2}>
-                    <Button variant='outline' onClick={onClearFiltersClick}>
+                    <Button
+                        variant='outline'
+                        onClick={onClearFiltersClick}
+                        data-test-id='clear-filter-button'
+                    >
                         Очистить фильтр
                     </Button>
-                    <Button variant='black' onClick={onFindRecipeClick}>
+                    <Button
+                        variant='black'
+                        onClick={onFindRecipeClick}
+                        data-test-id='find-recipe-button'
+                    >
                         Найти рецепт
                     </Button>
                 </DrawerFooter>

@@ -32,6 +32,7 @@ export const CustomAllergenInput: React.FC = () => {
                 borderRadius='base'
                 value={customAllergen}
                 onChange={onCustomAllergenInputChange}
+                data-test-id='add-other-allergen'
             />
             <IconButton
                 size='sm'
@@ -39,6 +40,7 @@ export const CustomAllergenInput: React.FC = () => {
                 icon={<PlusIcon />}
                 aria-label='add'
                 onClick={handleAddCustomAllergen}
+                data-test-id='add-allergen-button'
             />
         </HStack>
     );

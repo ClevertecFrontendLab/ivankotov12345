@@ -40,9 +40,11 @@ export const Сarousel: React.FC = () => {
                     variant='black'
                     display={{ base: 'none', lg: 'block' }}
                     onClick={onBack}
+                    data-test-id='carousel-back'
                 />
 
                 <Swiper
+                    data-test-id='carousel'
                     slidesPerView={4}
                     spaceBetween={12}
                     modules={[Navigation]}
@@ -57,9 +59,9 @@ export const Сarousel: React.FC = () => {
                         1600: { slidesPerView: 4 },
                     }}
                 >
-                    {carouselCardsData.map((props) => (
+                    {carouselCardsData.map((props, index) => (
                         <SwiperSlide key={props.id}>
-                            <CarouselCard {...props} />
+                            <CarouselCard {...props} index={index} />
                         </SwiperSlide>
                     ))}
                 </Swiper>
@@ -76,6 +78,7 @@ export const Сarousel: React.FC = () => {
                     variant='black'
                     display={{ base: 'none', lg: 'block' }}
                     onClick={onForward}
+                    data-test-id='carousel-forward'
                 />
             </Box>
         </Box>

@@ -29,6 +29,7 @@ export const CarouselCard: React.FC<CardData> = ({
     subcategory,
     bookmarks,
     likes,
+    index,
 }) => {
     const recipePath = useRecipePath({ id, category, subcategory });
     return (
@@ -40,6 +41,7 @@ export const CarouselCard: React.FC<CardData> = ({
             overflow='hidden'
             borderRadius='lg'
             h='full'
+            data-test-id={`carousel-card-${index}`}
         >
             <CardBody as={Flex} flexDirection='column' p={0}>
                 <Image

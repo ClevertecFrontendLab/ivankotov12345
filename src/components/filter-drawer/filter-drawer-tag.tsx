@@ -6,7 +6,7 @@ type FilterDrawerProps = {
 };
 
 export const FilterDrawerTag: React.FC<FilterDrawerProps> = ({ label }) => (
-    <Tag border='lime' background='lime.100' color='lime.600'>
+    <Tag border='lime' background='lime.100' color='lime.600' data-test-id='filter-tag'>
         <TagLabel>{label}</TagLabel>
         <TagRightIcon as={CloseIcon} boxSize={2.5} color='lime.700' />
     </Tag>

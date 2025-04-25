@@ -30,8 +30,8 @@ export const JuiciestPage: React.FC = () => {
 
             <Box mb={10}>
                 <CardsWrapper>
-                    {juiciestCardData.map((props) => (
-                        <FoodCard key={props.id} {...props} />
+                    {juiciestCardData.map((props, index) => (
+                        <FoodCard key={props.id} {...props} index={index} />
                     ))}
                 </CardsWrapper>
 

@@ -14,7 +14,13 @@ export const BurgerMenu: React.FC<BurgerMenuType> = ({ isOpen, toggle, off }) =>
     <Menu isOpen={isOpen}>
         <MenuButton
             as={IconButton}
-            icon={isOpen ? <CloseIcon /> : <BurgerIcon />}
+            icon={
+                isOpen ? (
+                    <CloseIcon data-test-id='close-icon' />
+                ) : (
+                    <BurgerIcon data-test-id='hamburger-icon' />
+                )
+            }
             variant='none'
             aria-label='burger'
             onClick={toggle}

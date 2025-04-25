@@ -23,8 +23,8 @@ export const JuiciestSection: React.FC = () => (
         </Flex>
 
         <SimpleGrid columns={{ md: 2, lg: 1, '2xl': 2 }} spacing={{ base: 3, lg: 4, '2xl': 6 }}>
-            {juiciestCardData.map((props) => (
-                <FoodCard key={props.id} {...props} />
+            {juiciestCardData.map((props, index) => (
+                <FoodCard key={props.id} {...props} index={index} />
             ))}
         </SimpleGrid>
 
