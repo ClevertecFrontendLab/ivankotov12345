@@ -22,9 +22,9 @@ export const TabsSection: React.FC = () => {
 
     const currentCategoryRecipesList = useMemo(
         () =>
-            CARD_DATA.filter(({ category }) => category.includes(currentCategory)).filter(
-                ({ subcategory }) => subcategory.includes(currentSubcategory),
-            ),
+            CARD_DATA.filter(({ category }) => category.includes(currentCategory))
+                .filter(({ subcategory }) => subcategory.includes(currentSubcategory))
+                .sort((a, b) => +a.id - +b.id),
         [currentCategory, currentSubcategory],
     );
 
@@ -43,7 +43,7 @@ export const TabsSection: React.FC = () => {
                             as={NavLink}
                             to={`/${currentCategory}/${path}`}
                             key={category}
-                            data-test-id={index === activeIndex && `${path}-active`}
+                            data-test-id={`tab-${path}-${index}`}
                         >
                             {category}
                         </Tab>
@@ -71,3 +71,4 @@ export const TabsSection: React.FC = () => {
         </Tabs>
     );
 };
+//`tab-${subcategory.path}-${index}`
