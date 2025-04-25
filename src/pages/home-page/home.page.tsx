@@ -1,7 +1,9 @@
 import { Box } from '@chakra-ui/react';
 
 import { BlogSection } from '~/components/blog-section';
+import { CardsWrapper } from '~/components/cards-wrapper';
 import { Сarousel } from '~/components/carousel';
+import { FoodCard } from '~/components/food-card';
 import { JuiciestSection } from '~/components/juiciest-section';
 import { PageHeader } from '~/components/page-header';
 import { RelevantSection } from '~/components/relevant-section';
@@ -37,7 +39,11 @@ export const HomePage: React.FC = () => {
                     />
                 </>
             ) : (
-                <div>123</div>
+                <CardsWrapper>
+                    {filteredRecipes.map((card) => (
+                        <FoodCard key={card.id} {...card} />
+                    ))}
+                </CardsWrapper>
             )}
         </Box>
     );

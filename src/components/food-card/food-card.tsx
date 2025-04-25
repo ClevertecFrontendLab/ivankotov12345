@@ -9,6 +9,7 @@ import {
     CardHeader,
     Flex,
     Heading,
+    Highlight,
     Image,
     Spacer,
     Tag,
@@ -19,6 +20,8 @@ import {
 import { NavLink } from 'react-router';
 
 import { useRecipePath } from '~/hooks/use-path-to-recipe';
+import { useAppSelector } from '~/store/hooks';
+import { selectSearchInput } from '~/store/slices/search-input-slice';
 import { CardData } from '~/types/card-data';
 
 import { CardBadge } from '../card-badge';
@@ -36,6 +39,7 @@ export const FoodCard: React.FC<CardData> = ({
     subcategory,
     recommendedBy,
 }) => {
+    const { searchInputValue } = useAppSelector(selectSearchInput);
     const recipePath = useRecipePath({ id, category, subcategory });
     return (
         <Card direction='row' overflow='hidden' borderRadius='lg'>
@@ -102,7 +106,9 @@ export const FoodCard: React.FC<CardData> = ({
                 <CardBody p={0}>
                     <Box>
                         <Heading as='h3' variant='card' mb={2}>
-                            {title}
+                            <Highlight query={searchInputValue} styles={{ color: 'lime.600' }}>
+                                {title}
+                            </Highlight>
                         </Heading>
                         <Text
                             noOfLines={3}

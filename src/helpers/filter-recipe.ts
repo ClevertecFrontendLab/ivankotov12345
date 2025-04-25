@@ -6,8 +6,14 @@ export const filterRecipesByAllergens = (allergens: string[], recipes: RecipeTyp
 
     const regExp = new RegExp(matchString, 'i');
 
-    return recipes.filter((recipe) =>
+    const hasMatches = recipes.some((recipe) =>
         recipe.ingredients.some((ingredient) => regExp.test(ingredient.title)),
+    );
+
+    if (!hasMatches) return [];
+
+    return recipes.filter(
+        (recipe) => !recipe.ingredients.some((ingredient) => regExp.test(ingredient.title)),
     );
 };
 
@@ -31,4 +37,11 @@ export const filterRecipesBySidesType = (sideType: string[], recipes: RecipeType
 export const filterRecipesByAuthorType = (authors: string[], recipes: RecipeType[]) => {
     if (!authors.length) return recipes;
     return recipes.filter(({ author }) => author && authors.includes(author));
+};
+
+export const filterRecipesBySearch = (searchValue: string, recipes: RecipeType[]) => {
+    if (!searchValue.length) return recipes;
+    const regExp = new RegExp(searchValue, 'gi');
+
+    return recipes.filter(({ title }) => regExp.test(title));
 };

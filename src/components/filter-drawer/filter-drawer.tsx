@@ -62,7 +62,6 @@ export const FilterDrawer: React.FC = () => {
     const dispatch = useAppDispatch();
 
     const onClose = () => {
-        dispatch(clearFilters());
         dispatch(closeDrawer());
     };
 

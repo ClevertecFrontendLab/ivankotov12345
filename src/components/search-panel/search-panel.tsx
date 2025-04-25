@@ -8,12 +8,19 @@ import {
     useMediaQuery,
     VStack,
 } from '@chakra-ui/react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-import { useAppDispatch } from '~/store/hooks';
+import { CARD_DATA } from '~/constants/card-data';
+import { filterRecipesBySearch } from '~/helpers/filter-recipe';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { openDrawer } from '~/store/slices/filter-drawer-slice';
 import { clearFilters } from '~/store/slices/filters-slice';
-import { clearFilterRecipes } from '~/store/slices/flter-recipe-slice';
+import {
+    clearFilterRecipes,
+    selectFilteredRecipes,
+    setFilteredRecipes,
+} from '~/store/slices/flter-recipe-slice';
+import { selectSearchInput, setSearchInputValue } from '~/store/slices/search-input-slice';
 
 import { AllergensSelectMenu } from '../allergens-select-menu';
 import { FilterDrawer } from '../filter-drawer';
@@ -22,6 +29,12 @@ import { FilterIcon } from './filter-icon';
 export const SearchPanel: React.FC = () => {
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
     const dispatch = useAppDispatch();
+    const [currentSearchValue, setCurrentSearchValue] = useState('');
+
+    const { searchInputValue } = useAppSelector(selectSearchInput);
+    const { filteredRecipes } = useAppSelector(selectFilteredRecipes);
+
+    const [isSearchButtonDisabled, setIsSearchButtonDisabled] = useState(true);
 
     useEffect(
         () => () => {
@@ -30,6 +43,26 @@ export const SearchPanel: React.FC = () => {
         },
         [dispatch],
     );
+
+    useEffect(() => {
+        searchInputValue.length < 3
+            ? setIsSearchButtonDisabled(true)
+            : setIsSearchButtonDisabled(false);
+    }, [searchInputValue, setIsSearchButtonDisabled]);
+
+    const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = event.target.value.trim().toLowerCase();
+        setCurrentSearchValue(value);
+    };
+
+    const onSearchClick = () => {
+        dispatch(setSearchInputValue(currentSearchValue));
+
+        const currSearchArr = filteredRecipes.length ? filteredRecipes : CARD_DATA;
+        const filtered = filterRecipesBySearch(currentSearchValue, currSearchArr);
+        dispatch(setFilteredRecipes(filtered));
+    };
+
     return (
         <VStack w='full' px={{ md: 36, lg: 48 }} gap={4}>
             <HStack w='full'>
@@ -54,9 +87,17 @@ export const SearchPanel: React.FC = () => {
                         _hover={{
                             borderColor: 'blackAlpha.600',
                         }}
+                        onChange={onSearchChange}
                     />
+
                     <InputRightElement>
-                        <SearchIcon />
+                        <IconButton
+                            aria-label='search'
+                            variant='none'
+                            icon={<SearchIcon />}
+                            disabled={isSearchButtonDisabled}
+                            onClick={onSearchClick}
+                        />
                     </InputRightElement>
                 </InputGroup>
             </HStack>
