@@ -5,9 +5,6 @@ import noodles from '~/assets/img/noodles.jpg';
 import step1 from '~/assets/img/noodles-steps/step-1.jpg';
 import step2 from '~/assets/img/noodles-steps/step-2.jpg';
 import step3 from '~/assets/img/noodles-steps/step-3.jpg';
-import step4 from '~/assets/img/noodles-steps/step-4.jpg';
-import step6 from '~/assets/img/noodles-steps/step-6.jpg';
-import step8 from '~/assets/img/noodles-steps/step-8.jpg';
 import potato from '~/assets/img/potato.png';
 import potatoRolls from '~/assets/img/potato-rolls.png';
 import puri from '~/assets/img/puri.png';
@@ -365,8 +362,8 @@ export const CARD_DATA: RecipeType[] = [
         title: 'Чесночная бульба',
         description:
             'Такая бульбачка украсит любой семейный обед! Все будут в полном восторге, очень вкусно! Аромат чеснока, хрустящая корочка на бульбачке - просто объедение! Отличная идея для обеда или ужина, готовится просто!',
-        category: ['vegan', 'second-dish'],
-        subcategory: ['side-dishes', 'second-dish', 'vegetables'],
+        category: ['salads'],
+        subcategory: ['meat'],
         image: garlicPotato,
         bookmarks: 124,
         likes: 8,
@@ -375,10 +372,10 @@ export const CARD_DATA: RecipeType[] = [
         portions: 2,
         nutritionValue: { calories: 220, proteins: 4, fats: 7, carbohydrates: 35 },
         ingredients: [
-            { title: 'бульба', count: '6', measureUnit: 'шт.' },
-            { title: 'чеснок', count: '5', measureUnit: 'зубчиков' },
-            { title: 'масло', count: '50', measureUnit: 'мл' },
-            { title: 'специи', count: '0', measureUnit: 'по вкусу' },
+            { title: 'тесто', count: '6', measureUnit: 'шт.' },
+            { title: 'пельмени', count: '5', measureUnit: 'зубчиков' },
+            { title: 'единорог', count: '50', measureUnit: 'мл' },
+            { title: 'скиттлз', count: '0', measureUnit: 'по вкусу' },
         ],
         steps: [
             {
@@ -388,7 +385,7 @@ export const CARD_DATA: RecipeType[] = [
             },
             {
                 stepNumber: 2,
-                description: 'Обжарить с чесноком.',
+                description: 'Обжарить.',
                 image: garlicPotato,
             },
             {
@@ -398,109 +395,5 @@ export const CARD_DATA: RecipeType[] = [
             },
         ],
         side: 'potatoes',
-    },
-    {
-        id: '10',
-        title: 'Капустные котлеты',
-        description:
-            'Капустные котлеты по этому рецепту получаются необычайно пышными и невероятно вкусными. Мягкий вкус и лёгкая пряная нотка наверняка помогут сделать эти чудесные котлеты из капусты одним из ваших любимых овощных блюд.',
-        category: ['second-dish'],
-        subcategory: ['vegetables', 'steamed'],
-        image: cabbageCutlet,
-        bookmarks: 2,
-        likes: 1,
-        date: '2022-02-05T00:00:00Z',
-        time: '35 минут',
-        portions: 4,
-        nutritionValue: { calories: 150, proteins: 5, fats: 4, carbohydrates: 20 },
-        ingredients: [
-            { title: 'капуста', count: '300', measureUnit: 'г' },
-            { title: 'мука', count: '50', measureUnit: 'г' },
-            { title: 'специи', count: '0', measureUnit: 'по вкусу' },
-        ],
-        steps: [
-            {
-                stepNumber: 1,
-                description: 'Нарезать капусту и отварить.',
-                image: cabbageCutlet,
-            },
-            {
-                stepNumber: 2,
-                description: 'Смешать с мукой и сформировать котлеты.',
-                image: cabbageCutlet,
-            },
-            {
-                stepNumber: 3,
-                description: 'Обжарить до золотистой корочки.',
-                image: cabbageCutlet,
-            },
-        ],
-    },
-    {
-        id: '11',
-        title: 'Лапша с курицей и шафраном',
-        description: 'Ароматная лапша с курицей и шафраном, идеальное сочетание для сытного обеда.',
-        category: ['second-dish'],
-        subcategory: ['poultry-dish'],
-        image: noodles,
-        bookmarks: 258,
-        likes: 5,
-        date: '2022-03-08T00:00:00Z',
-        time: '40 минут',
-        portions: 4,
-        nutritionValue: { calories: 400, proteins: 30, fats: 15, carbohydrates: 50 },
-        ingredients: [
-            { title: 'лапша', count: '200', measureUnit: 'г' },
-            { title: 'курица', count: '300', measureUnit: 'г' },
-            { title: 'шафран', count: '1', measureUnit: 'ч. л.' },
-            { title: 'лук', count: '1', measureUnit: 'шт.' },
-        ],
-        steps: [
-            {
-                stepNumber: 1,
-                description:
-                    'Зелёный лук нарезать на 1 см. кружочки. Лук и чеснок на мелкие кубики.',
-                image: step1,
-            },
-            {
-                stepNumber: 2,
-                description:
-                    'Мясо помыть, высушить, нарезать на полосочки и обжарить на масле. Посолить, поперчить и вынуть со сковороды.',
-                image: step2,
-            },
-            {
-                stepNumber: 3,
-                description: 'Спагетти отварить в течение 10 минут в подсоленной воде.',
-                image: step3,
-            },
-            {
-                stepNumber: 4,
-                description:
-                    'В сковороде, на оставшемся жире поджарить лук до золотистого цвета, добавить чеснок и прожарить ещё около 1 минуты.',
-                image: step4,
-            },
-            {
-                stepNumber: 5,
-                description: 'Всыпать шафран, корицу и муки, перемешать и коротко прожарить.',
-            },
-            {
-                stepNumber: 6,
-                description:
-                    'В сковороде, на оставшемся жире поджарить лук до золотистого цвета, добавить чеснок и прожарить ещё около 1 минуты.',
-                image: step6,
-            },
-            {
-                stepNumber: 7,
-                description:
-                    'Сливки смешать с бульоном, влить к луку и протушить на среднем огне около 10 минут.',
-            },
-            {
-                stepNumber: 8,
-                description:
-                    'Соус посолить, поперчить, вложить мясо, зелёный лук. Прогреть и осторожно смешать со спагетти. При подаче посыпать нарезанной петрушкой.',
-                image: step8,
-            },
-        ],
-        author: 'Екатерина Константинопольская',
     },
 ];

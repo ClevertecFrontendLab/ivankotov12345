@@ -23,13 +23,7 @@ import {
     DRAWER_SIDES_ITEMS,
 } from '~/constants/drawer-filter-items';
 import { NAV_MENU_ITEMS } from '~/constants/nav-menu';
-import {
-    filterRecipesByAllergens,
-    filterRecipesByAuthorType,
-    filterRecipesByCategories,
-    filterRecipesByMeatType,
-    filterRecipesBySidesType,
-} from '~/helpers/filter-recipe';
+import { filterRecipes } from '~/helpers/filter-recipe';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { closeDrawer, selectFilterDrawer } from '~/store/slices/filter-drawer-slice';
 import {
@@ -68,13 +62,9 @@ export const FilterDrawer: React.FC = () => {
     const onClearFiltersClick = () => dispatch(clearFilters());
 
     const onFindRecipeClick = () => {
-        let currentCardData = [...CARD_DATA];
-        currentCardData = filterRecipesByCategories(filters.selectedCategories, currentCardData);
-        currentCardData = filterRecipesByAuthorType(filters.selectedAuthors, currentCardData);
-        currentCardData = filterRecipesByMeatType(filters.selectedMeatTypes, currentCardData);
-        currentCardData = filterRecipesBySidesType(filters.selectedSidesTypes, currentCardData);
-        currentCardData = filterRecipesByAllergens(filters.selectedSidesTypes, currentCardData);
-        dispatch(setFilteredRecipes(currentCardData));
+        const rec = filterRecipes(CARD_DATA, filters);
+
+        dispatch(setFilteredRecipes(rec));
         dispatch(closeDrawer());
     };
 

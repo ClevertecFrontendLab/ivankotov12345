@@ -23,6 +23,12 @@ export const CustomAllergenInput: React.FC = () => {
             setCustomAllergen('');
         }
     };
+
+    const handleKeyDown = (event: React.KeyboardEvent) => {
+        if (event.key === 'Enter') {
+            handleAddCustomAllergen();
+        }
+    };
     return (
         <HStack py={2} pl={6} pr={2}>
             <Input
@@ -33,6 +39,7 @@ export const CustomAllergenInput: React.FC = () => {
                 value={customAllergen}
                 onChange={onCustomAllergenInputChange}
                 data-test-id='add-other-allergen'
+                onKeyDown={handleKeyDown}
             />
             <IconButton
                 size='sm'
