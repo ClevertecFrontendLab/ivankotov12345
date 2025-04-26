@@ -35,7 +35,13 @@ export const FilterCheckboxGroup: React.FC<FilterCheckboxGroupProps> = ({
 
             <CheckboxGroup>
                 {itemsList.map(({ item, label }) => (
-                    <Checkbox variant='limeCheckbox' key={item} value={item} onChange={toggleItem}>
+                    <Checkbox
+                        variant='limeCheckbox'
+                        key={item}
+                        value={item}
+                        onChange={toggleItem}
+                        data-test-id={`checkbox-${label.toLowerCase()}`}
+                    >
                         {label}
                     </Checkbox>
                 ))}

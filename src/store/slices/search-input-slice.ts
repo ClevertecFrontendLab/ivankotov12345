@@ -19,9 +19,12 @@ export const searchInputSlice = createSlice({
                 state.searchInputValue = action.payload;
             }
         },
+        clearSearchInputValue: (state) => {
+            state.searchInputValue = '';
+        },
     },
 });
 
 export const selectSearchInput = (state: ApplicationState) => state.searchInputSlice;
 export const searchInputReducer = searchInputSlice.reducer;
-export const { setSearchInputValue } = searchInputSlice.actions;
+export const { setSearchInputValue, clearSearchInputValue } = searchInputSlice.actions;

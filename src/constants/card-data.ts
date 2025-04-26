@@ -362,9 +362,9 @@ export const CARD_DATA: RecipeType[] = [
     },
     {
         id: '9',
-        title: 'Чесночная картошка',
+        title: 'Чесночная бульба',
         description:
-            'Такая картошечка украсит любой семейный обед! Все будут в полном восторге, очень вкусно! Аромат чеснока, хрустящая корочка на картошечке - просто объедение! Отличная идея для обеда или ужина, готовится просто!',
+            'Такая бульбачка украсит любой семейный обед! Все будут в полном восторге, очень вкусно! Аромат чеснока, хрустящая корочка на бульбачке - просто объедение! Отличная идея для обеда или ужина, готовится просто!',
         category: ['vegan', 'second-dish'],
         subcategory: ['side-dishes', 'second-dish', 'vegetables'],
         image: garlicPotato,
@@ -375,7 +375,7 @@ export const CARD_DATA: RecipeType[] = [
         portions: 2,
         nutritionValue: { calories: 220, proteins: 4, fats: 7, carbohydrates: 35 },
         ingredients: [
-            { title: 'картошка', count: '6', measureUnit: 'шт.' },
+            { title: 'бульба', count: '6', measureUnit: 'шт.' },
             { title: 'чеснок', count: '5', measureUnit: 'зубчиков' },
             { title: 'масло', count: '50', measureUnit: 'мл' },
             { title: 'специи', count: '0', measureUnit: 'по вкусу' },
@@ -383,7 +383,7 @@ export const CARD_DATA: RecipeType[] = [
         steps: [
             {
                 stepNumber: 1,
-                description: 'Очистить и нарезать картошку.',
+                description: 'Очистить и нарезать бульбу.',
                 image: garlicPotato,
             },
             {

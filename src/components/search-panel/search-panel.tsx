@@ -8,9 +8,8 @@ import {
     useMediaQuery,
     VStack,
 } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
-import { CARD_DATA } from '~/constants/card-data';
 import { filterRecipesBySearch } from '~/helpers/filter-recipe';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { openDrawer } from '~/store/slices/filter-drawer-slice';
@@ -30,9 +29,12 @@ export const SearchPanel: React.FC = () => {
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
     const dispatch = useAppDispatch();
     const [currentSearchValue, setCurrentSearchValue] = useState('');
-    const { filteredRecipes } = useAppSelector(selectFilteredRecipes);
+    const { currentRecipes, filteredRecipes } = useAppSelector(selectFilteredRecipes);
 
-    const isSearchButtonDisabled = currentSearchValue.length < 3;
+    const isSearchButtonDisabled = useMemo(
+        () => currentSearchValue.length < 3,
+        [currentSearchValue],
+    );
 
     useEffect(
         () => () => {
@@ -43,14 +45,14 @@ export const SearchPanel: React.FC = () => {
     );
 
     const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        event.preventDefault();
         const value = event.target.value.trim().toLowerCase();
         setCurrentSearchValue(value);
     };
 
     const onSearchClick = () => {
         dispatch(setSearchInputValue(currentSearchValue));
-
-        const currSearchArr = filteredRecipes.length ? filteredRecipes : CARD_DATA;
+        const currSearchArr = filteredRecipes.length ? filteredRecipes : currentRecipes;
         const filtered = filterRecipesBySearch(currentSearchValue, currSearchArr);
         dispatch(setFilteredRecipes(filtered));
     };

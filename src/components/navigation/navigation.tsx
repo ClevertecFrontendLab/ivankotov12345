@@ -1,5 +1,5 @@
 import { Accordion, Button, Text, useMediaQuery, useOutsideClick, VStack } from '@chakra-ui/react';
-import { useRef } from 'react';
+import { useMemo, useRef } from 'react';
 import { useLocation } from 'react-router';
 
 import { NAV_MENU_ITEMS } from '~/constants/nav-menu';
@@ -11,7 +11,7 @@ import { CategoryItem } from './category-item';
 import { ExitIcon } from './exit-icon';
 
 type NavigationProps = {
-    buttonRef: React.RefObject<HTMLButtonElement | null>;
+    buttonRef?: React.RefObject<HTMLButtonElement | null>;
 };
 
 export const Navigation: React.FC<NavigationProps> = ({ buttonRef }) => {
@@ -24,12 +24,15 @@ export const Navigation: React.FC<NavigationProps> = ({ buttonRef }) => {
 
     const [firstItemPath] = pathname.split('/').filter(Boolean);
 
-    const activeIndex = NAV_MENU_ITEMS.findIndex(({ path }) => path === firstItemPath);
+    const activeIndex = useMemo(
+        () => NAV_MENU_ITEMS.findIndex(({ path }) => path === firstItemPath),
+        [firstItemPath],
+    );
 
     useOutsideClick({
         ref: navRef as unknown as React.RefObject<HTMLElement>,
         handler: (event) => {
-            if (!buttonRef.current?.contains(event.target as Node)) {
+            if (buttonRef?.current && !buttonRef.current.contains(event.target as Node)) {
                 dispatch(closeBurgerMenu());
             }
         },

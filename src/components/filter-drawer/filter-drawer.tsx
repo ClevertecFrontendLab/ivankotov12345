@@ -89,6 +89,7 @@ export const FilterDrawer: React.FC = () => {
         [allTagsValues, filters],
     );
 
+    const isDisabled = allFilterItems.length === 0;
     return (
         <Drawer isOpen={isOpen} onClose={onClose} placement='right' size='sm'>
             <DrawerOverlay bg='shadowed' backdropFilter='blur(2px)' />
@@ -164,7 +165,9 @@ export const FilterDrawer: React.FC = () => {
                     <Button
                         variant='black'
                         onClick={onFindRecipeClick}
+                        isDisabled={isDisabled}
                         data-test-id='find-recipe-button'
+                        pointerEvents={isDisabled ? 'none' : 'auto'}
                     >
                         Найти рецепт
                     </Button>

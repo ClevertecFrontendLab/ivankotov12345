@@ -5,10 +5,12 @@ import { RecipeType } from '~/types/recipe';
 import { ApplicationState } from '../configure-store';
 
 type FilterRecipesStateType = {
+    currentRecipes: RecipeType[];
     filteredRecipes: RecipeType[];
 };
 
 const initialState: FilterRecipesStateType = {
+    currentRecipes: [],
     filteredRecipes: [],
 };
 
@@ -16,6 +18,9 @@ export const filterRecipeSlice = createSlice({
     name: 'filterRecipe',
     initialState,
     reducers: {
+        setCurrentRecipes: (state, action: PayloadAction<RecipeType[]>) => {
+            state.currentRecipes = action.payload;
+        },
         setFilteredRecipes: (state, action: PayloadAction<RecipeType[]>) => {
             state.filteredRecipes = action.payload;
         },
@@ -28,4 +33,5 @@ export const filterRecipeSlice = createSlice({
 export const filterRecipeReducer = filterRecipeSlice.reducer;
 export const selectFilteredRecipes = (state: ApplicationState) => state.filterRecipe;
 
-export const { setFilteredRecipes, clearFilterRecipes } = filterRecipeSlice.actions;
+export const { setCurrentRecipes, setFilteredRecipes, clearFilterRecipes } =
+    filterRecipeSlice.actions;

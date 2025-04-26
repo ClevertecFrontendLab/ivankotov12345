@@ -40,8 +40,8 @@ export const filterRecipesByAuthorType = (authors: string[], recipes: RecipeType
 };
 
 export const filterRecipesBySearch = (searchValue: string, recipes: RecipeType[]) => {
-    if (!searchValue.length) return recipes;
-    const regExp = new RegExp(searchValue, 'gi');
+    if (!searchValue.trim()) return recipes;
+    const searchQuery = searchValue.toLowerCase();
 
-    return recipes.filter(({ title }) => regExp.test(title));
+    return recipes.filter(({ title }) => title.toLowerCase().includes(searchQuery));
 };

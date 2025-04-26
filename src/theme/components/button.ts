@@ -3,6 +3,12 @@ import { defineStyle, defineStyleConfig } from '@chakra-ui/react';
 const buttonBlack = defineStyle({
     bg: 'black',
     color: 'white',
+    _disabled: {
+        border: '1px solid',
+        borderColor: 'blackAlpha.200',
+        bg: 'blackAlpha.400',
+        color: 'alpha.700',
+    },
 });
 
 const buttonHighlighted = defineStyle({

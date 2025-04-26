@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useEffect } from 'react';
 
 import { BlogSection } from '~/components/blog-section';
 import { CardsWrapper } from '~/components/cards-wrapper';
@@ -12,14 +13,19 @@ import { PAGE_TITLES } from '~/constants/page-titles';
 import { VEGAN_RELEVANT_CARD_DATA } from '~/constants/relevant-card-data';
 import { VEGAN_RELEVANT_CARD_DATA_MINI } from '~/constants/relevant-card-data-mini';
 import { useAllergenFilter } from '~/hooks/use-allergen-filters';
-import { useAppSelector } from '~/store/hooks';
-import { selectFilteredRecipes } from '~/store/slices/flter-recipe-slice';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { selectFilteredRecipes, setCurrentRecipes } from '~/store/slices/flter-recipe-slice';
 
 const { title: homePageTitle } = PAGE_TITLES.home;
 const { title: veganPageTitle, subtitle: veganPageSubTitle } = PAGE_TITLES.vegan;
 
 export const HomePage: React.FC = () => {
     const { filteredRecipes } = useAppSelector(selectFilteredRecipes);
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(setCurrentRecipes(CARD_DATA));
+    }, [dispatch]);
 
     useAllergenFilter(CARD_DATA);
     return (

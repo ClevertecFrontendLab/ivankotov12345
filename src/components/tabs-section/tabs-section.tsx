@@ -1,24 +1,31 @@
-import { Button, Center, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
-import { useMemo } from 'react';
+import { Button, Center, Tab, TabList, TabPanels, Tabs } from '@chakra-ui/react';
+import { memo, useEffect, useMemo } from 'react';
 import { NavLink, useLocation } from 'react-router';
 
 import { CARD_DATA } from '~/constants/card-data';
 import { NAV_MENU_ITEMS } from '~/constants/nav-menu';
 import { useAllergenFilter } from '~/hooks/use-allergen-filters';
-import { useAppSelector } from '~/store/hooks';
-import { selectFilteredRecipes } from '~/store/slices/flter-recipe-slice';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { selectFilteredRecipes, setCurrentRecipes } from '~/store/slices/flter-recipe-slice';
 
 import { CardsWrapper } from '../cards-wrapper';
 import { FoodCard } from '../food-card';
 
-export const TabsSection: React.FC = () => {
+export const TabsSection: React.FC = memo(() => {
     const { pathname } = useLocation();
-    const { filteredRecipes } = useAppSelector(selectFilteredRecipes);
+    const { currentRecipes, filteredRecipes } = useAppSelector(selectFilteredRecipes);
+    const dispatch = useAppDispatch();
 
     const [currentCategory, currentSubcategory] = pathname.split('/').filter(Boolean);
 
-    const tabs = NAV_MENU_ITEMS.find((item) => item.path === currentCategory)?.subcategories;
-    const activeIndex = tabs?.findIndex((tab) => tab.path === currentSubcategory);
+    const tabs = useMemo(
+        () => NAV_MENU_ITEMS.find((item) => item.path === currentCategory)?.subcategories,
+        [currentCategory],
+    );
+    const activeIndex = useMemo(
+        () => tabs?.findIndex((tab) => tab.path === currentSubcategory),
+        [currentSubcategory, tabs],
+    );
 
     const currentCategoryRecipesList = useMemo(
         () =>
@@ -28,12 +35,16 @@ export const TabsSection: React.FC = () => {
         [currentCategory, currentSubcategory],
     );
 
+    useEffect(() => {
+        dispatch(setCurrentRecipes(currentCategoryRecipesList));
+    }, [dispatch, currentCategoryRecipesList]);
+
     useAllergenFilter(currentCategoryRecipesList);
 
-    const tabCardData = filteredRecipes.length
-        ? filteredRecipes
-        : currentCategoryRecipesList.slice(0, 8);
-
+    const tabCardData = useMemo(
+        () => (filteredRecipes.length ? filteredRecipes : currentRecipes.slice(0, 8)),
+        [filteredRecipes, currentRecipes],
+    );
     return (
         <Tabs as='section' mb={10} index={activeIndex} variant='limeTabs'>
             <TabList>
@@ -51,16 +62,11 @@ export const TabsSection: React.FC = () => {
             </TabList>
 
             <TabPanels>
-                {tabs &&
-                    tabs.map(({ category }) => (
-                        <TabPanel key={category} pt={6} px={0}>
-                            <CardsWrapper>
-                                {tabCardData.map((props, index) => (
-                                    <FoodCard {...props} key={props.id} index={index} />
-                                ))}
-                            </CardsWrapper>
-                        </TabPanel>
+                <CardsWrapper>
+                    {tabCardData.map((props, index) => (
+                        <FoodCard {...props} key={props.id} index={index} />
                     ))}
+                </CardsWrapper>
 
                 <Center>
                     <Button bg='lime.400' px={5}>
@@ -70,5 +76,4 @@ export const TabsSection: React.FC = () => {
             </TabPanels>
         </Tabs>
     );
-};
-//`tab-${subcategory.path}-${index}`
+});
