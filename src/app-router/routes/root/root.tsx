@@ -2,9 +2,10 @@ import { type RouteObject } from 'react-router';
 
 import { Layout } from '~/components/layout';
 import { ROUTER_PATHS } from '~/constants/router-paths';
+import { CategoryPage } from '~/pages/category-page';
 import { HomePage } from '~/pages/home-page';
 import { JuiciestPage } from '~/pages/juiciest-page';
-import { VeganPage } from '~/pages/vegan-page';
+import { RecipePage } from '~/pages/recipe-page';
 
 export const rootPage: RouteObject = {
     path: ROUTER_PATHS.homePage,
@@ -19,12 +20,17 @@ export const rootPage: RouteObject = {
             element: <JuiciestPage />,
         },
         {
-            path: ROUTER_PATHS.veganPage,
-            element: <VeganPage />,
-        },
-        {
-            path: '*',
-            element: <VeganPage />,
+            path: ROUTER_PATHS.subcategory,
+            children: [
+                {
+                    index: true,
+                    element: <CategoryPage />,
+                },
+                {
+                    path: ROUTER_PATHS.recipe,
+                    element: <RecipePage />,
+                },
+            ],
         },
     ],
 };

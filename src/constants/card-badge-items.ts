@@ -12,18 +12,18 @@ import pickles from '~/assets/svg/pickles.svg';
 import pot from '~/assets/svg/pot.svg';
 import potWithCross from '~/assets/svg/pot-with-cross.svg';
 
-export const CARD_BADGE_ITEMS: Record<string, string> = {
-    Салаты: eggplant,
-    Закуски: fruit,
-    'Первые блюда': pot,
-    'Вторые блюда': pan,
-    'Десерты, выпечка': bread,
-    'Блюда на гриле': grill,
-    'Веганские блюда': leave,
-    'Детские блюда': kid,
-    'Лечебное питание': potWithCross,
-    Национальные: international,
-    Соусы: mortairAndPestle,
-    Напитки: mug,
-    Заготовки: pickles,
+export const CARD_BADGE_ITEMS: Record<string, { image: string; title: string }> = {
+    salads: { image: eggplant, title: 'Салаты' },
+    snacks: { image: fruit, title: 'Закуски' },
+    'first-dish': { image: pot, title: 'Первые блюда' },
+    'second-dish': { image: pan, title: 'Вторые блюда' },
+    desserts: { image: bread, title: 'Десерты и выпечка' },
+    grill: { image: grill, title: 'Блюда на гриле' },
+    vegan: { image: leave, title: 'Веганская кухня' },
+    kid: { image: kid, title: 'Детские блюда' },
+    medical: { image: potWithCross, title: 'Лечебное питание' },
+    national: { image: international, title: 'Национальные' },
+    sauces: { image: mortairAndPestle, title: 'Соусы' },
+    drinks: { image: mug, title: 'Напитки' },
+    pickled: { image: pickles, title: 'Заготовки' },
 };

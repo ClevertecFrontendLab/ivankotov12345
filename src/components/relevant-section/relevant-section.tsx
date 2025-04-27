@@ -1,5 +1,6 @@
 import { Box, Heading, SimpleGrid, Text, VStack } from '@chakra-ui/react';
 
+import { COLORS_BLACK_ALPHA } from '~/constants/colors';
 import { CardData } from '~/types/card-data';
 
 import { RelevantCardMini } from './relevant-card-mini';
@@ -8,8 +9,8 @@ import { RelevantSectionCard } from './relevant-section-card';
 type RelevantSectionProps = {
     title: string;
     subtitle: string;
-    cardData: Omit<CardData, 'imgSrc' | 'recommendedBy'>[];
-    cardDataMini: Pick<CardData, 'id' | 'imgSrc' | 'title'>[];
+    cardData: Omit<CardData, 'image' | 'recommendedBy' | 'time' | 'subcategory'>[];
+    cardDataMini: Pick<CardData, 'id' | 'image' | 'title'>[];
 };
 
 export const RelevantSection: React.FC<RelevantSectionProps> = ({
@@ -33,7 +34,7 @@ export const RelevantSection: React.FC<RelevantSectionProps> = ({
                 {title}
             </Heading>
 
-            <Text color='blackAlpha.600' lineHeight='shorter'>
+            <Text color={COLORS_BLACK_ALPHA[600]} lineHeight='shorter'>
                 {subtitle}
             </Text>
         </SimpleGrid>

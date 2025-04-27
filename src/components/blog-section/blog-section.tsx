@@ -1,6 +1,7 @@
 import { Box, Flex, Heading, SimpleGrid, Spacer, useMediaQuery } from '@chakra-ui/react';
 
 import { BLOG_CARD_DATA } from '~/constants/blog-card-data';
+import { COLORS_LIME } from '~/constants/colors';
 import { PAGE_TITLES } from '~/constants/page-titles';
 
 import { BlogCard } from './blog-card';
@@ -17,7 +18,7 @@ export const BlogSection: React.FC = () => {
             mb={{ base: 6, lg: 10 }}
             p={{ base: 3, lg: 6 }}
             borderRadius='2xl'
-            bg='lime.300'
+            bg={COLORS_LIME[300]}
         >
             <Flex mb={{ base: 4, '2xl': 6 }}>
                 <Heading as='h2' fontSize={{ base: '2xl', lg: '4xl' }} lineHeight='none'>

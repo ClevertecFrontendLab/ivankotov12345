@@ -1,19 +1,20 @@
 import { Card, CardBody, CardFooter, Flex, Heading, Spacer, Text } from '@chakra-ui/react';
 
+import { COLORS_LIME } from '~/constants/colors';
 import { CardData } from '~/types/card-data';
 
 import { CardBadge } from '../card-badge';
 import { FavoriteIcon, LikeIcon } from '../icons';
 import { StatButton } from '../stat-button';
 
-type RelevantSectionCardProps = Omit<CardData, 'imgSrc' | 'recommendedBy'>;
+type RelevantSectionCardProps = Omit<CardData, 'image' | 'recommendedBy' | 'time' | 'subcategory'>;
 
 export const RelevantSectionCard: React.FC<RelevantSectionCardProps> = ({
     title,
     description,
     category,
+    bookmarks,
     likes,
-    favorites,
 }) => (
     <Card p={{ base: 2, '2xl': 6 }}>
         <CardBody p={0} gap={2}>
@@ -28,21 +29,23 @@ export const RelevantSectionCard: React.FC<RelevantSectionCardProps> = ({
 
         <CardFooter p={0} w='full'>
             <Flex alignItems='center' w='full'>
-                <CardBadge backgroundColor='lime.50' category={category} />
+                {category.map((item) => (
+                    <CardBadge backgroundColor={COLORS_LIME[50]} key={item} category={item} />
+                ))}
 
                 <Spacer />
 
+                {bookmarks && (
+                    <StatButton
+                        size={{ base: 'xs', lg: 'sm' }}
+                        quantity={bookmarks}
+                        icon={<LikeIcon />}
+                    />
+                )}
                 {likes && (
                     <StatButton
                         size={{ base: 'xs', lg: 'sm' }}
                         quantity={likes}
-                        icon={<LikeIcon />}
-                    />
-                )}
-                {favorites && (
-                    <StatButton
-                        size={{ base: 'xs', lg: 'sm' }}
-                        quantity={favorites}
                         icon={<FavoriteIcon />}
                     />
                 )}

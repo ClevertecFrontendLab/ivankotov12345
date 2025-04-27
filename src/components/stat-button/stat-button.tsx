@@ -1,5 +1,7 @@
 import { Button } from '@chakra-ui/react';
 
+import { COLORS_LIME } from '~/constants/colors';
+
 type StatButtonProps = {
     quantity: number;
     icon: React.ReactElement;
@@ -9,10 +11,10 @@ type StatButtonProps = {
 export const StatButton: React.FC<StatButtonProps> = ({ quantity, icon, size }) => (
     <Button
         leftIcon={icon}
-        color='lime.600'
+        color={COLORS_LIME[600]}
         size={size}
         px={1}
-        variant='ghost'
+        variant='none'
         _hover={{
             borderColor: 'white',
         }}

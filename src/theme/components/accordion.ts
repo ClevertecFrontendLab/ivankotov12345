@@ -7,22 +7,16 @@ export const AccordionTheme = defineStyleConfig({
             py: 2.5,
             pl: 2.5,
             pr: 4,
-            boxShadow:
-                ' 0px 4px 6px -1px rgba(0, 0, 0, 0.10), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)',
-            '&::-webkit-scrollbar': {
-                w: 2,
-            },
-            '&::-webkit-scrollbar-track': {
-                background: 'blackAlpha.50',
-                borderRadius: 'full',
-            },
-            '&::-webkit-scrollbar-thumb': {
-                background: 'blackAlpha.300',
-                borderRadius: 'full',
+            boxShadow: {
+                base: 'none',
+                lg: ' 0px 4px 6px -1px rgba(0, 0, 0, 0.10), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)',
             },
         },
         button: {
-            maxW: 60,
+            maxW: {
+                base: 80,
+                lg: 60,
+            },
             gap: 3,
             py: 3,
             px: 2,

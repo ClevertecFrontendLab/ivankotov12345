@@ -1,17 +1,24 @@
+import { RecipeType } from './recipe';
+
 export type UserData = {
     avatar?: string;
     name: string;
     email: string;
 };
 
-export type CardData = {
-    id: number;
-    imgSrc: string;
-    title: string;
-    description: string;
-    category: string;
-    likes?: number;
-    favorites?: number;
+export type CardData = Pick<
+    RecipeType,
+    | 'id'
+    | 'image'
+    | 'title'
+    | 'description'
+    | 'category'
+    | 'subcategory'
+    | 'bookmarks'
+    | 'likes'
+    | 'time'
+> & {
+    index?: number;
     recommendedBy?: Omit<UserData, 'email'>;
 };
 

@@ -6,36 +6,51 @@ import { FoodCard } from '~/components/food-card';
 import { PageHeader } from '~/components/page-header';
 import { RelevantSection } from '~/components/relevant-section';
 import { CARD_DATA } from '~/constants/card-data';
+import { COLORS_LIME } from '~/constants/colors';
 import { PAGE_TITLES } from '~/constants/page-titles';
 import { VEGAN_RELEVANT_CARD_DATA } from '~/constants/relevant-card-data';
 import { VEGAN_RELEVANT_CARD_DATA_MINI } from '~/constants/relevant-card-data-mini';
+import { useAllergenFilter } from '~/hooks/use-allergen-filters';
+import { useAppSelector } from '~/store/hooks';
+import { selectFilteredRecipes } from '~/store/slices/flter-recipe-slice';
 
 const { title: juiciestPageTitle } = PAGE_TITLES.juiciest;
 const { title: veganPageTitle, subtitle: veganPageSubTitle } = PAGE_TITLES.vegan;
 
-export const JuiciestPage: React.FC = () => (
-    <Box>
-        <PageHeader title={juiciestPageTitle} />
+const CARD_LENGTH = 8;
 
-        <Box mb={10}>
-            <CardsWrapper>
-                {CARD_DATA.map((props) => (
-                    <FoodCard key={props.id} {...props} />
-                ))}
-            </CardsWrapper>
+const CardDataNotFiltered = CARD_DATA.slice(0, CARD_LENGTH);
 
-            <Center mt={4}>
-                <Button bg='lime.400' px={5}>
-                    Загрузить ещё
-                </Button>
-            </Center>
+export const JuiciestPage: React.FC = () => {
+    const { filteredRecipes } = useAppSelector(selectFilteredRecipes);
+
+    useAllergenFilter(CARD_DATA);
+
+    const juiciestCardData = filteredRecipes.length ? filteredRecipes : CardDataNotFiltered;
+    return (
+        <Box>
+            <PageHeader title={juiciestPageTitle} />
+
+            <Box mb={10}>
+                <CardsWrapper>
+                    {juiciestCardData.map((props, index) => (
+                        <FoodCard key={props.id} {...props} index={index} />
+                    ))}
+                </CardsWrapper>
+
+                <Center mt={4}>
+                    <Button bg={COLORS_LIME[400]} px={5}>
+                        Загрузить ещё
+                    </Button>
+                </Center>
+            </Box>
+
+            <RelevantSection
+                title={veganPageTitle}
+                subtitle={veganPageSubTitle}
+                cardData={VEGAN_RELEVANT_CARD_DATA}
+                cardDataMini={VEGAN_RELEVANT_CARD_DATA_MINI}
+            />
         </Box>
-
-        <RelevantSection
-            title={veganPageTitle}
-            subtitle={veganPageSubTitle}
-            cardData={VEGAN_RELEVANT_CARD_DATA}
-            cardDataMini={VEGAN_RELEVANT_CARD_DATA_MINI}
-        />
-    </Box>
-);
+    );
+};

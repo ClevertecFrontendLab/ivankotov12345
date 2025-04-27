@@ -1,5 +1,6 @@
 import { Avatar, Box, Flex, Text } from '@chakra-ui/react';
 
+import { COLORS_BLACK_ALPHA } from '~/constants/colors';
 import { UserData } from '~/types/card-data';
 
 export const User: React.FC<UserData> = ({ avatar, name, email }) => (
@@ -10,7 +11,7 @@ export const User: React.FC<UserData> = ({ avatar, name, email }) => (
             <Text size={{ base: 'md', lg: 'lg' }} fontWeight='medium' noOfLines={1}>
                 {name}
             </Text>
-            <Text fontSize={{ base: 'xs', lg: 'sm' }} color='blackAlpha.700'>
+            <Text fontSize={{ base: 'xs', lg: 'sm' }} color={COLORS_BLACK_ALPHA[700]}>
                 {email}
             </Text>
         </Box>

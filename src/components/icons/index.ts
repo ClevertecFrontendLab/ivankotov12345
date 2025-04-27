@@ -4,3 +4,6 @@ export * from './favorite';
 export * from './home';
 export * from './like';
 export * from './people';
+export * from './plus-icon';
+export * from './sign-up';
+export * from './timer-icon';
