@@ -6,7 +6,11 @@ import { addAllergen, selectAllergensFilter } from '~/store/slices/filters-slice
 
 import { PlusIcon } from '../icons';
 
-export const CustomAllergenInput: React.FC = () => {
+type CustomAllergenInputProps = {
+    inputRef: React.RefObject<HTMLInputElement | null>;
+};
+
+export const CustomAllergenInput: React.FC<CustomAllergenInputProps> = ({ inputRef }) => {
     const [customAllergen, setCustomAllergen] = useState('');
 
     const selectedAllergens = useAppSelector(selectAllergensFilter);
@@ -20,13 +24,13 @@ export const CustomAllergenInput: React.FC = () => {
         const currAlergen = customAllergen.trim().toLowerCase();
         if (currAlergen && !selectedAllergens.includes(currAlergen)) {
             dispatch(addAllergen(customAllergen));
-            setCustomAllergen('');
         }
     };
 
     const handleKeyDown = (event: React.KeyboardEvent) => {
         if (event.key === 'Enter') {
             handleAddCustomAllergen();
+            setCustomAllergen('');
         }
     };
     return (
@@ -36,11 +40,15 @@ export const CustomAllergenInput: React.FC = () => {
                 placeholder='Другой аллерген'
                 size='sm'
                 borderRadius='base'
-                value={customAllergen}
                 onChange={onCustomAllergenInputChange}
                 data-test-id='add-other-allergen'
+                _focus={{
+                    borderColor: 'blackAlpha.200',
+                }}
                 onKeyDown={handleKeyDown}
+                ref={inputRef}
             />
+
             <IconButton
                 size='sm'
                 variant='none'

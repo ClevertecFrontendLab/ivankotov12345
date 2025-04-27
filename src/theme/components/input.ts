@@ -12,6 +12,12 @@ const baseStyle = definePartsStyle({
         _placeholder: {
             color: 'lime.800',
         },
+        _focus: {
+            borderColor: 'blackAlpha.600',
+        },
+        _hover: {
+            borderColor: 'blackAlpha.600',
+        },
     },
 });
 

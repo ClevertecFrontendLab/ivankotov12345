@@ -1,15 +1,6 @@
 import { ChevronDownIcon } from '@chakra-ui/icons';
-import {
-    Button,
-    HStack,
-    Menu,
-    MenuButton,
-    MenuItem,
-    MenuList,
-    Switch,
-    Text,
-} from '@chakra-ui/react';
-import { useState } from 'react';
+import { Box, Button, HStack, Menu, MenuButton, MenuList, Switch, Text } from '@chakra-ui/react';
+import { useRef, useState } from 'react';
 
 import { ALLERGENS_LIST } from '~/constants/drawer-filter-items';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
@@ -26,6 +17,9 @@ type AllergensSelectMenuProps = {
 export const AllergensSelectMenu: React.FC<AllergensSelectMenuProps> = ({ isDrawerType }) => {
     const [isDisabled, setIsDisabled] = useState(true);
     const [isOpen, setIsOpen] = useState(false);
+    const inputRef = useRef<HTMLInputElement | null>(null);
+
+    const focusCustomAllergen = () => inputRef.current?.focus();
 
     const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -74,27 +68,32 @@ export const AllergensSelectMenu: React.FC<AllergensSelectMenuProps> = ({ isDraw
                         )}
                     </HStack>
                 </MenuButton>
-                {isOpen && (
+                {isOpen ? (
                     <MenuList
                         boxShadow='selectBoxShadow'
                         border='none'
                         data-test-id='allergens-menu'
                     >
                         {ALLERGENS_LIST.map(({ item, label }, index) => (
-                            <MenuItem
+                            <Box
                                 key={item}
                                 gap={2}
                                 background={index % 2 ? 'white' : 'blackAlpha.100'}
                                 px={4}
                                 py={1.5}
                             >
-                                <AllergenCheckbox item={item} label={label} index={index} />
-                            </MenuItem>
+                                <AllergenCheckbox
+                                    item={item}
+                                    label={label}
+                                    index={index}
+                                    focusCustomAllergern={focusCustomAllergen}
+                                />
+                            </Box>
                         ))}
 
-                        <CustomAllergenInput />
+                        <CustomAllergenInput inputRef={inputRef} />
                     </MenuList>
-                )}
+                ) : null}
             </Menu>
         </>
     );

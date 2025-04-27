@@ -6,7 +6,7 @@ const navigationLink = defineStyle({
     w: 'full',
     py: 1.5,
     pr: 2,
-    pl: 12,
+    pl: 10,
     gap: 3,
     fontWeight: 'medium',
     _before: {

@@ -9,9 +9,15 @@ type AllergenCheckboxPropsType = {
     item: string;
     label: string;
     index: number;
+    focusCustomAllergern: () => void;
 };
 
-export const AllergenCheckbox: React.FC<AllergenCheckboxPropsType> = ({ item, label, index }) => {
+export const AllergenCheckbox: React.FC<AllergenCheckboxPropsType> = ({
+    item,
+    label,
+    index,
+    focusCustomAllergern,
+}) => {
     const [isChecked, setIsChecked] = useState(false);
 
     const selectedAllergens = useAppSelector(selectAllergensFilter);
@@ -28,6 +34,7 @@ export const AllergenCheckbox: React.FC<AllergenCheckboxPropsType> = ({ item, la
             dispatch(addAllergen(value));
             setIsChecked(true);
         }
+        focusCustomAllergern();
     };
 
     useEffect(() => {
@@ -40,9 +47,9 @@ export const AllergenCheckbox: React.FC<AllergenCheckboxPropsType> = ({ item, la
             name='allergen'
             variant='limeCheckbox'
             value={item}
-            isChecked={isDisabled === true ? false : isChecked}
             onChange={toggleAllergen}
             data-test-id={`allergen-${index}`}
+            isChecked={isChecked}
         >
             {label}
         </Checkbox>

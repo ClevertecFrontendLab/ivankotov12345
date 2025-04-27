@@ -61,7 +61,7 @@ export const TabsSection: React.FC = memo(() => {
                     ))}
             </TabList>
 
-            <TabPanels>
+            <TabPanels mt={6}>
                 <CardsWrapper>
                     {tabCardData.map((props, index) => (
                         <FoodCard {...props} key={props.id} index={index} />
