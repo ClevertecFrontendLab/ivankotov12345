@@ -6,11 +6,11 @@ import { useAppSelector } from '~/store/hooks';
 import { selectBurger } from '~/store/slices/burger-slice';
 
 import { Breadcrumbs } from '../breadcrumbs';
-import { BurgerMenu } from '../burger-menu';
 import { Stats } from '../stats';
 import { User } from '../user';
 import pan from './assets/svg/pan.svg';
 import yeeDaa from './assets/svg/yee-daa.svg';
+import { BurgerMenu } from './burger-menu';
 
 export const Header: React.FC = () => {
     const [isTablet] = useMediaQuery('(max-width: 74rem)');

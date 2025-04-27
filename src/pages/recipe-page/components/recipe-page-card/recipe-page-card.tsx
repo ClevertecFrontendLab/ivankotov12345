@@ -18,9 +18,9 @@ import {
 
 import { RecipeType } from '~/types/recipe';
 
-import { CardBadge } from '../card-badge';
-import { FavoriteIcon, LikeIcon, TimerIcon } from '../icons';
-import { StatButton } from '../stat-button';
+import { CardBadge } from '../../../../components/card-badge';
+import { FavoriteIcon, LikeIcon, TimerIcon } from '../../../../components/icons';
+import { StatButton } from '../../../../components/stat-button';
 
 export type RecipePageCardProps = Pick<
     RecipeType,

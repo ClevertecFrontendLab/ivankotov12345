@@ -3,12 +3,12 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router';
 
 import { Сarousel } from '~/components/carousel';
-import { IngredientsTable } from '~/components/ingredients-table';
-import { NutritionValueSection } from '~/components/nutrition-value-section';
-import { RecipePageCard } from '~/components/recipe-page-card';
-import { StepCard } from '~/components/step-card';
 import { UserCard } from '~/components/user-card';
 import { CARD_DATA } from '~/constants/card-data';
+import { IngredientsTable } from '~/pages/recipe-page/components/ingredients-table';
+import { NutritionValueSection } from '~/pages/recipe-page/components/nutrition-value-section';
+import { RecipePageCard } from '~/pages/recipe-page/components/recipe-page-card';
+import { StepCard } from '~/pages/recipe-page/components/step-card';
 import { useAppDispatch } from '~/store/hooks';
 import { clearSelectedRecipe, setSelectedRecipe } from '~/store/slices/selected-recipe-slice';
 import { RecipeType } from '~/types/recipe';

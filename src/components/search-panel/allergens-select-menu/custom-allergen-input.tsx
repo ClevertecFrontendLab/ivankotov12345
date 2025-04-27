@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { addAllergen, selectAllergensFilter } from '~/store/slices/filters-slice';
 
-import { PlusIcon } from '../icons';
+import { PlusIcon } from '../../icons';
 
 type CustomAllergenInputProps = {
     inputRef: React.RefObject<HTMLInputElement | null>;

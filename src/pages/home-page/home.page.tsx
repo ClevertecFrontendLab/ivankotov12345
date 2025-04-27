@@ -5,7 +5,6 @@ import { BlogSection } from '~/components/blog-section';
 import { CardsWrapper } from '~/components/cards-wrapper';
 import { Сarousel } from '~/components/carousel';
 import { FoodCard } from '~/components/food-card';
-import { JuiciestSection } from '~/components/juiciest-section';
 import { PageHeader } from '~/components/page-header';
 import { RelevantSection } from '~/components/relevant-section';
 import { CARD_DATA } from '~/constants/card-data';
@@ -13,6 +12,7 @@ import { PAGE_TITLES } from '~/constants/page-titles';
 import { VEGAN_RELEVANT_CARD_DATA } from '~/constants/relevant-card-data';
 import { VEGAN_RELEVANT_CARD_DATA_MINI } from '~/constants/relevant-card-data-mini';
 import { useAllergenFilter } from '~/hooks/use-allergen-filters';
+import { JuiciestSection } from '~/pages/category-page/components/juiciest-section';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectFilteredRecipes, setCurrentRecipes } from '~/store/slices/flter-recipe-slice';
 

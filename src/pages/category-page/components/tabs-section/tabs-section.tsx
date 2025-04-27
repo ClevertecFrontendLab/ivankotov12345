@@ -8,8 +8,8 @@ import { useAllergenFilter } from '~/hooks/use-allergen-filters';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectFilteredRecipes, setCurrentRecipes } from '~/store/slices/flter-recipe-slice';
 
-import { CardsWrapper } from '../cards-wrapper';
-import { FoodCard } from '../food-card';
+import { CardsWrapper } from '../../../../components/cards-wrapper';
+import { FoodCard } from '../../../../components/food-card';
 
 export const TabsSection: React.FC = memo(() => {
     const { pathname } = useLocation();

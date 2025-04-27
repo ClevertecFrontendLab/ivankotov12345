@@ -21,8 +21,8 @@ import {
 } from '~/store/slices/flter-recipe-slice';
 import { setSearchInputValue } from '~/store/slices/search-input-slice';
 
-import { AllergensSelectMenu } from '../allergens-select-menu';
-import { FilterDrawer } from '../filter-drawer';
+import { AllergensSelectMenu } from './allergens-select-menu';
+import { FilterDrawer } from './filter-drawer';
 import { FilterIcon } from './filter-icon';
 
 export const SearchPanel: React.FC = () => {

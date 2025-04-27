@@ -59,7 +59,7 @@ export const Breadcrumbs: React.FC = () => {
             )}
 
             {thirdItemPath && (
-                <BreadcrumbItem>
+                <BreadcrumbItem color={selectedRecipe ? 'blackAlpha.700' : 'inherit'}>
                     <BreadcrumbLink as={NavLink} to={`/${secondItemPath}/${thirdItemPath}`}>
                         {thirdItemName}
                     </BreadcrumbLink>

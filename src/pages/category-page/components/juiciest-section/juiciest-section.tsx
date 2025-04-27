@@ -3,7 +3,7 @@ import { Box, Flex, Heading, SimpleGrid, Spacer } from '@chakra-ui/react';
 import { CARD_DATA } from '~/constants/card-data';
 import { PAGE_TITLES } from '~/constants/page-titles';
 
-import { FoodCard } from '../food-card';
+import { FoodCard } from '../../../../components/food-card';
 import { JuiciestButton } from './juiciest-button';
 
 const { title } = PAGE_TITLES.juiciest;
