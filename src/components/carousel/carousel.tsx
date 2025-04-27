@@ -28,7 +28,7 @@ export const Сarousel: React.FC = () => {
             <Heading as='h2' variant='section' mb={6}>
                 {title}
             </Heading>
-            <Box pos='relative' zIndex={0}>
+            <Box pos='relative' zIndex={0} width={{ base: 'calc(100% + 16px)', md: 'full' }}>
                 <IconButton
                     size='lg'
                     icon={<ArrowBackIcon />}
@@ -51,12 +51,30 @@ export const Сarousel: React.FC = () => {
                     ref={swiperRef}
                     loop={true}
                     breakpoints={{
-                        320: { slidesPerView: 2.05 },
-                        640: { slidesPerView: 3.1 },
-                        768: { slidesPerView: 4.1 },
-                        1180: { slidesPerView: 2.05 },
-                        1360: { slidesPerView: 3.05 },
-                        1600: { slidesPerView: 4 },
+                        300: {
+                            slidesPerView: 2.1,
+                            spaceBetween: '12px',
+                        },
+                        640: {
+                            slidesPerView: 3.1,
+                            spaceBetween: '12px',
+                        },
+                        768: {
+                            slidesPerView: 4.1,
+                            spaceBetween: '16px',
+                        },
+                        1180: {
+                            slidesPerView: 2.05,
+                            spaceBetween: '16px',
+                        },
+                        1360: {
+                            slidesPerView: 3.05,
+                            spaceBetween: '24px',
+                        },
+                        1600: {
+                            slidesPerView: 4,
+                            spaceBetween: '24px',
+                        },
                     }}
                 >
                     {carouselCardsData.map((props, index) => (

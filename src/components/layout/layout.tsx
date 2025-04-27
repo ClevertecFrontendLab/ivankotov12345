@@ -54,7 +54,12 @@ export const Layout: React.FC = () => {
                         </GridItem>
                     )}
 
-                    <GridItem mt={{ base: 12, lg: 20 }} px={5} gridArea='main' overflow='hidden'>
+                    <GridItem
+                        mt={{ base: 12, lg: 20 }}
+                        px={{ base: 4, lg: 5 }}
+                        gridArea='main'
+                        overflow='hidden'
+                    >
                         <Outlet />
                     </GridItem>
 
