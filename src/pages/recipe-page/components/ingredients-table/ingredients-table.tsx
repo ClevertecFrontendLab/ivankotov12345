@@ -15,6 +15,8 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
+import { COLORS_BLACK_ALPHA } from '~/constants/colors';
+import { DATA_TEST_ID } from '~/constants/test-id';
 import { IngredientType } from '~/types/recipe';
 
 type IngredientsTableProps = {
@@ -57,8 +59,12 @@ export const IngredientsTable: React.FC<IngredientsTableProps> = ({ ingredients,
                             >
                                 <NumberInputField />
                                 <NumberInputStepper>
-                                    <NumberIncrementStepper data-test-id='increment-stepper' />
-                                    <NumberDecrementStepper data-test-id='decrement-stepper' />
+                                    <NumberIncrementStepper
+                                        data-test-id={DATA_TEST_ID.incrementStepper}
+                                    />
+                                    <NumberDecrementStepper
+                                        data-test-id={DATA_TEST_ID.decrementStepper}
+                                    />
                                 </NumberInputStepper>
                             </NumberInput>
                         </HStack>
@@ -66,12 +72,12 @@ export const IngredientsTable: React.FC<IngredientsTableProps> = ({ ingredients,
                 </Tr>
             </Thead>
 
-            <Tbody fontSize='sm' fontWeight='medium' color='blackAlpha.900'>
+            <Tbody fontSize='sm' fontWeight='medium' color={COLORS_BLACK_ALPHA[900]}>
                 {currentIngredients.map(({ title, count, measureUnit }, index) => (
                     <Tr key={title}>
                         <Td>{title}</Td>
                         <Td display='flex' justifyContent='end'>
-                            <Text data-test-id={`ingredient-quantity-${index}`}>
+                            <Text data-test-id={`${DATA_TEST_ID.ingredientsQuantity}-${index}`}>
                                 {+count > 0 && count}
                             </Text>
                             <Text>{measureUnit}</Text>

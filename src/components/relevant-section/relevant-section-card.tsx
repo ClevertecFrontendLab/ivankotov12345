@@ -1,5 +1,6 @@
 import { Card, CardBody, CardFooter, Flex, Heading, Spacer, Text } from '@chakra-ui/react';
 
+import { COLORS_LIME } from '~/constants/colors';
 import { CardData } from '~/types/card-data';
 
 import { CardBadge } from '../card-badge';
@@ -29,7 +30,7 @@ export const RelevantSectionCard: React.FC<RelevantSectionCardProps> = ({
         <CardFooter p={0} w='full'>
             <Flex alignItems='center' w='full'>
                 {category.map((item) => (
-                    <CardBadge backgroundColor='lime.50' key={item} category={item} />
+                    <CardBadge backgroundColor={COLORS_LIME[50]} key={item} category={item} />
                 ))}
 
                 <Spacer />

@@ -13,6 +13,9 @@ import {
 import React from 'react';
 import { NavLink } from 'react-router';
 
+import { COLORS_LIME } from '~/constants/colors';
+import { MIN_CAROUSEL_CARD_HEIGHT } from '~/constants/sizes';
+import { DATA_TEST_ID } from '~/constants/test-id';
 import { useRecipePath } from '~/hooks/use-path-to-recipe';
 import { CardData } from '~/types/card-data';
 
@@ -37,11 +40,11 @@ export const CarouselCard: React.FC<CardData> = ({
             as={NavLink}
             to={recipePath}
             w={{ base: 'carouselItem.sm', lg: 'carouselItem.md', '2xl': 'carouselItem.lg' }}
-            minH='220px'
+            minH={MIN_CAROUSEL_CARD_HEIGHT}
             overflow='hidden'
             borderRadius='lg'
             h='full'
-            data-test-id={`carousel-card-${index}`}
+            data-test-id={`${DATA_TEST_ID.carouselCard}-${index}`}
         >
             <CardBody as={Flex} flexDirection='column' p={0}>
                 <Image
@@ -70,7 +73,11 @@ export const CarouselCard: React.FC<CardData> = ({
                     <Flex alignItems='start'>
                         <VStack layerStyle='absolute' top={2} left={2} alignItems='start'>
                             {category.map((item) => (
-                                <CardBadge backgroundColor='lime.150' key={item} category={item} />
+                                <CardBadge
+                                    backgroundColor={COLORS_LIME[150]}
+                                    key={item}
+                                    category={item}
+                                />
                             ))}
                         </VStack>
 

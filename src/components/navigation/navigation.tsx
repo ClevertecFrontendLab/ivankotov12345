@@ -1,8 +1,11 @@
 import { Accordion, Button, Text, useMediaQuery, useOutsideClick, VStack } from '@chakra-ui/react';
 import { useMemo, useRef } from 'react';
-import { useLocation } from 'react-router';
 
+import { COLORS_BLACK_ALPHA } from '~/constants/colors';
 import { NAV_MENU_ITEMS } from '~/constants/nav-menu';
+import { DATA_TEST_ID } from '~/constants/test-id';
+import { Z_INDEX } from '~/constants/z-index';
+import { usePathItems } from '~/hooks/use-path-items';
 import { useAppDispatch } from '~/store/hooks';
 import { closeBurgerMenu } from '~/store/slices/burger-slice';
 
@@ -20,13 +23,11 @@ export const Navigation: React.FC<NavigationProps> = ({ buttonRef }) => {
 
     const navRef = useRef<HTMLDivElement | null>(null);
 
-    const { pathname } = useLocation();
-
-    const [firstItemPath] = pathname.split('/').filter(Boolean);
+    const { secondItemPath } = usePathItems();
 
     const activeIndex = useMemo(
-        () => NAV_MENU_ITEMS.findIndex(({ path }) => path === firstItemPath),
-        [firstItemPath],
+        () => NAV_MENU_ITEMS.findIndex(({ path }) => path === secondItemPath),
+        [secondItemPath],
     );
 
     useOutsideClick({
@@ -52,7 +53,8 @@ export const Navigation: React.FC<NavigationProps> = ({ buttonRef }) => {
             right={2}
             ref={navRef}
             borderBottomRadius={{ base: 'xl', lg: 'none' }}
-            data-test-id='nav'
+            data-test-id={DATA_TEST_ID.nav}
+            zIndex={Z_INDEX.layout}
         >
             {isTablet && <Breadcrumbs />}
 
@@ -71,10 +73,10 @@ export const Navigation: React.FC<NavigationProps> = ({ buttonRef }) => {
                 fontSize='xs'
                 lineHeight='short'
             >
-                <Text color='blackAlpha.400' fontWeight='medium'>
+                <Text color={COLORS_BLACK_ALPHA[400]} fontWeight='medium'>
                     Версия программы 3.25
                 </Text>
-                <Text color='blackAlpha.700'>
+                <Text color={COLORS_BLACK_ALPHA[700]}>
                     Все права защищены, ученический файл, <br /> ©Клевер Технолоджи, 2025
                 </Text>
                 <Button leftIcon={<ExitIcon />} variant='none' p={0} size='2xs'>

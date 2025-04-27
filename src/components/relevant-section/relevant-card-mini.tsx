@@ -1,5 +1,6 @@
 import { Button, Card, Heading, HStack, Image } from '@chakra-ui/react';
 
+import { COLORS_LIME } from '~/constants/colors';
 import { CardData } from '~/types/card-data';
 
 type RelevantCardMiniType = Pick<CardData, 'image' | 'title'>;
@@ -20,8 +21,8 @@ export const RelevantCardMini: React.FC<RelevantCardMiniType> = ({ image, title 
 
             <Button
                 variant='outline'
-                color='lime.600'
-                borderColor='lime.600'
+                color={COLORS_LIME[600]}
+                borderColor={COLORS_LIME[600]}
                 size='sm'
                 p={2}
                 flexShrink={0}

@@ -2,12 +2,14 @@ import { ChevronDownIcon } from '@chakra-ui/icons';
 import { Box, Button, HStack, Menu, MenuButton, MenuList, Switch, Text } from '@chakra-ui/react';
 import { useRef, useState } from 'react';
 
+import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/colors';
 import { ALLERGENS_LIST } from '~/constants/drawer-filter-items';
+import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { clearFilters, selectAllergensFilter } from '~/store/slices/filters-slice';
 
+import { FilterTag } from '../filter-tag';
 import { AllergenCheckbox } from './allergen-checkbox';
-import { AllergenTag } from './allergen-tag';
 import { CustomAllergenInput } from './custom-allergen-input';
 
 type AllergensSelectMenuProps = {
@@ -42,7 +44,11 @@ export const AllergensSelectMenu: React.FC<AllergensSelectMenuProps> = ({ isDraw
                     name='allergen switch'
                     isChecked={!isDisabled}
                     onChange={toggleAllergenSwitch}
-                    data-test-id={isDrawerType ? 'allergens-switcher-filter' : 'allergens-switcher'}
+                    data-test-id={
+                        isDrawerType
+                            ? DATA_TEST_ID.allergenSwitcherFilter
+                            : DATA_TEST_ID.allergenSwitcher
+                    }
                 />
             </HStack>
 
@@ -53,16 +59,20 @@ export const AllergensSelectMenu: React.FC<AllergensSelectMenuProps> = ({ isDraw
                     variant='menuButton'
                     height='auto'
                     data-test-id={
-                        isDrawerType ? 'allergens-menu-button-filter' : 'allergens-menu-button'
+                        isDrawerType
+                            ? DATA_TEST_ID.allergensMenuButtonFilter
+                            : DATA_TEST_ID.allergensMenuButton
                     }
                     isDisabled={isDisabled}
                     onClick={toggleMenu}
-                    borderColor={selectedAllergens.length ? 'lime.400' : 'blackAlpha.200'}
+                    borderColor={
+                        selectedAllergens.length ? COLORS_LIME[400] : COLORS_BLACK_ALPHA[200]
+                    }
                 >
                     <HStack alignItems='start' rowGap={1} columnGap={2} flexWrap='wrap'>
-                        {selectedAllergens.length && !isDrawerType ? (
+                        {selectedAllergens.length ? (
                             selectedAllergens.map((allergen) => (
-                                <AllergenTag key={allergen} allergen={allergen} />
+                                <FilterTag key={allergen} item={allergen} />
                             ))
                         ) : (
                             <Text>Выберите из списка...</Text>
@@ -73,13 +83,13 @@ export const AllergensSelectMenu: React.FC<AllergensSelectMenuProps> = ({ isDraw
                     <MenuList
                         boxShadow='selectBoxShadow'
                         border='none'
-                        data-test-id='allergens-menu'
+                        data-test-id={DATA_TEST_ID.allergensMenu}
                     >
                         {ALLERGENS_LIST.map(({ item, label }, index) => (
                             <Box
                                 key={item}
                                 gap={2}
-                                background={index % 2 ? 'white' : 'blackAlpha.100'}
+                                background={index % 2 ? 'white' : COLORS_BLACK_ALPHA[100]}
                                 px={4}
                                 py={1.5}
                             >

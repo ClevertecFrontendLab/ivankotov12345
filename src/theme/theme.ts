@@ -21,9 +21,12 @@ export const theme = extendTheme({
             300: '#C4FF61',
             400: '#B1FF2E',
             600: '#2DB100',
+            700: '#207E00',
             800: '#134B00',
         },
         shadowed: 'var(--blackAlpha-300, rgba(0, 0, 0, 0.16))',
+        bgRadialGraident:
+            'radial-gradient(50% 50% at 50% 50%, rgba(196, 255, 97, 0.70) 0%, rgba(255, 255, 255, 0.00) 100%)',
     },
     fonts: {
         body: `Inter, system-ui, Avenir, Helvetica, Arial, sans-serif`,

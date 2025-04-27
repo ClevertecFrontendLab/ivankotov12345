@@ -1,10 +1,11 @@
 import { Box, Heading, VStack } from '@chakra-ui/react';
 import { useEffect } from 'react';
-import { useLocation } from 'react-router';
 
 import { Сarousel } from '~/components/carousel';
 import { UserCard } from '~/components/user-card';
 import { CARD_DATA } from '~/constants/card-data';
+import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/colors';
+import { usePathItems } from '~/hooks/use-path-items';
 import { IngredientsTable } from '~/pages/recipe-page/components/ingredients-table';
 import { NutritionValueSection } from '~/pages/recipe-page/components/nutrition-value-section';
 import { RecipePageCard } from '~/pages/recipe-page/components/recipe-page-card';
@@ -14,9 +15,8 @@ import { clearSelectedRecipe, setSelectedRecipe } from '~/store/slices/selected-
 import { RecipeType } from '~/types/recipe';
 
 export const RecipePage: React.FC = () => {
-    const { pathname } = useLocation();
+    const { currId } = usePathItems();
 
-    const [, , currId] = pathname.split('/').filter(Boolean);
     const recipe = CARD_DATA.find(({ id }) => id === currId) || null;
     const dispatch = useAppDispatch();
 
@@ -62,7 +62,11 @@ export const RecipePage: React.FC = () => {
                         <StepCard
                             key={step.stepNumber}
                             {...step}
-                            background={index === steps.length - 1 ? 'lime.50' : 'blackAlpha.100'}
+                            background={
+                                index === steps.length - 1
+                                    ? COLORS_LIME[50]
+                                    : COLORS_BLACK_ALPHA[100]
+                            }
                         />
                     ))}
                 </VStack>

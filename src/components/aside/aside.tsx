@@ -1,6 +1,10 @@
 import { EditIcon } from '@chakra-ui/icons';
 import { Flex, IconButton, Spacer, Text, VStack } from '@chakra-ui/react';
 
+import { COLORS, COLORS_BLACK_ALPHA } from '~/constants/colors';
+import { BG_GRADIENT_SIZE } from '~/constants/sizes';
+import { Z_INDEX } from '~/constants/z-index';
+
 import { Stats } from '../stats';
 
 export const Aside: React.FC = () => (
@@ -13,20 +17,20 @@ export const Aside: React.FC = () => (
             <IconButton
                 aria-label='edit button'
                 icon={<EditIcon w={6} h={6} />}
-                bg='black'
-                color='white'
+                bg={COLORS.black}
+                color={COLORS.white}
                 borderRadius='full'
                 size='lg'
                 _after={{
                     content: '""',
                     position: 'absolute',
-                    zIndex: -1,
-                    w: '208px',
-                    h: '208px',
-                    bg: 'radial-gradient(50% 50% at 50% 50%, rgba(196, 255, 97, 0.70) 0%, rgba(255, 255, 255, 0.00) 100%)',
+                    zIndex: Z_INDEX.hide,
+                    w: BG_GRADIENT_SIZE,
+                    h: BG_GRADIENT_SIZE,
+                    bg: COLORS.bgRadialGradient,
                 }}
             />
-            <Text fontSize='xs' color='blackAlpha.600'>
+            <Text fontSize='xs' color={COLORS_BLACK_ALPHA[600]}>
                 Записать рецепт
             </Text>
         </VStack>

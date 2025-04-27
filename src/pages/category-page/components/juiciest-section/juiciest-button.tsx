@@ -2,6 +2,7 @@ import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { Button } from '@chakra-ui/react';
 import { NavLink } from 'react-router';
 
+import { COLORS_LIME } from '~/constants/colors';
 import { ROUTER_PATHS } from '~/constants/router-paths';
 
 type JuiciestButtonProps = {
@@ -13,7 +14,7 @@ export const JuiciestButton: React.FC<JuiciestButtonProps> = ({ testId }) => (
         as={NavLink}
         to={ROUTER_PATHS.juiciestPage}
         rightIcon={<ArrowForwardIcon />}
-        bg='lime.400'
+        bg={COLORS_LIME[400]}
         size={{ base: 'md', '2xl': 'lg' }}
         data-test-id={testId}
         px={5}

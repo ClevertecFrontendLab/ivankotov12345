@@ -20,6 +20,8 @@ import {
 import { memo } from 'react';
 import { NavLink } from 'react-router';
 
+import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/colors';
+import { DATA_TEST_ID } from '~/constants/test-id';
 import { useRecipePath } from '~/hooks/use-path-to-recipe';
 import { useAppSelector } from '~/store/hooks';
 import { selectSearchInput } from '~/store/slices/search-input-slice';
@@ -49,7 +51,7 @@ export const FoodCard: React.FC<CardData> = memo(
                 direction='row'
                 overflow='hidden'
                 borderRadius='lg'
-                data-test-id={`food-card-${index}`}
+                data-test-id={`${DATA_TEST_ID.foodCard}-${index}`}
             >
                 <Image
                     src={image}
@@ -64,7 +66,7 @@ export const FoodCard: React.FC<CardData> = memo(
                         pos='absolute'
                         left={6}
                         bottom={5}
-                        bg='lime.150'
+                        bg={COLORS_LIME[150]}
                         py={1}
                         px={2}
                         display={{ base: 'none', lg: 'flex' }}
@@ -95,7 +97,7 @@ export const FoodCard: React.FC<CardData> = memo(
                             >
                                 {category.map((item) => (
                                     <CardBadge
-                                        backgroundColor='lime.50'
+                                        backgroundColor={COLORS_LIME[50]}
                                         key={item}
                                         category={item}
                                     />
@@ -124,7 +126,10 @@ export const FoodCard: React.FC<CardData> = memo(
                     <CardBody p={0}>
                         <Box>
                             <Heading as='h3' variant='card' mb={2}>
-                                <Highlight query={searchInputValue} styles={{ color: 'lime.600' }}>
+                                <Highlight
+                                    query={searchInputValue}
+                                    styles={{ color: COLORS_LIME[600] }}
+                                >
                                     {title}
                                 </Highlight>
                             </Heading>
@@ -144,7 +149,7 @@ export const FoodCard: React.FC<CardData> = memo(
                                 variant='outline'
                                 leftIcon={<LikeIcon />}
                                 size={{ base: 'xs', lg: 'sm' }}
-                                borderColor='blackAlpha.600'
+                                borderColor={COLORS_BLACK_ALPHA[600]}
                                 iconSpacing={{ base: 0, lg: 0.5 }}
                             >
                                 <Text display={{ base: 'none', lg: 'inline' }}>Сохранить</Text>
@@ -155,7 +160,7 @@ export const FoodCard: React.FC<CardData> = memo(
                                 to={recipePath}
                                 size={{ base: 'xs', lg: 'sm' }}
                                 variant='black'
-                                data-test-id={`card-link-${index}`}
+                                data-test-id={`${DATA_TEST_ID.cardLink}-${index}`}
                             >
                                 Готовить
                             </Button>

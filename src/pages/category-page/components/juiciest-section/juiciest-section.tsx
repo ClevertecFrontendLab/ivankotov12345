@@ -2,13 +2,19 @@ import { Box, Flex, Heading, SimpleGrid, Spacer } from '@chakra-ui/react';
 
 import { CARD_DATA } from '~/constants/card-data';
 import { PAGE_TITLES } from '~/constants/page-titles';
+import { DATA_TEST_ID } from '~/constants/test-id';
 
 import { FoodCard } from '../../../../components/food-card';
 import { JuiciestButton } from './juiciest-button';
 
 const { title } = PAGE_TITLES.juiciest;
 
-const juiciestCardData = CARD_DATA.sort((a, b) => (b.likes || 0) - (a.likes || 0)).slice(0, 4);
+const CARDS_LENGTH = 4;
+
+const juiciestCardData = CARD_DATA.sort((a, b) => (b.likes || 0) - (a.likes || 0)).slice(
+    0,
+    CARDS_LENGTH,
+);
 
 export const JuiciestSection: React.FC = () => (
     <Box as='section' mb={{ base: 8, lg: 10 }}>
@@ -18,7 +24,7 @@ export const JuiciestSection: React.FC = () => (
             <Spacer />
 
             <Box display={{ base: 'none', lg: 'block' }}>
-                <JuiciestButton testId='juiciest-link' />
+                <JuiciestButton testId={DATA_TEST_ID.juiciestLink} />
             </Box>
         </Flex>
 
@@ -29,7 +35,7 @@ export const JuiciestSection: React.FC = () => (
         </SimpleGrid>
 
         <Flex justifyContent='center' pt={4} display={{ base: 'flex', lg: 'none' }}>
-            <JuiciestButton testId='juiciest-link-mobile' />
+            <JuiciestButton testId={DATA_TEST_ID.juiciestLinkMobile} />
         </Flex>
     </Box>
 );

@@ -1,6 +1,7 @@
 import { Checkbox, CheckboxGroup, Text, VStack } from '@chakra-ui/react';
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 
+import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch } from '~/store/hooks';
 import { FilterItem } from '~/types/filter-item';
 
@@ -40,7 +41,7 @@ export const FilterCheckboxGroup: React.FC<FilterCheckboxGroupProps> = ({
                         key={item}
                         value={item}
                         onChange={toggleItem}
-                        data-test-id={`checkbox-${label.toLowerCase()}`}
+                        data-test-id={`${DATA_TEST_ID.checkbox}-${label.toLowerCase()}`}
                     >
                         {label}
                     </Checkbox>

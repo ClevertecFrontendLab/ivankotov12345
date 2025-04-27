@@ -6,6 +6,7 @@ import { FoodCard } from '~/components/food-card';
 import { PageHeader } from '~/components/page-header';
 import { RelevantSection } from '~/components/relevant-section';
 import { CARD_DATA } from '~/constants/card-data';
+import { COLORS_LIME } from '~/constants/colors';
 import { PAGE_TITLES } from '~/constants/page-titles';
 import { VEGAN_RELEVANT_CARD_DATA } from '~/constants/relevant-card-data';
 import { VEGAN_RELEVANT_CARD_DATA_MINI } from '~/constants/relevant-card-data-mini';
@@ -16,7 +17,9 @@ import { selectFilteredRecipes } from '~/store/slices/flter-recipe-slice';
 const { title: juiciestPageTitle } = PAGE_TITLES.juiciest;
 const { title: veganPageTitle, subtitle: veganPageSubTitle } = PAGE_TITLES.vegan;
 
-const CardDataNotFiltered = CARD_DATA.slice(0, 8);
+const CARD_LENGTH = 8;
+
+const CardDataNotFiltered = CARD_DATA.slice(0, CARD_LENGTH);
 
 export const JuiciestPage: React.FC = () => {
     const { filteredRecipes } = useAppSelector(selectFilteredRecipes);
@@ -36,7 +39,7 @@ export const JuiciestPage: React.FC = () => {
                 </CardsWrapper>
 
                 <Center mt={4}>
-                    <Button bg='lime.400' px={5}>
+                    <Button bg={COLORS_LIME[400]} px={5}>
                         Загрузить ещё
                     </Button>
                 </Center>

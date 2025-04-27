@@ -1,38 +1,42 @@
 import { Button, Center, Tab, TabList, TabPanels, Tabs } from '@chakra-ui/react';
 import { memo, useEffect, useMemo } from 'react';
-import { NavLink, useLocation } from 'react-router';
+import { NavLink } from 'react-router';
 
 import { CARD_DATA } from '~/constants/card-data';
+import { COLORS_LIME } from '~/constants/colors';
 import { NAV_MENU_ITEMS } from '~/constants/nav-menu';
+import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAllergenFilter } from '~/hooks/use-allergen-filters';
+import { usePathItems } from '~/hooks/use-path-items';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectFilteredRecipes, setCurrentRecipes } from '~/store/slices/flter-recipe-slice';
 
 import { CardsWrapper } from '../../../../components/cards-wrapper';
 import { FoodCard } from '../../../../components/food-card';
 
+const CARDS_LENGTH = 8;
+
 export const TabsSection: React.FC = memo(() => {
-    const { pathname } = useLocation();
     const { currentRecipes, filteredRecipes } = useAppSelector(selectFilteredRecipes);
     const dispatch = useAppDispatch();
 
-    const [currentCategory, currentSubcategory] = pathname.split('/').filter(Boolean);
+    const { secondItemPath, thirdItemPath } = usePathItems();
 
     const tabs = useMemo(
-        () => NAV_MENU_ITEMS.find((item) => item.path === currentCategory)?.subcategories,
-        [currentCategory],
+        () => NAV_MENU_ITEMS.find((item) => item.path === secondItemPath)?.subcategories,
+        [secondItemPath],
     );
     const activeIndex = useMemo(
-        () => tabs?.findIndex((tab) => tab.path === currentSubcategory),
-        [currentSubcategory, tabs],
+        () => tabs?.findIndex((tab) => tab.path === thirdItemPath),
+        [thirdItemPath, tabs],
     );
 
     const currentCategoryRecipesList = useMemo(
         () =>
-            CARD_DATA.filter(({ category }) => category.includes(currentCategory))
-                .filter(({ subcategory }) => subcategory.includes(currentSubcategory))
+            CARD_DATA.filter(({ category }) => category.includes(secondItemPath))
+                .filter(({ subcategory }) => subcategory.includes(thirdItemPath))
                 .sort((a, b) => +a.id - +b.id),
-        [currentCategory, currentSubcategory],
+        [secondItemPath, thirdItemPath],
     );
 
     useEffect(() => {
@@ -42,7 +46,7 @@ export const TabsSection: React.FC = memo(() => {
     useAllergenFilter(currentCategoryRecipesList);
 
     const tabCardData = useMemo(
-        () => (filteredRecipes.length ? filteredRecipes : currentRecipes.slice(0, 8)),
+        () => (filteredRecipes.length ? filteredRecipes : currentRecipes.slice(0, CARDS_LENGTH)),
         [filteredRecipes, currentRecipes],
     );
     return (
@@ -52,9 +56,9 @@ export const TabsSection: React.FC = memo(() => {
                     tabs.map(({ category, path }, index) => (
                         <Tab
                             as={NavLink}
-                            to={`/${currentCategory}/${path}`}
+                            to={`/${secondItemPath}/${path}`}
                             key={category}
-                            data-test-id={`tab-${path}-${index}`}
+                            data-test-id={`${DATA_TEST_ID.tab}-${path}-${index}`}
                         >
                             {category}
                         </Tab>
@@ -68,8 +72,8 @@ export const TabsSection: React.FC = memo(() => {
                     ))}
                 </CardsWrapper>
 
-                <Center>
-                    <Button bg='lime.400' px={5}>
+                <Center mt={4}>
+                    <Button bg={COLORS_LIME[400]} px={5}>
                         Загрузить ещё
                     </Button>
                 </Center>

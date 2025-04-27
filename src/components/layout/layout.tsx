@@ -1,6 +1,10 @@
 import { Box, Grid, GridItem, useMediaQuery } from '@chakra-ui/react';
 import { Outlet } from 'react-router';
 
+import { COLORS_LIME } from '~/constants/colors';
+import { DATA_TEST_ID } from '~/constants/test-id';
+import { Z_INDEX } from '~/constants/z-index';
+
 import { Aside } from '../aside';
 import { Footer } from '../footer';
 import { Header } from '../header';
@@ -19,11 +23,11 @@ export const Layout: React.FC = () => {
             <Box
                 as='header'
                 justifyItems='center'
-                bg='lime.50'
+                bg={COLORS_LIME[50]}
                 position='fixed'
                 w='full'
-                zIndex={12}
-                data-test-id='header'
+                zIndex={Z_INDEX.layout}
+                data-test-id={DATA_TEST_ID.header}
             >
                 <Header />
             </Box>
@@ -80,9 +84,9 @@ export const Layout: React.FC = () => {
                         position='fixed'
                         bottom={0}
                         justifyItems='center'
-                        bg='lime.50'
+                        bg={COLORS_LIME[50]}
                         w='full'
-                        data-test-id='footer'
+                        data-test-id={DATA_TEST_ID.footer}
                         display={{ base: 'block', lg: 'none' }}
                     >
                         <Footer />

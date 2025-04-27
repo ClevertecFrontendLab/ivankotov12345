@@ -8,6 +8,8 @@ import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
 import { CARD_DATA } from '~/constants/card-data';
 import { PAGE_TITLES } from '~/constants/page-titles';
+import { DATA_TEST_ID } from '~/constants/test-id';
+import { Z_INDEX } from '~/constants/z-index';
 
 import { CarouselCard } from './carousel-card';
 
@@ -28,7 +30,11 @@ export const Сarousel: React.FC = () => {
             <Heading as='h2' variant='section' mb={6}>
                 {title}
             </Heading>
-            <Box pos='relative' zIndex={0} width={{ base: 'calc(100% + 16px)', md: 'full' }}>
+            <Box
+                pos='relative'
+                zIndex={Z_INDEX.base}
+                width={{ base: 'calc(100% + 16px)', md: 'full' }}
+            >
                 <IconButton
                     size='lg'
                     icon={<ArrowBackIcon />}
@@ -36,21 +42,20 @@ export const Сarousel: React.FC = () => {
                     pos='absolute'
                     top='calc(50% - 38px)'
                     transform='translate(-10%, -50%)'
-                    zIndex={2}
+                    zIndex={Z_INDEX.carousel}
                     variant='black'
                     display={{ base: 'none', lg: 'block' }}
                     onClick={onBack}
-                    data-test-id='carousel-back'
+                    data-test-id={DATA_TEST_ID.carouselBack}
                 />
 
                 <Swiper
-                    data-test-id='carousel'
+                    data-test-id={DATA_TEST_ID.carousel}
                     slidesPerView={4}
                     spaceBetween={12}
                     modules={[Navigation]}
                     ref={swiperRef}
                     loop={true}
-                    speed={0}
                     breakpoints={{
                         300: {
                             slidesPerView: 2.1,
@@ -93,11 +98,11 @@ export const Сarousel: React.FC = () => {
                     top='calc(50% - 38px)'
                     transform='translate(20%, -50%)'
                     right='0'
-                    zIndex={2}
+                    zIndex={Z_INDEX.carousel}
                     variant='black'
                     display={{ base: 'none', lg: 'block' }}
                     onClick={onForward}
-                    data-test-id='carousel-forward'
+                    data-test-id={DATA_TEST_ID.carouselForward}
                 />
             </Box>
         </Box>

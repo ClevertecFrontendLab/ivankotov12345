@@ -10,6 +10,9 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useMemo, useState } from 'react';
 
+import { COLORS_BLACK_ALPHA } from '~/constants/colors';
+import { PLACEHOLDERS } from '~/constants/placeholders';
+import { DATA_TEST_ID } from '~/constants/test-id';
 import { filterRecipesBySearch } from '~/helpers/filter-recipe';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { openDrawer } from '~/store/slices/filter-drawer-slice';
@@ -29,14 +32,17 @@ type SearchPanelProps = {
     setIsSearchFocused: (isElementFocused: boolean) => void;
 };
 
+const MIN_SEARCH_VALUE_LENGTH = 3;
+
 export const SearchPanel: React.FC<SearchPanelProps> = ({ setIsSearchFocused }) => {
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
     const dispatch = useAppDispatch();
     const [currentSearchValue, setCurrentSearchValue] = useState('');
+    const [hasSearchError, setHasSearchError] = useState(false);
     const { currentRecipes, filteredRecipes } = useAppSelector(selectFilteredRecipes);
 
     const isSearchButtonDisabled = useMemo(
-        () => currentSearchValue.length < 3,
+        () => currentSearchValue.length < MIN_SEARCH_VALUE_LENGTH,
         [currentSearchValue],
     );
 
@@ -52,6 +58,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({ setIsSearchFocused }) 
         event.preventDefault();
         const value = event.target.value.trim().toLowerCase();
         setCurrentSearchValue(value);
+        setHasSearchError(false);
     };
 
     const onSearchClick = () => {
@@ -59,7 +66,9 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({ setIsSearchFocused }) 
         const currSearchArr = filteredRecipes.length ? filteredRecipes : currentRecipes;
         const filtered = filterRecipesBySearch(currentSearchValue, currSearchArr);
         dispatch(setFilteredRecipes(filtered));
+        setHasSearchError(filtered.length === 0);
     };
+
     return (
         <VStack w='full' px={{ md: 36, lg: 48 }} gap={4}>
             <HStack w='full'>
@@ -69,24 +78,26 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({ setIsSearchFocused }) 
                     variant='outline'
                     size={{ base: 'sm', lg: 'lg' }}
                     width={{ base: 8, lg: 12 }}
-                    borderColor='blackAlpha.600'
+                    borderColor={COLORS_BLACK_ALPHA[600]}
                     px={0}
                     onClick={() => dispatch(openDrawer())}
-                    data-test-id='filter-button'
+                    data-test-id={DATA_TEST_ID.filterButton}
                 />
                 <InputGroup size={{ base: 'sm', lg: 'lg' }}>
                     <Input
-                        data-test-id='search-input'
+                        data-test-id={DATA_TEST_ID.searchInput}
                         name='search'
-                        placeholder='Название или ингредиент...'
-                        borderColor='blackAlpha.600'
+                        placeholder={PLACEHOLDERS.search}
+                        borderColor={hasSearchError ? 'red.500' : COLORS_BLACK_ALPHA[600]}
                         _focus={{
                             borderColor: isSearchButtonDisabled
                                 ? 'red.500 !important'
-                                : 'blackAlpha.600',
+                                : hasSearchError
+                                  ? 'red.500 !important'
+                                  : COLORS_BLACK_ALPHA[600],
                         }}
                         _hover={{
-                            borderColor: 'blackAlpha.600',
+                            borderColor: hasSearchError ? 'red.500' : COLORS_BLACK_ALPHA[600],
                         }}
                         onChange={onSearchChange}
                         onFocus={() => setIsSearchFocused(true)}
@@ -101,7 +112,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({ setIsSearchFocused }) 
                             icon={<SearchIcon />}
                             disabled={isSearchButtonDisabled}
                             onClick={onSearchClick}
-                            data-test-id='search-button'
+                            data-test-id={DATA_TEST_ID.searchButton}
                         />
                     </InputRightElement>
                 </InputGroup>

@@ -16,6 +16,7 @@ import {
     VStack,
 } from '@chakra-ui/react';
 
+import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/colors';
 import { RecipeType } from '~/types/recipe';
 
 import { CardBadge } from '../../../../components/card-badge';
@@ -98,7 +99,7 @@ export const RecipePageCard: React.FC<RecipePageCardProps> = ({
             </CardBody>
 
             <CardFooter as={Flex} flexWrap='wrap' w='full' alignItems='end' gap={3} p={0}>
-                <Tag h={5} py={0.5} px={{ base: 1, lg: 2 }} bg='blackAlpha.100'>
+                <Tag h={5} py={0.5} px={{ base: 1, lg: 2 }} bg={COLORS_BLACK_ALPHA[100]}>
                     <TagLeftIcon as={TimerIcon} />
                     <TagLabel>{time}</TagLabel>
                 </Tag>
@@ -110,8 +111,8 @@ export const RecipePageCard: React.FC<RecipePageCardProps> = ({
                         size={{ base: 'xs', lg: 'sm', '2xl': 'lg' }}
                         leftIcon={<FavoriteIcon />}
                         variant='outline'
-                        borderColor='blackAlpha.600'
-                        color='blackAlpha.800'
+                        borderColor={COLORS_BLACK_ALPHA[600]}
+                        color={COLORS_BLACK_ALPHA[800]}
                         fontWeight='semibold'
                     >
                         Оценить рецепт
@@ -120,7 +121,7 @@ export const RecipePageCard: React.FC<RecipePageCardProps> = ({
                         size={{ base: 'xs', lg: 'sm', '2xl': 'lg' }}
                         leftIcon={<LikeIcon />}
                         fontWeight='semibold'
-                        background='lime.400'
+                        background={COLORS_LIME[400]}
                     >
                         Сохранить в закладки
                     </Button>

@@ -1,6 +1,7 @@
 import { Heading, Text, VStack } from '@chakra-ui/react';
 import { useState } from 'react';
 
+import { COLORS_BLACK_ALPHA } from '~/constants/colors';
 import { useAppSelector } from '~/store/hooks';
 import { selectAllergensFilter } from '~/store/slices/filters-slice';
 
@@ -31,7 +32,11 @@ export const PageHeader: React.FC<PageHeaderProps> = ({ title, subtitle }) => {
                 </Heading>
 
                 {subtitle && (
-                    <Text textAlign='center' color='blackAlpha.600' px={{ base: 0, lg: 24 }}>
+                    <Text
+                        textAlign='center'
+                        color={COLORS_BLACK_ALPHA[600]}
+                        px={{ base: 0, lg: 24 }}
+                    >
                         {subtitle}
                     </Text>
                 )}

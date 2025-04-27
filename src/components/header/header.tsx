@@ -2,6 +2,7 @@ import { Flex, HStack, Image, Spacer, Stack, useMediaQuery } from '@chakra-ui/re
 import { useEffect } from 'react';
 
 import avatar from '~/assets/img/avatar.jpg';
+import { COLORS, COLORS_LIME } from '~/constants/colors';
 import { useAppSelector } from '~/store/hooks';
 import { selectBurger } from '~/store/slices/burger-slice';
 
@@ -33,7 +34,7 @@ export const Header: React.FC = () => {
             py={{ base: 1, lg: 4 }}
             pl={{ base: 5, lg: 4 }}
             pr={{ base: 5, lg: 24 }}
-            bg={isOpen ? 'white' : 'lime.50'}
+            bg={isOpen ? COLORS.white : COLORS_LIME[50]}
         >
             <Stack direction='row' alignItems='flex-end'>
                 <Image src={pan} alt='pan' />

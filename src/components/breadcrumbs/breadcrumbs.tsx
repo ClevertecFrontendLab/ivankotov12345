@@ -1,19 +1,21 @@
 import { ChevronRightIcon } from '@chakra-ui/icons';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
-import { NavLink, useLocation } from 'react-router';
+import { NavLink } from 'react-router';
 
+import { COLORS, COLORS_BLACK_ALPHA } from '~/constants/colors';
 import { NAV_MENU_ITEMS } from '~/constants/nav-menu';
 import { ROUTER_PATHS } from '~/constants/router-paths';
+import { DATA_TEST_ID } from '~/constants/test-id';
+import { usePathItems } from '~/hooks/use-path-items';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { closeBurgerMenu } from '~/store/slices/burger-slice';
 import { selectSelectedRecipe } from '~/store/slices/selected-recipe-slice';
 
 export const Breadcrumbs: React.FC = () => {
-    const { pathname } = useLocation();
     const dispatch = useAppDispatch();
     const { selectedRecipe } = useAppSelector(selectSelectedRecipe);
 
-    const [secondItemPath, thirdItemPath] = pathname.split('/').filter(Boolean);
+    const { secondItemPath, thirdItemPath } = usePathItems();
 
     const firstSubcategoryPath = NAV_MENU_ITEMS.find(({ path }) => path === secondItemPath)
         ?.subcategories[0].path;
@@ -38,9 +40,9 @@ export const Breadcrumbs: React.FC = () => {
                 flexWrap: 'wrap',
             }}
             onClick={() => dispatch(closeBurgerMenu())}
-            data-test-id='breadcrumbs'
+            data-test-id={DATA_TEST_ID.breadcrumbs}
         >
-            <BreadcrumbItem color={secondItemPath ? 'blackAlpha.700' : 'inherit'}>
+            <BreadcrumbItem color={secondItemPath ? COLORS_BLACK_ALPHA[700] : COLORS.inherit}>
                 <BreadcrumbLink as={NavLink} to={ROUTER_PATHS.homePage}>
                     Главная
                 </BreadcrumbLink>
@@ -51,7 +53,7 @@ export const Breadcrumbs: React.FC = () => {
                     <BreadcrumbLink
                         as={NavLink}
                         to={`/${secondItemPath}/${firstSubcategoryPath}`}
-                        color={thirdItemPath ? 'blackAlpha.700' : 'inherit'}
+                        color={thirdItemPath ? COLORS_BLACK_ALPHA[700] : COLORS.inherit}
                     >
                         {secondItemName}
                     </BreadcrumbLink>
@@ -59,7 +61,7 @@ export const Breadcrumbs: React.FC = () => {
             )}
 
             {thirdItemPath && (
-                <BreadcrumbItem color={selectedRecipe ? 'blackAlpha.700' : 'inherit'}>
+                <BreadcrumbItem color={selectedRecipe ? COLORS_BLACK_ALPHA[700] : COLORS.inherit}>
                     <BreadcrumbLink as={NavLink} to={`/${secondItemPath}/${thirdItemPath}`}>
                         {thirdItemName}
                     </BreadcrumbLink>

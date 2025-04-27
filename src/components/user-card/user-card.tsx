@@ -1,6 +1,7 @@
 import { Avatar, Box, Button, Card, Flex, Spacer, Text, VStack } from '@chakra-ui/react';
 
 import authorAvatar from '~/assets/img/author-avatar.jpg';
+import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/colors';
 
 import { PeopleIcon, SignUp } from '../icons';
 import { StatButton } from '../stat-button';
@@ -16,7 +17,7 @@ const { avatar, name, email, followers } = userData;
 
 export const UserCard: React.FC = () => (
     <Card
-        bg='lime.300'
+        bg={COLORS_LIME[300]}
         w='full'
         flexDirection='row'
         alignItems='center'
@@ -42,7 +43,7 @@ export const UserCard: React.FC = () => (
                     {name}
                 </Text>
 
-                <Text fontSize='sm' color='blackAlpha.700'>
+                <Text fontSize='sm' color={COLORS_BLACK_ALPHA[700]}>
                     {email}
                 </Text>
             </Box>
