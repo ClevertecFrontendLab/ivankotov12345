@@ -25,7 +25,11 @@ import { AllergensSelectMenu } from './allergens-select-menu';
 import { FilterDrawer } from './filter-drawer';
 import { FilterIcon } from './filter-icon';
 
-export const SearchPanel: React.FC = () => {
+type SearchPanelProps = {
+    setIsSearchFocused: (isElementFocused: boolean) => void;
+};
+
+export const SearchPanel: React.FC<SearchPanelProps> = ({ setIsSearchFocused }) => {
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
     const dispatch = useAppDispatch();
     const [currentSearchValue, setCurrentSearchValue] = useState('');
@@ -56,7 +60,6 @@ export const SearchPanel: React.FC = () => {
         const filtered = filterRecipesBySearch(currentSearchValue, currSearchArr);
         dispatch(setFilteredRecipes(filtered));
     };
-
     return (
         <VStack w='full' px={{ md: 36, lg: 48 }} gap={4}>
             <HStack w='full'>
@@ -73,17 +76,21 @@ export const SearchPanel: React.FC = () => {
                 />
                 <InputGroup size={{ base: 'sm', lg: 'lg' }}>
                     <Input
+                        data-test-id='search-input'
                         name='search'
                         placeholder='Название или ингредиент...'
                         borderColor='blackAlpha.600'
                         _focus={{
-                            borderColor: 'blackAlpha.600',
+                            borderColor: isSearchButtonDisabled
+                                ? 'red.500 !important'
+                                : 'blackAlpha.600',
                         }}
                         _hover={{
                             borderColor: 'blackAlpha.600',
                         }}
                         onChange={onSearchChange}
-                        data-test-id='search-input'
+                        onFocus={() => setIsSearchFocused(true)}
+                        onBlur={() => setIsSearchFocused(false)}
                     />
 
                     <InputRightElement>
