@@ -56,6 +56,10 @@ export const theme = extendTheme({
             md: '30%',
             lg: '40%',
         },
+        drawerWidth: {
+            sm: '344px',
+            lg: '400px',
+        },
     },
     borders: {
         blackAlpha: '1px solid var(--chakra-colors-blackAlpha-200)',

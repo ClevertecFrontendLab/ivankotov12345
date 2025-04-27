@@ -81,11 +81,14 @@ export const FilterDrawer: React.FC = () => {
 
     const isDisabled = allFilterItems.length === 0;
     return (
-        <Drawer isOpen={isOpen} onClose={onClose} placement='right' size='sm'>
+        <Drawer isOpen={isOpen} onClose={onClose} placement='right'>
             <DrawerOverlay bg='shadowed' backdropFilter='blur(2px)' />
-
-            <DrawerContent data-test-id='filter-drawer'>
-                <DrawerHeader as={Flex} px={8} pt={8} pb={10}>
+            <DrawerContent
+                data-test-id='filter-drawer'
+                maxW={{ base: 'drawerWidth.sm', lg: 'drawerWidth.lg' }}
+                w='full'
+            >
+                <DrawerHeader as={Flex} alignItems='center' px={4} py={8}>
                     <Heading fontSize='2xl' fontWeight='bold'>
                         Фильтр
                     </Heading>
@@ -103,7 +106,7 @@ export const FilterDrawer: React.FC = () => {
                     />
                 </DrawerHeader>
 
-                <DrawerBody as={VStack} alignItems='start' py={0} px={8} gap={6}>
+                <DrawerBody as={VStack} alignItems='start' py={0} px={4} gap={6}>
                     <DrawerMenu
                         placeholder='Поиск по категории'
                         items={categoryItems}

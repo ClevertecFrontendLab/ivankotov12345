@@ -50,6 +50,7 @@ export const Сarousel: React.FC = () => {
                     modules={[Navigation]}
                     ref={swiperRef}
                     loop={true}
+                    speed={0}
                     breakpoints={{
                         300: {
                             slidesPerView: 2.1,
