@@ -33,7 +33,10 @@ const menuButton = defineStyle({
     borderRadius: 'md',
     color: 'blackAlpha.700',
     px: 4,
-    py: 2.5,
+    py: 2,
+    _disabled: {
+        opacity: 1,
+    },
     _active: {
         background: 'white',
         borderColor: 'lime.300',

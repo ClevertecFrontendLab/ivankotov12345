@@ -57,6 +57,7 @@ export const AllergensSelectMenu: React.FC<AllergensSelectMenuProps> = ({ isDraw
                     }
                     isDisabled={isDisabled}
                     onClick={toggleMenu}
+                    borderColor={selectedAllergens.length ? 'lime.400' : 'blackAlpha.200'}
                 >
                     <HStack alignItems='start' rowGap={1} columnGap={2} flexWrap='wrap'>
                         {selectedAllergens.length && !isDrawerType ? (
