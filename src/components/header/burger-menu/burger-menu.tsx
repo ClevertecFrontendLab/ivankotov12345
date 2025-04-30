@@ -1,5 +1,5 @@
 import { CloseIcon } from '@chakra-ui/icons';
-import { Box, Drawer, DrawerOverlay, IconButton } from '@chakra-ui/react';
+import { Box, Drawer, DrawerContent, DrawerOverlay, IconButton } from '@chakra-ui/react';
 import { useRef } from 'react';
 
 import { DATA_TEST_ID } from '~/constants/test-id';
@@ -39,6 +39,7 @@ export const BurgerMenu: React.FC = () => {
                         backdropFilter='blur(2px)'
                         zIndex={Z_INDEX.backdrop}
                     />
+                    <DrawerContent display='none' />
                     <Navigation buttonRef={buttonRef} />
                 </Drawer>
             ) : null}
