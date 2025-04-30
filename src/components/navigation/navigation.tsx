@@ -2,12 +2,13 @@ import { Accordion, Button, Text, useMediaQuery, useOutsideClick, VStack } from 
 import { useMemo, useRef } from 'react';
 
 import { COLORS_BLACK_ALPHA } from '~/constants/colors';
-import { NAV_MENU_ITEMS } from '~/constants/nav-menu';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { Z_INDEX } from '~/constants/z-index';
 import { usePathItems } from '~/hooks/use-path-items';
-import { useAppDispatch } from '~/store/hooks';
+import { useGetCategoriesQuery } from '~/query/services/category';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { closeBurgerMenu } from '~/store/slices/burger-slice';
+import { selectCategory } from '~/store/slices/category-slice';
 
 import { Breadcrumbs } from '../breadcrumbs';
 import { CategoryItem } from './category-item';
@@ -20,14 +21,17 @@ type NavigationProps = {
 export const Navigation: React.FC<NavigationProps> = ({ buttonRef }) => {
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
     const dispatch = useAppDispatch();
+    const { categories } = useAppSelector(selectCategory);
+
+    useGetCategoriesQuery(undefined);
 
     const navRef = useRef<HTMLDivElement | null>(null);
 
     const { secondItemPath } = usePathItems();
 
     const activeIndex = useMemo(
-        () => NAV_MENU_ITEMS.findIndex(({ path }) => path === secondItemPath),
-        [secondItemPath],
+        () => categories.findIndex(({ category }) => category === secondItemPath),
+        [categories, secondItemPath],
     );
 
     useOutsideClick({
@@ -48,20 +52,19 @@ export const Navigation: React.FC<NavigationProps> = ({ buttonRef }) => {
             justifyContent={{ base: 'start', lg: 'space-between' }}
             alignItems='start'
             gap={{ base: 6, lg: 8 }}
+            borderBottomRadius={{ base: 'xl', lg: 'none' }}
             bg={{ base: 'white', lg: 'transparent' }}
             top={16}
             right={2}
             ref={navRef}
-            borderBottomRadius={{ base: 'xl', lg: 'none' }}
             data-test-id={DATA_TEST_ID.nav}
             zIndex={Z_INDEX.layout}
         >
             {isTablet && <Breadcrumbs />}
 
             <Accordion overflowY='auto' w={{ base: 'full', lg: 'auto' }} defaultIndex={activeIndex}>
-                {NAV_MENU_ITEMS.map((props) => (
-                    <CategoryItem {...props} key={props.category} />
-                ))}
+                {categories &&
+                    categories.map((props) => <CategoryItem {...props} key={props.category} />)}
             </Accordion>
 
             <VStack

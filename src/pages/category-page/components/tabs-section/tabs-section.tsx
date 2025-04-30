@@ -4,11 +4,11 @@ import { NavLink } from 'react-router';
 
 import { CARD_DATA } from '~/constants/card-data';
 import { COLORS_LIME } from '~/constants/colors';
-import { NAV_MENU_ITEMS } from '~/constants/nav-menu';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAllergenFilter } from '~/hooks/use-allergen-filters';
 import { usePathItems } from '~/hooks/use-path-items';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { selectCategory } from '~/store/slices/category-slice';
 import { selectFilteredRecipes, setCurrentRecipes } from '~/store/slices/flter-recipe-slice';
 
 import { CardsWrapper } from '../../../../components/cards-wrapper';
@@ -18,16 +18,17 @@ const CARDS_LENGTH = 8;
 
 export const TabsSection: React.FC = memo(() => {
     const { currentRecipes, filteredRecipes } = useAppSelector(selectFilteredRecipes);
+    const { categories } = useAppSelector(selectCategory);
     const dispatch = useAppDispatch();
 
     const { secondItemPath, thirdItemPath } = usePathItems();
 
     const tabs = useMemo(
-        () => NAV_MENU_ITEMS.find((item) => item.path === secondItemPath)?.subcategories,
-        [secondItemPath],
+        () => categories.find((item) => item.category === secondItemPath)?.subCategories,
+        [secondItemPath, categories],
     );
     const activeIndex = useMemo(
-        () => tabs?.findIndex((tab) => tab.path === thirdItemPath),
+        () => tabs?.findIndex((tab) => tab.category === thirdItemPath),
         [thirdItemPath, tabs],
     );
 
@@ -53,14 +54,14 @@ export const TabsSection: React.FC = memo(() => {
         <Tabs as='section' mb={10} index={activeIndex} variant='limeTabs'>
             <TabList>
                 {tabs &&
-                    tabs.map(({ category, path }, index) => (
+                    tabs.map(({ title, category }, index) => (
                         <Tab
                             as={NavLink}
-                            to={`/${secondItemPath}/${path}`}
+                            to={`/${secondItemPath}/${category}`}
                             key={category}
-                            data-test-id={`${DATA_TEST_ID.tab}-${path}-${index}`}
+                            data-test-id={`${DATA_TEST_ID.tab}-${category}-${index}`}
                         >
-                            {category}
+                            {title}
                         </Tab>
                     ))}
             </TabList>

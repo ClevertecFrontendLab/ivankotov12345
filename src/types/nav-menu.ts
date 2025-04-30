@@ -1,11 +1,15 @@
-type Subcategory = {
+export type Subcategory = {
+    _id: string;
+    title: string;
     category: string;
-    path: string;
+    rootCategoryId: string;
 };
 
 export type NavMenuItem = {
+    _id: string;
+    title: string;
     category: string;
-    image: string;
-    path: string;
-    subcategories: Subcategory[];
+    icon: string;
+    description: string;
+    subCategories: Subcategory[];
 };
