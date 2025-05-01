@@ -9,6 +9,8 @@ import { useAllergenFilter } from '~/hooks/use-allergen-filters';
 import { useAppSelector } from '~/store/hooks';
 import { selectRecipes } from '~/store/slices/recipe-slice';
 
+import { JuiciestSection } from './components/juiciest-section';
+
 const { title: homePageTitle } = PAGE_TITLES.home;
 //const { title: veganPageTitle, subtitle: veganPageSubTitle } = PAGE_TITLES.vegan;
 
@@ -23,8 +25,8 @@ export const HomePage: React.FC = () => {
             {filteredRecipes.length === 0 ? (
                 <>
                     <Сarousel />
-                    {/*                     <JuiciestSection />
-                    <BlogSection />
+                    <JuiciestSection />
+                    {/*                     <BlogSection />
                     <RelevantSection
                         title={veganPageTitle}
                         subtitle={veganPageSubTitle}
