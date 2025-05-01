@@ -40,7 +40,7 @@ import {
     removeSides,
     selectFilter,
 } from '~/store/slices/filters-slice';
-import { setFilteredRecipes } from '~/store/slices/flter-recipe-slice';
+import { setFilteredRecipes } from '~/store/slices/recipe-slice';
 import { FilterItem } from '~/types/filter-item';
 
 import { AllergensSelectMenu } from '../allergens-select-menu';

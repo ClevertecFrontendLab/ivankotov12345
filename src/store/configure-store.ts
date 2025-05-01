@@ -7,7 +7,7 @@ import { burgerReducer, burgerSlice } from './slices/burger-slice';
 import { categoryReducer, categorySlice } from './slices/category-slice';
 import { filterDrawerReducer, filterDrawerSlice } from './slices/filter-drawer-slice';
 import { filtersReducer, filtersSlice } from './slices/filters-slice';
-import { filterRecipeReducer, filterRecipeSlice } from './slices/flter-recipe-slice';
+import { recipeReducer, recipeSlice } from './slices/recipe-slice';
 import { searchInputReducer, searchInputSlice } from './slices/search-input-slice';
 import { selectedRecipeReducer, selectedRecipeSlice } from './slices/selected-recipe-slice';
 
@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
     [burgerSlice.name]: burgerReducer,
     [filtersSlice.name]: filtersReducer,
     [selectedRecipeSlice.name]: selectedRecipeReducer,
-    [filterRecipeSlice.name]: filterRecipeReducer,
+    [recipeSlice.name]: recipeReducer,
     [filterDrawerSlice.name]: filterDrawerReducer,
     [searchInputSlice.name]: searchInputReducer,
     [categorySlice.name]: categoryReducer,

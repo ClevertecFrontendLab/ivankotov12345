@@ -1,38 +1,58 @@
-export type NutritionsValueType = {
+export type NutritionValue = {
     calories: number;
-    proteins: number;
+    protein: number;
     fats: number;
     carbohydrates: number;
 };
 
-export type IngredientType = {
+export type Ingredient = {
     title: string;
     count: string;
     measureUnit: string;
 };
 
-export type RecipeStepType = {
+export type RecipeStep = {
     stepNumber: number;
     description: string;
     image?: string;
 };
 
+export type Author = {
+    login: string;
+    firstName: string;
+    lastName: string;
+    subscribers: string[];
+};
+
+export type MetaParams = {
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+};
+
 export type RecipeType = {
-    id: string;
     title: string;
     description: string;
-    category: string[];
-    subcategory: string[];
+    time: number;
     image: string;
-    bookmarks?: number;
-    likes?: number;
-    date: string;
-    time: string;
-    portions?: number;
-    nutritionValue: NutritionsValueType;
-    ingredients: IngredientType[];
-    steps: RecipeStepType[];
-    author?: string;
-    meat?: string;
-    side?: string;
+    meat: string;
+    garnish: string;
+    portions: number;
+    authorId: string;
+    categoriesIds: string[];
+    steps: RecipeStep[];
+    nutritionValue: NutritionValue;
+    ingredients: Ingredient[];
+    likes: number;
+    views: number;
+    bookmarks: number;
+    createdAt: string;
+    _id: string;
+    authorData: Author;
+};
+
+export type RecipeListResponse = {
+    data: RecipeType[];
+    meta: MetaParams;
 };

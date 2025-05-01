@@ -1,56 +1,49 @@
 import { Box, Button, Center } from '@chakra-ui/react';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { CardsWrapper } from '~/components/cards-wrapper';
 import { FoodCard } from '~/components/food-card';
 import { PageHeader } from '~/components/page-header';
-import { RelevantSection } from '~/components/relevant-section';
-import { CARD_DATA } from '~/constants/card-data';
 import { COLORS_LIME } from '~/constants/colors';
 import { PAGE_TITLES } from '~/constants/page-titles';
-import { VEGAN_RELEVANT_CARD_DATA } from '~/constants/relevant-card-data';
-import { VEGAN_RELEVANT_CARD_DATA_MINI } from '~/constants/relevant-card-data-mini';
-import { useAllergenFilter } from '~/hooks/use-allergen-filters';
-import { useAppSelector } from '~/store/hooks';
-import { selectFilteredRecipes } from '~/store/slices/flter-recipe-slice';
+import { JUICIEST_QUERY_PARAMS } from '~/constants/query-params';
+import { useGetRecipesInfiniteQuery } from '~/query/services/recipe';
 
 const { title: juiciestPageTitle } = PAGE_TITLES.juiciest;
-const { title: veganPageTitle, subtitle: veganPageSubTitle } = PAGE_TITLES.vegan;
-
-const CARD_LENGTH = 8;
-
-const CardDataNotFiltered = CARD_DATA.slice(0, CARD_LENGTH);
+//const { title: veganPageTitle, subtitle: veganPageSubTitle } = PAGE_TITLES.vegan;
 
 export const JuiciestPage: React.FC = () => {
-    const { filteredRecipes } = useAppSelector(selectFilteredRecipes);
+    const { data, fetchNextPage } = useGetRecipesInfiniteQuery(JUICIEST_QUERY_PARAMS);
 
-    useAllergenFilter(CARD_DATA);
+    const currentRecipes = useMemo(() => data?.pages.map((element) => element.data).flat(), [data]);
 
-    const juiciestCardData = filteredRecipes.length ? filteredRecipes : CardDataNotFiltered;
+    const handleLoadMore = () => fetchNextPage();
+
     return (
         <Box>
             <PageHeader title={juiciestPageTitle} />
 
             <Box mb={10}>
                 <CardsWrapper>
-                    {juiciestCardData.map((props, index) => (
-                        <FoodCard key={props.id} {...props} index={index} />
-                    ))}
+                    {currentRecipes &&
+                        currentRecipes.map((props, index) => (
+                            <FoodCard key={props._id} {...props} index={index} />
+                        ))}
                 </CardsWrapper>
 
                 <Center mt={4}>
-                    <Button bg={COLORS_LIME[400]} px={5}>
+                    <Button bg={COLORS_LIME[400]} px={5} onClick={handleLoadMore}>
                         Загрузить ещё
                     </Button>
                 </Center>
             </Box>
 
-            <RelevantSection
+            {/*             <RelevantSection
                 title={veganPageTitle}
                 subtitle={veganPageSubTitle}
                 cardData={VEGAN_RELEVANT_CARD_DATA}
                 cardDataMini={VEGAN_RELEVANT_CARD_DATA_MINI}
-            />
+            /> */}
         </Box>
     );
 };

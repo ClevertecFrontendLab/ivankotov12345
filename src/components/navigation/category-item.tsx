@@ -11,6 +11,7 @@ import {
 import { NavLink } from 'react-router';
 
 import { DATA_TEST_ID } from '~/constants/test-id';
+import { getFullImagePath } from '~/helpers/get-full-image-path';
 import { usePathItems } from '~/hooks/use-path-items';
 import { NavMenuItem } from '~/types/nav-menu';
 
@@ -26,7 +27,7 @@ export const CategoryItem: React.FC<NavMenuItem> = ({ title, category, icon, sub
                 data-test-id={category === 'vegan' ? DATA_TEST_ID.veganCuisine : category}
             >
                 <AccordionButton>
-                    <Image src={icon} />
+                    <Image src={getFullImagePath(icon)} alt={title} />
                     <Text flex={1} textAlign='start'>
                         {title}
                     </Text>

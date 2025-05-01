@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { filterRecipesByAllergens } from '~/helpers/filter-recipe';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectAllergensFilter } from '~/store/slices/filters-slice';
-import { setFilteredRecipes } from '~/store/slices/flter-recipe-slice';
+import { setFilteredRecipes } from '~/store/slices/recipe-slice';
 import { RecipeType } from '~/types/recipe';
 
 export const useAllergenFilter = (recipes: RecipeType[]) => {

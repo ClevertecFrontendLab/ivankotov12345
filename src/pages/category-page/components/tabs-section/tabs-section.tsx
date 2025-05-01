@@ -9,7 +9,7 @@ import { useAllergenFilter } from '~/hooks/use-allergen-filters';
 import { usePathItems } from '~/hooks/use-path-items';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectCategory } from '~/store/slices/category-slice';
-import { selectFilteredRecipes, setCurrentRecipes } from '~/store/slices/flter-recipe-slice';
+import { selectRecipes, setCurrentRecipes } from '~/store/slices/recipe-slice';
 
 import { CardsWrapper } from '../../../../components/cards-wrapper';
 import { FoodCard } from '../../../../components/food-card';
@@ -17,7 +17,7 @@ import { FoodCard } from '../../../../components/food-card';
 const CARDS_LENGTH = 8;
 
 export const TabsSection: React.FC = memo(() => {
-    const { currentRecipes, filteredRecipes } = useAppSelector(selectFilteredRecipes);
+    const { currentRecipes, filteredRecipes } = useAppSelector(selectRecipes);
     const { categories } = useAppSelector(selectCategory);
     const dispatch = useAppDispatch();
 

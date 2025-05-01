@@ -1,9 +1,9 @@
-import { setCategories } from '~/store/slices/category-slice';
+import { setCategories, setSubCategories } from '~/store/slices/category-slice';
 import { NavMenuItem, Subcategory } from '~/types/nav-menu';
 
-import { Endpoints, IMAGES_BASE_URL } from '../constants/paths';
+import { Endpoints } from '../constants/paths';
 import { apiSlice } from '../create-api';
-import { getCategories } from '../utils/get-categories';
+import { getCategories, getSubCategories } from '../utils/get-categories';
 
 export const categoryApi = apiSlice.injectEndpoints({
     endpoints: (build) => ({
@@ -13,17 +13,14 @@ export const categoryApi = apiSlice.injectEndpoints({
                 try {
                     const { data } = await queryFulfilled;
                     const categoriesData = getCategories(data);
+                    const subCategoriesData = getSubCategories(data);
 
                     dispatch(setCategories(categoriesData));
+                    dispatch(setSubCategories(subCategoriesData));
                 } catch (error) {
                     console.log(error);
                 }
             },
-            transformResponse: (response: NavMenuItem[]): NavMenuItem[] =>
-                response.map((navMenuItem) => ({
-                    ...navMenuItem,
-                    icon: navMenuItem.icon && `${IMAGES_BASE_URL}${navMenuItem.icon}`,
-                })),
         }),
     }),
 });

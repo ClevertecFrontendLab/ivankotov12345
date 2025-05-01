@@ -3,4 +3,5 @@ export const IMAGES_BASE_URL = 'https://training-api.clevertec.ru';
 
 export enum Endpoints {
     CATEGORY = 'category',
+    RECIPE = 'recipe',
 }

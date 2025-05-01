@@ -17,11 +17,7 @@ import { filterRecipesBySearch } from '~/helpers/filter-recipe';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { openDrawer } from '~/store/slices/filter-drawer-slice';
 import { clearFilters } from '~/store/slices/filters-slice';
-import {
-    clearFilterRecipes,
-    selectFilteredRecipes,
-    setFilteredRecipes,
-} from '~/store/slices/flter-recipe-slice';
+import { clearFilterRecipes, selectRecipes, setFilteredRecipes } from '~/store/slices/recipe-slice';
 import { setSearchInputValue } from '~/store/slices/search-input-slice';
 
 import { AllergensSelectMenu } from './allergens-select-menu';
@@ -39,7 +35,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({ setIsSearchFocused }) 
     const dispatch = useAppDispatch();
     const [currentSearchValue, setCurrentSearchValue] = useState('');
     const [hasSearchError, setHasSearchError] = useState(false);
-    const { currentRecipes, filteredRecipes } = useAppSelector(selectFilteredRecipes);
+    const { currentRecipes, filteredRecipes } = useAppSelector(selectRecipes);
 
     const isSearchButtonDisabled = useMemo(
         () => currentSearchValue.length < MIN_SEARCH_VALUE_LENGTH,
