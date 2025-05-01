@@ -2,26 +2,26 @@ import 'swiper/swiper-bundle.css';
 
 import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
 import { Box, Heading, IconButton } from '@chakra-ui/react';
-import { useRef } from 'react';
+import { useMemo, useRef } from 'react';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
-import { CARD_DATA } from '~/constants/card-data';
 import { PAGE_TITLES } from '~/constants/page-titles';
+import { CAROUSEL_QUERY_PARAMS } from '~/constants/query-params';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { Z_INDEX } from '~/constants/z-index';
+import { useGetRecipesInfiniteQuery } from '~/query/services/recipe';
 
 import { CarouselCard } from './carousel-card';
 
 const { title } = PAGE_TITLES.newest;
 
-const carouselCardsData = CARD_DATA.sort((a, b) => +new Date(b.date) - +new Date(a.date)).slice(
-    0,
-    10,
-);
-
 export const Сarousel: React.FC = () => {
     const swiperRef = useRef<SwiperRef | null>(null);
+
+    const { data } = useGetRecipesInfiniteQuery(CAROUSEL_QUERY_PARAMS);
+
+    const carouselCardsData = useMemo(() => data?.pages[0].data || [], [data]);
 
     const onBack = () => swiperRef.current?.swiper.slidePrev();
     const onForward = () => swiperRef.current?.swiper.slideNext();
@@ -84,7 +84,7 @@ export const Сarousel: React.FC = () => {
                     }}
                 >
                     {carouselCardsData.map((props, index) => (
-                        <SwiperSlide key={props.id}>
+                        <SwiperSlide key={props._id}>
                             <CarouselCard {...props} index={index} />
                         </SwiperSlide>
                     ))}

@@ -13,10 +13,15 @@ import {
 import React from 'react';
 import { NavLink } from 'react-router';
 
+import fallback from '~/assets/fallback.png';
 import { COLORS_LIME } from '~/constants/colors';
 import { MIN_CAROUSEL_CARD_HEIGHT } from '~/constants/sizes';
 import { DATA_TEST_ID } from '~/constants/test-id';
+import { getCardCategories } from '~/helpers/get-card-categories';
+import { getFullImagePath } from '~/helpers/get-full-image-path';
 import { useRecipePath } from '~/hooks/use-path-to-recipe';
+import { useAppSelector } from '~/store/hooks';
+import { selectCategory } from '~/store/slices/category-slice';
 import { CardData } from '~/types/card-data';
 
 import { CardBadge } from '../card-badge';
@@ -24,17 +29,18 @@ import { FavoriteIcon, LikeIcon } from '../icons';
 import { StatButton } from '../stat-button';
 
 export const CarouselCard: React.FC<CardData> = ({
-    id,
+    _id,
     image,
     title,
     description,
-    category,
-    subcategory,
+    categoriesIds,
     bookmarks,
     likes,
     index,
 }) => {
-    const recipePath = useRecipePath({ id, category, subcategory });
+    const { categories, subCategories } = useAppSelector(selectCategory);
+    const cardCategories = getCardCategories(categories, subCategories, categoriesIds);
+    const recipePath = useRecipePath({ _id, categoriesIds, subCategories, categories });
     return (
         <Card
             as={NavLink}
@@ -48,7 +54,8 @@ export const CarouselCard: React.FC<CardData> = ({
         >
             <CardBody as={Flex} flexDirection='column' p={0}>
                 <Image
-                    src={image}
+                    src={getFullImagePath(image)}
+                    fallbackSrc={fallback}
                     alt={title}
                     h={{ base: 'imageHeight.md', lg: 'imageHeight.lg' }}
                 />
@@ -72,11 +79,12 @@ export const CarouselCard: React.FC<CardData> = ({
                 >
                     <Flex alignItems='start'>
                         <VStack layerStyle='absolute' top={2} left={2} alignItems='start'>
-                            {category.map((item) => (
+                            {cardCategories.map(({ _id, title, icon }) => (
                                 <CardBadge
                                     backgroundColor={COLORS_LIME[150]}
-                                    key={item}
-                                    category={item}
+                                    key={_id}
+                                    title={title}
+                                    icon={icon}
                                 />
                             ))}
                         </VStack>
