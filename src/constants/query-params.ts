@@ -1,16 +1,16 @@
-import { QueryParamsType } from '~/types/query-params';
+import { QueryParams } from '~/types/request-params';
 
-export const JUICIEST_QUERY_PARAMS: QueryParamsType = {
+export const JUICIEST_QUERY_PARAMS: QueryParams = {
     sortBy: 'likes',
     sortOrder: 'desc',
 };
 
-export const CAROUSEL_QUERY_PARAMS: QueryParamsType = {
+export const CAROUSEL_QUERY_PARAMS: QueryParams = {
     sortBy: 'createdAt',
     limit: 10,
 };
 
-export const JUICIEST_SECTION_QUERY_PARAMS = {
+export const JUICIEST_SECTION_QUERY_PARAMS: QueryParams = {
     ...JUICIEST_QUERY_PARAMS,
     limit: 4,
 };

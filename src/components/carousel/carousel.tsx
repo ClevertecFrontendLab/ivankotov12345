@@ -10,6 +10,7 @@ import { PAGE_TITLES } from '~/constants/page-titles';
 import { CAROUSEL_QUERY_PARAMS } from '~/constants/query-params';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { Z_INDEX } from '~/constants/z-index';
+import { Endpoints } from '~/query/constants/paths';
 import { useGetRecipesInfiniteQuery } from '~/query/services/recipe';
 
 import { CarouselCard } from './carousel-card';
@@ -19,7 +20,10 @@ const { title } = PAGE_TITLES.newest;
 export const Сarousel: React.FC = () => {
     const swiperRef = useRef<SwiperRef | null>(null);
 
-    const { data } = useGetRecipesInfiniteQuery(CAROUSEL_QUERY_PARAMS);
+    const { data } = useGetRecipesInfiniteQuery({
+        endpoint: Endpoints.RECIPE,
+        ...CAROUSEL_QUERY_PARAMS,
+    });
 
     const carouselCardsData = useMemo(() => data?.pages[0].data || [], [data]);
 

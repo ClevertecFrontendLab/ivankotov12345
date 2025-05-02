@@ -1,55 +1,54 @@
 import { Button, Center, Tab, TabList, TabPanels, Tabs } from '@chakra-ui/react';
-import { memo, useEffect, useMemo } from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
 import { NavLink } from 'react-router';
 
-import { CARD_DATA } from '~/constants/card-data';
+import { CardsWrapper } from '~/components/cards-wrapper';
+import { FoodCard } from '~/components/food-card';
 import { COLORS_LIME } from '~/constants/colors';
 import { DATA_TEST_ID } from '~/constants/test-id';
-import { useAllergenFilter } from '~/hooks/use-allergen-filters';
 import { usePathItems } from '~/hooks/use-path-items';
-import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { Endpoints } from '~/query/constants/paths';
+import { useGetRecipesInfiniteQuery } from '~/query/services/recipe';
+import { useAppSelector } from '~/store/hooks';
 import { selectCategory } from '~/store/slices/category-slice';
-import { selectRecipes, setCurrentRecipes } from '~/store/slices/recipe-slice';
-
-import { CardsWrapper } from '../../../../components/cards-wrapper';
-import { FoodCard } from '../../../../components/food-card';
-
-const CARDS_LENGTH = 8;
 
 export const TabsSection: React.FC = memo(() => {
-    const { currentRecipes, filteredRecipes } = useAppSelector(selectRecipes);
-    const { categories } = useAppSelector(selectCategory);
-    const dispatch = useAppDispatch();
+    const [isLoadMoreActive, setIsLoadMoreActive] = useState(true);
 
     const { secondItemPath, thirdItemPath } = usePathItems();
+    const { categories } = useAppSelector(selectCategory);
 
     const tabs = useMemo(
         () => categories.find((item) => item.category === secondItemPath)?.subCategories,
         [secondItemPath, categories],
     );
+
+    const activeTab = useMemo(
+        () => tabs?.find((tab) => tab.category === thirdItemPath),
+        [thirdItemPath, tabs],
+    );
+
     const activeIndex = useMemo(
         () => tabs?.findIndex((tab) => tab.category === thirdItemPath),
         [thirdItemPath, tabs],
     );
 
-    const currentCategoryRecipesList = useMemo(
-        () =>
-            CARD_DATA.filter(({ category }) => category.includes(secondItemPath))
-                .filter(({ subcategory }) => subcategory.includes(thirdItemPath))
-                .sort((a, b) => +a.id - +b.id),
-        [secondItemPath, thirdItemPath],
-    );
+    const { data, fetchNextPage } = useGetRecipesInfiniteQuery({
+        endpoint: `${Endpoints.RECIPES_BY_CATEGORY}/${activeTab?._id}`,
+    });
+
+    const currentRecipes = useMemo(() => data?.pages.map((element) => element.data).flat(), [data]);
 
     useEffect(() => {
-        dispatch(setCurrentRecipes(currentCategoryRecipesList));
-    }, [dispatch, currentCategoryRecipesList]);
+        const metaTotalRecipes = data?.pages[0].meta.total;
 
-    useAllergenFilter(currentCategoryRecipesList);
+        if (currentRecipes && metaTotalRecipes && currentRecipes.length >= metaTotalRecipes) {
+            setIsLoadMoreActive(false);
+        }
+    }, [currentRecipes, data]);
 
-    const tabCardData = useMemo(
-        () => (filteredRecipes.length ? filteredRecipes : currentRecipes.slice(0, CARDS_LENGTH)),
-        [filteredRecipes, currentRecipes],
-    );
+    const handleLoadMore = () => fetchNextPage();
+
     return (
         <Tabs as='section' mb={10} index={activeIndex} variant='limeTabs'>
             <TabList>
@@ -68,16 +67,19 @@ export const TabsSection: React.FC = memo(() => {
 
             <TabPanels mt={6}>
                 <CardsWrapper>
-                    {tabCardData.map((props, index) => (
-                        <FoodCard {...props} key={props.id} index={index} />
-                    ))}
+                    {currentRecipes &&
+                        currentRecipes.map((props, index) => (
+                            <FoodCard {...props} key={props._id} index={index} />
+                        ))}
                 </CardsWrapper>
 
-                <Center mt={4}>
-                    <Button bg={COLORS_LIME[400]} px={5}>
-                        Загрузить ещё
-                    </Button>
-                </Center>
+                {isLoadMoreActive && (
+                    <Center mt={4}>
+                        <Button bg={COLORS_LIME[400]} px={5} onClick={handleLoadMore}>
+                            Загрузить ещё
+                        </Button>
+                    </Center>
+                )}
             </TabPanels>
         </Tabs>
     );

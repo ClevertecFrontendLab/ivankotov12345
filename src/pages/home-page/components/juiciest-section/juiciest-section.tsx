@@ -6,6 +6,7 @@ import { FoodCard } from '~/components/food-card';
 import { PAGE_TITLES } from '~/constants/page-titles';
 import { JUICIEST_SECTION_QUERY_PARAMS } from '~/constants/query-params';
 import { DATA_TEST_ID } from '~/constants/test-id';
+import { Endpoints } from '~/query/constants/paths';
 import { useGetRecipesInfiniteQuery } from '~/query/services/recipe';
 
 import { JuiciestButton } from './juiciest-button';
@@ -13,7 +14,10 @@ import { JuiciestButton } from './juiciest-button';
 const { title } = PAGE_TITLES.juiciest;
 
 export const JuiciestSection: React.FC = () => {
-    const { data } = useGetRecipesInfiniteQuery(JUICIEST_SECTION_QUERY_PARAMS);
+    const { data } = useGetRecipesInfiniteQuery({
+        endpoint: Endpoints.RECIPE,
+        ...JUICIEST_SECTION_QUERY_PARAMS,
+    });
 
     const juiciestCardData = useMemo(() => data?.pages[0].data || [], [data]);
     return (

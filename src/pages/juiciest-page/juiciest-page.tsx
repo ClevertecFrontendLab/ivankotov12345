@@ -4,21 +4,24 @@ import React, { useMemo } from 'react';
 import { CardsWrapper } from '~/components/cards-wrapper';
 import { FoodCard } from '~/components/food-card';
 import { PageHeader } from '~/components/page-header';
+import { RelevantSection } from '~/components/relevant-section';
 import { COLORS_LIME } from '~/constants/colors';
 import { PAGE_TITLES } from '~/constants/page-titles';
 import { JUICIEST_QUERY_PARAMS } from '~/constants/query-params';
+import { Endpoints } from '~/query/constants/paths';
 import { useGetRecipesInfiniteQuery } from '~/query/services/recipe';
 
 const { title: juiciestPageTitle } = PAGE_TITLES.juiciest;
-//const { title: veganPageTitle, subtitle: veganPageSubTitle } = PAGE_TITLES.vegan;
 
 export const JuiciestPage: React.FC = () => {
-    const { data, fetchNextPage } = useGetRecipesInfiniteQuery(JUICIEST_QUERY_PARAMS);
+    const { data, fetchNextPage } = useGetRecipesInfiniteQuery({
+        endpoint: Endpoints.RECIPE,
+        ...JUICIEST_QUERY_PARAMS,
+    });
 
     const currentRecipes = useMemo(() => data?.pages.map((element) => element.data).flat(), [data]);
 
     const handleLoadMore = () => fetchNextPage();
-
     return (
         <Box>
             <PageHeader title={juiciestPageTitle} />
@@ -38,12 +41,7 @@ export const JuiciestPage: React.FC = () => {
                 </Center>
             </Box>
 
-            {/*             <RelevantSection
-                title={veganPageTitle}
-                subtitle={veganPageSubTitle}
-                cardData={VEGAN_RELEVANT_CARD_DATA}
-                cardDataMini={VEGAN_RELEVANT_CARD_DATA_MINI}
-            /> */}
+            <RelevantSection />
         </Box>
     );
 };
