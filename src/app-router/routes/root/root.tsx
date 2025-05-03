@@ -1,11 +1,14 @@
 import { type RouteObject } from 'react-router';
 
+import { checkRouteExists } from '~/app-router/utils/check-route-exists';
 import { Layout } from '~/components/layout';
 import { ROUTER_PATHS } from '~/constants/router-paths';
 import { CategoryPage } from '~/pages/category-page';
 import { HomePage } from '~/pages/home-page';
 import { JuiciestPage } from '~/pages/juiciest-page';
 import { RecipePage } from '~/pages/recipe-page';
+
+import { notFoundPage } from '../not-found';
 
 export const rootPage: RouteObject = {
     path: ROUTER_PATHS.homePage,
@@ -21,6 +24,7 @@ export const rootPage: RouteObject = {
         },
         {
             path: ROUTER_PATHS.subcategory,
+            loader: checkRouteExists,
             children: [
                 {
                     index: true,
@@ -32,5 +36,6 @@ export const rootPage: RouteObject = {
                 },
             ],
         },
+        notFoundPage,
     ],
 };

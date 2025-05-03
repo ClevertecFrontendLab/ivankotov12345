@@ -5,4 +5,6 @@ export const ROUTER_PATHS = {
     category: ':category',
     subcategory: ':category/:subcategory',
     recipe: ':id',
+    anyRoute: '*',
+    notFound: '/not-found',
 };

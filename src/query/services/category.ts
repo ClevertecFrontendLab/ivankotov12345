@@ -1,7 +1,9 @@
+import { setLocalStorageItem } from '~/helpers/storage-categories';
 import { setCategories, setSubCategories } from '~/store/slices/category-slice';
 import { NavMenuItem, Subcategory } from '~/types/nav-menu';
 
 import { Endpoints } from '../constants/paths';
+import { CATEGORY_STORAGE_KEY, SUBCATEGORY_STORAGE_KEY } from '../constants/storage-keys';
 import { apiSlice } from '../create-api';
 import { getCategories, getSubCategories } from '../utils/get-categories';
 
@@ -17,6 +19,9 @@ export const categoryApi = apiSlice.injectEndpoints({
 
                     dispatch(setCategories(categoriesData));
                     dispatch(setSubCategories(subCategoriesData));
+
+                    setLocalStorageItem(CATEGORY_STORAGE_KEY, categoriesData);
+                    setLocalStorageItem(SUBCATEGORY_STORAGE_KEY, subCategoriesData);
                 } catch (error) {
                     console.log(error);
                 }

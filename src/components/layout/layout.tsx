@@ -5,6 +5,7 @@ import { COLORS_LIME } from '~/constants/colors';
 import { JUICIEST_QUERY_PARAMS } from '~/constants/query-params';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { Z_INDEX } from '~/constants/z-index';
+import { Endpoints } from '~/query/constants/paths';
 import { useGetCategoriesQuery } from '~/query/services/category';
 import { useGetRecipesInfiniteQuery } from '~/query/services/recipe';
 
@@ -23,10 +24,16 @@ const fixedContainer = {
 export const Layout: React.FC = () => {
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
     const { isLoading: isCategoriesLoading } = useGetCategoriesQuery(undefined);
-    const { isLoading: isJuiciestLoading } = useGetRecipesInfiniteQuery(JUICIEST_QUERY_PARAMS, {
-        selectFromResult: ({ isLoading }) => ({ isLoading }),
-        skip: true,
-    });
+    const { isLoading: isJuiciestLoading } = useGetRecipesInfiniteQuery(
+        {
+            endpoint: Endpoints.RECIPE,
+            ...JUICIEST_QUERY_PARAMS,
+        },
+        {
+            selectFromResult: ({ isLoading }) => ({ isLoading }),
+            skip: true,
+        },
+    );
 
     return (
         <Box height='100vh'>
