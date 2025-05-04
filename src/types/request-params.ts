@@ -5,6 +5,11 @@ export type QueryParams = {
     sortBy?: SortBy;
     sortOrder?: SortOrder;
     limit?: number;
+    allergens?: string;
+    searchString?: string;
+    meat?: string;
+    garnish?: string;
+    subcategoriesIds?: string;
 };
 
 export type RecipeParams = QueryParams & {

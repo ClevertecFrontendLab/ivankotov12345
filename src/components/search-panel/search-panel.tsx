@@ -13,41 +13,48 @@ import { useEffect, useMemo, useState } from 'react';
 import { COLORS_BLACK_ALPHA } from '~/constants/colors';
 import { PLACEHOLDERS } from '~/constants/placeholders';
 import { DATA_TEST_ID } from '~/constants/test-id';
-import { filterRecipesBySearch } from '~/helpers/filter-recipe';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import { openDrawer } from '~/store/slices/filter-drawer-slice';
-import { clearFilters } from '~/store/slices/filters-slice';
-import { clearFilterRecipes, selectRecipes, setFilteredRecipes } from '~/store/slices/recipe-slice';
-import { setSearchInputValue } from '~/store/slices/search-input-slice';
+import { openDrawer, selectFilterDrawer } from '~/store/slices/filter-drawer-slice';
+import {
+    removeIsFiltered,
+    selectFilter,
+    selectIsFiltered,
+    setIsFiltered,
+} from '~/store/slices/filters-slice';
+import { clearFilterRecipes, selectRecipes } from '~/store/slices/recipe-slice';
+import { selectSearchInput, setSearchInputValue } from '~/store/slices/search-input-slice';
 
 import { AllergensSelectMenu } from './allergens-select-menu';
 import { FilterDrawer } from './filter-drawer';
 import { FilterIcon } from './filter-icon';
+import { checkFiltersEmpty } from './helpers/check-empty';
 
 type SearchPanelProps = {
     setIsSearchFocused: (isElementFocused: boolean) => void;
+    isSearchFocused: boolean;
 };
 
 const MIN_SEARCH_VALUE_LENGTH = 3;
 
-export const SearchPanel: React.FC<SearchPanelProps> = ({ setIsSearchFocused }) => {
+export const SearchPanel: React.FC<SearchPanelProps> = ({
+    setIsSearchFocused,
+    isSearchFocused,
+}) => {
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
-    const dispatch = useAppDispatch();
+
     const [currentSearchValue, setCurrentSearchValue] = useState('');
     const [hasSearchError, setHasSearchError] = useState(false);
-    const { currentRecipes, filteredRecipes } = useAppSelector(selectRecipes);
+    const { ...filters } = useAppSelector(selectFilter);
+    const { isOpen } = useAppSelector(selectFilterDrawer);
+    const { filteredRecipes } = useAppSelector(selectRecipes);
+    const isFiltered = useAppSelector(selectIsFiltered);
+    const { searchInputValue } = useAppSelector(selectSearchInput);
+
+    const dispatch = useAppDispatch();
 
     const isSearchButtonDisabled = useMemo(
         () => currentSearchValue.length < MIN_SEARCH_VALUE_LENGTH,
         [currentSearchValue],
-    );
-
-    useEffect(
-        () => () => {
-            dispatch(clearFilters());
-            dispatch(clearFilterRecipes());
-        },
-        [dispatch],
     );
 
     const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,13 +65,29 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({ setIsSearchFocused }) 
     };
 
     const onSearchClick = () => {
+        dispatch(setIsFiltered());
         dispatch(setSearchInputValue(currentSearchValue));
-        const currSearchArr = filteredRecipes.length ? filteredRecipes : currentRecipes;
-        const filtered = filterRecipesBySearch(currentSearchValue, currSearchArr);
-        dispatch(setFilteredRecipes(filtered));
-        setHasSearchError(filtered.length === 0);
+        setHasSearchError(filteredRecipes.length === 0);
     };
 
+    useEffect(() => {
+        if (isFiltered && filteredRecipes.length === 0 && isSearchFocused) {
+            setHasSearchError(true);
+        } else {
+            setHasSearchError(false);
+        }
+    }, [isFiltered, filteredRecipes, isSearchFocused]);
+
+    useEffect(() => {
+        const isFiltersEmpty = checkFiltersEmpty(filters);
+
+        if (searchInputValue.length === 0 && isFiltersEmpty && !isOpen) {
+            if (filteredRecipes.length > 0) {
+                dispatch(clearFilterRecipes());
+                dispatch(removeIsFiltered());
+            }
+        }
+    }, [dispatch, filters, searchInputValue, filteredRecipes, isOpen]);
     return (
         <VStack w='full' px={{ md: 36, lg: 48 }} gap={4}>
             <HStack w='full'>

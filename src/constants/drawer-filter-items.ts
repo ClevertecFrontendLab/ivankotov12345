@@ -1,22 +1,22 @@
 import { FilterItem } from '~/types/filter-item';
 
 export const DRAWER_MEAT_ITEMS: FilterItem[] = [
-    { item: 'chicken', label: 'Курица' },
-    { item: 'pork', label: 'Свинина' },
-    { item: 'beef', label: 'Говядина' },
-    { item: 'turkey', label: 'Индейка' },
-    { item: 'duck', label: 'Утка' },
+    { item: 'Курица', label: 'Курица' },
+    { item: 'Свинина', label: 'Свинина' },
+    { item: 'Говядина', label: 'Говядина' },
+    { item: 'Индейка', label: 'Индейка' },
+    { item: 'Утка', label: 'Утка' },
 ];
 
 export const DRAWER_SIDES_ITEMS: FilterItem[] = [
-    { item: 'potatoes', label: 'Картошка' },
-    { item: 'buckwheat', label: 'Гречка' },
-    { item: 'pasta', label: 'Паста' },
-    { item: 'spaghetti', label: 'Спагетти' },
-    { item: 'rice', label: 'Рис' },
-    { item: 'cabbage', label: 'Капуста' },
-    { item: 'beans', label: 'Фасоль' },
-    { item: 'vegetables', label: 'Другие овощи' },
+    { item: 'Картошка', label: 'Картошка' },
+    { item: 'Гречка', label: 'Гречка' },
+    { item: 'Паста', label: 'Паста' },
+    { item: 'Спагетти', label: 'Спагетти' },
+    { item: 'Рис', label: 'Рис' },
+    { item: 'Капуста', label: 'Капуста' },
+    { item: 'Фасоль', label: 'Фасоль' },
+    { item: 'Другие овощи', label: 'Другие овощи' },
 ];
 
 export const AUTHORS_LIST: FilterItem[] = [

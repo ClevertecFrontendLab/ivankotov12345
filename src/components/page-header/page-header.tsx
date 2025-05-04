@@ -42,7 +42,10 @@ export const PageHeader: React.FC<PageHeaderProps> = ({ title, subtitle }) => {
                 )}
             </VStack>
 
-            <SearchPanel setIsSearchFocused={setIsSearchFocused} />
+            <SearchPanel
+                setIsSearchFocused={setIsSearchFocused}
+                isSearchFocused={isSearchFocused}
+            />
         </VStack>
     );
 };

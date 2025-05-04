@@ -14,19 +14,17 @@ import {
     Spacer,
     VStack,
 } from '@chakra-ui/react';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 
-import { CARD_DATA } from '~/constants/card-data';
 import {
     AUTHORS_LIST,
     DRAWER_MEAT_ITEMS,
     DRAWER_SIDES_ITEMS,
 } from '~/constants/drawer-filter-items';
-import { NAV_MENU_ITEMS } from '~/constants/nav-menu';
 import { PLACEHOLDERS } from '~/constants/placeholders';
 import { DATA_TEST_ID } from '~/constants/test-id';
-import { filterRecipes } from '~/helpers/filter-recipe';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { selectCategory } from '~/store/slices/category-slice';
 import { closeDrawer, selectFilterDrawer } from '~/store/slices/filter-drawer-slice';
 import {
     addAuthor,
@@ -36,11 +34,12 @@ import {
     clearFilters,
     removeAuthor,
     removeCategory,
+    removeIsFiltered,
     removeMeat,
     removeSides,
     selectFilter,
+    setIsFiltered,
 } from '~/store/slices/filters-slice';
-import { setFilteredRecipes } from '~/store/slices/recipe-slice';
 import { FilterItem } from '~/types/filter-item';
 
 import { AllergensSelectMenu } from '../allergens-select-menu';
@@ -48,15 +47,17 @@ import { DrawerMenu } from './drawer-menu';
 import { FilterCheckboxGroup } from './filter-checkbox-group';
 import { FilterDrawerTag } from './filter-drawer-tag';
 
-const categoryItems = NAV_MENU_ITEMS.map((item) => ({
-    label: item.category,
-    item: item.path,
-}));
-
 export const FilterDrawer: React.FC = () => {
     const { isOpen } = useAppSelector(selectFilterDrawer);
+    const { categories } = useAppSelector(selectCategory);
     const { ...filters } = useAppSelector(selectFilter);
+
     const dispatch = useAppDispatch();
+
+    const categoryItems = categories.map(({ title, subCategories }) => ({
+        item: subCategories.map((sub) => sub._id).toString(),
+        label: title,
+    }));
 
     const onClose = () => {
         dispatch(closeDrawer());
@@ -65,15 +66,13 @@ export const FilterDrawer: React.FC = () => {
     const onClearFiltersClick = () => dispatch(clearFilters());
 
     const onFindRecipeClick = () => {
-        const rec = filterRecipes(CARD_DATA, filters);
-
-        dispatch(setFilteredRecipes(rec));
+        dispatch(setIsFiltered());
         dispatch(closeDrawer());
     };
 
     const getFilteredItems = useCallback(
         (items: FilterItem[], selectedItems: string[]) =>
-            items.filter(({ item }) => selectedItems.includes(item)).map(({ label }) => label),
+            items.filter(({ item }) => selectedItems.includes(item)),
         [],
     );
 
@@ -84,12 +83,9 @@ export const FilterDrawer: React.FC = () => {
 
     const allFilterItems = useMemo(
         () =>
-            [
-                ...categoryFilterItems,
-                ...meatFilterItems,
-                ...sidesFilterItems,
-                ...authorsFilterItems,
-            ].concat(filters.selectedAllergens),
+            [...categoryFilterItems, ...meatFilterItems, ...sidesFilterItems, ...authorsFilterItems]
+                .map(({ label }) => label)
+                .concat(filters.selectedAllergens),
         [
             categoryFilterItems,
             meatFilterItems,
@@ -98,6 +94,12 @@ export const FilterDrawer: React.FC = () => {
             filters.selectedAllergens,
         ],
     );
+
+    useEffect(() => {
+        if (isOpen) {
+            dispatch(removeIsFiltered());
+        }
+    }, [isOpen, dispatch]);
 
     const isDisabled = allFilterItems.length === 0;
     return (
@@ -130,6 +132,7 @@ export const FilterDrawer: React.FC = () => {
                     <DrawerMenu
                         placeholder={PLACEHOLDERS.searchByCategories}
                         items={categoryItems}
+                        selectedItems={filters.selectedCategories}
                         addItem={addCategory}
                         removeItem={removeCategory}
                         testId={DATA_TEST_ID.filterMenuButtonCategory}
@@ -139,6 +142,7 @@ export const FilterDrawer: React.FC = () => {
                     <DrawerMenu
                         placeholder={PLACEHOLDERS.searchByAuthor}
                         items={AUTHORS_LIST}
+                        selectedItems={filters.selectedAuthors}
                         addItem={addAuthor}
                         removeItem={removeAuthor}
                         tagList={authorsFilterItems}
@@ -149,6 +153,7 @@ export const FilterDrawer: React.FC = () => {
                         itemsList={DRAWER_MEAT_ITEMS}
                         addItem={addMeat}
                         removeItem={removeMeat}
+                        selectedItems={filters.selectedMeatTypes}
                     />
 
                     <FilterCheckboxGroup
@@ -156,6 +161,7 @@ export const FilterDrawer: React.FC = () => {
                         itemsList={DRAWER_SIDES_ITEMS}
                         addItem={addSides}
                         removeItem={removeSides}
+                        selectedItems={filters.selectedSidesTypes}
                     />
 
                     <AllergensSelectMenu isDrawerType={true} />

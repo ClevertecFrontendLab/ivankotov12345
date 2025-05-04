@@ -1,24 +1,52 @@
-import { Box } from '@chakra-ui/react';
+import { Box, Button, Center } from '@chakra-ui/react';
+import { useEffect, useMemo } from 'react';
 
 import { CardsWrapper } from '~/components/cards-wrapper';
 import { Сarousel } from '~/components/carousel';
+import { FoodCard } from '~/components/food-card';
 import { PageHeader } from '~/components/page-header';
 import { RelevantSection } from '~/components/relevant-section';
-import { CARD_DATA } from '~/constants/card-data';
+import { getQueryParams } from '~/components/search-panel/helpers/get-query-params';
+import { COLORS_LIME } from '~/constants/colors';
 import { PAGE_TITLES } from '~/constants/page-titles';
-import { useAllergenFilter } from '~/hooks/use-allergen-filters';
 import { BlogSection } from '~/pages/home-page/components/blog-section';
-import { useAppSelector } from '~/store/hooks';
-import { selectRecipes } from '~/store/slices/recipe-slice';
+import { Endpoints } from '~/query/constants/paths';
+import { useGetRecipesInfiniteQuery } from '~/query/services/recipe';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { selectFilter, selectIsFiltered } from '~/store/slices/filters-slice';
+import { selectRecipes, setFilteredRecipes } from '~/store/slices/recipe-slice';
+import { selectSearchInput } from '~/store/slices/search-input-slice';
 
 import { JuiciestSection } from './components/juiciest-section';
 
 const { title: homePageTitle } = PAGE_TITLES.home;
 
 export const HomePage: React.FC = () => {
+    const isFiltered = useAppSelector(selectIsFiltered);
     const { filteredRecipes } = useAppSelector(selectRecipes);
+    const { ...filters } = useAppSelector(selectFilter);
+    const { searchInputValue } = useAppSelector(selectSearchInput);
 
-    useAllergenFilter(CARD_DATA);
+    const dispatch = useAppDispatch();
+
+    const queryParams = useMemo(
+        () => getQueryParams(filters, searchInputValue),
+        [filters, searchInputValue],
+    );
+
+    const { data, fetchNextPage } = useGetRecipesInfiniteQuery(
+        { endpoint: Endpoints.RECIPE, ...queryParams },
+        { skip: !isFiltered },
+    );
+
+    useEffect(() => {
+        if (isFiltered && data?.pages[0]?.data) {
+            dispatch(setFilteredRecipes(data.pages[0].data));
+        }
+    }, [data, isFiltered, dispatch]);
+
+    const handleLoadMore = () => fetchNextPage();
+
     return (
         <Box>
             <PageHeader title={homePageTitle} />
@@ -31,12 +59,20 @@ export const HomePage: React.FC = () => {
                     <RelevantSection />
                 </>
             ) : (
-                <CardsWrapper>
-                    <div>123</div>
-                    {/*                     {filteredRecipes.map((card, index) => (
-                        <FoodCard key={card.id} {...card} index={index} />
-                    ))} */}
-                </CardsWrapper>
+                <>
+                    <CardsWrapper>
+                        {data?.pages[0].data.length &&
+                            data.pages[0].data.map((card, index) => (
+                                <FoodCard key={card._id} {...card} index={index} />
+                            ))}
+                    </CardsWrapper>
+
+                    <Center mt={4}>
+                        <Button bg={COLORS_LIME[400]} px={5} onClick={handleLoadMore}>
+                            Загрузить ещё
+                        </Button>
+                    </Center>
+                </>
             )}
         </Box>
     );

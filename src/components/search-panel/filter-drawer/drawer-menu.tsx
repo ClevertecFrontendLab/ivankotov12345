@@ -2,6 +2,7 @@ import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
     Button,
     Checkbox,
+    CheckboxGroup,
     HStack,
     Menu,
     MenuButton,
@@ -21,15 +22,17 @@ import { FilterTag } from '../filter-tag';
 type DrawerProps = {
     placeholder: string;
     items: FilterItem[];
+    selectedItems: string[];
     addItem: ActionCreatorWithPayload<string, string>;
     removeItem: ActionCreatorWithPayload<string, string>;
-    tagList: string[];
+    tagList: FilterItem[];
     testId?: string;
 };
 
 export const DrawerMenu: React.FC<DrawerProps> = ({
     placeholder,
     items,
+    selectedItems,
     addItem,
     removeItem,
     testId,
@@ -47,6 +50,8 @@ export const DrawerMenu: React.FC<DrawerProps> = ({
             dispatch(removeItem(value));
         }
     };
+
+    const tagListLabels = tagList.map(({ label }) => label);
     return (
         <Menu matchWidth closeOnSelect={false}>
             <MenuButton
@@ -58,32 +63,35 @@ export const DrawerMenu: React.FC<DrawerProps> = ({
                 data-test-id={testId}
             >
                 <HStack alignItems='start' rowGap={1} columnGap={2} flexWrap='wrap'>
-                    {tagList.length ? (
-                        tagList.map((tag) => <FilterTag key={tag} item={tag} />)
+                    {tagListLabels.length ? (
+                        tagListLabels.map((tag) => <FilterTag key={tag} item={tag} />)
                     ) : (
                         <Text>{placeholder}</Text>
                     )}
                 </HStack>
             </MenuButton>
-            <MenuList>
-                {items.map(({ label, item }, index) => (
-                    <MenuItem
-                        key={label}
-                        gap={2}
-                        background={index % 2 ? COLORS.white : COLORS_BLACK_ALPHA[100]}
-                        px={4}
-                        py={1.5}
-                    >
-                        <Checkbox
-                            variant='limeCheckbox'
-                            value={item}
-                            onChange={toggleItem}
-                            data-test-id={`${DATA_TEST_ID.checkbox}-${label.toLowerCase()}`}
+
+            <MenuList maxH='300px' overflowY='scroll'>
+                <CheckboxGroup value={selectedItems}>
+                    {items.map(({ item, label }, index) => (
+                        <MenuItem
+                            key={item}
+                            gap={2}
+                            background={index % 2 ? COLORS.white : COLORS_BLACK_ALPHA[100]}
+                            px={4}
+                            py={1.5}
                         >
-                            {label}
-                        </Checkbox>
-                    </MenuItem>
-                ))}
+                            <Checkbox
+                                variant='limeCheckbox'
+                                value={item}
+                                onChange={toggleItem}
+                                data-test-id={`${DATA_TEST_ID.checkbox}-${label.toLowerCase()}`}
+                            >
+                                {label}
+                            </Checkbox>
+                        </MenuItem>
+                    ))}
+                </CheckboxGroup>
             </MenuList>
         </Menu>
     );

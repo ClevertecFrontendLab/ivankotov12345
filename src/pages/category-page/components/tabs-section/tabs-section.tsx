@@ -4,6 +4,7 @@ import { NavLink } from 'react-router';
 
 import { CardsWrapper } from '~/components/cards-wrapper';
 import { FoodCard } from '~/components/food-card';
+import { getQueryParams } from '~/components/search-panel/helpers/get-query-params';
 import { COLORS_LIME } from '~/constants/colors';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { usePathItems } from '~/hooks/use-path-items';
@@ -11,12 +12,25 @@ import { Endpoints } from '~/query/constants/paths';
 import { useGetRecipesInfiniteQuery } from '~/query/services/recipe';
 import { useAppSelector } from '~/store/hooks';
 import { selectCategory } from '~/store/slices/category-slice';
+import { selectFilter, selectIsFiltered } from '~/store/slices/filters-slice';
+import { setFilteredRecipes } from '~/store/slices/recipe-slice';
+import { selectSearchInput } from '~/store/slices/search-input-slice';
 
 export const TabsSection: React.FC = memo(() => {
     const [isLoadMoreActive, setIsLoadMoreActive] = useState(true);
 
     const { secondItemPath, thirdItemPath } = usePathItems();
+
     const { categories } = useAppSelector(selectCategory);
+    const { ...filters } = useAppSelector(selectFilter);
+    const { searchInputValue } = useAppSelector(selectSearchInput);
+
+    const isFiltered = useAppSelector(selectIsFiltered);
+
+    const queryParams = useMemo(
+        () => getQueryParams(filters, searchInputValue),
+        [filters, searchInputValue],
+    );
 
     const tabs = useMemo(
         () => categories.find((item) => item.category === secondItemPath)?.subCategories,
@@ -33,8 +47,19 @@ export const TabsSection: React.FC = memo(() => {
         [thirdItemPath, tabs],
     );
 
+    const categoryEndpoint = isFiltered
+        ? Endpoints.RECIPE
+        : `${Endpoints.RECIPES_BY_CATEGORY}/${activeTab?._id}`;
+
+    const categoryIds = categories
+        .find(({ category }) => category === secondItemPath)
+        ?.subCategories.map(({ _id }) => _id)
+        .toString();
+
     const { data, fetchNextPage } = useGetRecipesInfiniteQuery({
-        endpoint: `${Endpoints.RECIPES_BY_CATEGORY}/${activeTab?._id}`,
+        endpoint: categoryEndpoint,
+        ...queryParams,
+        subcategoriesIds: categoryIds,
     });
 
     const currentRecipes = useMemo(() => data?.pages.map((element) => element.data).flat(), [data]);
@@ -47,8 +72,13 @@ export const TabsSection: React.FC = memo(() => {
         }
     }, [currentRecipes, data]);
 
-    const handleLoadMore = () => fetchNextPage();
+    useEffect(() => {
+        if (isFiltered && currentRecipes) {
+            setFilteredRecipes(currentRecipes);
+        }
+    }, [isFiltered, currentRecipes]);
 
+    const handleLoadMore = () => fetchNextPage();
     return (
         <Tabs as='section' mb={10} index={activeIndex} variant='limeTabs'>
             <TabList>

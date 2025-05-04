@@ -92,10 +92,10 @@ export const CarouselCard: React.FC<CardData> = ({
                         <Spacer />
 
                         <Box layerStyle='absolute' bottom={2} left={2}>
-                            {bookmarks && (
+                            {bookmarks > 0 && (
                                 <StatButton size='xs' quantity={bookmarks} icon={<LikeIcon />} />
                             )}
-                            {likes && (
+                            {likes > 0 && (
                                 <StatButton size='xs' quantity={likes} icon={<FavoriteIcon />} />
                             )}
                         </Box>

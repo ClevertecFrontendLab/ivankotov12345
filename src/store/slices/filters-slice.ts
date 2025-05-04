@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { ApplicationState } from '../configure-store';
 
@@ -8,6 +8,8 @@ type FiltersStateType = {
     selectedAuthors: string[];
     selectedMeatTypes: string[];
     selectedSidesTypes: string[];
+    allFilters: string[];
+    isFiltered: boolean;
 };
 
 const initialState: FiltersStateType = {
@@ -16,6 +18,8 @@ const initialState: FiltersStateType = {
     selectedAuthors: [],
     selectedMeatTypes: [],
     selectedSidesTypes: [],
+    allFilters: [],
+    isFiltered: false,
 };
 
 export const filtersSlice = createSlice({
@@ -70,19 +74,38 @@ export const filtersSlice = createSlice({
                 (item) => item !== action.payload,
             );
         },
+        setIsFiltered: (state) => {
+            state.isFiltered = true;
+        },
+        removeIsFiltered: (state) => {
+            state.isFiltered = false;
+        },
+        clearAllergensFilters: (state) => {
+            state.selectedAllergens = [];
+        },
         clearFilters: (state) => {
             state.selectedCategories = [];
             state.selectedAuthors = [];
             state.selectedMeatTypes = [];
             state.selectedSidesTypes = [];
             state.selectedAllergens = [];
+            state.isFiltered = false;
         },
     },
 });
 
 export const selectAllergensFilter = (state: ApplicationState) =>
     state.filtersSlice.selectedAllergens;
-export const selectFilter = (state: ApplicationState) => state.filtersSlice;
+
+export const selectFilter = createSelector(
+    (state: ApplicationState) => state.filtersSlice,
+    (filters) => {
+        const { isFiltered, ...rest } = filters;
+        return rest;
+    },
+);
+export const selectIsFiltered = (state: ApplicationState) => state.filtersSlice.isFiltered;
+
 export const filtersReducer = filtersSlice.reducer;
 export const {
     addAllergen,
@@ -95,5 +118,8 @@ export const {
     removeMeat,
     addSides,
     removeSides,
+    clearAllergensFilters,
+    setIsFiltered,
+    removeIsFiltered,
     clearFilters,
 } = filtersSlice.actions;

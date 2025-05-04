@@ -11,9 +11,10 @@ import { PlusIcon } from '../../icons';
 
 type CustomAllergenInputProps = {
     inputRef: React.RefObject<HTMLInputElement | null>;
+    isOpen: boolean;
 };
 
-export const CustomAllergenInput: React.FC<CustomAllergenInputProps> = ({ inputRef }) => {
+export const CustomAllergenInput: React.FC<CustomAllergenInputProps> = ({ inputRef, isOpen }) => {
     const [customAllergen, setCustomAllergen] = useState('');
 
     const selectedAllergens = useAppSelector(selectAllergensFilter);
@@ -44,7 +45,7 @@ export const CustomAllergenInput: React.FC<CustomAllergenInputProps> = ({ inputR
                 size='sm'
                 borderRadius='base'
                 onChange={onCustomAllergenInputChange}
-                data-test-id={DATA_TEST_ID.addOtherAllergen}
+                data-test-id={isOpen && DATA_TEST_ID.addOtherAllergen}
                 _focus={{
                     borderColor: COLORS_BLACK_ALPHA[200],
                 }}
@@ -58,7 +59,7 @@ export const CustomAllergenInput: React.FC<CustomAllergenInputProps> = ({ inputR
                 icon={<PlusIcon />}
                 aria-label='add'
                 onClick={handleAddCustomAllergen}
-                data-test-id={DATA_TEST_ID.addAllergenButton}
+                data-test-id={isOpen && DATA_TEST_ID.addAllergenButton}
             />
         </HStack>
     );

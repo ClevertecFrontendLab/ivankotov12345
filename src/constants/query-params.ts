@@ -7,6 +7,7 @@ export const JUICIEST_QUERY_PARAMS: QueryParams = {
 
 export const CAROUSEL_QUERY_PARAMS: QueryParams = {
     sortBy: 'createdAt',
+    sortOrder: 'desc',
     limit: 10,
 };
 
