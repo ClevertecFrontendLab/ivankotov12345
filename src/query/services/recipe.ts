@@ -1,3 +1,7 @@
+import {
+    clearSelectedRecipeTitle,
+    setSelectedRecipeTitle,
+} from '~/store/slices/selected-recipe-slice';
 import { MetaParams, RecipeListResponse, RecipeType } from '~/types/recipe';
 import { RecipeInfiniteParams, RecipeParams } from '~/types/request-params';
 
@@ -45,6 +49,14 @@ export const recpeApi = apiSlice.injectEndpoints({
                     ...rest,
                     nutritionValue: transformedNutritionValue,
                 };
+            },
+            onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+                try {
+                    const { data } = await queryFulfilled;
+                    dispatch(setSelectedRecipeTitle(data.title));
+                } catch {
+                    dispatch(clearSelectedRecipeTitle());
+                }
             },
         }),
     }),

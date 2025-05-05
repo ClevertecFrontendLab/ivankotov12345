@@ -13,7 +13,7 @@ import { selectSelectedRecipe } from '~/store/slices/selected-recipe-slice';
 
 export const Breadcrumbs: React.FC = () => {
     const dispatch = useAppDispatch();
-    const { selectedRecipe } = useAppSelector(selectSelectedRecipe);
+    const { selectedRecipeTitle } = useAppSelector(selectSelectedRecipe);
     const { categories } = useAppSelector(selectCategory);
 
     const { secondItemPath, thirdItemPath } = usePathItems();
@@ -62,15 +62,17 @@ export const Breadcrumbs: React.FC = () => {
             )}
 
             {thirdItemPath && (
-                <BreadcrumbItem color={selectedRecipe ? COLORS_BLACK_ALPHA[700] : COLORS.inherit}>
+                <BreadcrumbItem
+                    color={selectedRecipeTitle ? COLORS_BLACK_ALPHA[700] : COLORS.inherit}
+                >
                     <BreadcrumbLink as={NavLink} to={`/${secondItemPath}/${thirdItemPath}`}>
                         {thirdItemName}
                     </BreadcrumbLink>
                 </BreadcrumbItem>
             )}
-            {selectedRecipe && (
+            {selectedRecipeTitle && (
                 <BreadcrumbItem>
-                    <BreadcrumbLink>{selectedRecipe.title}</BreadcrumbLink>
+                    <BreadcrumbLink>{selectedRecipeTitle}</BreadcrumbLink>
                 </BreadcrumbItem>
             )}
         </Breadcrumb>
