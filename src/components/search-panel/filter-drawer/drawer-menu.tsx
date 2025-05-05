@@ -71,7 +71,7 @@ export const DrawerMenu: React.FC<DrawerProps> = ({
                 </HStack>
             </MenuButton>
 
-            <MenuList maxH='300px' overflowY='scroll'>
+            <MenuList>
                 <CheckboxGroup value={selectedItems}>
                     {items.map(({ item, label }, index) => (
                         <MenuItem

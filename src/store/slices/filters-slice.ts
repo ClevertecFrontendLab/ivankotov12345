@@ -44,7 +44,9 @@ export const filtersSlice = createSlice({
             }
         },
         removeCategory: (state, action: PayloadAction<string>) => {
-            state.selectedCategories.filter((item) => item !== action.payload);
+            state.selectedCategories = state.selectedCategories.filter(
+                (category) => category !== action.payload,
+            );
         },
         addAuthor: (state, action: PayloadAction<string>) => {
             if (!state.selectedAuthors.includes(action.payload)) {
@@ -52,7 +54,9 @@ export const filtersSlice = createSlice({
             }
         },
         removeAuthor: (state, action: PayloadAction<string>) => {
-            state.selectedAuthors.filter((item) => item !== action.payload);
+            state.selectedAuthors = state.selectedAuthors.filter(
+                (author) => author !== action.payload,
+            );
         },
         addMeat: (state, action: PayloadAction<string>) => {
             if (!state.selectedMeatTypes.includes(action.payload)) {
