@@ -1,5 +1,7 @@
 import { type RouteObject } from 'react-router';
 
+import { HydrateFallback } from '~/app-router/fallback/hydrate-fallback';
+import { recipeLoader } from '~/app-router/loaders/recipe-loader';
 import { checkRouteExists } from '~/app-router/utils/check-route-exists';
 import { Layout } from '~/components/layout';
 import { ROUTER_PATHS } from '~/constants/router-paths';
@@ -13,6 +15,7 @@ import { notFoundPage } from '../not-found';
 export const rootPage: RouteObject = {
     path: ROUTER_PATHS.homePage,
     element: <Layout />,
+    HydrateFallback: HydrateFallback,
     children: [
         {
             index: true,
@@ -33,6 +36,7 @@ export const rootPage: RouteObject = {
                 {
                     path: ROUTER_PATHS.recipe,
                     element: <RecipePage />,
+                    loader: recipeLoader,
                 },
             ],
         },

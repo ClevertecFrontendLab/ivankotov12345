@@ -9,7 +9,7 @@ type PathType = Pick<CardData, '_id' | 'categoriesIds'> & {
 };
 
 export const useRecipePath = ({ _id, categoriesIds, subCategories, categories }: PathType) => {
-    const { secondItemPath, thirdItemPath } = usePathItems();
+    const { secondItemPath, thirdItemPath, currId } = usePathItems();
     const firstSubcategoryItem = subCategories.filter(({ _id }) => categoriesIds.includes(_id))[0];
 
     const firstSubCategoryRootId = firstSubcategoryItem?.rootCategoryId;
@@ -18,7 +18,7 @@ export const useRecipePath = ({ _id, categoriesIds, subCategories, categories }:
 
     const firstCategory = categories.find(({ _id }) => _id === firstSubCategoryRootId)?.category;
 
-    if (secondItemPath && thirdItemPath) {
+    if (secondItemPath && thirdItemPath && !currId) {
         return `${_id}`;
     }
     return `/${firstCategory}/${firstSubcategory}/${_id}`;

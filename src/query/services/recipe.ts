@@ -1,4 +1,4 @@
-import { MetaParams, RecipeListResponse } from '~/types/recipe';
+import { MetaParams, RecipeListResponse, RecipeType } from '~/types/recipe';
 import { RecipeInfiniteParams, RecipeParams } from '~/types/request-params';
 
 import { Endpoints } from '../constants/paths';
@@ -29,7 +29,26 @@ export const recpeApi = apiSlice.injectEndpoints({
                 return { url: `${Endpoints.RECIPES_BY_CATEGORY}/${id}`, params: queryParams };
             },
         }),
+        getRecipe: build.query<RecipeType, string>({
+            query: (id) => ({ url: `${Endpoints.RECIPE}/${id}` }),
+            transformResponse: (response: RecipeType) => {
+                const { nutritionValue, ...rest } = response;
+
+                const transformedNutritionValue = {
+                    calories: nutritionValue.calories,
+                    fats: nutritionValue.fats,
+                    carbohydrates: nutritionValue.carbohydrates,
+                    proteins: nutritionValue.proteins ?? nutritionValue.protein,
+                };
+
+                return {
+                    ...rest,
+                    nutritionValue: transformedNutritionValue,
+                };
+            },
+        }),
     }),
 });
 
-export const { useGetRecipesInfiniteQuery, useLazyGetRecipesByCategoryQuery } = recpeApi;
+export const { useGetRecipesInfiniteQuery, useLazyGetRecipesByCategoryQuery, useGetRecipeQuery } =
+    recpeApi;

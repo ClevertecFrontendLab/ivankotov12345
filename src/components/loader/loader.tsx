@@ -9,6 +9,7 @@ type LoaderProps = {
 export const Loader: React.FC<LoaderProps> = ({ isLoading }) => (
     <Modal isOpen={isLoading} onClose={() => {}} isCentered variant='loader'>
         <ModalOverlay />
+
         <ModalContent>
             <Spinner w={9} h={9} color={COLORS.black} />
         </ModalContent>

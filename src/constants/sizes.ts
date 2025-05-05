@@ -10,3 +10,8 @@ export const ERROE_PAGE_SIZES = {
     titleWidthBase: '70%',
     titleWidthFull: 'full',
 };
+
+export const STEP_CARD_IMAGE_MAX_WIDTH = {
+    lg: '340px',
+    base: '160px',
+};

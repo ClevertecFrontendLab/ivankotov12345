@@ -1,7 +1,7 @@
 import { Box, SimpleGrid, Text } from '@chakra-ui/react';
 
 import { COLORS_BLACK_ALPHA } from '~/constants/colors';
-import { NutritionsValueType } from '~/types/recipe';
+import { NutritionValue } from '~/types/recipe';
 
 import { NutritionValueCard } from './nutrition-value-card';
 
@@ -17,7 +17,7 @@ const nutritionValues: Record<string, string> = {
     carbohydrates: 'Углеводы',
 };
 
-export const NutritionValueSection: React.FC<NutritionsValueType> = ({
+export const NutritionValueSection: React.FC<NutritionValue> = ({
     calories,
     proteins,
     fats,

@@ -1,9 +1,8 @@
 export type NutritionValue = {
     calories: number;
-    protein: number;
     fats: number;
     carbohydrates: number;
-};
+} & ({ proteins: number; protein?: never } | { protein: number; proteins?: never });
 
 export type Ingredient = {
     title: string;
