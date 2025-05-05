@@ -3,4 +3,6 @@ export const PLACEHOLDERS = {
     differentAllergen: 'Другой аллерген',
     searchByCategories: 'Поиск по категории',
     searchByAuthor: 'Поиск по автору',
+    meatType: 'Тип мяса:',
+    sidesType: 'Тип гарнира:',
 };

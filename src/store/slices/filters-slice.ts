@@ -87,12 +87,16 @@ export const filtersSlice = createSlice({
         clearAllergensFilters: (state) => {
             state.selectedAllergens = [];
         },
+        setAllFilters: (state, action: PayloadAction<string[]>) => {
+            state.allFilters = action.payload;
+        },
         clearFilters: (state) => {
             state.selectedCategories = [];
             state.selectedAuthors = [];
             state.selectedMeatTypes = [];
             state.selectedSidesTypes = [];
             state.selectedAllergens = [];
+            state.allFilters = [];
             state.isFiltered = false;
         },
     },
@@ -125,5 +129,6 @@ export const {
     clearAllergensFilters,
     setIsFiltered,
     removeIsFiltered,
+    setAllFilters,
     clearFilters,
 } = filtersSlice.actions;

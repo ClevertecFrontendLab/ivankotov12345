@@ -9,12 +9,11 @@ import {
     DrawerOverlay,
     Flex,
     Heading,
-    HStack,
     IconButton,
     Spacer,
     VStack,
 } from '@chakra-ui/react';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 
 import {
     AUTHORS_LIST,
@@ -40,12 +39,13 @@ import {
     selectFilter,
     setIsFiltered,
 } from '~/store/slices/filters-slice';
-import { FilterItem } from '~/types/filter-item';
 
 import { AllergensSelectMenu } from '../allergens-select-menu';
+import { FilterTagList } from '../filter-tag-list';
+import { checkFiltersEmpty } from '../helpers/check-empty';
+import { getFilteredItems } from '../helpers/get-filter-items';
 import { DrawerMenu } from './drawer-menu';
 import { FilterCheckboxGroup } from './filter-checkbox-group';
-import { FilterDrawerTag } from './filter-drawer-tag';
 
 export const FilterDrawer: React.FC = () => {
     const { isOpen } = useAppSelector(selectFilterDrawer);
@@ -70,30 +70,8 @@ export const FilterDrawer: React.FC = () => {
         dispatch(closeDrawer());
     };
 
-    const getFilteredItems = useCallback(
-        (items: FilterItem[], selectedItems: string[]) =>
-            items.filter(({ item }) => selectedItems.includes(item)),
-        [],
-    );
-
     const categoryFilterItems = getFilteredItems(categoryItems, filters.selectedCategories);
-    const meatFilterItems = getFilteredItems(DRAWER_MEAT_ITEMS, filters.selectedMeatTypes);
-    const sidesFilterItems = getFilteredItems(DRAWER_SIDES_ITEMS, filters.selectedSidesTypes);
     const authorsFilterItems = getFilteredItems(AUTHORS_LIST, filters.selectedAuthors);
-
-    const allFilterItems = useMemo(
-        () =>
-            [...categoryFilterItems, ...meatFilterItems, ...sidesFilterItems, ...authorsFilterItems]
-                .map(({ label }) => label)
-                .concat(filters.selectedAllergens),
-        [
-            categoryFilterItems,
-            meatFilterItems,
-            sidesFilterItems,
-            authorsFilterItems,
-            filters.selectedAllergens,
-        ],
-    );
 
     useEffect(() => {
         if (isOpen) {
@@ -101,7 +79,7 @@ export const FilterDrawer: React.FC = () => {
         }
     }, [isOpen, dispatch]);
 
-    const isDisabled = allFilterItems.length === 0;
+    const isDisabled = checkFiltersEmpty(filters);
     return (
         <Drawer isOpen={isOpen} onClose={onClose} placement='right'>
             <DrawerOverlay bg='shadowed' backdropFilter='blur(2px)' />
@@ -149,7 +127,7 @@ export const FilterDrawer: React.FC = () => {
                     />
 
                     <FilterCheckboxGroup
-                        description='Тип мяса:'
+                        description={PLACEHOLDERS.meatType}
                         itemsList={DRAWER_MEAT_ITEMS}
                         addItem={addMeat}
                         removeItem={removeMeat}
@@ -157,7 +135,7 @@ export const FilterDrawer: React.FC = () => {
                     />
 
                     <FilterCheckboxGroup
-                        description='Тип гарнира:'
+                        description={PLACEHOLDERS.sidesType}
                         itemsList={DRAWER_SIDES_ITEMS}
                         addItem={addSides}
                         removeItem={removeSides}
@@ -165,14 +143,7 @@ export const FilterDrawer: React.FC = () => {
                     />
 
                     <AllergensSelectMenu isDrawerType={true} />
-
-                    {allFilterItems.length && (
-                        <HStack flexWrap='wrap'>
-                            {allFilterItems.map((tag) => (
-                                <FilterDrawerTag key={tag} label={tag} />
-                            ))}
-                        </HStack>
-                    )}
+                    <FilterTagList isDrawerType={true} />
                 </DrawerBody>
 
                 <DrawerFooter justifyContent='center' p={8} gap={2}>

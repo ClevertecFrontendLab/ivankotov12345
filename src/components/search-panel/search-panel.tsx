@@ -27,6 +27,7 @@ import { selectSearchInput, setSearchInputValue } from '~/store/slices/search-in
 import { AllergensSelectMenu } from './allergens-select-menu';
 import { FilterDrawer } from './filter-drawer';
 import { FilterIcon } from './filter-icon';
+import { FilterTagList } from './filter-tag-list';
 import { checkFiltersEmpty } from './helpers/check-empty';
 
 type SearchPanelProps = {
@@ -142,7 +143,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
                     <AllergensSelectMenu />
                 </HStack>
             )}
-
+            <FilterTagList />
             <FilterDrawer />
         </VStack>
     );
