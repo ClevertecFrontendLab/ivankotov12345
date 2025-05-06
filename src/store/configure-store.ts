@@ -3,6 +3,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { apiSlice } from '~/query/create-api';
 
 import { allergensReducer, allergensSlice } from './slices/allergens-slice';
+import { appReducer, appSlice } from './slices/app-slice';
 import { burgerReducer, burgerSlice } from './slices/burger-slice';
 import { categoryReducer, categorySlice } from './slices/category-slice';
 import { filterDrawerReducer, filterDrawerSlice } from './slices/filter-drawer-slice';
@@ -13,6 +14,7 @@ import { selectedRecipeReducer, selectedRecipeSlice } from './slices/selected-re
 
 const isProduction = false;
 const rootReducer = combineReducers({
+    [appSlice.name]: appReducer,
     [allergensSlice.name]: allergensReducer,
     [burgerSlice.name]: burgerReducer,
     [filtersSlice.name]: filtersReducer,

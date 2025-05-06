@@ -1,3 +1,4 @@
+import { setIsLoading } from '~/store/slices/app-slice';
 import {
     clearSelectedRecipeTitle,
     setSelectedRecipeTitle,
@@ -32,6 +33,14 @@ export const recpeApi = apiSlice.injectEndpoints({
                 const { id, ...queryParams } = params;
                 return { url: `${Endpoints.RECIPES_BY_CATEGORY}/${id}`, params: queryParams };
             },
+            async onQueryStarted(_, { dispatch, queryFulfilled }) {
+                try {
+                    dispatch(setIsLoading(true));
+                    await queryFulfilled;
+                } finally {
+                    dispatch(setIsLoading(false));
+                }
+            },
         }),
         getRecipe: build.query<RecipeType, string>({
             query: (id) => ({ url: `${Endpoints.RECIPE}/${id}` }),
@@ -50,12 +59,15 @@ export const recpeApi = apiSlice.injectEndpoints({
                     nutritionValue: transformedNutritionValue,
                 };
             },
-            onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+            async onQueryStarted(_, { dispatch, queryFulfilled }) {
                 try {
+                    dispatch(setIsLoading(true));
                     const { data } = await queryFulfilled;
                     dispatch(setSelectedRecipeTitle(data.title));
                 } catch {
                     dispatch(clearSelectedRecipeTitle());
+                } finally {
+                    dispatch(setIsLoading(false));
                 }
             },
         }),

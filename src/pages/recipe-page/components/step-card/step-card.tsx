@@ -15,7 +15,7 @@ export const StepCard: React.FC<RecipeStep & { background: string }> = ({
             <Image
                 src={getFullImagePath(image)}
                 alt={description}
-                maxW={{ base: STEP_CARD_IMAGE_MAX_WIDTH.base, lg: STEP_CARD_IMAGE_MAX_WIDTH.lg }}
+                w={{ base: STEP_CARD_IMAGE_MAX_WIDTH.base, lg: STEP_CARD_IMAGE_MAX_WIDTH.lg }}
                 h={{ base: 'imageHeight.md', lg: 'auto' }}
             />
         )}

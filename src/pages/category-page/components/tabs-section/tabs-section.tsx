@@ -4,17 +4,19 @@ import { NavLink } from 'react-router';
 
 import { CardsWrapper } from '~/components/cards-wrapper';
 import { FoodCard } from '~/components/food-card';
+import { PageHeader } from '~/components/page-header';
 import { getQueryParams } from '~/components/search-panel/helpers/get-query-params';
 import { COLORS_LIME } from '~/constants/colors';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { usePathItems } from '~/hooks/use-path-items';
 import { Endpoints } from '~/query/constants/paths';
 import { useGetRecipesInfiniteQuery } from '~/query/services/recipe';
-import { useAppSelector } from '~/store/hooks';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { setAllergenDisabled } from '~/store/slices/allergens-slice';
 import { selectCategory } from '~/store/slices/category-slice';
-import { selectFilter, selectIsFiltered } from '~/store/slices/filters-slice';
+import { clearFilters, selectFilter, selectIsFiltered } from '~/store/slices/filters-slice';
 import { setFilteredRecipes } from '~/store/slices/recipe-slice';
-import { selectSearchInput } from '~/store/slices/search-input-slice';
+import { clearSearchInputValue, selectSearchInput } from '~/store/slices/search-input-slice';
 
 export const TabsSection: React.FC = memo(() => {
     const [isLoadMoreActive, setIsLoadMoreActive] = useState(true);
@@ -24,6 +26,8 @@ export const TabsSection: React.FC = memo(() => {
     const { categories } = useAppSelector(selectCategory);
     const { ...filters } = useAppSelector(selectFilter);
     const { searchInputValue } = useAppSelector(selectSearchInput);
+
+    const dispatch = useAppDispatch();
 
     const isFiltered = useAppSelector(selectIsFiltered);
 
@@ -56,7 +60,7 @@ export const TabsSection: React.FC = memo(() => {
         ?.subCategories.map(({ _id }) => _id)
         .toString();
 
-    const { data, fetchNextPage } = useGetRecipesInfiniteQuery({
+    const { isFetching, data, fetchNextPage } = useGetRecipesInfiniteQuery({
         endpoint: categoryEndpoint,
         ...queryParams,
         subcategoriesIds: categoryIds,
@@ -78,39 +82,53 @@ export const TabsSection: React.FC = memo(() => {
         }
     }, [isFiltered, currentRecipes]);
 
+    useEffect(
+        () => () => {
+            dispatch(setAllergenDisabled());
+            dispatch(clearFilters());
+            dispatch(clearSearchInputValue());
+        },
+        [dispatch],
+    );
+
     const handleLoadMore = () => fetchNextPage();
+
     return (
-        <Tabs as='section' mb={10} index={activeIndex} variant='limeTabs'>
-            <TabList>
-                {tabs &&
-                    tabs.map(({ title, category }, index) => (
-                        <Tab
-                            as={NavLink}
-                            to={`/${secondItemPath}/${category}`}
-                            key={category}
-                            data-test-id={`${DATA_TEST_ID.tab}-${category}-${index}`}
-                        >
-                            {title}
-                        </Tab>
-                    ))}
-            </TabList>
+        <>
+            <PageHeader title='hello' subtitle='world' isFetching={isFetching} />
 
-            <TabPanels mt={6}>
-                <CardsWrapper>
-                    {currentRecipes &&
-                        currentRecipes.map((props, index) => (
-                            <FoodCard {...props} key={props._id} index={index} />
+            <Tabs as='section' mb={10} index={activeIndex} variant='limeTabs'>
+                <TabList>
+                    {tabs &&
+                        tabs.map(({ title, category }, index) => (
+                            <Tab
+                                as={NavLink}
+                                to={`/${secondItemPath}/${category}`}
+                                key={category}
+                                data-test-id={`${DATA_TEST_ID.tab}-${category}-${index}`}
+                            >
+                                {title}
+                            </Tab>
                         ))}
-                </CardsWrapper>
+                </TabList>
 
-                {isLoadMoreActive && (
-                    <Center mt={4}>
-                        <Button bg={COLORS_LIME[400]} px={5} onClick={handleLoadMore}>
-                            Загрузить ещё
-                        </Button>
-                    </Center>
-                )}
-            </TabPanels>
-        </Tabs>
+                <TabPanels mt={6}>
+                    <CardsWrapper>
+                        {currentRecipes &&
+                            currentRecipes.map((props, index) => (
+                                <FoodCard {...props} key={props._id} index={index} />
+                            ))}
+                    </CardsWrapper>
+
+                    {isLoadMoreActive && (
+                        <Center mt={4}>
+                            <Button bg={COLORS_LIME[400]} px={5} onClick={handleLoadMore}>
+                                Загрузить ещё
+                            </Button>
+                        </Center>
+                    )}
+                </TabPanels>
+            </Tabs>
+        </>
     );
 });

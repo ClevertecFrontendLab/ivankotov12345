@@ -15,3 +15,10 @@ export const STEP_CARD_IMAGE_MAX_WIDTH = {
     lg: '340px',
     base: '160px',
 };
+
+export const SPINNER_SIZE = {
+    wrapperlg: '206px',
+    wrapperSm: '134px',
+    sizeLg: 9,
+    sizeSm: 6,
+};

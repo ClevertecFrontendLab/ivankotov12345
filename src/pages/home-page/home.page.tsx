@@ -13,9 +13,10 @@ import { BlogSection } from '~/pages/home-page/components/blog-section';
 import { Endpoints } from '~/query/constants/paths';
 import { useGetRecipesInfiniteQuery } from '~/query/services/recipe';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import { selectFilter, selectIsFiltered } from '~/store/slices/filters-slice';
+import { setAllergenDisabled } from '~/store/slices/allergens-slice';
+import { clearFilters, selectFilter, selectIsFiltered } from '~/store/slices/filters-slice';
 import { selectRecipes, setFilteredRecipes } from '~/store/slices/recipe-slice';
-import { selectSearchInput } from '~/store/slices/search-input-slice';
+import { clearSearchInputValue, selectSearchInput } from '~/store/slices/search-input-slice';
 
 import { JuiciestSection } from './components/juiciest-section';
 
@@ -34,22 +35,32 @@ export const HomePage: React.FC = () => {
         [filters, searchInputValue],
     );
 
-    const { data, fetchNextPage } = useGetRecipesInfiniteQuery(
+    const { isFetching, data, fetchNextPage } = useGetRecipesInfiniteQuery(
         { endpoint: Endpoints.RECIPE, ...queryParams },
         { skip: !isFiltered },
     );
 
     useEffect(() => {
-        if (isFiltered && data?.pages[0]?.data) {
-            dispatch(setFilteredRecipes(data.pages[0].data));
+        const currentRecipes = data?.pages.map((element) => element.data).flat();
+        if (isFiltered && currentRecipes) {
+            dispatch(setFilteredRecipes(currentRecipes));
         }
     }, [data, isFiltered, dispatch]);
+
+    useEffect(
+        () => () => {
+            dispatch(setAllergenDisabled());
+            dispatch(clearFilters());
+            dispatch(clearSearchInputValue());
+        },
+        [dispatch],
+    );
 
     const handleLoadMore = () => fetchNextPage();
 
     return (
         <Box>
-            <PageHeader title={homePageTitle} />
+            <PageHeader title={homePageTitle} isFetching={isFetching} />
 
             {filteredRecipes.length === 0 ? (
                 <>
@@ -61,8 +72,8 @@ export const HomePage: React.FC = () => {
             ) : (
                 <>
                     <CardsWrapper>
-                        {data?.pages[0].data.length &&
-                            data.pages[0].data.map((card, index) => (
+                        {filteredRecipes &&
+                            filteredRecipes.map((card, index) => (
                                 <FoodCard key={card._id} {...card} index={index} />
                             ))}
                     </CardsWrapper>

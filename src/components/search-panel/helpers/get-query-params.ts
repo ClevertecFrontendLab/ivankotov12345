@@ -10,13 +10,16 @@ export const getQueryParams = (
     searchValue: string,
 ): QueryParams => {
     const { selectedAllergens, selectedCategories, selectedMeatTypes, selectedSidesTypes } = params;
+    const currSearchValue = searchValue?.trim().toLowerCase().length
+        ? searchValue?.trim().toLowerCase()
+        : undefined;
 
     return {
         allergens: normalizeFilterCategory(selectedAllergens),
         subcategoriesIds: normalizeFilterCategory(selectedCategories),
         meat: normalizeFilterCategory(selectedMeatTypes),
         garnish: normalizeFilterCategory(selectedSidesTypes),
-        searchString: searchValue?.trim().toLowerCase(),
+        searchString: currSearchValue,
         sortBy: 'createdAt',
         sortOrder: 'asc',
     };

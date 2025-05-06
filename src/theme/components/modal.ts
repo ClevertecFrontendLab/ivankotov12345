@@ -14,7 +14,7 @@ const loader = definePartsStyle({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        bg: 'bgRadialGraident',
+        bg: 'transparent',
         boxShadow: 'none',
     },
 });
