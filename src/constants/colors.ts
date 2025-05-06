@@ -1,6 +1,7 @@
 export const COLORS = {
     black: 'black',
     white: 'white',
+    red: 'red.500',
     inherit: 'inherit',
     bgRadialGradient: 'bgRadialGraident',
 };

@@ -6,6 +6,7 @@ import { DATA_TEST_ID } from '~/constants/test-id';
 import { Z_INDEX } from '~/constants/z-index';
 import { useGetCategoriesQuery } from '~/query/services/category';
 
+import { AlertError } from '../alert-error';
 import { Aside } from '../aside';
 import { Footer } from '../footer';
 import { Header } from '../header';
@@ -98,6 +99,7 @@ export const Layout: React.FC = () => {
             </Box>
 
             <Loader isLoading={isCategoriesLoading} />
+            <AlertError />
         </Box>
     );
 };
