@@ -17,6 +17,7 @@ import { selectCategory } from '~/store/slices/category-slice';
 import { clearFilters, selectFilter, selectIsFiltered } from '~/store/slices/filters-slice';
 import { setFilteredRecipes } from '~/store/slices/recipe-slice';
 import { clearSearchInputValue, selectSearchInput } from '~/store/slices/search-input-slice';
+import { NavMenuItem } from '~/types/nav-menu';
 
 export const TabsSection: React.FC = memo(() => {
     const [isLoadMoreActive, setIsLoadMoreActive] = useState(true);
@@ -45,6 +46,13 @@ export const TabsSection: React.FC = memo(() => {
         () => tabs?.find((tab) => tab.category === thirdItemPath),
         [thirdItemPath, tabs],
     );
+
+    const currentCategory = useMemo(
+        () => categories.find(({ _id }) => _id === activeTab?.rootCategoryId),
+        [activeTab, categories],
+    );
+
+    const { title, description } = currentCategory as NavMenuItem;
 
     const activeIndex = useMemo(
         () => tabs?.findIndex((tab) => tab.category === thirdItemPath),
@@ -95,7 +103,7 @@ export const TabsSection: React.FC = memo(() => {
 
     return (
         <>
-            <PageHeader title='hello' subtitle='world' isFetching={isFetching} />
+            <PageHeader title={title} subtitle={description} isFetching={isFetching} />
 
             <Tabs as='section' mb={10} index={activeIndex} variant='limeTabs'>
                 <TabList>
