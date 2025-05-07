@@ -55,7 +55,7 @@ export const Navigation: React.FC<NavigationProps> = ({ buttonRef }) => {
             right={2}
             ref={navRef}
             data-test-id={DATA_TEST_ID.nav}
-            zIndex={Z_INDEX.layout}
+            zIndex={Z_INDEX.burger}
         >
             {isTablet && <Breadcrumbs />}
 

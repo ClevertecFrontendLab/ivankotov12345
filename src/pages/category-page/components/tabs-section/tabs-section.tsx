@@ -1,12 +1,12 @@
-import { Button, Center, Tab, TabList, TabPanels, Tabs } from '@chakra-ui/react';
+import { Tab, TabList, TabPanels, Tabs } from '@chakra-ui/react';
 import { memo, useEffect, useMemo, useState } from 'react';
 import { NavLink } from 'react-router';
 
 import { CardsWrapper } from '~/components/cards-wrapper';
 import { FoodCard } from '~/components/food-card';
+import { LoadMoreButton } from '~/components/load-more-button';
 import { PageHeader } from '~/components/page-header';
 import { getQueryParams } from '~/components/search-panel/helpers/get-query-params';
-import { COLORS_LIME } from '~/constants/colors';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { usePathItems } from '~/hooks/use-path-items';
 import { Endpoints } from '~/query/constants/paths';
@@ -71,7 +71,7 @@ export const TabsSection: React.FC = memo(() => {
     const { isFetching, data, fetchNextPage } = useGetRecipesInfiniteQuery({
         endpoint: categoryEndpoint,
         ...queryParams,
-        subcategoriesIds: categoryIds,
+        subcategoriesIds: isFiltered ? categoryIds : undefined,
     });
 
     const currentRecipes = useMemo(() => data?.pages.map((element) => element.data).flat(), [data]);
@@ -129,11 +129,7 @@ export const TabsSection: React.FC = memo(() => {
                     </CardsWrapper>
 
                     {isLoadMoreActive && (
-                        <Center mt={4}>
-                            <Button bg={COLORS_LIME[400]} px={5} onClick={handleLoadMore}>
-                                Загрузить ещё
-                            </Button>
-                        </Center>
+                        <LoadMoreButton onLoadMoreClick={handleLoadMore} isLoading={isFetching} />
                     )}
                 </TabPanels>
             </Tabs>

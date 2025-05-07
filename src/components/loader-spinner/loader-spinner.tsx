@@ -5,9 +5,14 @@ import { COLORS } from '~/constants/colors';
 type LoaderSpinner = {
     wrapperSpinnerSize: string;
     spinnerSize: number;
+    testId: string;
 };
 
-export const LoaderSpinner: React.FC<LoaderSpinner> = ({ wrapperSpinnerSize, spinnerSize }) => (
+export const LoaderSpinner: React.FC<LoaderSpinner> = ({
+    wrapperSpinnerSize,
+    spinnerSize,
+    testId,
+}) => (
     <Flex
         w={wrapperSpinnerSize}
         h={wrapperSpinnerSize}
@@ -15,6 +20,6 @@ export const LoaderSpinner: React.FC<LoaderSpinner> = ({ wrapperSpinnerSize, spi
         justifyContent='center'
         bg='bgRadialGraident'
     >
-        <Spinner w={spinnerSize} h={spinnerSize} color={COLORS.black} />
+        <Spinner w={spinnerSize} h={spinnerSize} color={COLORS.black} data-test-id={testId} />
     </Flex>
 );

@@ -5,6 +5,7 @@ import notFound from '~/assets/not-found.png';
 import { COLORS_BLACK_ALPHA } from '~/constants/colors';
 import { ROUTER_PATHS } from '~/constants/router-paths';
 import { ERROE_PAGE_SIZES } from '~/constants/sizes';
+import { DATA_TEST_ID } from '~/constants/test-id';
 
 export const NotFound: React.FC = () => (
     <Center h={ERROE_PAGE_SIZES.errorPageHeight} justifyContent='center' gap={0}>
@@ -28,7 +29,12 @@ export const NotFound: React.FC = () => (
             </Heading>
             <Text color={COLORS_BLACK_ALPHA[700]} textAlign='center'>
                 Можете поискать другой рецепт{' '}
-                <Link as={NavLink} to={ROUTER_PATHS.homePage} textDecor='underline'>
+                <Link
+                    as={NavLink}
+                    to={ROUTER_PATHS.homePage}
+                    textDecor='underline'
+                    data-test-id={DATA_TEST_ID.errorPageGoHome}
+                >
                     здесь.
                 </Link>
             </Text>

@@ -18,6 +18,7 @@ export const Header: React.FC = () => {
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
     const { secondItemPath } = usePathItems();
     const { isOpen } = useAppSelector(selectBurger);
+
     return (
         <Flex
             maxW='1920px'

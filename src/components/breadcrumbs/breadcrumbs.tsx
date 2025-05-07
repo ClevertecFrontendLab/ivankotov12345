@@ -11,6 +11,9 @@ import { closeBurgerMenu } from '~/store/slices/burger-slice';
 import { selectCategory } from '~/store/slices/category-slice';
 import { selectSelectedRecipe } from '~/store/slices/selected-recipe-slice';
 
+const THE_JUICIEST = 'the-juiciest';
+const THE_JUICIEST_TITLE = 'Самое сочное';
+
 export const Breadcrumbs: React.FC = () => {
     const dispatch = useAppDispatch();
     const { selectedRecipeTitle } = useAppSelector(selectSelectedRecipe);
@@ -18,12 +21,14 @@ export const Breadcrumbs: React.FC = () => {
 
     const { secondItemPath, thirdItemPath } = usePathItems();
 
+    const isJuiciest = secondItemPath === THE_JUICIEST;
+
     const firstSubcategoryPath = categories.find(({ category }) => category === secondItemPath)
         ?.subCategories[0].category;
 
     const secondItemName =
-        secondItemPath && secondItemPath === 'the-juiciest'
-            ? 'Самое сочное'
+        secondItemPath && secondItemPath === THE_JUICIEST
+            ? THE_JUICIEST_TITLE
             : categories.find(({ category }) => category === secondItemPath)?.title;
 
     const thirdItemName =
@@ -53,7 +58,11 @@ export const Breadcrumbs: React.FC = () => {
                 <BreadcrumbItem>
                     <BreadcrumbLink
                         as={NavLink}
-                        to={`/${secondItemPath}/${firstSubcategoryPath}`}
+                        to={
+                            isJuiciest
+                                ? ROUTER_PATHS.juiciestPage
+                                : `/${secondItemPath}/${firstSubcategoryPath}`
+                        }
                         color={thirdItemPath ? COLORS_BLACK_ALPHA[700] : COLORS.inherit}
                     >
                         {secondItemName}

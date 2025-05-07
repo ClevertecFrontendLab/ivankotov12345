@@ -2,7 +2,7 @@ import { QueryParams } from '~/types/request-params';
 
 export const JUICIEST_QUERY_PARAMS: QueryParams = {
     sortBy: 'likes',
-    sortOrder: 'desc',
+    limit: 8,
 };
 
 export const CAROUSEL_QUERY_PARAMS: QueryParams = {
@@ -12,6 +12,6 @@ export const CAROUSEL_QUERY_PARAMS: QueryParams = {
 };
 
 export const JUICIEST_SECTION_QUERY_PARAMS: QueryParams = {
-    ...JUICIEST_QUERY_PARAMS,
+    sortBy: 'likes',
     limit: 4,
 };

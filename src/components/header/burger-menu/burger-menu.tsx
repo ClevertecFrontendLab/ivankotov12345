@@ -39,7 +39,11 @@ export const BurgerMenu: React.FC = () => {
                         backdropFilter='blur(2px)'
                         zIndex={Z_INDEX.backdrop}
                     />
-                    <DrawerContent display='none' />
+                    <DrawerContent
+                        containerProps={{
+                            display: 'none',
+                        }}
+                    />
                     <Navigation buttonRef={buttonRef} />
                 </Drawer>
             ) : null}

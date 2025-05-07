@@ -1,13 +1,13 @@
-import { Box, Button, Center } from '@chakra-ui/react';
-import { useEffect, useMemo } from 'react';
+import { Box } from '@chakra-ui/react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { CardsWrapper } from '~/components/cards-wrapper';
 import { Сarousel } from '~/components/carousel';
 import { FoodCard } from '~/components/food-card';
+import { LoadMoreButton } from '~/components/load-more-button';
 import { PageHeader } from '~/components/page-header';
 import { RelevantSection } from '~/components/relevant-section';
 import { getQueryParams } from '~/components/search-panel/helpers/get-query-params';
-import { COLORS_LIME } from '~/constants/colors';
 import { PAGE_TITLES } from '~/constants/page-titles';
 import { BlogSection } from '~/pages/home-page/components/blog-section';
 import { Endpoints } from '~/query/constants/paths';
@@ -23,6 +23,7 @@ import { JuiciestSection } from './components/juiciest-section';
 const { title: homePageTitle } = PAGE_TITLES.home;
 
 export const HomePage: React.FC = () => {
+    const [isLoadMoreActive, setIsLoadMoreActive] = useState(true);
     const isFiltered = useAppSelector(selectIsFiltered);
     const { filteredRecipes } = useAppSelector(selectRecipes);
     const { ...filters } = useAppSelector(selectFilter);
@@ -56,6 +57,14 @@ export const HomePage: React.FC = () => {
         [dispatch],
     );
 
+    useEffect(() => {
+        const metaTotalRecipes = data?.pages[0].meta.total;
+
+        if (filteredRecipes && metaTotalRecipes && filteredRecipes.length >= metaTotalRecipes) {
+            setIsLoadMoreActive(false);
+        }
+    }, [filteredRecipes, data]);
+
     const handleLoadMore = () => fetchNextPage();
 
     return (
@@ -78,11 +87,9 @@ export const HomePage: React.FC = () => {
                             ))}
                     </CardsWrapper>
 
-                    <Center mt={4}>
-                        <Button bg={COLORS_LIME[400]} px={5} onClick={handleLoadMore}>
-                            Загрузить ещё
-                        </Button>
-                    </Center>
+                    {isLoadMoreActive && (
+                        <LoadMoreButton onLoadMoreClick={handleLoadMore} isLoading={isFetching} />
+                    )}
                 </>
             )}
         </Box>

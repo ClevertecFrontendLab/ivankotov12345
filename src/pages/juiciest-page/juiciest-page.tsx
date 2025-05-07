@@ -1,13 +1,13 @@
-import { Box, Button, Center } from '@chakra-ui/react';
-import React, { useEffect, useMemo } from 'react';
+import { Box } from '@chakra-ui/react';
+import React, { memo, useEffect, useMemo, useState } from 'react';
 
 import { CardsWrapper } from '~/components/cards-wrapper';
 import { FoodCard } from '~/components/food-card';
+import { LoadMoreButton } from '~/components/load-more-button';
 import { Loader } from '~/components/loader';
 import { PageHeader } from '~/components/page-header';
 import { RelevantSection } from '~/components/relevant-section';
 import { getQueryParams } from '~/components/search-panel/helpers/get-query-params';
-import { COLORS_LIME } from '~/constants/colors';
 import { PAGE_TITLES } from '~/constants/page-titles';
 import { JUICIEST_QUERY_PARAMS } from '~/constants/query-params';
 import { Endpoints } from '~/query/constants/paths';
@@ -19,7 +19,9 @@ import { clearSearchInputValue, selectSearchInput } from '~/store/slices/search-
 
 const { title: juiciestPageTitle } = PAGE_TITLES.juiciest;
 
-export const JuiciestPage: React.FC = () => {
+export const JuiciestPage: React.FC = memo(() => {
+    const [isLoadMoreActive, setIsLoadMoreActive] = useState(true);
+
     const { ...filters } = useAppSelector(selectFilter);
     const { searchInputValue } = useAppSelector(selectSearchInput);
 
@@ -36,6 +38,12 @@ export const JuiciestPage: React.FC = () => {
         ...JUICIEST_QUERY_PARAMS,
     });
 
+    /*     const { recipes } = useLoaderData<{ recipes:  RecipeListResponse}>();
+
+    console.log(recipes.data) */
+
+    //const { isLoading, isFetching, data, fetchNextPage  } = recipes
+
     const currentRecipes = useMemo(() => data?.pages.map((element) => element.data).flat(), [data]);
 
     const handleLoadMore = () => fetchNextPage();
@@ -48,6 +56,15 @@ export const JuiciestPage: React.FC = () => {
         },
         [dispatch],
     );
+
+    useEffect(() => {
+        const metaTotalRecipes = data?.pages[0].meta.total;
+
+        if (currentRecipes && metaTotalRecipes && currentRecipes.length >= metaTotalRecipes) {
+            setIsLoadMoreActive(false);
+        }
+    }, [currentRecipes, data]);
+
     return (
         <Box>
             <PageHeader title={juiciestPageTitle} isFetching={isFetching} />
@@ -60,15 +77,13 @@ export const JuiciestPage: React.FC = () => {
                         ))}
                 </CardsWrapper>
 
-                <Center mt={4}>
-                    <Button bg={COLORS_LIME[400]} px={5} onClick={handleLoadMore}>
-                        Загрузить ещё
-                    </Button>
-                </Center>
+                {isLoadMoreActive && (
+                    <LoadMoreButton onLoadMoreClick={handleLoadMore} isLoading={isFetching} />
+                )}
             </Box>
 
             <RelevantSection />
             <Loader isLoading={isLoading} />
         </Box>
     );
-};
+});

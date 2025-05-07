@@ -2,7 +2,6 @@ import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
     Button,
     Checkbox,
-    CheckboxGroup,
     HStack,
     Menu,
     MenuButton,
@@ -32,7 +31,6 @@ type DrawerProps = {
 export const DrawerMenu: React.FC<DrawerProps> = ({
     placeholder,
     items,
-    selectedItems,
     addItem,
     removeItem,
     testId,
@@ -72,26 +70,24 @@ export const DrawerMenu: React.FC<DrawerProps> = ({
             </MenuButton>
 
             <MenuList>
-                <CheckboxGroup value={selectedItems}>
-                    {items.map(({ item, label }, index) => (
-                        <MenuItem
-                            key={item}
-                            gap={2}
-                            background={index % 2 ? COLORS.white : COLORS_BLACK_ALPHA[100]}
-                            px={4}
-                            py={1.5}
+                {items.map(({ item, label }, index) => (
+                    <MenuItem
+                        key={item}
+                        gap={2}
+                        background={index % 2 ? COLORS.white : COLORS_BLACK_ALPHA[100]}
+                        px={4}
+                        py={1.5}
+                    >
+                        <Checkbox
+                            variant='limeCheckbox'
+                            value={item}
+                            onChange={toggleItem}
+                            data-test-id={`${DATA_TEST_ID.checkbox}-${label.toLowerCase()}`}
                         >
-                            <Checkbox
-                                variant='limeCheckbox'
-                                value={item}
-                                onChange={toggleItem}
-                                data-test-id={`${DATA_TEST_ID.checkbox}-${label.toLowerCase()}`}
-                            >
-                                {label}
-                            </Checkbox>
-                        </MenuItem>
-                    ))}
-                </CheckboxGroup>
+                            {label}
+                        </Checkbox>
+                    </MenuItem>
+                ))}
             </MenuList>
         </Menu>
     );

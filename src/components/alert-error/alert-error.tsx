@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react';
 
 import { COLORS } from '~/constants/colors';
+import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectApp, setErrorAlertIsOpen, setErrorData } from '~/store/slices/app-slice';
 
@@ -31,8 +32,13 @@ export const AlertError: React.FC = () => {
         dispatch(setErrorAlertIsOpen(false));
         dispatch(setErrorData(undefined));
     };
-    return isErrorAlertOpen ? (
-        <Center position='fixed' w='full' bottom={{ base: INDENT_BOTTOM.sm, lg: INDENT_BOTTOM.lg }}>
+    return (
+        <Center
+            position='fixed'
+            w='full'
+            bottom={{ base: INDENT_BOTTOM.sm, lg: INDENT_BOTTOM.lg }}
+            display={isErrorAlertOpen ? 'flex' : 'none'}
+        >
             <Alert
                 status='error'
                 w={{ base: ALERT_WIDTH.sm, lg: ALERT_WIDTH.lg }}
@@ -41,6 +47,7 @@ export const AlertError: React.FC = () => {
                 gap={3}
                 bg={COLORS.red}
                 color={COLORS.white}
+                data-test-id={DATA_TEST_ID.errorNotification}
             >
                 <AlertIcon color={COLORS.white} />
 
@@ -55,8 +62,9 @@ export const AlertError: React.FC = () => {
                     top={3}
                     color={COLORS.white}
                     onClick={onAlertCloseClick}
+                    dat-test-id={DATA_TEST_ID.closeAlertButton}
                 />
             </Alert>
         </Center>
-    ) : null;
+    );
 };

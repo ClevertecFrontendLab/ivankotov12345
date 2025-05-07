@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import { COLORS_BLACK_ALPHA } from '~/constants/colors';
 import { SPINNER_SIZE } from '~/constants/sizes';
+import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppSelector } from '~/store/hooks';
 import { selectAllergensFilter } from '~/store/slices/filters-slice';
 
@@ -54,6 +55,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({ title, subtitle, isFetch
                 <LoaderSpinner
                     wrapperSpinnerSize={SPINNER_SIZE.wrapperSm}
                     spinnerSize={SPINNER_SIZE.sizeSm}
+                    testId={DATA_TEST_ID.loaderSearchBlock}
                 />
             )}
         </VStack>

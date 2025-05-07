@@ -22,6 +22,8 @@ const fixedContainer = {
 export const Layout: React.FC = () => {
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
     const { isLoading: isCategoriesLoading } = useGetCategoriesQuery(undefined);
+
+    console.log('render');
     return (
         <Box height='100vh'>
             <Box
