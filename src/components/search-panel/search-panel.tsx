@@ -40,7 +40,10 @@ type SearchPanelProps = {
 
 const MIN_SEARCH_VALUE_LENGTH = 3;
 
-export const SearchPanel: React.FC<SearchPanelProps> = ({ setIsSearchFocused }) => {
+export const SearchPanel: React.FC<SearchPanelProps> = ({
+    setIsSearchFocused,
+    isSearchFocused,
+}) => {
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
 
     const [currentSearchValue, setCurrentSearchValue] = useState('');
@@ -58,15 +61,15 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({ setIsSearchFocused }) 
     );
 
     const searchBorderColor =
-        filteredRecipes.length > 0 && currentSearchValue.length > 0
+        currentSearchValue.length > MIN_SEARCH_VALUE_LENGTH && isSearchFocused
             ? COLORS_LIME[600]
-            : filteredRecipes.length === 0 && currentSearchValue.length > 0
+            : currentSearchValue.length === 0 && isSearchFocused
               ? COLORS.red
               : COLORS_BLACK_ALPHA[600];
 
     const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
-        const value = event.target.value.trim().toLowerCase();
+        const value = event.target.value;
         setCurrentSearchValue(value);
     };
 
@@ -86,6 +89,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({ setIsSearchFocused }) 
             }
         }
     }, [dispatch, filters, searchInputValue, filteredRecipes, isOpen]);
+
     return (
         <VStack w='full' px={{ md: 36, lg: 48 }} gap={4}>
             <HStack w='full'>
@@ -115,6 +119,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({ setIsSearchFocused }) 
                         onChange={onSearchChange}
                         onFocus={() => setIsSearchFocused(true)}
                         onBlur={() => setIsSearchFocused(false)}
+                        defaultValue={searchInputValue}
                     />
 
                     <InputRightElement>
@@ -140,10 +145,3 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({ setIsSearchFocused }) 
         </VStack>
     );
 };
-
-/* const outlineColorCondition =
-filteredRecipes.length > 0 && searchInputCurrent.length > 0
-    ? '#2DB100'
-    : filteredRecipes.length === 0 && searchInputCurrent.length > 0
-      ? '#E53E3E'
-      : 'none'; */

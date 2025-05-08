@@ -99,7 +99,6 @@ export const AllergensSelectMenu: React.FC<AllergensSelectMenuProps> = ({ isDraw
                                 label={label}
                                 index={index}
                                 focusCustomAllergern={focusCustomAllergen}
-                                isDrawerType={isDrawerType}
                             />
                         </Box>
                     ))}

@@ -5,7 +5,6 @@ import { RootError } from '~/app-router/error-boundaries/root-error';
 import { HydrateFallback } from '~/app-router/fallback/hydrate-fallback';
 import { recipeLoader } from '~/app-router/loaders/recipe-loader';
 import { checkRouteExists } from '~/app-router/utils/check-route-exists';
-import { Layout } from '~/components/layout';
 import { ROUTER_PATHS } from '~/constants/router-paths';
 import { CategoryPage } from '~/pages/category-page';
 import { HomePage } from '~/pages/home-page';
@@ -16,7 +15,10 @@ import { notFoundPage } from '../not-found';
 
 export const rootPage: RouteObject = {
     path: ROUTER_PATHS.homePage,
-    element: <Layout />,
+    lazy: async () => {
+        const { Layout } = await import('~/components/layout');
+        return { Component: Layout };
+    },
     HydrateFallback: HydrateFallback,
     children: [
         {
