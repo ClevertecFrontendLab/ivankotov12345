@@ -142,7 +142,7 @@ export const FilterDrawer: React.FC = () => {
                         selectedItems={filters.selectedSidesTypes}
                     />
 
-                    <AllergensSelectMenu isDrawerType={true} />
+                    <AllergensSelectMenu />
                     <FilterTagList isDrawerType={true} />
                 </DrawerBody>
 

@@ -4,19 +4,13 @@ import { useEffect, useState } from 'react';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectAllergens } from '~/store/slices/allergens-slice';
-import {
-    addAllergen,
-    removeAllergen,
-    selectAllergensFilter,
-    setIsFiltered,
-} from '~/store/slices/filters-slice';
+import { addAllergen, removeAllergen, selectAllergensFilter } from '~/store/slices/filters-slice';
 
 type AllergenCheckboxPropsType = {
     item: string;
     label: string;
     index: number;
     focusCustomAllergern: () => void;
-    isDrawerType?: boolean;
 };
 
 export const AllergenCheckbox: React.FC<AllergenCheckboxPropsType> = ({
@@ -24,7 +18,6 @@ export const AllergenCheckbox: React.FC<AllergenCheckboxPropsType> = ({
     label,
     index,
     focusCustomAllergern,
-    isDrawerType,
 }) => {
     const [isChecked, setIsChecked] = useState(false);
 
@@ -41,10 +34,6 @@ export const AllergenCheckbox: React.FC<AllergenCheckboxPropsType> = ({
         } else {
             dispatch(addAllergen(value));
             setIsChecked(true);
-        }
-
-        if (!isDrawerType) {
-            dispatch(setIsFiltered());
         }
         focusCustomAllergern();
     };

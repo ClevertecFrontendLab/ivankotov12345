@@ -54,11 +54,15 @@ export const Сarousel: React.FC = () => {
 
     const carouselCardsData = useMemo(() => data?.pages[0].data || [], [data]);
 
+    const sortedCardsData = [...carouselCardsData].sort(
+        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+    );
+
     const onBack = () => swiperRef.current?.swiper.slidePrev();
     const onForward = () => swiperRef.current?.swiper.slideNext();
     return (
         <>
-            {carouselCardsData.length > 0 ? (
+            {sortedCardsData.length > 0 ? (
                 <Box as='section' mt={{ base: 0, lg: 6 }} mb={{ base: 8, xl: 10 }}>
                     <Heading as='h2' variant='section' mb={6}>
                         {title}
@@ -91,7 +95,7 @@ export const Сarousel: React.FC = () => {
                             loop={true}
                             breakpoints={carouselBreakpoints}
                         >
-                            {carouselCardsData.map((props, index) => (
+                            {sortedCardsData.map((props, index) => (
                                 <SwiperSlide key={props._id}>
                                     <CarouselCard {...props} index={index} />
                                 </SwiperSlide>

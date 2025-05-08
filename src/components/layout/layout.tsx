@@ -5,6 +5,8 @@ import { COLORS_LIME } from '~/constants/colors';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { Z_INDEX } from '~/constants/z-index';
 import { useGetCategoriesQuery } from '~/query/services/category';
+import { useAppSelector } from '~/store/hooks';
+import { selectApp } from '~/store/slices/app-slice';
 
 import { AlertError } from '../alert-error';
 import { Aside } from '../aside';
@@ -23,7 +25,8 @@ export const Layout: React.FC = () => {
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
     const { isLoading: isCategoriesLoading } = useGetCategoriesQuery(undefined);
 
-    console.log('render');
+    const { isErrorAlertOpen } = useAppSelector(selectApp);
+
     return (
         <Box height='100vh'>
             <Box
@@ -101,7 +104,7 @@ export const Layout: React.FC = () => {
             </Box>
 
             <Loader isLoading={isCategoriesLoading} />
-            <AlertError />
+            {isErrorAlertOpen ? <AlertError /> : null}
         </Box>
     );
 };

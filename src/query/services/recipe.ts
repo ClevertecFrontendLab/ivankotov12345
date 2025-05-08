@@ -1,4 +1,5 @@
 import { setIsLoading } from '~/store/slices/app-slice';
+import { setIsSearching } from '~/store/slices/search-input-slice';
 import {
     clearSelectedRecipeTitle,
     setSelectedRecipeTitle,
@@ -26,6 +27,13 @@ export const recpeApi = apiSlice.injectEndpoints({
                     url: endpoint,
                     params: { ...queryParams, page: pageParam.page },
                 };
+            },
+            async onQueryStarted(_, { dispatch, queryFulfilled }) {
+                try {
+                    await queryFulfilled;
+                } finally {
+                    dispatch(setIsSearching(false));
+                }
             },
         }),
         getRecipesByCategory: build.query<RecipeListResponse, RecipeParams>({

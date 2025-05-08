@@ -24,7 +24,7 @@ const ALERT_WIDTH = {
 };
 
 export const AlertError: React.FC = () => {
-    const { isErrorAlertOpen, errorData } = useAppSelector(selectApp);
+    const { errorData } = useAppSelector(selectApp);
 
     const dispatch = useAppDispatch();
 
@@ -33,12 +33,7 @@ export const AlertError: React.FC = () => {
         dispatch(setErrorData(undefined));
     };
     return (
-        <Center
-            position='fixed'
-            w='full'
-            bottom={{ base: INDENT_BOTTOM.sm, lg: INDENT_BOTTOM.lg }}
-            display={isErrorAlertOpen ? 'flex' : 'none'}
-        >
+        <Center position='fixed' w='full' bottom={{ base: INDENT_BOTTOM.sm, lg: INDENT_BOTTOM.lg }}>
             <Alert
                 status='error'
                 w={{ base: ALERT_WIDTH.sm, lg: ALERT_WIDTH.lg }}
@@ -57,12 +52,11 @@ export const AlertError: React.FC = () => {
                 </VStack>
 
                 <CloseButton
-                    position='absolute'
-                    right={3}
-                    top={3}
-                    color={COLORS.white}
+                    data-test-id={DATA_TEST_ID.closeAlertButton}
+                    position='relative'
+                    right={-1}
+                    top={-1}
                     onClick={onAlertCloseClick}
-                    dat-test-id={DATA_TEST_ID.closeAlertButton}
                 />
             </Alert>
         </Center>

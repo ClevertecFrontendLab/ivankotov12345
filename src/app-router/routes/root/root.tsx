@@ -1,6 +1,7 @@
 import { type RouteObject } from 'react-router';
 
 import { RecipeErrorBoundary } from '~/app-router/error-boundaries/recipe-error';
+import { RootError } from '~/app-router/error-boundaries/root-error';
 import { HydrateFallback } from '~/app-router/fallback/hydrate-fallback';
 import { recipeLoader } from '~/app-router/loaders/recipe-loader';
 import { checkRouteExists } from '~/app-router/utils/check-route-exists';
@@ -21,11 +22,12 @@ export const rootPage: RouteObject = {
         {
             index: true,
             element: <HomePage />,
+            ErrorBoundary: RootError,
         },
         {
             path: ROUTER_PATHS.juiciestPage,
             element: <JuiciestPage />,
-            //loader: juiciestLoader,
+            ErrorBoundary: RecipeErrorBoundary,
         },
         {
             path: ROUTER_PATHS.subcategory,
@@ -34,6 +36,7 @@ export const rootPage: RouteObject = {
                 {
                     index: true,
                     element: <CategoryPage />,
+                    ErrorBoundary: RecipeErrorBoundary,
                 },
                 {
                     path: ROUTER_PATHS.recipe,

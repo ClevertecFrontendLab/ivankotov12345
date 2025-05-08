@@ -4,10 +4,12 @@ import { ApplicationState } from '../configure-store';
 
 type SearchInputStateType = {
     searchInputValue: string;
+    isSearching: boolean;
 };
 
 const initialState: SearchInputStateType = {
     searchInputValue: '',
+    isSearching: false,
 };
 
 export const searchInputSlice = createSlice({
@@ -22,9 +24,13 @@ export const searchInputSlice = createSlice({
         clearSearchInputValue: (state) => {
             state.searchInputValue = '';
         },
+        setIsSearching: (state, action: PayloadAction<boolean>) => {
+            state.isSearching = action.payload;
+        },
     },
 });
 
 export const selectSearchInput = (state: ApplicationState) => state.searchInputSlice;
 export const searchInputReducer = searchInputSlice.reducer;
-export const { setSearchInputValue, clearSearchInputValue } = searchInputSlice.actions;
+export const { setSearchInputValue, clearSearchInputValue, setIsSearching } =
+    searchInputSlice.actions;

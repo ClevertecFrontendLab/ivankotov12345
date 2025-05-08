@@ -10,19 +10,23 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useMemo, useState } from 'react';
 
-import { COLORS_BLACK_ALPHA } from '~/constants/colors';
+import { COLORS, COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/colors';
 import { PLACEHOLDERS } from '~/constants/placeholders';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { openDrawer, selectFilterDrawer } from '~/store/slices/filter-drawer-slice';
 import {
     removeIsFiltered,
+    selectAllergensFilter,
     selectFilter,
-    selectIsFiltered,
     setIsFiltered,
 } from '~/store/slices/filters-slice';
 import { clearFilterRecipes, selectRecipes } from '~/store/slices/recipe-slice';
-import { selectSearchInput, setSearchInputValue } from '~/store/slices/search-input-slice';
+import {
+    selectSearchInput,
+    setIsSearching,
+    setSearchInputValue,
+} from '~/store/slices/search-input-slice';
 
 import { AllergensSelectMenu } from './allergens-select-menu';
 import { FilterDrawer } from './filter-drawer';
@@ -36,47 +40,41 @@ type SearchPanelProps = {
 
 const MIN_SEARCH_VALUE_LENGTH = 3;
 
-export const SearchPanel: React.FC<SearchPanelProps> = ({
-    setIsSearchFocused,
-    isSearchFocused,
-}) => {
+export const SearchPanel: React.FC<SearchPanelProps> = ({ setIsSearchFocused }) => {
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
 
     const [currentSearchValue, setCurrentSearchValue] = useState('');
-    const [hasSearchError, setHasSearchError] = useState(false);
     const { ...filters } = useAppSelector(selectFilter);
     const { isOpen } = useAppSelector(selectFilterDrawer);
     const { filteredRecipes } = useAppSelector(selectRecipes);
-    const isFiltered = useAppSelector(selectIsFiltered);
     const { searchInputValue } = useAppSelector(selectSearchInput);
+    const selectedAllergens = useAppSelector(selectAllergensFilter);
 
     const dispatch = useAppDispatch();
 
     const isSearchButtonDisabled = useMemo(
-        () => currentSearchValue.length < MIN_SEARCH_VALUE_LENGTH,
-        [currentSearchValue],
+        () => currentSearchValue.length < MIN_SEARCH_VALUE_LENGTH && selectedAllergens.length === 0,
+        [currentSearchValue, selectedAllergens],
     );
+
+    const searchBorderColor =
+        filteredRecipes.length > 0 && currentSearchValue.length > 0
+            ? COLORS_LIME[600]
+            : filteredRecipes.length === 0 && currentSearchValue.length > 0
+              ? COLORS.red
+              : COLORS_BLACK_ALPHA[600];
 
     const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
         const value = event.target.value.trim().toLowerCase();
         setCurrentSearchValue(value);
-        setHasSearchError(false);
     };
 
     const onSearchClick = () => {
         dispatch(setIsFiltered());
+        dispatch(setIsSearching(true));
         dispatch(setSearchInputValue(currentSearchValue));
-        setHasSearchError(filteredRecipes.length === 0);
     };
-
-    useEffect(() => {
-        if (isFiltered && filteredRecipes.length === 0 && isSearchFocused) {
-            setHasSearchError(true);
-        } else {
-            setHasSearchError(false);
-        }
-    }, [isFiltered, filteredRecipes, isSearchFocused]);
 
     useEffect(() => {
         const isFiltersEmpty = checkFiltersEmpty(filters);
@@ -107,16 +105,12 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
                         data-test-id={DATA_TEST_ID.searchInput}
                         name='search'
                         placeholder={PLACEHOLDERS.search}
-                        borderColor={hasSearchError ? 'red.500' : COLORS_BLACK_ALPHA[600]}
+                        borderColor={searchBorderColor}
                         _focus={{
-                            borderColor: isSearchButtonDisabled
-                                ? 'red.500 !important'
-                                : hasSearchError
-                                  ? 'red.500 !important'
-                                  : COLORS_BLACK_ALPHA[600],
+                            borderColor: searchBorderColor,
                         }}
                         _hover={{
-                            borderColor: hasSearchError ? 'red.500' : COLORS_BLACK_ALPHA[600],
+                            borderColor: searchBorderColor,
                         }}
                         onChange={onSearchChange}
                         onFocus={() => setIsSearchFocused(true)}
@@ -146,3 +140,10 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
         </VStack>
     );
 };
+
+/* const outlineColorCondition =
+filteredRecipes.length > 0 && searchInputCurrent.length > 0
+    ? '#2DB100'
+    : filteredRecipes.length === 0 && searchInputCurrent.length > 0
+      ? '#E53E3E'
+      : 'none'; */

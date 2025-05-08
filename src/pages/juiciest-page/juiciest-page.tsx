@@ -38,12 +38,6 @@ export const JuiciestPage: React.FC = memo(() => {
         ...JUICIEST_QUERY_PARAMS,
     });
 
-    /*     const { recipes } = useLoaderData<{ recipes:  RecipeListResponse}>();
-
-    console.log(recipes.data) */
-
-    //const { isLoading, isFetching, data, fetchNextPage  } = recipes
-
     const currentRecipes = useMemo(() => data?.pages.map((element) => element.data).flat(), [data]);
 
     const handleLoadMore = () => fetchNextPage();
@@ -64,6 +58,10 @@ export const JuiciestPage: React.FC = memo(() => {
             setIsLoadMoreActive(false);
         }
     }, [currentRecipes, data]);
+
+    if (isLoading) {
+        return <Loader isLoading={true} />;
+    }
 
     return (
         <Box>
