@@ -23,7 +23,7 @@ import {
 import { PLACEHOLDERS } from '~/constants/placeholders';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import { selectCategory } from '~/store/slices/category-slice';
+import { selectCategories } from '~/store/slices/category-slice';
 import { closeDrawer, selectFilterDrawer } from '~/store/slices/filter-drawer-slice';
 import {
     addAuthor,
@@ -49,7 +49,7 @@ import { FilterCheckboxGroup } from './filter-checkbox-group';
 
 export const FilterDrawer: React.FC = () => {
     const { isOpen } = useAppSelector(selectFilterDrawer);
-    const { categories } = useAppSelector(selectCategory);
+    const categories = useAppSelector(selectCategories);
     const { ...filters } = useAppSelector(selectFilter);
 
     const dispatch = useAppDispatch();

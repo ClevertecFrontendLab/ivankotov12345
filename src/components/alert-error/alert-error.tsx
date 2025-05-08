@@ -30,7 +30,7 @@ export const AlertError: React.FC = () => {
 
     const onAlertCloseClick = () => {
         dispatch(setErrorAlertIsOpen(false));
-        dispatch(setErrorData(undefined));
+        dispatch(setErrorData());
     };
     return (
         <Center position='fixed' w='full' bottom={{ base: INDENT_BOTTOM.sm, lg: INDENT_BOTTOM.lg }}>

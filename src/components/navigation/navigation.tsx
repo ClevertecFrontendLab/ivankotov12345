@@ -7,7 +7,7 @@ import { Z_INDEX } from '~/constants/z-index';
 import { usePathItems } from '~/hooks/use-path-items';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { closeBurgerMenu } from '~/store/slices/burger-slice';
-import { selectCategory } from '~/store/slices/category-slice';
+import { selectCategories } from '~/store/slices/category-slice';
 
 import { Breadcrumbs } from '../breadcrumbs';
 import { CategoryItem } from './category-item';
@@ -20,7 +20,7 @@ type NavigationProps = {
 export const Navigation: React.FC<NavigationProps> = ({ buttonRef }) => {
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
     const dispatch = useAppDispatch();
-    const { categories } = useAppSelector(selectCategory);
+    const categories = useAppSelector(selectCategories);
 
     const navRef = useRef<HTMLDivElement | null>(null);
 

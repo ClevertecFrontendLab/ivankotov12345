@@ -2,13 +2,12 @@ import { CloseIcon } from '@chakra-ui/icons';
 import { Box, Drawer, DrawerContent, DrawerOverlay, IconButton } from '@chakra-ui/react';
 import { useRef } from 'react';
 
+import { BurgerIcon } from '~/components/icons';
+import { Navigation } from '~/components/navigation';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { Z_INDEX } from '~/constants/z-index';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { closeBurgerMenu, selectBurger, toggleBurgerMenu } from '~/store/slices/burger-slice';
-
-import { BurgerIcon } from '../../icons';
-import { Navigation } from '../../navigation';
 
 export const BurgerMenu: React.FC = () => {
     const { isOpen } = useAppSelector(selectBurger);

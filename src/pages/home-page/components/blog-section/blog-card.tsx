@@ -1,8 +1,7 @@
 import { Card, CardBody, Text, VStack } from '@chakra-ui/react';
 
+import { User } from '~/components/user';
 import { BlogCardData } from '~/types/card-data';
-
-import { User } from '../../../../components/user';
 
 export const BlogCard: React.FC<BlogCardData> = ({ user, message }) => (
     <Card>

@@ -15,12 +15,12 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
-import { COLORS_BLACK_ALPHA } from '~/constants/colors';
+import { COLORS, COLORS_BLACK_ALPHA } from '~/constants/colors';
 import { DATA_TEST_ID } from '~/constants/test-id';
-import { IngredientType } from '~/types/recipe';
+import { Ingredient } from '~/types/recipe';
 
 type IngredientsTableProps = {
-    ingredients: IngredientType[];
+    ingredients: Ingredient[];
     portions?: number;
 };
 
@@ -41,7 +41,7 @@ export const IngredientsTable: React.FC<IngredientsTableProps> = ({ ingredients,
     };
 
     return (
-        <Table variant='striped' colorScheme='blackAlpha'>
+        <Table colorScheme='blackAlpha'>
             <Thead>
                 <Tr>
                     <Th>
@@ -74,13 +74,15 @@ export const IngredientsTable: React.FC<IngredientsTableProps> = ({ ingredients,
 
             <Tbody fontSize='sm' fontWeight='medium' color={COLORS_BLACK_ALPHA[900]}>
                 {currentIngredients.map(({ title, count, measureUnit }, index) => (
-                    <Tr key={title}>
-                        <Td>{title}</Td>
-                        <Td display='flex' justifyContent='end'>
-                            <Text data-test-id={`${DATA_TEST_ID.ingredientsQuantity}-${index}`}>
-                                {+count > 0 && count}
+                    <Tr key={title} bg={index % 2 === 0 ? COLORS_BLACK_ALPHA[100] : COLORS.white}>
+                        <Td border='none'>{title}</Td>
+                        <Td display='flex' justifyContent='end' border='none'>
+                            <Text
+                                data-test-id={`${DATA_TEST_ID.ingredientsQuantity}-${index}`}
+                                textAlign='end'
+                            >
+                                {+count > 0 && count} {measureUnit}
                             </Text>
-                            <Text>{measureUnit}</Text>
                         </Td>
                     </Tr>
                 ))}

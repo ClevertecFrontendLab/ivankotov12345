@@ -5,11 +5,7 @@ import { DATA_TEST_ID } from '~/constants/test-id';
 
 import { LoaderSpinner } from '../loader-spinner';
 
-type LoaderProps = {
-    isLoading: boolean;
-};
-
-export const Loader: React.FC<LoaderProps> = ({ isLoading }) => {
+export const Loader: React.FC<{ isLoading: boolean }> = ({ isLoading }) => {
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
     return (
         <Modal

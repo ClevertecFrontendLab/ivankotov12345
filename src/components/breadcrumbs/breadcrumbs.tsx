@@ -8,7 +8,7 @@ import { DATA_TEST_ID } from '~/constants/test-id';
 import { usePathItems } from '~/hooks/use-path-items';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { closeBurgerMenu } from '~/store/slices/burger-slice';
-import { selectCategory } from '~/store/slices/category-slice';
+import { selectCategories } from '~/store/slices/category-slice';
 import { selectSelectedRecipe } from '~/store/slices/selected-recipe-slice';
 
 const THE_JUICIEST = 'the-juiciest';
@@ -17,7 +17,7 @@ const THE_JUICIEST_TITLE = 'Самое сочное';
 export const Breadcrumbs: React.FC = () => {
     const dispatch = useAppDispatch();
     const { selectedRecipeTitle } = useAppSelector(selectSelectedRecipe);
-    const { categories } = useAppSelector(selectCategory);
+    const categories = useAppSelector(selectCategories);
 
     const { secondItemPath, thirdItemPath } = usePathItems();
 

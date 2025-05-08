@@ -13,11 +13,7 @@ import { FilterTag } from '../filter-tag';
 import { AllergenCheckbox } from './allergen-checkbox';
 import { CustomAllergenInput } from './custom-allergen-input';
 
-type AllergensSelectMenuProps = {
-    isDrawerType?: boolean;
-};
-
-export const AllergensSelectMenu: React.FC<AllergensSelectMenuProps> = ({ isDrawerType }) => {
+export const AllergensSelectMenu: React.FC<{ isDrawerType?: boolean }> = ({ isDrawerType }) => {
     const { isDisabled } = useAppSelector(selectAllergens);
     const [isOpen, setIsOpen] = useState(false);
     const inputRef = useRef<HTMLInputElement | null>(null);

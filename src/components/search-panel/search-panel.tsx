@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useMemo, useState } from 'react';
 
-import { COLORS, COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/colors';
+import { COLORS_BLACK_ALPHA } from '~/constants/colors';
 import { PLACEHOLDERS } from '~/constants/placeholders';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
@@ -32,6 +32,7 @@ import { AllergensSelectMenu } from './allergens-select-menu';
 import { FilterDrawer } from './filter-drawer';
 import { FilterIcon } from './filter-icon';
 import { checkFiltersEmpty } from './helpers/check-empty';
+import { getSearchBorderColor } from './helpers/get-search-border-color';
 
 type SearchPanelProps = {
     setIsSearchFocused: (isElementFocused: boolean) => void;
@@ -60,12 +61,11 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
         [currentSearchValue, selectedAllergens],
     );
 
-    const searchBorderColor =
-        currentSearchValue.length > MIN_SEARCH_VALUE_LENGTH && isSearchFocused
-            ? COLORS_LIME[600]
-            : currentSearchValue.length === 0 && isSearchFocused
-              ? COLORS.red
-              : COLORS_BLACK_ALPHA[600];
+    const searchBorderColor = getSearchBorderColor(
+        currentSearchValue,
+        MIN_SEARCH_VALUE_LENGTH,
+        isSearchFocused,
+    );
 
     const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
@@ -82,11 +82,14 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
     useEffect(() => {
         const isFiltersEmpty = checkFiltersEmpty(filters);
 
-        if (searchInputValue.length === 0 && isFiltersEmpty && !isOpen) {
-            if (filteredRecipes.length > 0) {
-                dispatch(clearFilterRecipes());
-                dispatch(removeIsFiltered());
-            }
+        if (
+            searchInputValue.length === 0 &&
+            isFiltersEmpty &&
+            !isOpen &&
+            filteredRecipes.length > 0
+        ) {
+            dispatch(clearFilterRecipes());
+            dispatch(removeIsFiltered());
         }
     }, [dispatch, filters, searchInputValue, filteredRecipes, isOpen]);
 

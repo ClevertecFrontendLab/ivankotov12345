@@ -10,18 +10,14 @@ import {
 } from '~/constants/drawer-filter-items';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppSelector } from '~/store/hooks';
-import { selectCategory } from '~/store/slices/category-slice';
+import { selectCategories } from '~/store/slices/category-slice';
 import { selectFilter } from '~/store/slices/filters-slice';
 
 import { getFilteredItems } from '../helpers/get-filter-items';
 
-type FilterTagListProps = {
-    isDrawerType?: boolean;
-};
-
-export const FilterTagList: React.FC<FilterTagListProps> = ({ isDrawerType }) => {
+export const FilterTagList: React.FC<Partial<{ isDrawerType: boolean }>> = ({ isDrawerType }) => {
     const { ...filters } = useAppSelector(selectFilter);
-    const { categories } = useAppSelector(selectCategory);
+    const categories = useAppSelector(selectCategories);
 
     const categoryItems = categories.map(({ title, subCategories }) => ({
         item: subCategories.map((sub) => sub._id).toString(),

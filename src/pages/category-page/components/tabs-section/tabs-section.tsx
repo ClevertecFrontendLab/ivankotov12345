@@ -14,7 +14,7 @@ import { Endpoints } from '~/query/constants/paths';
 import { useGetRecipesInfiniteQuery } from '~/query/services/recipe';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { setAllergenDisabled } from '~/store/slices/allergens-slice';
-import { selectCategory } from '~/store/slices/category-slice';
+import { selectCategories } from '~/store/slices/category-slice';
 import { clearFilters, selectFilter, selectIsFiltered } from '~/store/slices/filters-slice';
 import { setFilteredRecipes } from '~/store/slices/recipe-slice';
 import { clearSearchInputValue, selectSearchInput } from '~/store/slices/search-input-slice';
@@ -25,7 +25,7 @@ export const TabsSection: React.FC = memo(() => {
 
     const { secondItemPath, thirdItemPath } = usePathItems();
 
-    const { categories } = useAppSelector(selectCategory);
+    const categories = useAppSelector(selectCategories);
     const { ...filters } = useAppSelector(selectFilter);
     const { searchInputValue } = useAppSelector(selectSearchInput);
 
