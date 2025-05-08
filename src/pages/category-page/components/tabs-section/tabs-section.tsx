@@ -5,6 +5,7 @@ import { NavLink } from 'react-router';
 import { CardsWrapper } from '~/components/cards-wrapper';
 import { FoodCard } from '~/components/food-card';
 import { LoadMoreButton } from '~/components/load-more-button';
+import { Loader } from '~/components/loader';
 import { PageHeader } from '~/components/page-header';
 import { getQueryParams } from '~/components/search-panel/helpers/get-query-params';
 import { DATA_TEST_ID } from '~/constants/test-id';
@@ -68,7 +69,7 @@ export const TabsSection: React.FC = memo(() => {
         ?.subCategories.map(({ _id }) => _id)
         .toString();
 
-    const { isFetching, data, fetchNextPage } = useGetRecipesInfiniteQuery({
+    const { isLoading, isFetching, data, fetchNextPage } = useGetRecipesInfiniteQuery({
         endpoint: categoryEndpoint,
         ...queryParams,
         subcategoriesIds: isFiltered ? categoryIds : undefined,
@@ -133,6 +134,8 @@ export const TabsSection: React.FC = memo(() => {
                     )}
                 </TabPanels>
             </Tabs>
+
+            <Loader isLoading={isLoading} />
         </>
     );
 });

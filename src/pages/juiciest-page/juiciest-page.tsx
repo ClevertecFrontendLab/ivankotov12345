@@ -59,10 +59,6 @@ export const JuiciestPage: React.FC = memo(() => {
         }
     }, [currentRecipes, data]);
 
-    if (isLoading) {
-        return <Loader isLoading={true} />;
-    }
-
     return (
         <Box>
             <PageHeader title={juiciestPageTitle} isFetching={isFetching} />

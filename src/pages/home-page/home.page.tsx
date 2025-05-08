@@ -5,6 +5,7 @@ import { CardsWrapper } from '~/components/cards-wrapper';
 import { Сarousel } from '~/components/carousel';
 import { FoodCard } from '~/components/food-card';
 import { LoadMoreButton } from '~/components/load-more-button';
+import { Loader } from '~/components/loader';
 import { PageHeader } from '~/components/page-header';
 import { RelevantSection } from '~/components/relevant-section';
 import { getQueryParams } from '~/components/search-panel/helpers/get-query-params';
@@ -36,7 +37,7 @@ export const HomePage: React.FC = () => {
         [filters, searchInputValue],
     );
 
-    const { isFetching, data, fetchNextPage } = useGetRecipesInfiniteQuery(
+    const { isLoading, isFetching, data, fetchNextPage } = useGetRecipesInfiniteQuery(
         { endpoint: Endpoints.RECIPE, ...queryParams },
         { skip: !isFiltered },
     );
@@ -92,6 +93,8 @@ export const HomePage: React.FC = () => {
                     )}
                 </>
             )}
+
+            <Loader isLoading={isLoading} />
         </Box>
     );
 };
