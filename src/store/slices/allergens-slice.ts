@@ -17,9 +17,12 @@ export const allergensSlice = createSlice({
         toggleAllergenDisabled: (state) => {
             state.isDisabled = !state.isDisabled;
         },
+        setAllergenDisabled: (state) => {
+            state.isDisabled = true;
+        },
     },
 });
 
 export const selectAllergens = (state: ApplicationState) => state.allergensSlice;
 export const allergensReducer = allergensSlice.reducer;
-export const { toggleAllergenDisabled } = allergensSlice.actions;
+export const { toggleAllergenDisabled, setAllergenDisabled } = allergensSlice.actions;

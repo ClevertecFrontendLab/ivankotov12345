@@ -1,56 +1,83 @@
-import { Box, Button, Center } from '@chakra-ui/react';
-import React from 'react';
+import { Box } from '@chakra-ui/react';
+import React, { memo, useEffect, useMemo, useState } from 'react';
 
 import { CardsWrapper } from '~/components/cards-wrapper';
 import { FoodCard } from '~/components/food-card';
+import { LoadMoreButton } from '~/components/load-more-button';
+import { Loader } from '~/components/loader';
 import { PageHeader } from '~/components/page-header';
 import { RelevantSection } from '~/components/relevant-section';
-import { CARD_DATA } from '~/constants/card-data';
-import { COLORS_LIME } from '~/constants/colors';
+import { getQueryParams } from '~/components/search-panel/helpers/get-query-params';
 import { PAGE_TITLES } from '~/constants/page-titles';
-import { VEGAN_RELEVANT_CARD_DATA } from '~/constants/relevant-card-data';
-import { VEGAN_RELEVANT_CARD_DATA_MINI } from '~/constants/relevant-card-data-mini';
-import { useAllergenFilter } from '~/hooks/use-allergen-filters';
-import { useAppSelector } from '~/store/hooks';
-import { selectFilteredRecipes } from '~/store/slices/flter-recipe-slice';
+import { JUICIEST_QUERY_PARAMS } from '~/constants/query-params';
+import { Endpoints } from '~/query/constants/paths';
+import { useGetRecipesInfiniteQuery } from '~/query/services/recipe';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { setAllergenDisabled } from '~/store/slices/allergens-slice';
+import { clearFilters, selectFilter } from '~/store/slices/filters-slice';
+import { clearSearchInputValue, selectSearchInput } from '~/store/slices/search-input-slice';
 
 const { title: juiciestPageTitle } = PAGE_TITLES.juiciest;
-const { title: veganPageTitle, subtitle: veganPageSubTitle } = PAGE_TITLES.vegan;
 
-const CARD_LENGTH = 8;
+export const JuiciestPage: React.FC = memo(() => {
+    const [isLoadMoreActive, setIsLoadMoreActive] = useState(true);
 
-const CardDataNotFiltered = CARD_DATA.slice(0, CARD_LENGTH);
+    const { ...filters } = useAppSelector(selectFilter);
+    const { searchInputValue } = useAppSelector(selectSearchInput);
 
-export const JuiciestPage: React.FC = () => {
-    const { filteredRecipes } = useAppSelector(selectFilteredRecipes);
+    const dispatch = useAppDispatch();
 
-    useAllergenFilter(CARD_DATA);
+    const queryParams = useMemo(
+        () => getQueryParams(filters, searchInputValue),
+        [filters, searchInputValue],
+    );
 
-    const juiciestCardData = filteredRecipes.length ? filteredRecipes : CardDataNotFiltered;
+    const { isLoading, isFetching, data, fetchNextPage } = useGetRecipesInfiniteQuery({
+        endpoint: Endpoints.RECIPE,
+        ...queryParams,
+        ...JUICIEST_QUERY_PARAMS,
+    });
+
+    const currentRecipes = useMemo(() => data?.pages.map((element) => element.data).flat(), [data]);
+
+    const handleLoadMore = () => fetchNextPage();
+
+    useEffect(
+        () => () => {
+            dispatch(setAllergenDisabled());
+            dispatch(clearFilters());
+            dispatch(clearSearchInputValue());
+        },
+        [dispatch],
+    );
+
+    useEffect(() => {
+        const metaTotalRecipes = data?.pages[0].meta.total;
+
+        if (currentRecipes && metaTotalRecipes && currentRecipes.length >= metaTotalRecipes) {
+            setIsLoadMoreActive(false);
+        }
+    }, [currentRecipes, data]);
+
     return (
         <Box>
-            <PageHeader title={juiciestPageTitle} />
+            <PageHeader title={juiciestPageTitle} isFetching={isFetching} />
 
             <Box mb={10}>
                 <CardsWrapper>
-                    {juiciestCardData.map((props, index) => (
-                        <FoodCard key={props.id} {...props} index={index} />
-                    ))}
+                    {currentRecipes &&
+                        currentRecipes.map((props, index) => (
+                            <FoodCard key={props._id} {...props} index={index} />
+                        ))}
                 </CardsWrapper>
 
-                <Center mt={4}>
-                    <Button bg={COLORS_LIME[400]} px={5}>
-                        Загрузить ещё
-                    </Button>
-                </Center>
+                {isLoadMoreActive && (
+                    <LoadMoreButton onLoadMoreClick={handleLoadMore} isLoading={isFetching} />
+                )}
             </Box>
 
-            <RelevantSection
-                title={veganPageTitle}
-                subtitle={veganPageSubTitle}
-                cardData={VEGAN_RELEVANT_CARD_DATA}
-                cardDataMini={VEGAN_RELEVANT_CARD_DATA_MINI}
-            />
+            <RelevantSection />
+            <Loader isLoading={isLoading} />
         </Box>
     );
-};
+});

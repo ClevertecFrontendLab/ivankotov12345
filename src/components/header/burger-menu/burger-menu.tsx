@@ -1,14 +1,14 @@
 import { CloseIcon } from '@chakra-ui/icons';
-import { Box, Drawer, DrawerOverlay, IconButton } from '@chakra-ui/react';
+import { Box, Drawer, DrawerContent, DrawerOverlay, IconButton } from '@chakra-ui/react';
 import { useRef } from 'react';
 
+import { BurgerIcon } from '~/components/icons';
+import { Navigation } from '~/components/navigation';
+import { BACKDROP_FILTER } from '~/constants/sizes';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { Z_INDEX } from '~/constants/z-index';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { closeBurgerMenu, selectBurger, toggleBurgerMenu } from '~/store/slices/burger-slice';
-
-import { BurgerIcon } from '../../icons';
-import { Navigation } from '../../navigation';
 
 export const BurgerMenu: React.FC = () => {
     const { isOpen } = useAppSelector(selectBurger);
@@ -36,8 +36,13 @@ export const BurgerMenu: React.FC = () => {
                 <Drawer isOpen={isOpen} onClose={() => dispatch(closeBurgerMenu())}>
                     <DrawerOverlay
                         bg='shadowed'
-                        backdropFilter='blur(2px)'
+                        backdropFilter={BACKDROP_FILTER}
                         zIndex={Z_INDEX.backdrop}
+                    />
+                    <DrawerContent
+                        containerProps={{
+                            display: 'none',
+                        }}
                     />
                     <Navigation buttonRef={buttonRef} />
                 </Drawer>

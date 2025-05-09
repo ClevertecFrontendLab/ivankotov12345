@@ -1,68 +1,84 @@
 import { Box, Heading, SimpleGrid, Text, VStack } from '@chakra-ui/react';
+import { useEffect, useMemo } from 'react';
 
 import { COLORS_BLACK_ALPHA } from '~/constants/colors';
-import { CardData } from '~/types/card-data';
+import { useLazyGetRecipesByCategoryQuery } from '~/query/services/recipe';
+import { useAppSelector } from '~/store/hooks';
+import { selectCategory } from '~/store/slices/category-slice';
 
+import { getRandomSubCategory } from './helpers/get-random-sub-category';
+import { getRelevantCardsItems } from './helpers/get-relevant-cards-items';
 import { RelevantCardMini } from './relevant-card-mini';
 import { RelevantSectionCard } from './relevant-section-card';
 
-type RelevantSectionProps = {
-    title: string;
-    subtitle: string;
-    cardData: Omit<CardData, 'image' | 'recommendedBy' | 'time' | 'subcategory'>[];
-    cardDataMini: Pick<CardData, 'id' | 'image' | 'title'>[];
-};
+const CARD_DATA_LIMIT = 5;
 
-export const RelevantSection: React.FC<RelevantSectionProps> = ({
-    title,
-    subtitle,
-    cardData,
-    cardDataMini,
-}) => (
-    <Box as='section' borderTop='blackAlpha' mb={{ base: 20, lg: 0 }}>
-        <SimpleGrid
-            gridTemplateColumns={{
-                base: '1fr',
-                xl: '1fr 2fr',
-                '2xl': '1fr 1fr',
-            }}
-            columns={2}
-            gap={5}
-            py={{ base: 6, '2xl': 5 }}
-        >
-            <Heading as='h2' variant='section' pr={3.5}>
-                {title}
-            </Heading>
+export const RelevantSection: React.FC = () => {
+    const { categories, subCategories } = useAppSelector(selectCategory);
+    const randomSubCategory = useMemo(() => getRandomSubCategory(subCategories), [subCategories]);
+    const randomCategory = useMemo(
+        () => categories.find(({ _id }) => _id === randomSubCategory?.rootCategoryId),
+        [randomSubCategory, categories],
+    );
 
-            <Text color={COLORS_BLACK_ALPHA[600]} lineHeight='shorter'>
-                {subtitle}
-            </Text>
-        </SimpleGrid>
+    const [trigger, { data }] = useLazyGetRecipesByCategoryQuery();
 
-        <SimpleGrid
-            columns={{ base: 1, md: 2 }}
-            gridTemplateColumns={{
-                base: '1fr',
-                md: '2fr 1fr',
-                '2xl': '1fr 1fr',
-            }}
-            gridTemplateRows={{
-                base: '1fr .5fr',
-                md: '1fr',
-            }}
-            gap={{ base: 4, '2xl': 6 }}
-        >
-            <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 4, '2xl': 6 }}>
-                {cardData.map((props) => (
-                    <RelevantSectionCard key={props.id} {...props} />
-                ))}
+    const { cardsData, cardsDataMini } = getRelevantCardsItems(data?.data);
+
+    useEffect(() => {
+        if (randomSubCategory) {
+            trigger({ id: randomSubCategory._id, limit: CARD_DATA_LIMIT });
+        }
+    }, [randomSubCategory, trigger]);
+
+    return (
+        <Box as='section' borderTop='blackAlpha' mb={{ base: 20, lg: 0 }}>
+            <SimpleGrid
+                gridTemplateColumns={{
+                    base: '1fr',
+                    xl: '1fr 2fr',
+                    '2xl': '1fr 1fr',
+                }}
+                columns={2}
+                gap={5}
+                py={{ base: 6, '2xl': 5 }}
+            >
+                <Heading as='h2' variant='section' pr={3.5}>
+                    {randomCategory?.title}
+                </Heading>
+
+                <Text color={COLORS_BLACK_ALPHA[600]} lineHeight='shorter'>
+                    {randomCategory?.description}
+                </Text>
             </SimpleGrid>
 
-            <VStack spacing={{ base: 2, '2xl': 3 }}>
-                {cardDataMini.map((props) => (
-                    <RelevantCardMini key={props.id} {...props} />
-                ))}
-            </VStack>
-        </SimpleGrid>
-    </Box>
-);
+            <SimpleGrid
+                columns={{ base: 1, md: 2 }}
+                gridTemplateColumns={{
+                    base: '1fr',
+                    md: '2fr 1fr',
+                    '2xl': '1fr 1fr',
+                }}
+                gridTemplateRows={{
+                    base: '1fr .5fr',
+                    md: '1fr',
+                }}
+                gap={{ base: 4, '2xl': 6 }}
+            >
+                <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 4, '2xl': 6 }}>
+                    {cardsData &&
+                        cardsData.map((props) => (
+                            <RelevantSectionCard key={props._id} {...props} />
+                        ))}
+                </SimpleGrid>
+
+                <VStack spacing={{ base: 2, '2xl': 3 }}>
+                    {cardsDataMini &&
+                        cardsDataMini.map((props) => (
+                            <RelevantCardMini key={props._id} {...props} />
+                        ))}
+                </VStack>
+            </SimpleGrid>
+        </Box>
+    );
+};

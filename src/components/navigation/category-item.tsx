@@ -11,23 +11,25 @@ import {
 import { NavLink } from 'react-router';
 
 import { DATA_TEST_ID } from '~/constants/test-id';
+import { getFullImagePath } from '~/helpers/get-full-image-path';
 import { usePathItems } from '~/hooks/use-path-items';
 import { NavMenuItem } from '~/types/nav-menu';
 
 import { ArrowIcon } from '../icons';
 
-export const CategoryItem: React.FC<NavMenuItem> = ({ path, category, image, subcategories }) => {
+export const CategoryItem: React.FC<NavMenuItem> = ({ title, category, icon, subCategories }) => {
     const { thirdItemPath } = usePathItems();
+    const categoryPath = category && subCategories && `/${category}/${subCategories[0].category}`;
     return (
         <AccordionItem border='none'>
             <NavLink
-                to={`/${path}/${subcategories[0].path}`}
-                data-test-id={path === 'vegan' ? DATA_TEST_ID.veganCuisine : category}
+                to={categoryPath}
+                data-test-id={category === 'vegan' ? DATA_TEST_ID.veganCuisine : category}
             >
                 <AccordionButton>
-                    <Image src={image} />
+                    <Image src={getFullImagePath(icon)} alt={title} />
                     <Text flex={1} textAlign='start'>
-                        {category}
+                        {title}
                     </Text>
                     <AccordionIcon as={ArrowIcon} boxSize={4} />
                 </AccordionButton>
@@ -35,19 +37,21 @@ export const CategoryItem: React.FC<NavMenuItem> = ({ path, category, image, sub
 
             <AccordionPanel>
                 <VStack alignItems='start' gap={0}>
-                    {subcategories.map((subcategory) => (
-                        <Link
-                            key={subcategory.category}
-                            as={NavLink}
-                            to={`/${path}/${subcategory.path}`}
-                            variant='navigationLink'
-                            data-test-id={
-                                thirdItemPath === subcategory.path && `${subcategory.path}-active`
-                            }
-                        >
-                            {subcategory.category}
-                        </Link>
-                    ))}
+                    {subCategories &&
+                        subCategories.map((subCategory) => (
+                            <Link
+                                key={subCategory.category}
+                                as={NavLink}
+                                to={`/${category}/${subCategory.category}`}
+                                variant='navigationLink'
+                                data-test-id={
+                                    thirdItemPath === subCategory.category &&
+                                    `${subCategory.category}-active`
+                                }
+                            >
+                                {subCategory.title}
+                            </Link>
+                        ))}
                 </VStack>
             </AccordionPanel>
         </AccordionItem>

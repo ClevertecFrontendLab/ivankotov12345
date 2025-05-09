@@ -4,10 +4,15 @@ import { Outlet } from 'react-router';
 import { COLORS_LIME } from '~/constants/colors';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { Z_INDEX } from '~/constants/z-index';
+import { useGetCategoriesQuery } from '~/query/services/category';
+import { useAppSelector } from '~/store/hooks';
+import { selectApp } from '~/store/slices/app-slice';
 
+import { AlertError } from '../alert-error';
 import { Aside } from '../aside';
 import { Footer } from '../footer';
 import { Header } from '../header';
+import { Loader } from '../loader';
 import { Navigation } from '../navigation';
 
 const fixedContainer = {
@@ -18,6 +23,10 @@ const fixedContainer = {
 
 export const Layout: React.FC = () => {
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
+    const { isLoading: isCategoriesLoading } = useGetCategoriesQuery(undefined);
+
+    const { isErrorAlertOpen } = useAppSelector(selectApp);
+
     return (
         <Box height='100vh'>
             <Box
@@ -93,6 +102,9 @@ export const Layout: React.FC = () => {
                     </GridItem>
                 </Grid>
             </Box>
+
+            <Loader isLoading={isCategoriesLoading} />
+            {isErrorAlertOpen ? <AlertError /> : null}
         </Box>
     );
 };

@@ -8,6 +8,7 @@ import { FilterItem } from '~/types/filter-item';
 type FilterCheckboxGroupProps = {
     description: string;
     itemsList: FilterItem[];
+    selectedItems: string[];
     addItem: ActionCreatorWithPayload<string, string>;
     removeItem: ActionCreatorWithPayload<string, string>;
 };
@@ -15,6 +16,7 @@ type FilterCheckboxGroupProps = {
 export const FilterCheckboxGroup: React.FC<FilterCheckboxGroupProps> = ({
     description,
     itemsList,
+    selectedItems,
     addItem,
     removeItem,
 }) => {
@@ -34,7 +36,7 @@ export const FilterCheckboxGroup: React.FC<FilterCheckboxGroupProps> = ({
         <VStack gap={3} alignItems='start'>
             <Text fontWeight='medium'>{description}</Text>
 
-            <CheckboxGroup>
+            <CheckboxGroup value={selectedItems}>
                 {itemsList.map(({ item, label }) => (
                     <Checkbox
                         variant='limeCheckbox'

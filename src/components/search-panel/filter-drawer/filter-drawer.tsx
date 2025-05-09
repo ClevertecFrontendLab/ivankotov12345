@@ -9,24 +9,22 @@ import {
     DrawerOverlay,
     Flex,
     Heading,
-    HStack,
     IconButton,
     Spacer,
     VStack,
 } from '@chakra-ui/react';
-import React, { useCallback, useMemo } from 'react';
+import React, { useEffect } from 'react';
 
-import { CARD_DATA } from '~/constants/card-data';
 import {
     AUTHORS_LIST,
     DRAWER_MEAT_ITEMS,
     DRAWER_SIDES_ITEMS,
 } from '~/constants/drawer-filter-items';
-import { NAV_MENU_ITEMS } from '~/constants/nav-menu';
 import { PLACEHOLDERS } from '~/constants/placeholders';
+import { BACKDROP_FILTER } from '~/constants/sizes';
 import { DATA_TEST_ID } from '~/constants/test-id';
-import { filterRecipes } from '~/helpers/filter-recipe';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { selectCategories } from '~/store/slices/category-slice';
 import { closeDrawer, selectFilterDrawer } from '~/store/slices/filter-drawer-slice';
 import {
     addAuthor,
@@ -36,27 +34,31 @@ import {
     clearFilters,
     removeAuthor,
     removeCategory,
+    removeIsFiltered,
     removeMeat,
     removeSides,
     selectFilter,
+    setIsFiltered,
 } from '~/store/slices/filters-slice';
-import { setFilteredRecipes } from '~/store/slices/flter-recipe-slice';
-import { FilterItem } from '~/types/filter-item';
 
 import { AllergensSelectMenu } from '../allergens-select-menu';
+import { FilterTagList } from '../filter-tag-list';
+import { checkFiltersEmpty } from '../helpers/check-empty';
+import { getFilteredItems } from '../helpers/get-filter-items';
 import { DrawerMenu } from './drawer-menu';
 import { FilterCheckboxGroup } from './filter-checkbox-group';
-import { FilterDrawerTag } from './filter-drawer-tag';
-
-const categoryItems = NAV_MENU_ITEMS.map((item) => ({
-    label: item.category,
-    item: item.path,
-}));
 
 export const FilterDrawer: React.FC = () => {
     const { isOpen } = useAppSelector(selectFilterDrawer);
+    const categories = useAppSelector(selectCategories);
     const { ...filters } = useAppSelector(selectFilter);
+
     const dispatch = useAppDispatch();
+
+    const categoryItems = categories.map(({ title, subCategories }) => ({
+        item: subCategories.map((sub) => sub._id).toString(),
+        label: title,
+    }));
 
     const onClose = () => {
         dispatch(closeDrawer());
@@ -65,44 +67,23 @@ export const FilterDrawer: React.FC = () => {
     const onClearFiltersClick = () => dispatch(clearFilters());
 
     const onFindRecipeClick = () => {
-        const rec = filterRecipes(CARD_DATA, filters);
-
-        dispatch(setFilteredRecipes(rec));
+        dispatch(setIsFiltered());
         dispatch(closeDrawer());
     };
 
-    const getFilteredItems = useCallback(
-        (items: FilterItem[], selectedItems: string[]) =>
-            items.filter(({ item }) => selectedItems.includes(item)).map(({ label }) => label),
-        [],
-    );
-
     const categoryFilterItems = getFilteredItems(categoryItems, filters.selectedCategories);
-    const meatFilterItems = getFilteredItems(DRAWER_MEAT_ITEMS, filters.selectedMeatTypes);
-    const sidesFilterItems = getFilteredItems(DRAWER_SIDES_ITEMS, filters.selectedSidesTypes);
     const authorsFilterItems = getFilteredItems(AUTHORS_LIST, filters.selectedAuthors);
 
-    const allFilterItems = useMemo(
-        () =>
-            [
-                ...categoryFilterItems,
-                ...meatFilterItems,
-                ...sidesFilterItems,
-                ...authorsFilterItems,
-            ].concat(filters.selectedAllergens),
-        [
-            categoryFilterItems,
-            meatFilterItems,
-            sidesFilterItems,
-            authorsFilterItems,
-            filters.selectedAllergens,
-        ],
-    );
+    useEffect(() => {
+        if (isOpen) {
+            dispatch(removeIsFiltered());
+        }
+    }, [isOpen, dispatch]);
 
-    const isDisabled = allFilterItems.length === 0;
+    const isDisabled = checkFiltersEmpty(filters);
     return (
         <Drawer isOpen={isOpen} onClose={onClose} placement='right'>
-            <DrawerOverlay bg='shadowed' backdropFilter='blur(2px)' />
+            <DrawerOverlay bg='shadowed' backdropFilter={BACKDROP_FILTER} />
             <DrawerContent
                 data-test-id={DATA_TEST_ID.filterDrawer}
                 maxW={{ base: 'drawerWidth.sm', lg: 'drawerWidth.lg' }}
@@ -130,6 +111,7 @@ export const FilterDrawer: React.FC = () => {
                     <DrawerMenu
                         placeholder={PLACEHOLDERS.searchByCategories}
                         items={categoryItems}
+                        selectedItems={filters.selectedCategories}
                         addItem={addCategory}
                         removeItem={removeCategory}
                         testId={DATA_TEST_ID.filterMenuButtonCategory}
@@ -139,34 +121,30 @@ export const FilterDrawer: React.FC = () => {
                     <DrawerMenu
                         placeholder={PLACEHOLDERS.searchByAuthor}
                         items={AUTHORS_LIST}
+                        selectedItems={filters.selectedAuthors}
                         addItem={addAuthor}
                         removeItem={removeAuthor}
                         tagList={authorsFilterItems}
                     />
 
                     <FilterCheckboxGroup
-                        description='Тип мяса:'
+                        description={PLACEHOLDERS.meatType}
                         itemsList={DRAWER_MEAT_ITEMS}
                         addItem={addMeat}
                         removeItem={removeMeat}
+                        selectedItems={filters.selectedMeatTypes}
                     />
 
                     <FilterCheckboxGroup
-                        description='Тип гарнира:'
+                        description={PLACEHOLDERS.sidesType}
                         itemsList={DRAWER_SIDES_ITEMS}
                         addItem={addSides}
                         removeItem={removeSides}
+                        selectedItems={filters.selectedSidesTypes}
                     />
 
                     <AllergensSelectMenu isDrawerType={true} />
-
-                    {allFilterItems.length && (
-                        <HStack flexWrap='wrap'>
-                            {allFilterItems.map((tag) => (
-                                <FilterDrawerTag key={tag} label={tag} />
-                            ))}
-                        </HStack>
-                    )}
+                    <FilterTagList isDrawerType={true} />
                 </DrawerBody>
 
                 <DrawerFooter justifyContent='center' p={8} gap={2}>

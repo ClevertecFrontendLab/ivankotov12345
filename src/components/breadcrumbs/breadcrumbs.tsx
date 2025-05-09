@@ -3,33 +3,39 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
 import { NavLink } from 'react-router';
 
 import { COLORS, COLORS_BLACK_ALPHA } from '~/constants/colors';
-import { NAV_MENU_ITEMS } from '~/constants/nav-menu';
 import { ROUTER_PATHS } from '~/constants/router-paths';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { usePathItems } from '~/hooks/use-path-items';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { closeBurgerMenu } from '~/store/slices/burger-slice';
+import { selectCategories } from '~/store/slices/category-slice';
 import { selectSelectedRecipe } from '~/store/slices/selected-recipe-slice';
+
+const THE_JUICIEST = 'the-juiciest';
+const THE_JUICIEST_TITLE = 'Самое сочное';
 
 export const Breadcrumbs: React.FC = () => {
     const dispatch = useAppDispatch();
-    const { selectedRecipe } = useAppSelector(selectSelectedRecipe);
+    const { selectedRecipeTitle } = useAppSelector(selectSelectedRecipe);
+    const categories = useAppSelector(selectCategories);
 
     const { secondItemPath, thirdItemPath } = usePathItems();
 
-    const firstSubcategoryPath = NAV_MENU_ITEMS.find(({ path }) => path === secondItemPath)
-        ?.subcategories[0].path;
+    const isJuiciest = secondItemPath === THE_JUICIEST;
+
+    const firstSubcategoryPath = categories.find(({ category }) => category === secondItemPath)
+        ?.subCategories[0].category;
 
     const secondItemName =
-        secondItemPath && secondItemPath === 'the-juiciest'
-            ? 'Самое сочное'
-            : NAV_MENU_ITEMS.find(({ path }) => path === secondItemPath)?.category;
+        secondItemPath && secondItemPath === THE_JUICIEST
+            ? THE_JUICIEST_TITLE
+            : categories.find(({ category }) => category === secondItemPath)?.title;
 
     const thirdItemName =
         thirdItemPath &&
-        NAV_MENU_ITEMS.find(({ path }) => path === secondItemPath)?.subcategories.find(
-            ({ path }) => path === thirdItemPath,
-        )?.category;
+        categories
+            .find(({ category }) => category === secondItemPath)
+            ?.subCategories.find(({ category }) => category === thirdItemPath)?.title;
 
     return (
         <Breadcrumb
@@ -52,7 +58,11 @@ export const Breadcrumbs: React.FC = () => {
                 <BreadcrumbItem>
                     <BreadcrumbLink
                         as={NavLink}
-                        to={`/${secondItemPath}/${firstSubcategoryPath}`}
+                        to={
+                            isJuiciest
+                                ? ROUTER_PATHS.juiciestPage
+                                : `/${secondItemPath}/${firstSubcategoryPath}`
+                        }
                         color={thirdItemPath ? COLORS_BLACK_ALPHA[700] : COLORS.inherit}
                     >
                         {secondItemName}
@@ -61,15 +71,17 @@ export const Breadcrumbs: React.FC = () => {
             )}
 
             {thirdItemPath && (
-                <BreadcrumbItem color={selectedRecipe ? COLORS_BLACK_ALPHA[700] : COLORS.inherit}>
+                <BreadcrumbItem
+                    color={selectedRecipeTitle ? COLORS_BLACK_ALPHA[700] : COLORS.inherit}
+                >
                     <BreadcrumbLink as={NavLink} to={`/${secondItemPath}/${thirdItemPath}`}>
                         {thirdItemName}
                     </BreadcrumbLink>
                 </BreadcrumbItem>
             )}
-            {selectedRecipe && (
+            {selectedRecipeTitle && (
                 <BreadcrumbItem>
-                    <BreadcrumbLink>{selectedRecipe.title}</BreadcrumbLink>
+                    <BreadcrumbLink>{selectedRecipeTitle}</BreadcrumbLink>
                 </BreadcrumbItem>
             )}
         </Breadcrumb>

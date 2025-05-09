@@ -8,15 +8,7 @@ export type UserData = {
 
 export type CardData = Pick<
     RecipeType,
-    | 'id'
-    | 'image'
-    | 'title'
-    | 'description'
-    | 'category'
-    | 'subcategory'
-    | 'bookmarks'
-    | 'likes'
-    | 'time'
+    '_id' | 'image' | 'title' | 'description' | 'categoriesIds' | 'bookmarks' | 'likes' | 'time'
 > & {
     index?: number;
     recommendedBy?: Omit<UserData, 'email'>;

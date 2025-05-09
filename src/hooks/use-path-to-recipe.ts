@@ -1,19 +1,25 @@
-import { NAV_MENU_ITEMS } from '~/constants/nav-menu';
 import { CardData } from '~/types/card-data';
+import { NavMenuItem, Subcategory } from '~/types/nav-menu';
 
 import { usePathItems } from './use-path-items';
 
-type PathType = Pick<CardData, 'id' | 'category' | 'subcategory'>;
+type PathType = Pick<CardData, '_id' | 'categoriesIds'> & {
+    subCategories: Subcategory[];
+    categories: NavMenuItem[];
+};
 
-export const useRecipePath = ({ id, category, subcategory }: PathType) => {
-    const { secondItemPath, thirdItemPath } = usePathItems();
+export const useRecipePath = ({ _id, categoriesIds, subCategories, categories }: PathType) => {
+    const { secondItemPath, thirdItemPath, currId } = usePathItems();
+    const firstSubcategoryItem = subCategories.filter(({ _id }) => categoriesIds.includes(_id))[0];
 
-    const firstSubcategory = NAV_MENU_ITEMS.find(
-        ({ path }) => path === category[0],
-    )?.subcategories.filter(({ path }) => subcategory.includes(path))[0].path;
+    const firstSubCategoryRootId = firstSubcategoryItem?.rootCategoryId;
 
-    if (secondItemPath && thirdItemPath) {
-        return `${id}`;
+    const firstSubcategory = firstSubcategoryItem?.category;
+
+    const firstCategory = categories.find(({ _id }) => _id === firstSubCategoryRootId)?.category;
+
+    if (secondItemPath && thirdItemPath && !currId) {
+        return `${_id}`;
     }
-    return `/${category[0]}/${firstSubcategory}/${id}`;
+    return `/${firstCategory}/${firstSubcategory}/${_id}`;
 };

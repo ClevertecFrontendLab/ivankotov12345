@@ -1,56 +1,100 @@
 import { Box } from '@chakra-ui/react';
-import { useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
-import { BlogSection } from '~/components/blog-section';
 import { CardsWrapper } from '~/components/cards-wrapper';
 import { Сarousel } from '~/components/carousel';
 import { FoodCard } from '~/components/food-card';
+import { LoadMoreButton } from '~/components/load-more-button';
+import { Loader } from '~/components/loader';
 import { PageHeader } from '~/components/page-header';
 import { RelevantSection } from '~/components/relevant-section';
-import { CARD_DATA } from '~/constants/card-data';
+import { getQueryParams } from '~/components/search-panel/helpers/get-query-params';
 import { PAGE_TITLES } from '~/constants/page-titles';
-import { VEGAN_RELEVANT_CARD_DATA } from '~/constants/relevant-card-data';
-import { VEGAN_RELEVANT_CARD_DATA_MINI } from '~/constants/relevant-card-data-mini';
-import { useAllergenFilter } from '~/hooks/use-allergen-filters';
-import { JuiciestSection } from '~/pages/category-page/components/juiciest-section';
+import { BlogSection } from '~/pages/home-page/components/blog-section';
+import { Endpoints } from '~/query/constants/paths';
+import { useGetRecipesInfiniteQuery } from '~/query/services/recipe';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import { selectFilteredRecipes, setCurrentRecipes } from '~/store/slices/flter-recipe-slice';
+import { setAllergenDisabled } from '~/store/slices/allergens-slice';
+import { clearFilters, selectFilter, selectIsFiltered } from '~/store/slices/filters-slice';
+import { selectRecipes, setFilteredRecipes } from '~/store/slices/recipe-slice';
+import { clearSearchInputValue, selectSearchInput } from '~/store/slices/search-input-slice';
+
+import { JuiciestSection } from './components/juiciest-section';
 
 const { title: homePageTitle } = PAGE_TITLES.home;
-const { title: veganPageTitle, subtitle: veganPageSubTitle } = PAGE_TITLES.vegan;
 
 export const HomePage: React.FC = () => {
-    const { filteredRecipes } = useAppSelector(selectFilteredRecipes);
+    const [isLoadMoreActive, setIsLoadMoreActive] = useState(true);
+    const isFiltered = useAppSelector(selectIsFiltered);
+    const { filteredRecipes } = useAppSelector(selectRecipes);
+    const { ...filters } = useAppSelector(selectFilter);
+    const { searchInputValue } = useAppSelector(selectSearchInput);
+
     const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        dispatch(setCurrentRecipes(CARD_DATA));
-    }, [dispatch]);
+    const queryParams = useMemo(
+        () => getQueryParams(filters, searchInputValue),
+        [filters, searchInputValue],
+    );
 
-    useAllergenFilter(CARD_DATA);
+    const { isLoading, isFetching, data, fetchNextPage } = useGetRecipesInfiniteQuery(
+        { endpoint: Endpoints.RECIPE, ...queryParams },
+        { skip: !isFiltered },
+    );
+
+    useEffect(() => {
+        const currentRecipes = data?.pages.map((element) => element.data).flat();
+        if (isFiltered && currentRecipes) {
+            dispatch(setFilteredRecipes(currentRecipes));
+        }
+    }, [data, isFiltered, dispatch]);
+
+    useEffect(
+        () => () => {
+            dispatch(setAllergenDisabled());
+            dispatch(clearFilters());
+            dispatch(clearSearchInputValue());
+        },
+        [dispatch],
+    );
+
+    useEffect(() => {
+        const metaTotalRecipes = data?.pages[0].meta.total;
+
+        if (filteredRecipes && metaTotalRecipes && filteredRecipes.length >= metaTotalRecipes) {
+            setIsLoadMoreActive(false);
+        }
+    }, [filteredRecipes, data]);
+
+    const handleLoadMore = () => fetchNextPage();
+
     return (
         <Box>
-            <PageHeader title={homePageTitle} />
+            <PageHeader title={homePageTitle} isFetching={isFetching} />
 
             {filteredRecipes.length === 0 ? (
                 <>
                     <Сarousel />
                     <JuiciestSection />
                     <BlogSection />
-                    <RelevantSection
-                        title={veganPageTitle}
-                        subtitle={veganPageSubTitle}
-                        cardData={VEGAN_RELEVANT_CARD_DATA}
-                        cardDataMini={VEGAN_RELEVANT_CARD_DATA_MINI}
-                    />
+                    <RelevantSection />
                 </>
             ) : (
-                <CardsWrapper>
-                    {filteredRecipes.map((card, index) => (
-                        <FoodCard key={card.id} {...card} index={index} />
-                    ))}
-                </CardsWrapper>
+                <>
+                    <CardsWrapper>
+                        {filteredRecipes &&
+                            filteredRecipes.map((card, index) => (
+                                <FoodCard key={card._id} {...card} index={index} />
+                            ))}
+                    </CardsWrapper>
+
+                    {isLoadMoreActive && (
+                        <LoadMoreButton onLoadMoreClick={handleLoadMore} isLoading={isFetching} />
+                    )}
+                </>
             )}
+
+            <Loader isLoading={isLoading} />
         </Box>
     );
 };

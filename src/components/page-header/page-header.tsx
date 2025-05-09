@@ -2,19 +2,25 @@ import { Heading, Text, VStack } from '@chakra-ui/react';
 import { useState } from 'react';
 
 import { COLORS_BLACK_ALPHA } from '~/constants/colors';
+import { SPINNER_SIZE } from '~/constants/sizes';
+import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppSelector } from '~/store/hooks';
 import { selectAllergensFilter } from '~/store/slices/filters-slice';
+import { selectSearchInput } from '~/store/slices/search-input-slice';
 
+import { LoaderSpinner } from '../loader-spinner';
 import { SearchPanel } from '../search-panel';
 
 type PageHeaderProps = {
     title: string;
     subtitle?: string;
+    isFetching: boolean;
 };
 
 export const PageHeader: React.FC<PageHeaderProps> = ({ title, subtitle }) => {
     const [isSearchFocused, setIsSearchFocused] = useState(false);
     const selectedAllergens = useAppSelector(selectAllergensFilter);
+    const { isSearching } = useAppSelector(selectSearchInput);
 
     return (
         <VStack
@@ -42,7 +48,18 @@ export const PageHeader: React.FC<PageHeaderProps> = ({ title, subtitle }) => {
                 )}
             </VStack>
 
-            <SearchPanel setIsSearchFocused={setIsSearchFocused} />
+            {!isSearching ? (
+                <SearchPanel
+                    setIsSearchFocused={setIsSearchFocused}
+                    isSearchFocused={isSearchFocused}
+                />
+            ) : (
+                <LoaderSpinner
+                    wrapperSpinnerSize={SPINNER_SIZE.wrapperSm}
+                    spinnerSize={SPINNER_SIZE.sizeSm}
+                    testId={DATA_TEST_ID.loaderSearchBlock}
+                />
+            )}
         </VStack>
     );
 };

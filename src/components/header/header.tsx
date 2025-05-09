@@ -1,8 +1,9 @@
 import { Flex, HStack, Image, Spacer, Stack, useMediaQuery } from '@chakra-ui/react';
-import { useEffect } from 'react';
 
 import avatar from '~/assets/img/avatar.jpg';
 import { COLORS, COLORS_LIME } from '~/constants/colors';
+import { ROUTER_PATHS } from '~/constants/router-paths';
+import { usePathItems } from '~/hooks/use-path-items';
 import { useAppSelector } from '~/store/hooks';
 import { selectBurger } from '~/store/slices/burger-slice';
 
@@ -15,16 +16,9 @@ import { BurgerMenu } from './burger-menu';
 
 export const Header: React.FC = () => {
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
+    const { secondItemPath } = usePathItems();
     const { isOpen } = useAppSelector(selectBurger);
 
-    useEffect(() => {
-        isOpen
-            ? (document.body.style.overflow = 'hidden')
-            : (document.body.style.overflow = 'auto');
-        return () => {
-            document.body.style.overflow = 'auto';
-        };
-    }, [isOpen]);
     return (
         <Flex
             maxW='1920px'
@@ -41,7 +35,7 @@ export const Header: React.FC = () => {
                 <Image src={yeeDaa} alt='yee daa' display={{ base: 'none', md: 'block' }} />
             </Stack>
 
-            {!isTablet && <Breadcrumbs />}
+            {!isTablet && `/${secondItemPath}` !== ROUTER_PATHS.notFound && <Breadcrumbs />}
 
             <Spacer />
 

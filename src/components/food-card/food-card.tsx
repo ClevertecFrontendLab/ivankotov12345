@@ -20,10 +20,14 @@ import {
 import { memo } from 'react';
 import { NavLink } from 'react-router';
 
+import fallback from '~/assets/fallback.png';
 import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/colors';
 import { DATA_TEST_ID } from '~/constants/test-id';
+import { getCardCategories } from '~/helpers/get-card-categories';
+import { getFullImagePath } from '~/helpers/get-full-image-path';
 import { useRecipePath } from '~/hooks/use-path-to-recipe';
 import { useAppSelector } from '~/store/hooks';
+import { selectCategory } from '~/store/slices/category-slice';
 import { selectSearchInput } from '~/store/slices/search-input-slice';
 import { CardData } from '~/types/card-data';
 
@@ -32,20 +36,14 @@ import { FavoriteIcon, LikeIcon } from '../icons';
 import { StatButton } from '../stat-button';
 
 export const FoodCard: React.FC<CardData> = memo(
-    ({
-        id,
-        image,
-        title,
-        description,
-        bookmarks,
-        likes,
-        category,
-        subcategory,
-        recommendedBy,
-        index,
-    }) => {
+    ({ _id, image, title, description, bookmarks, likes, categoriesIds, recommendedBy, index }) => {
         const { searchInputValue } = useAppSelector(selectSearchInput);
-        const recipePath = useRecipePath({ id, category, subcategory });
+        const { categories, subCategories } = useAppSelector(selectCategory);
+
+        const cardCategories = getCardCategories(categories, subCategories, categoriesIds);
+
+        const recipePath = useRecipePath({ _id, categoriesIds, subCategories, categories });
+
         return (
             <Card
                 direction='row'
@@ -54,11 +52,12 @@ export const FoodCard: React.FC<CardData> = memo(
                 data-test-id={`${DATA_TEST_ID.foodCard}-${index}`}
             >
                 <Image
-                    src={image}
+                    src={getFullImagePath(image)}
                     alt={title}
                     maxW={{ base: 'carouselItem.sm', lg: 'carouselItem.xl' }}
                     minH='imageHeight.md'
                     objectFit='cover'
+                    fallbackSrc={fallback}
                 />
 
                 {recommendedBy && (
@@ -95,25 +94,26 @@ export const FoodCard: React.FC<CardData> = memo(
                                 top={2}
                                 left={2}
                             >
-                                {category.map((item) => (
+                                {cardCategories.map(({ _id, title, icon }) => (
                                     <CardBadge
                                         backgroundColor={COLORS_LIME[50]}
-                                        key={item}
-                                        category={item}
+                                        key={_id}
+                                        title={title}
+                                        icon={icon}
                                     />
                                 ))}
                             </VStack>
 
                             <Spacer display={{ base: 'none', lg: 'flex' }} />
 
-                            {bookmarks && (
+                            {bookmarks > 0 && (
                                 <StatButton
                                     quantity={bookmarks}
                                     icon={<LikeIcon />}
                                     size={{ base: 'xs', lg: 'sm' }}
                                 />
                             )}
-                            {likes && (
+                            {likes > 0 && (
                                 <StatButton
                                     quantity={likes}
                                     icon={<FavoriteIcon />}

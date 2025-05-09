@@ -6,18 +6,15 @@ import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/colors';
 import { ALLERGENS_LIST } from '~/constants/drawer-filter-items';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import { clearFilters, selectAllergensFilter } from '~/store/slices/filters-slice';
+import { selectAllergens, toggleAllergenDisabled } from '~/store/slices/allergens-slice';
+import { clearAllergensFilters, selectAllergensFilter } from '~/store/slices/filters-slice';
 
 import { FilterTag } from '../filter-tag';
 import { AllergenCheckbox } from './allergen-checkbox';
 import { CustomAllergenInput } from './custom-allergen-input';
 
-type AllergensSelectMenuProps = {
-    isDrawerType?: boolean;
-};
-
-export const AllergensSelectMenu: React.FC<AllergensSelectMenuProps> = ({ isDrawerType }) => {
-    const [isDisabled, setIsDisabled] = useState(true);
+export const AllergensSelectMenu: React.FC<{ isDrawerType?: boolean }> = ({ isDrawerType }) => {
+    const { isDisabled } = useAppSelector(selectAllergens);
     const [isOpen, setIsOpen] = useState(false);
     const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -29,9 +26,9 @@ export const AllergensSelectMenu: React.FC<AllergensSelectMenuProps> = ({ isDraw
     const dispatch = useAppDispatch();
 
     const toggleAllergenSwitch = () => {
-        setIsDisabled(!isDisabled);
+        dispatch(toggleAllergenDisabled());
         if (!isDisabled) {
-            dispatch(clearFilters());
+            dispatch(clearAllergensFilters());
         }
     };
     return (
@@ -79,32 +76,31 @@ export const AllergensSelectMenu: React.FC<AllergensSelectMenuProps> = ({ isDraw
                         )}
                     </HStack>
                 </MenuButton>
-                {isOpen ? (
-                    <MenuList
-                        boxShadow='selectBoxShadow'
-                        border='none'
-                        data-test-id={DATA_TEST_ID.allergensMenu}
-                    >
-                        {ALLERGENS_LIST.map(({ item, label }, index) => (
-                            <Box
-                                key={item}
-                                gap={2}
-                                background={index % 2 ? 'white' : COLORS_BLACK_ALPHA[100]}
-                                px={4}
-                                py={1.5}
-                            >
-                                <AllergenCheckbox
-                                    item={item}
-                                    label={label}
-                                    index={index}
-                                    focusCustomAllergern={focusCustomAllergen}
-                                />
-                            </Box>
-                        ))}
 
-                        <CustomAllergenInput inputRef={inputRef} />
-                    </MenuList>
-                ) : null}
+                <MenuList
+                    boxShadow='selectBoxShadow'
+                    border='none'
+                    data-test-id={DATA_TEST_ID.allergensMenu}
+                >
+                    {ALLERGENS_LIST.map(({ item, label }, index) => (
+                        <Box
+                            key={item}
+                            gap={2}
+                            background={index % 2 ? 'white' : COLORS_BLACK_ALPHA[100]}
+                            px={4}
+                            py={1.5}
+                        >
+                            <AllergenCheckbox
+                                item={item}
+                                label={label}
+                                index={index}
+                                focusCustomAllergern={focusCustomAllergen}
+                            />
+                        </Box>
+                    ))}
+
+                    <CustomAllergenInput inputRef={inputRef} isOpen={isOpen} />
+                </MenuList>
             </Menu>
         </>
     );

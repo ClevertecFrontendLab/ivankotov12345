@@ -8,6 +8,7 @@ import { checkboxTheme } from './components/checkbox';
 import { headingTheme } from './components/heading';
 import { inputTheme } from './components/input';
 import { linkTheme } from './components/link';
+import { modalTheme } from './components/modal';
 import { switchTheme } from './components/switch';
 import { tabsTheme } from './components/tabs';
 import { textTheme } from './components/text';
@@ -115,5 +116,6 @@ export const theme = extendTheme({
         Switch: switchTheme,
         Input: inputTheme,
         Tabs: tabsTheme,
+        Modal: modalTheme,
     },
 });
