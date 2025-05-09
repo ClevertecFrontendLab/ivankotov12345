@@ -4,6 +4,7 @@ import { useRef } from 'react';
 
 import { BurgerIcon } from '~/components/icons';
 import { Navigation } from '~/components/navigation';
+import { BACKDROP_FILTER } from '~/constants/sizes';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { Z_INDEX } from '~/constants/z-index';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
@@ -35,7 +36,7 @@ export const BurgerMenu: React.FC = () => {
                 <Drawer isOpen={isOpen} onClose={() => dispatch(closeBurgerMenu())}>
                     <DrawerOverlay
                         bg='shadowed'
-                        backdropFilter='blur(2px)'
+                        backdropFilter={BACKDROP_FILTER}
                         zIndex={Z_INDEX.backdrop}
                     />
                     <DrawerContent

@@ -12,7 +12,6 @@ import { RelevantCardMini } from './relevant-card-mini';
 import { RelevantSectionCard } from './relevant-section-card';
 
 const CARD_DATA_LIMIT = 5;
-//const CARDS_LENGTH = 2;
 
 export const RelevantSection: React.FC = () => {
     const { categories, subCategories } = useAppSelector(selectCategory);
@@ -23,9 +22,6 @@ export const RelevantSection: React.FC = () => {
     );
 
     const [trigger, { data }] = useLazyGetRecipesByCategoryQuery();
-
-    /*     const cardsData = data?.data.slice(0, CARDS_LENGTH);
-    const cardsDataMini = data?.data.slice(CARDS_LENGTH, CARD_DATA_LIMIT); */
 
     const { cardsData, cardsDataMini } = getRelevantCardsItems(data?.data);
 

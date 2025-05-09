@@ -21,6 +21,7 @@ import {
     DRAWER_SIDES_ITEMS,
 } from '~/constants/drawer-filter-items';
 import { PLACEHOLDERS } from '~/constants/placeholders';
+import { BACKDROP_FILTER } from '~/constants/sizes';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectCategories } from '~/store/slices/category-slice';
@@ -82,7 +83,7 @@ export const FilterDrawer: React.FC = () => {
     const isDisabled = checkFiltersEmpty(filters);
     return (
         <Drawer isOpen={isOpen} onClose={onClose} placement='right'>
-            <DrawerOverlay bg='shadowed' backdropFilter='blur(2px)' />
+            <DrawerOverlay bg='shadowed' backdropFilter={BACKDROP_FILTER} />
             <DrawerContent
                 data-test-id={DATA_TEST_ID.filterDrawer}
                 maxW={{ base: 'drawerWidth.sm', lg: 'drawerWidth.lg' }}
