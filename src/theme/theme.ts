@@ -28,6 +28,7 @@ export const theme = extendTheme({
         shadowed: 'var(--blackAlpha-300, rgba(0, 0, 0, 0.16))',
         bgRadialGraident:
             'radial-gradient(50% 50% at 50% 50%, rgba(196, 255, 97, 0.70) 0%, rgba(255, 255, 255, 0.00) 100%)',
+        bgAuth: 'linear-gradient(237deg, #EAFFC7 30.27%, #29813F 136.1%)',
     },
     fonts: {
         body: `Inter, system-ui, Avenir, Helvetica, Arial, sans-serif`,

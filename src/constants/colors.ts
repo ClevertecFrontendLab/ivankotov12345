@@ -4,6 +4,7 @@ export const COLORS = {
     red: 'red.500',
     inherit: 'inherit',
     bgRadialGradient: 'bgRadialGraident',
+    bgAuth: 'bgAuth',
 };
 
 export const COLORS_BLACK_ALPHA = {
