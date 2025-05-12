@@ -5,4 +5,6 @@ export const PLACEHOLDERS = {
     searchByAuthor: 'Поиск по автору',
     meatType: 'Тип мяса:',
     sidesType: 'Тип гарнира:',
+    login: 'Введите логин',
+    password: 'Пароль для сайта',
 };
