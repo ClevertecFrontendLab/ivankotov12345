@@ -1,4 +1,4 @@
-import { Button } from '@chakra-ui/react';
+import { Button, VStack } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
@@ -19,7 +19,7 @@ export const SignInPage: React.FC = () => {
 
     return (
         <>
-            <form>
+            <VStack as='form' w='full' gap={6}>
                 <InputAuthForm
                     isInvalid={!!errors.login}
                     label={LABELS.login}
@@ -36,10 +36,14 @@ export const SignInPage: React.FC = () => {
                     error={errors.password?.message}
                 />
 
-                <Button variant='black'>Войти</Button>
-            </form>
+                <Button variant='black' size='lg' w='full' mt={28}>
+                    Войти
+                </Button>
+            </VStack>
 
-            <Button>Забыли логин или пароль?</Button>
+            <Button variant='none' size='xs' fontSize='md' mt={4} mx='auto'>
+                Забыли логин или пароль?
+            </Button>
         </>
     );
 };

@@ -34,21 +34,30 @@ export const InputPassword: React.FC<InputPasswordProps> = ({
     const toggleButtonVisible = () => setIsPassowrdVisible(!isPasswordVisible);
     return (
         <FormControl isInvalid={isInvalid}>
-            <FormLabel>{label}</FormLabel>
+            <FormLabel mb={1}>{label}</FormLabel>
 
             <InputGroup>
-                <Input placeholder={placeholder} {...register} />
-                <InputRightElement>
+                <Input
+                    placeholder={placeholder}
+                    {...register}
+                    type={isPasswordVisible ? 'text' : 'password'}
+                    variant='authInput'
+                    size='lg'
+                />
+                <InputRightElement h='full'>
                     <IconButton
                         onClick={toggleButtonVisible}
                         icon={isPasswordVisible ? <ViewIcon /> : <ViewOffIcon />}
                         aria-label='show/hide password'
+                        variant='none'
                     />
                 </InputRightElement>
             </InputGroup>
 
             <FormHelperText>{hint}</FormHelperText>
-            <FormErrorMessage>{error}</FormErrorMessage>
+            <FormErrorMessage position='absolute' bottom='-15px'>
+                {error}
+            </FormErrorMessage>
         </FormControl>
     );
 };

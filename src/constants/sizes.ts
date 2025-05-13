@@ -29,3 +29,7 @@ export const SPINNER_SIZE = {
     sizeLg: 9,
     sizeSm: 6,
 };
+
+export const AUTH_SIZES = {
+    widthLg: '450px',
+};

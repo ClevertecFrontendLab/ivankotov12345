@@ -113,6 +113,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
                         name='search'
                         placeholder={PLACEHOLDERS.search}
                         borderColor={searchBorderColor}
+                        variant='searchPanel'
                         _focus={{
                             borderColor: searchBorderColor,
                         }}
