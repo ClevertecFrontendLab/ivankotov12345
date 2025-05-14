@@ -9,6 +9,7 @@ import { headingTheme } from './components/heading';
 import { inputTheme } from './components/input';
 import { linkTheme } from './components/link';
 import { modalTheme } from './components/modal';
+import { progressTheme } from './components/progress';
 import { switchTheme } from './components/switch';
 import { tabsTheme } from './components/tabs';
 import { textTheme } from './components/text';
@@ -118,5 +119,6 @@ export const theme = extendTheme({
         Input: inputTheme,
         Tabs: tabsTheme,
         Modal: modalTheme,
+        Progress: progressTheme,
     },
 });
