@@ -10,6 +10,7 @@ import { CredentialsDataFormStep } from './components/credentials-data-form-step
 import { UserDataFormStep } from './components/user-data-form-step';
 
 const STEPS_LIST = ['Шаг 1. Личная информация', 'Шаг 2. Логин и пароль'];
+const STEPS_BUTTON_TEXT_LIST = ['Дальше', 'Зарегистрироваться'];
 
 export const SignUpPage: React.FC = () => {
     const [step, setStep] = useState(0);
@@ -55,11 +56,13 @@ export const SignUpPage: React.FC = () => {
                 bgColor={COLORS_BLACK_ALPHA[100]}
             />
 
-            <VStack as='form' w='full'>
+            <VStack as='form' w='full' mt={6} gap={6}>
                 {formSteps[step]}
             </VStack>
 
-            <Button onClick={onNextStep}>Шаги</Button>
+            <Button onClick={onNextStep} variant='black' w='full' mt={12}>
+                {STEPS_BUTTON_TEXT_LIST[step]}
+            </Button>
         </>
     );
 };

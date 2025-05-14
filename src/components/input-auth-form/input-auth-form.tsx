@@ -21,7 +21,7 @@ export const InputAuthForm: React.FC<InputFormProps> = ({
     <FormControl isInvalid={isInvalid}>
         <FormLabel mb={1}>{label}</FormLabel>
         <Input placeholder={placeholder} {...register} variant='authInput' size='lg' />
-        <FormHelperText>{hint}</FormHelperText>
+        <FormHelperText mt={1}>{hint}</FormHelperText>
         <FormErrorMessage position='absolute' bottom='-15px'>
             {error}
         </FormErrorMessage>
