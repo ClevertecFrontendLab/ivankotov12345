@@ -5,4 +5,5 @@ export enum Endpoints {
     CATEGORY = 'category',
     RECIPE = 'recipe',
     RECIPES_BY_CATEGORY = 'recipe/category',
+    SIGN_UP = '/auth/signup',
 }

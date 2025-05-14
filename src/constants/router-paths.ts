@@ -2,6 +2,7 @@ export const ROUTER_PATHS = {
     homePage: '/',
     signIn: '/signin',
     signUp: '/signup',
+    verification: '/verification',
     juiciestPage: '/the-juiciest',
     veganPage: '/vegan',
     category: ':category',
