@@ -68,6 +68,7 @@ export const theme = extendTheme({
         },
     },
     borders: {
+        black: '1px solid',
         blackAlpha: '1px solid var(--chakra-colors-blackAlpha-200)',
         lime: '1px solid var(--chakra-colors-lime-400)',
     },

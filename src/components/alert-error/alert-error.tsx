@@ -11,7 +11,7 @@ import {
 import { COLORS } from '~/constants/colors';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import { selectApp, setErrorAlertIsOpen, setErrorData } from '~/store/slices/app-slice';
+import { selectApp, setToastData, setToastIsOpen } from '~/store/slices/app-slice';
 
 const INDENT_BOTTOM = {
     sm: '100px',
@@ -24,13 +24,13 @@ const ALERT_WIDTH = {
 };
 
 export const AlertError: React.FC = () => {
-    const { errorData } = useAppSelector(selectApp);
+    const { statusData } = useAppSelector(selectApp);
 
     const dispatch = useAppDispatch();
 
     const onAlertCloseClick = () => {
-        dispatch(setErrorAlertIsOpen(false));
-        dispatch(setErrorData());
+        dispatch(setToastIsOpen(false));
+        dispatch(setToastData());
     };
     return (
         <Center position='fixed' w='full' bottom={{ base: INDENT_BOTTOM.sm, lg: INDENT_BOTTOM.lg }}>
@@ -47,8 +47,8 @@ export const AlertError: React.FC = () => {
                 <AlertIcon color={COLORS.white} />
 
                 <VStack alignItems='start'>
-                    <AlertTitle>{errorData?.title}</AlertTitle>
-                    <AlertDescription>{errorData?.message}</AlertDescription>
+                    <AlertTitle>{statusData?.title}</AlertTitle>
+                    <AlertDescription>{statusData?.description}</AlertDescription>
                 </VStack>
 
                 <CloseButton

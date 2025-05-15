@@ -6,6 +6,7 @@ export const BACKDROP_FILTER = 'blur(2px)';
 export const SIZES = {
     fullWieportWidth: '100vw',
     fullWieportHeight: '100dvh',
+    full: 'full',
 };
 
 export const ERROE_PAGE_SIZES = {

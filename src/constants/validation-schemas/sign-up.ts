@@ -15,7 +15,7 @@ const userNameValidation = z
     .regex(/^[А-Яа-яЁё\- ]+$/, { message: VALIDATION_ERRORS.cyrillicOnly })
     .max(50, { message: VALIDATION_ERRORS.maxLength });
 
-export const signUp = z
+export const signUpSchema = z
     .object({
         email: z
             .string()
@@ -42,4 +42,4 @@ export const signUp = z
         }
     });
 
-export type SignUp = z.output<typeof signUp>;
+export type SignUpSchema = z.output<typeof signUpSchema>;

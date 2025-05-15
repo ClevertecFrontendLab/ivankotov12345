@@ -25,7 +25,7 @@ export const Layout: React.FC = () => {
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
     const { isLoading: isCategoriesLoading } = useGetCategoriesQuery(undefined);
 
-    const { isErrorAlertOpen } = useAppSelector(selectApp);
+    const { isResponseStatusOpen } = useAppSelector(selectApp);
 
     return (
         <Box height='100vh'>
@@ -104,7 +104,7 @@ export const Layout: React.FC = () => {
             </Box>
 
             <Loader isLoading={isCategoriesLoading} />
-            {isErrorAlertOpen ? <AlertError /> : null}
+            {isResponseStatusOpen ? <AlertError /> : null}
         </Box>
     );
 };
