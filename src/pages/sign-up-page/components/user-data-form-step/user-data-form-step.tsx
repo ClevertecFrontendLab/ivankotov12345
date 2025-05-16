@@ -3,11 +3,11 @@ import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { InputAuthForm } from '~/components/input-auth-form';
 import { LABELS } from '~/constants/labels';
 import { PLACEHOLDERS } from '~/constants/placeholders';
-import { SignUp } from '~/constants/validation-schemas/sign-up';
+import { SignUpSchema } from '~/constants/validation-schemas/sign-up';
 
 type UserDataFormStepProps = {
-    register: UseFormRegister<SignUp>;
-    errors: FieldErrors<SignUp>;
+    register: UseFormRegister<SignUpSchema>;
+    errors: FieldErrors<SignUpSchema>;
 };
 
 export const UserDataFormStep: React.FC<UserDataFormStepProps> = ({ register, errors }) => (

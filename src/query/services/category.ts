@@ -1,4 +1,4 @@
-import { setLocalStorageItem } from '~/helpers/storage-categories';
+import { setLocalStorageItem } from '~/helpers/storage';
 import { setIsLoading } from '~/store/slices/app-slice';
 import { setCategories, setSubCategories } from '~/store/slices/category-slice';
 import { NavMenuItem, Subcategory } from '~/types/nav-menu';

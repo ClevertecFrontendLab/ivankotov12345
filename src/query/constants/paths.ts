@@ -5,5 +5,8 @@ export enum Endpoints {
     CATEGORY = 'category',
     RECIPE = 'recipe',
     RECIPES_BY_CATEGORY = 'recipe/category',
+    SIGN_IN = '/auth/login',
     SIGN_UP = '/auth/signup',
 }
+
+export const ACCESS_TOKEN = 'Authentication-Access';

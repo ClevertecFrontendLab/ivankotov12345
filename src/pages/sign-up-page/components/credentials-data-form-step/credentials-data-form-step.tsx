@@ -4,11 +4,11 @@ import { InputAuthForm } from '~/components/input-auth-form';
 import { InputPassword } from '~/components/input-password';
 import { LABELS, LOGIN_HINT_TEXT, PASSWORD_HINT_TEXT } from '~/constants/labels';
 import { PLACEHOLDERS } from '~/constants/placeholders';
-import { SignUp } from '~/constants/validation-schemas/sign-up';
+import { SignUpSchema } from '~/constants/validation-schemas/sign-up';
 
 type CredentialsDataFormStepProps = {
-    register: UseFormRegister<SignUp>;
-    errors: FieldErrors<SignUp>;
+    register: UseFormRegister<SignUpSchema>;
+    errors: FieldErrors<SignUpSchema>;
 };
 
 export const CredentialsDataFormStep: React.FC<CredentialsDataFormStepProps> = ({

@@ -110,10 +110,10 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
                 <InputGroup size={{ base: 'sm', lg: 'lg' }}>
                     <Input
                         data-test-id={DATA_TEST_ID.searchInput}
+                        variant='searchInput'
                         name='search'
                         placeholder={PLACEHOLDERS.search}
                         borderColor={searchBorderColor}
-                        variant='searchPanel'
                         _focus={{
                             borderColor: searchBorderColor,
                         }}

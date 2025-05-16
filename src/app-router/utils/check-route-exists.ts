@@ -1,7 +1,7 @@
 import { data, Params, redirect } from 'react-router';
 
 import { ROUTER_PATHS } from '~/constants/router-paths';
-import { getLocalStorageItem } from '~/helpers/storage-categories';
+import { getLocalStorageItem } from '~/helpers/storage';
 import { SUBCATEGORY_STORAGE_KEY } from '~/query/constants/storage-keys';
 import { Subcategory } from '~/types/nav-menu';
 

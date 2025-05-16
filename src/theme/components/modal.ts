@@ -9,6 +9,7 @@ const authModal = definePartsStyle({
         backdropFilter: 'blur(2px)',
     },
     dialog: {
+        maxW: '400px',
         alignItems: 'center',
         gap: 8,
         p: 8,

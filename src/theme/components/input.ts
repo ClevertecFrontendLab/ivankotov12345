@@ -7,6 +7,7 @@ const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpe
 
 const searchInput = definePartsStyle({
     field: {
+        border: '1px solid',
         color: 'lime.800',
         caretColor: 'lime.800',
         _placeholder: {

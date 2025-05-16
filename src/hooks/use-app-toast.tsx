@@ -3,37 +3,33 @@ import {
     AlertDescription,
     AlertIcon,
     AlertTitle,
+    Box,
     CloseButton,
     useToast,
     UseToastOptions,
-    VStack,
 } from '@chakra-ui/react';
 
 import { COLORS } from '~/constants/colors';
+
+const DURATION = 15000;
 
 export const useAppToast = () => {
     const toast = useToast();
 
     const showToast = (options: UseToastOptions) => {
         toast({
-            duration: 15000,
+            duration: DURATION,
             position: 'bottom',
             render: ({ status, title, description, onClose }) => (
-                <Alert variant='solid' status={status} py={3} px={4} gap={3} bottom={20}>
+                <Alert variant='solid' status={status} py={3} px={4} bottom={20}>
                     <AlertIcon color={COLORS.white} />
 
-                    <VStack alignItems='start'>
-                        <AlertTitle lineHeight={0}>{title}</AlertTitle>
+                    <Box>
+                        <AlertTitle>{title}</AlertTitle>
                         {description && <AlertDescription>{description}</AlertDescription>}
-                    </VStack>
+                    </Box>
 
-                    <CloseButton
-                        size='sm'
-                        position='relative'
-                        top={-1}
-                        left={-1}
-                        onClick={onClose}
-                    />
+                    <CloseButton size='sm' alignSelf='start' onClick={onClose} />
                 </Alert>
             ),
             ...options,
