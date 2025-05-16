@@ -23,7 +23,7 @@ export const VerificationPage: React.FC = () => {
         } else {
             dispatch(setIsModalVerificationOpen(true));
         }
-    }, [isEmailVerified, dispatch]);
+    }, [isEmailVerified, dispatch, showToast]);
 
     return isEmailVerified ? (
         <Navigate to={ROUTER_PATHS.signIn} />

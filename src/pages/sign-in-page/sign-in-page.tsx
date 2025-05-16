@@ -1,7 +1,7 @@
 import { Button, useDisclosure, VStack } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router';
+import { Outlet, useNavigate } from 'react-router';
 
 import { InputAuthForm } from '~/components/input-auth-form';
 import { InputPassword } from '~/components/input-password';
@@ -22,6 +22,7 @@ export const SignInPage: React.FC = () => {
     const showTaost = useAppToast();
 
     const [signIn] = useSignInMutation();
+    const onForgotDataClick = () => navigate(ROUTER_PATHS.restoreAuthData);
 
     const {
         register,
@@ -75,11 +76,20 @@ export const SignInPage: React.FC = () => {
                 </Button>
             </VStack>
 
-            <Button variant='none' size='xs' fontSize='md' mt={4} mx='auto'>
+            <Button
+                variant='none'
+                size='xs'
+                fontSize='md'
+                mt={4}
+                mx='auto'
+                onClick={onForgotDataClick}
+            >
                 Забыли логин или пароль?
             </Button>
 
             <ModalSignInError isOpen={isOpen} onClose={onClose} onSubmit={handleSubmit(onSubmit)} />
+
+            <Outlet />
         </>
     );
 };

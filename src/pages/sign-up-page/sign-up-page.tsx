@@ -53,7 +53,7 @@ export const SignUpPage: React.FC = () => {
 
     const onSubmit = async () => {
         const fromValues = getValues();
-        const { confirmPassword, ...signUpData } = fromValues;
+        const { passwordConfirm, ...signUpData } = fromValues;
 
         try {
             await signUp(signUpData).unwrap();

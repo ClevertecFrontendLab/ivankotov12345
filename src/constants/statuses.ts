@@ -29,3 +29,11 @@ export const EMAIL_NOT_VERIFIED: ToastStatus = {
     title: 'E-mail не верифицирован',
     description: 'Проверьте почту и перейдите по ссылке',
 };
+
+export const EMAIL_VERIFICATION_STATUS: Record<number, ToastStatus> = {
+    [RESPONSE_STATUS.FORBIDDEN]: {
+        status: 'error',
+        title: 'Такого e-mail нет',
+        description: 'Попробуйте другой e-mail или проверьте правильность его написания',
+    },
+};

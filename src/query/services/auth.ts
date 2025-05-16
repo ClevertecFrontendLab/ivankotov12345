@@ -16,7 +16,6 @@ export const authApi = apiSlice.injectEndpoints({
             async onQueryStarted(_, { queryFulfilled }) {
                 try {
                     const { meta } = await queryFulfilled;
-                    console.log(meta);
                     const accessToken = meta?.response?.headers.get(ACCESS_TOKEN);
 
                     if (accessToken) {
@@ -30,7 +29,22 @@ export const authApi = apiSlice.injectEndpoints({
         signUp: build.mutation({
             query: (body) => ({ url: Endpoints.SIGN_UP, method: 'POST', body }),
         }),
+        sendOtp: build.mutation({
+            query: (body) => ({ url: Endpoints.FORGOT_PASSWORD, method: 'POST', body }),
+        }),
+        verifyOtp: build.mutation({
+            query: (body) => ({ url: Endpoints.VERIFY_OTP, method: 'POST', body }),
+        }),
+        resetAuthData: build.mutation({
+            query: (body) => ({ url: Endpoints.RESET_AUTH_DATA, method: 'POST', body }),
+        }),
     }),
 });
 
-export const { useSignInMutation, useSignUpMutation } = authApi;
+export const {
+    useSignInMutation,
+    useSignUpMutation,
+    useSendOtpMutation,
+    useVerifyOtpMutation,
+    useResetAuthDataMutation,
+} = authApi;
