@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import { apiSlice } from '~/query/create-api';
 
+import { authLoaderMiddleware } from './middleware/auth-loader-middleware';
 import { appErrorMiddleware } from './middleware/error-middleware';
 import { allergensReducer, allergensSlice } from './slices/allergens-slice';
 import { appReducer, appSlice } from './slices/app-slice';
@@ -31,6 +32,10 @@ export type ApplicationState = ReturnType<typeof rootReducer>;
 export const store = configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(apiSlice.middleware, appErrorMiddleware),
+        getDefaultMiddleware().concat(
+            apiSlice.middleware,
+            appErrorMiddleware,
+            authLoaderMiddleware,
+        ),
     devTools: !isProduction,
 });

@@ -19,11 +19,17 @@ import yeeDaa from '~/assets/svg/yee-daa.svg';
 import { COLORS } from '~/constants/colors';
 import { ROUTER_PATHS } from '~/constants/router-paths';
 import { AUTH_SIZES, SIZES } from '~/constants/sizes';
+import { useAppSelector } from '~/store/hooks';
+import { selectApp } from '~/store/slices/app-slice';
+
+import { Loader } from '../loader';
 
 const tabs = [ROUTER_PATHS.signIn, ROUTER_PATHS.signUp];
 
 export const AuthLayout: React.FC = () => {
     const { pathname } = useLocation();
+
+    const { isLoading } = useAppSelector(selectApp);
 
     const activeTabIndex = useMemo(
         () => tabs.findIndex((tabItem) => tabItem === pathname),
@@ -75,6 +81,8 @@ export const AuthLayout: React.FC = () => {
                     - Лучший сервис для ваших кулинарных побед
                 </Text>
             </HStack>
+
+            <Loader isLoading={isLoading} />
         </Box>
     );
 };
