@@ -31,7 +31,9 @@ export const InputPassword: React.FC<InputPasswordProps> = ({
 }) => {
     const [isPasswordVisible, setIsPassowrdVisible] = useState(false);
 
-    const toggleButtonVisible = () => setIsPassowrdVisible(!isPasswordVisible);
+    const onPasswordVisible = () => setIsPassowrdVisible(true);
+    const onPasswordHidden = () => setIsPassowrdVisible(false);
+
     return (
         <FormControl isInvalid={isInvalid}>
             <FormLabel mb={1}>{label}</FormLabel>
@@ -46,7 +48,9 @@ export const InputPassword: React.FC<InputPasswordProps> = ({
                 />
                 <InputRightElement h='full'>
                     <IconButton
-                        onClick={toggleButtonVisible}
+                        onMouseDown={onPasswordVisible}
+                        onMouseUp={onPasswordHidden}
+                        onMouseLeave={onPasswordHidden}
                         icon={isPasswordVisible ? <ViewIcon /> : <ViewOffIcon />}
                         aria-label='show/hide password'
                         variant='none'
