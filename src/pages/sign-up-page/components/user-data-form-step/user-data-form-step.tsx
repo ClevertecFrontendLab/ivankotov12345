@@ -3,7 +3,7 @@ import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { InputAuth } from '~/components/input-auth';
 import { LABELS } from '~/constants/labels';
 import { PLACEHOLDERS } from '~/constants/placeholders';
-import { SignUpSchema } from '~/constants/validation-schemas/sign-up';
+import { SignUpSchema } from '~/constants/validation-schemas/user-data';
 
 type UserDataFormStepProps = {
     register: UseFormRegister<SignUpSchema>;

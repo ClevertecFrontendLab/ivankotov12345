@@ -5,7 +5,7 @@ import { InputPassword } from '~/components/input-password';
 import { LABELS, LOGIN_HINT_TEXT, PASSWORD_HINT_TEXT } from '~/constants/labels';
 import { PLACEHOLDERS } from '~/constants/placeholders';
 import { CredentialsSchemaWithPasswordCheck } from '~/constants/validation-schemas/credentials';
-import { SignUpSchema } from '~/constants/validation-schemas/sign-up';
+import { SignUpSchema } from '~/constants/validation-schemas/user-data';
 
 type CredentialsDataFormStepProps = {
     register: UseFormRegister<SignUpSchema | CredentialsSchemaWithPasswordCheck>;

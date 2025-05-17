@@ -5,10 +5,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { CredentialsDataForm } from '~/components/credentials-data-form';
 import { ALERT_ERROR_TEXT } from '~/constants/statuses';
-import {
-    CredentialsSchemaWithPasswordCheck,
-    credentialsSchemaWithPasswordCheck,
-} from '~/constants/validation-schemas/credentials';
+import { CredentialsSchema, credentialsSchema } from '~/constants/validation-schemas/credentials';
 import { useAppToast } from '~/hooks/use-app-toast';
 import { useResetAuthDataMutation } from '~/query/services/auth';
 
@@ -26,16 +23,13 @@ export const RestoreDataForm: React.FC<RestoreDataFormProps> = ({ email, onClose
         handleSubmit,
         formState: { errors },
     } = useForm({
-        resolver: zodResolver(credentialsSchemaWithPasswordCheck),
-        defaultValues: {
-            email: email,
-        },
+        resolver: zodResolver(credentialsSchema),
         mode: 'onChange',
     });
 
-    const onSubmit: SubmitHandler<CredentialsSchemaWithPasswordCheck> = async (data) => {
+    const onSubmit: SubmitHandler<CredentialsSchema> = async (data) => {
         try {
-            await resetAuthData(data).unwrap();
+            await resetAuthData({ ...data, email: email }).unwrap();
             onClose();
         } catch {
             showToast(ALERT_ERROR_TEXT);
