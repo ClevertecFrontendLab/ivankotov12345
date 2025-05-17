@@ -44,9 +44,9 @@ export const CheckEmailForm: React.FC<CheckEmailFormProps> = ({ setStep, step, s
             const currentError = error as ResponseError;
 
             if (+currentError.status >= RESPONSE_STATUS.SERVER_ERROR) {
-                showToast(ALERT_ERROR_TEXT);
+                showToast(ALERT_ERROR_TEXT, false);
             } else {
-                showToast(EMAIL_VERIFICATION_STATUS[+currentError.status]);
+                showToast(EMAIL_VERIFICATION_STATUS[+currentError.status], false);
                 setValue('email', '');
                 setError('email', { message: '' });
             }

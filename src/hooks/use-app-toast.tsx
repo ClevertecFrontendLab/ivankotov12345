@@ -16,10 +16,14 @@ const DURATION = 15000;
 export const useAppToast = () => {
     const toast = useToast();
 
-    const showToast = (options: UseToastOptions) => {
+    const showToast = (options: UseToastOptions, isLeftSideToast: boolean = true) => {
         toast({
             duration: DURATION,
             position: 'bottom',
+            containerStyle: {
+                position: 'relative',
+                right: isLeftSideToast ? { base: 0, lg: '25%' } : 0,
+            },
             render: ({ status, title, description, onClose }) => (
                 <Alert variant='solid' status={status} py={3} px={4} bottom={20}>
                     <AlertIcon color={COLORS.white} />

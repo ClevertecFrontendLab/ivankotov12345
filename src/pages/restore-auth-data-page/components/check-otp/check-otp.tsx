@@ -42,7 +42,7 @@ export const CheckOtp: React.FC<CheckOtpProps> = ({ setStep, step, email }) => {
             const currentError = error as ResponseError;
 
             if (+currentError.status >= RESPONSE_STATUS.SERVER_ERROR) {
-                showToast(ALERT_ERROR_TEXT);
+                showToast(ALERT_ERROR_TEXT, false);
             }
 
             setIsError(true);

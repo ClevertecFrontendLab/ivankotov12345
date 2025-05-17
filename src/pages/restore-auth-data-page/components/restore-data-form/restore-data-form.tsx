@@ -31,9 +31,9 @@ export const RestoreDataForm: React.FC<RestoreDataFormProps> = ({ email, onClose
         try {
             await resetAuthData({ ...data, email: email }).unwrap();
             onClose();
-            showToast(RESTORE_DATA_SUCCESS);
+            showToast(RESTORE_DATA_SUCCESS, false);
         } catch {
-            showToast(ALERT_ERROR_TEXT);
+            showToast(ALERT_ERROR_TEXT, false);
         }
     };
 
