@@ -7,6 +7,7 @@ import {
     Tab,
     TabList,
     Tabs,
+    Text,
     VStack,
 } from '@chakra-ui/react';
 import { useMemo } from 'react';
@@ -29,13 +30,17 @@ export const AuthLayout: React.FC = () => {
         [pathname],
     );
     return (
-        <Box h={SIZES.fullWieportHeight} background={COLORS.bgAuth}>
-            <SimpleGrid columns={2} h='full'>
-                <Center>
-                    <VStack w={AUTH_SIZES.widthLg} alignItems='start' gap={0}>
-                        <HStack alignItems='flex-end' ml={20} mb={20}>
-                            <Image src={pan} alt='pan' boxSize={16} />
-                            <Image src={yeeDaa} alt='yee daa' w={48} />
+        <Box background={COLORS.bgAuth}>
+            <SimpleGrid columns={{ base: 1, lg: 2 }} minH={SIZES.fullWieportHeight}>
+                <Center pb={20}>
+                    <VStack
+                        w={{ base: 'full', md: AUTH_SIZES.widthMd, lg: AUTH_SIZES.widthLg }}
+                        mx={4}
+                        gap={0}
+                    >
+                        <HStack alignItems='flex-end' mb={{ base: 14, lg: 20 }}>
+                            <Image src={pan} alt='pan' w={{ base: 'auto', lg: 16 }} />
+                            <Image src={yeeDaa} alt='yee daa' w={{ base: 'auto', lg: 48 }} />
                         </HStack>
 
                         <Tabs variant='limeTabs' w='full' defaultIndex={activeTabIndex} mb={10}>
@@ -54,8 +59,22 @@ export const AuthLayout: React.FC = () => {
                     </VStack>
                 </Center>
 
-                <Box bgImage={authBackground} bgSize='cover' />
+                <Box
+                    bgImage={authBackground}
+                    display={{ base: 'none', lg: 'block' }}
+                    bgSize='cover'
+                    bgPos='center'
+                />
             </SimpleGrid>
+
+            <HStack position='absolute' justifyContent='space-between' w='full' bottom={0} p={7}>
+                <Text fontSize='xs' fontWeight='semibold'>
+                    Все права защищены, ученический файл, ©Клевер Технолоджи, 2025
+                </Text>
+                <Text fontSize='xs' fontWeight='semibold' display={{ base: 'none', lg: 'block' }}>
+                    - Лучший сервис для ваших кулинарных побед
+                </Text>
+            </HStack>
         </Box>
     );
 };

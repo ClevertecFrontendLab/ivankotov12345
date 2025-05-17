@@ -1,6 +1,8 @@
 import { FormControl, FormErrorMessage, FormHelperText, FormLabel, Input } from '@chakra-ui/react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
+import { INPUT_ERROR_POSITION } from '~/constants/styles';
+
 export type InputFormProps = {
     isInvalid: boolean;
     label: string;
@@ -22,7 +24,7 @@ export const InputAuth: React.FC<InputFormProps> = ({
         <FormLabel mb={1}>{label}</FormLabel>
         <Input placeholder={placeholder} {...register} variant='authInput' size='lg' />
         <FormHelperText mt={1}>{hint}</FormHelperText>
-        <FormErrorMessage position='absolute' bottom='-15px'>
+        <FormErrorMessage position='absolute' bottom={INPUT_ERROR_POSITION}>
             {error}
         </FormErrorMessage>
     </FormControl>

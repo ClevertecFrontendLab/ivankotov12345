@@ -75,6 +75,7 @@ export const SignUpPage: React.FC = () => {
     return (
         <>
             <Text>{STEPS_LIST[step]}</Text>
+
             <Progress
                 variant='progressLime'
                 hasStripe

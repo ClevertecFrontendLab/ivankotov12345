@@ -8,7 +8,7 @@ import { InputPassword } from '~/components/input-password';
 import { LABELS } from '~/constants/labels';
 import { PLACEHOLDERS } from '~/constants/placeholders';
 import { ROUTER_PATHS } from '~/constants/router-paths';
-import { EMAIL_NOT_VERIFIED, RESPONSE_STATUS, WRONG_LOGIN_OR_PASSWORD } from '~/constants/statuses';
+import { AUTHORIZATION_STATUS, RESPONSE_STATUS } from '~/constants/statuses';
 import { SignInSchema, signInSchema } from '~/constants/validation-schemas/sign-in';
 import { useAppToast } from '~/hooks/use-app-toast';
 import { useSignInMutation } from '~/query/services/auth';
@@ -40,11 +40,8 @@ export const SignInPage: React.FC = () => {
         } catch (error) {
             const currentError = error as ResponseError;
             const { status } = currentError;
-            if (+status === RESPONSE_STATUS.UNAUTHORIZED) {
-                showTaost(WRONG_LOGIN_OR_PASSWORD);
-            }
-            if (+status === RESPONSE_STATUS.FORBIDDEN) {
-                showTaost(EMAIL_NOT_VERIFIED);
+            if (status && +status < RESPONSE_STATUS.SERVER_ERROR) {
+                showTaost(AUTHORIZATION_STATUS[+status]);
             }
             if (+status >= RESPONSE_STATUS.SERVER_ERROR) {
                 onOpen();

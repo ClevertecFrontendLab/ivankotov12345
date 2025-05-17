@@ -12,6 +12,8 @@ import {
 import { useState } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
+import { INPUT_ERROR_POSITION } from '~/constants/styles';
+
 type InputPasswordProps = {
     placeholder: string;
     register: UseFormRegisterReturn;
@@ -59,7 +61,7 @@ export const InputPassword: React.FC<InputPasswordProps> = ({
             </InputGroup>
 
             <FormHelperText mt={1}>{hint}</FormHelperText>
-            <FormErrorMessage position='absolute' bottom='-15px'>
+            <FormErrorMessage position='absolute' bottom={INPUT_ERROR_POSITION}>
                 {error}
             </FormErrorMessage>
         </FormControl>

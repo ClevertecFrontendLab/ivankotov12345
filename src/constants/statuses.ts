@@ -18,16 +18,17 @@ export const VERIFIES_SUCCESS: ToastStatus = {
     title: 'Верификация прошла успешно',
 };
 
-export const WRONG_LOGIN_OR_PASSWORD: ToastStatus = {
-    status: 'error',
-    title: 'Неверный логин или пароль',
-    description: 'Попробуйте снова.',
-};
-
-export const EMAIL_NOT_VERIFIED: ToastStatus = {
-    status: 'error',
-    title: 'E-mail не верифицирован',
-    description: 'Проверьте почту и перейдите по ссылке',
+export const AUTHORIZATION_STATUS: Record<number, ToastStatus> = {
+    [RESPONSE_STATUS.FORBIDDEN]: {
+        status: 'error',
+        title: 'E-mail не верифицирован',
+        description: 'Проверьте почту и перейдите по ссылке',
+    },
+    [RESPONSE_STATUS.UNAUTHORIZED]: {
+        status: 'error',
+        title: 'Неверный логин или пароль',
+        description: 'Попробуйте снова.',
+    },
 };
 
 export const EMAIL_VERIFICATION_STATUS: Record<number, ToastStatus> = {

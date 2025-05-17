@@ -33,4 +33,5 @@ export const SPINNER_SIZE = {
 
 export const AUTH_SIZES = {
     widthLg: '450px',
+    widthMd: '355px',
 };
