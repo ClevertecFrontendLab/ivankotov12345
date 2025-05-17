@@ -23,6 +23,8 @@ export const CheckEmailForm: React.FC<CheckEmailFormProps> = ({ setStep, step, s
     const {
         register,
         handleSubmit,
+        setValue,
+        setError,
         formState: { errors },
     } = useForm({
         resolver: zodResolver(emailSchema),
@@ -45,6 +47,8 @@ export const CheckEmailForm: React.FC<CheckEmailFormProps> = ({ setStep, step, s
                 showToast(ALERT_ERROR_TEXT);
             } else {
                 showToast(EMAIL_VERIFICATION_STATUS[+currentError.status]);
+                setValue('email', '');
+                setError('email', { message: '' });
             }
         }
     };
@@ -53,11 +57,11 @@ export const CheckEmailForm: React.FC<CheckEmailFormProps> = ({ setStep, step, s
         <>
             <Image src={breakfast} alt='breakfast' />
 
-            <Text color={COLORS_BLACK_ALPHA[900]}>
+            <Text color={COLORS_BLACK_ALPHA[900]} px={3}>
                 Для восстановления входа введите ваш e-mail, куда можно отправить уникальный код
             </Text>
 
-            <Box as='form' onSubmit={handleSubmit(onSubmit)}>
+            <Box as='form' onSubmit={handleSubmit(onSubmit)} w='full'>
                 <InputAuth
                     isInvalid={!!errors.email}
                     label={LABELS.email}
@@ -65,10 +69,14 @@ export const CheckEmailForm: React.FC<CheckEmailFormProps> = ({ setStep, step, s
                     register={register('email')}
                 />
 
-                <Button variant='black' w='full' type='submit'>
+                <Button type='submit' variant='black' size='lg' w='full' mt={6}>
                     Получить код
                 </Button>
             </Box>
+
+            <Text color={COLORS_BLACK_ALPHA[600]} fontSize='xs'>
+                Не пришло письмо? Проверьте папку Спам.
+            </Text>
         </>
     );
 };

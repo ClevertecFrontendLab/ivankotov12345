@@ -97,7 +97,7 @@ export const SignUpPage: React.FC = () => {
             <VStack as='form' w='full' mt={6} gap={6} onSubmit={handleSubmit(onSubmit)}>
                 {formSteps[step]}
 
-                <Button type='submit' variant='black' w='full' mt={12}>
+                <Button type='submit' variant='black' size='lg' w='full' mt={12}>
                     {STEPS_BUTTON_TEXT_LIST[step]}
                 </Button>
             </VStack>

@@ -18,6 +18,11 @@ export const VERIFIES_SUCCESS: ToastStatus = {
     title: 'Верификация прошла успешно',
 };
 
+export const RESTORE_DATA_SUCCESS: ToastStatus = {
+    status: 'success',
+    title: 'Восстановление данных успешно',
+};
+
 export const AUTHORIZATION_STATUS: Record<number, ToastStatus> = {
     [RESPONSE_STATUS.FORBIDDEN]: {
         status: 'error',

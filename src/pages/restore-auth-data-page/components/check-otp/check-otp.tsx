@@ -1,7 +1,17 @@
-import { Box, HStack, Image, PinInput, PinInputField, Text } from '@chakra-ui/react';
+import {
+    Box,
+    Heading,
+    HStack,
+    Image,
+    PinInput,
+    PinInputField,
+    Text,
+    VStack,
+} from '@chakra-ui/react';
 import { useState } from 'react';
 
 import verify from '~/assets/modal-images/verify.png';
+import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/colors';
 import { ALERT_ERROR_TEXT, RESPONSE_STATUS } from '~/constants/statuses';
 import { useAppToast } from '~/hooks/use-app-toast';
 import { useVerifyOtpMutation } from '~/query/services/auth';
@@ -44,26 +54,36 @@ export const CheckOtp: React.FC<CheckOtpProps> = ({ setStep, step, email }) => {
         <>
             <Image src={verify} alt='verify' />
 
-            <Box>
-                <Text>Мы отправили вам на e-mail</Text>
-                <Text>{email}</Text>
-                <Text>шестизначный код. Введите его ниже.</Text>
-            </Box>
+            <VStack gap={4}>
+                {isError && <Heading fontSize='2xl'>Неверный код</Heading>}
+                <Box>
+                    <Text>Мы отправили вам на e-mail</Text>
+                    <Text>{email}</Text>
+                    <Text>шестизначный код. Введите его ниже.</Text>
+                </Box>
 
-            <HStack>
-                <PinInput
-                    value={otpValue}
-                    isInvalid={isError}
-                    onChange={onOtpChange}
-                    onComplete={onOtpComplete}
-                >
-                    {pinItems.map((pinItem) => (
-                        <PinInputField key={pinItem} />
-                    ))}
-                </PinInput>
-            </HStack>
+                <HStack>
+                    <PinInput
+                        value={otpValue}
+                        isInvalid={isError}
+                        onChange={onOtpChange}
+                        onComplete={onOtpComplete}
+                    >
+                        {pinItems.map((pinItem) => (
+                            <PinInputField
+                                key={pinItem}
+                                color={COLORS_LIME[800]}
+                                _focus={{ borderColor: 'inherit' }}
+                                _placeholder={{ color: COLORS_LIME[800] }}
+                            />
+                        ))}
+                    </PinInput>
+                </HStack>
+            </VStack>
 
-            <Text>Не пришло письмо? Проверьте папку Спам.</Text>
+            <Text color={COLORS_BLACK_ALPHA[600]} fontSize='xs'>
+                Не пришло письмо? Проверьте папку Спам.
+            </Text>
         </>
     );
 };

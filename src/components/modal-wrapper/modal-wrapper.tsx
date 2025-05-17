@@ -16,6 +16,9 @@ export const ModalWrapper: React.FC<ModalProps> = ({ children, isOpen, onClose }
                 border={BORDERS.black}
                 borderRadius={SIZES.full}
                 onClick={onClose}
+                _hover={{
+                    bg: 'transparent',
+                }}
             />
 
             {children}
