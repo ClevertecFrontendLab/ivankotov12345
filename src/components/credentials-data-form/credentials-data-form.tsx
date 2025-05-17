@@ -1,6 +1,6 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 
-import { InputAuthForm } from '~/components/input-auth-form';
+import { InputAuth } from '~/components/input-auth';
 import { InputPassword } from '~/components/input-password';
 import { LABELS, LOGIN_HINT_TEXT, PASSWORD_HINT_TEXT } from '~/constants/labels';
 import { PLACEHOLDERS } from '~/constants/placeholders';
@@ -17,7 +17,7 @@ export const CredentialsDataForm: React.FC<CredentialsDataFormStepProps> = ({
     errors,
 }) => (
     <>
-        <InputAuthForm
+        <InputAuth
             isInvalid={!!errors.login}
             label={LABELS.login}
             placeholder={PLACEHOLDERS.loginShort}

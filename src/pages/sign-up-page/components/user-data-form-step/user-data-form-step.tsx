@@ -1,6 +1,6 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 
-import { InputAuthForm } from '~/components/input-auth-form';
+import { InputAuth } from '~/components/input-auth';
 import { LABELS } from '~/constants/labels';
 import { PLACEHOLDERS } from '~/constants/placeholders';
 import { SignUpSchema } from '~/constants/validation-schemas/sign-up';
@@ -12,7 +12,7 @@ type UserDataFormStepProps = {
 
 export const UserDataFormStep: React.FC<UserDataFormStepProps> = ({ register, errors }) => (
     <>
-        <InputAuthForm
+        <InputAuth
             isInvalid={!!errors.firstName}
             label={LABELS.name}
             placeholder={PLACEHOLDERS.name}
@@ -20,7 +20,7 @@ export const UserDataFormStep: React.FC<UserDataFormStepProps> = ({ register, er
             error={errors.firstName?.message}
         />
 
-        <InputAuthForm
+        <InputAuth
             isInvalid={!!errors.lastName}
             label={LABELS.lastName}
             placeholder={PLACEHOLDERS.lastName}
@@ -28,7 +28,7 @@ export const UserDataFormStep: React.FC<UserDataFormStepProps> = ({ register, er
             error={errors.lastName?.message}
         />
 
-        <InputAuthForm
+        <InputAuth
             isInvalid={!!errors.email}
             label={LABELS.email}
             placeholder={PLACEHOLDERS.email}

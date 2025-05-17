@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Outlet, useNavigate } from 'react-router';
 
-import { InputAuthForm } from '~/components/input-auth-form';
+import { InputAuth } from '~/components/input-auth';
 import { InputPassword } from '~/components/input-password';
 import { LABELS } from '~/constants/labels';
 import { PLACEHOLDERS } from '~/constants/placeholders';
@@ -55,7 +55,7 @@ export const SignInPage: React.FC = () => {
     return (
         <>
             <VStack as='form' w='full' gap={6} onSubmit={handleSubmit(onSubmit)}>
-                <InputAuthForm
+                <InputAuth
                     isInvalid={!!errors.login}
                     label={LABELS.login}
                     placeholder={PLACEHOLDERS.login}

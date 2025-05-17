@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import breakfast from '~/assets/modal-images/breakfast.png';
-import { InputAuthForm } from '~/components/input-auth-form';
+import { InputAuth } from '~/components/input-auth';
 import { COLORS_BLACK_ALPHA } from '~/constants/colors';
 import { LABELS } from '~/constants/labels';
 import { PLACEHOLDERS } from '~/constants/placeholders';
@@ -58,7 +58,7 @@ export const CheckEmailForm: React.FC<CheckEmailFormProps> = ({ setStep, step, s
             </Text>
 
             <Box as='form' onSubmit={handleSubmit(onSubmit)}>
-                <InputAuthForm
+                <InputAuth
                     isInvalid={!!errors.email}
                     label={LABELS.email}
                     placeholder={PLACEHOLDERS.email}

@@ -10,7 +10,7 @@ export type InputFormProps = {
     error?: string;
 };
 
-export const InputAuthForm: React.FC<InputFormProps> = ({
+export const InputAuth: React.FC<InputFormProps> = ({
     isInvalid,
     label,
     placeholder,
