@@ -5,6 +5,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { CredentialsDataForm } from '~/components/credentials-data-form';
 import { ALERT_ERROR_TEXT, RESTORE_DATA_SUCCESS } from '~/constants/statuses';
+import { DATA_TEST_ID } from '~/constants/test-id';
 import { CredentialsSchema, credentialsSchema } from '~/constants/validation-schemas/credentials';
 import { useAppToast } from '~/hooks/use-app-toast';
 import { useResetAuthDataMutation } from '~/query/services/auth';
@@ -21,6 +22,7 @@ export const RestoreDataForm: React.FC<RestoreDataFormProps> = ({ email, onClose
     const {
         register,
         handleSubmit,
+        setValue,
         formState: { errors },
     } = useForm({
         resolver: zodResolver(credentialsSchema),
@@ -43,8 +45,14 @@ export const RestoreDataForm: React.FC<RestoreDataFormProps> = ({ email, onClose
                 Восстановление аккаунта
             </Heading>
             <VStack as='form' onSubmit={handleSubmit(onSubmit)} gap={6} textAlign='start'>
-                <CredentialsDataForm register={register} errors={errors} />
-                <Button variant='black' size='lg' type='submit' w='full'>
+                <CredentialsDataForm register={register} errors={errors} setValue={setValue} />
+                <Button
+                    variant='black'
+                    size='lg'
+                    type='submit'
+                    w='full'
+                    data-test-id={DATA_TEST_ID.submitButton}
+                >
                     Зарегистрироваться
                 </Button>
             </VStack>

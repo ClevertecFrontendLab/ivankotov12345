@@ -3,6 +3,7 @@ import { Box, Heading, Image, ModalProps, Text } from '@chakra-ui/react';
 import registrationImage from '~/assets/modal-images/registration.png';
 import { ModalWrapper } from '~/components/modal-wrapper';
 import { COLORS_BLACK_ALPHA } from '~/constants/colors';
+import { DATA_TEST_ID } from '~/constants/test-id';
 
 type ModalSignUpSuccessProps = Pick<ModalProps, 'isOpen' | 'onClose'> & { email: string };
 
@@ -11,7 +12,7 @@ export const ModalSignUpSuccess: React.FC<ModalSignUpSuccessProps> = ({
     onClose,
     email,
 }) => (
-    <ModalWrapper isOpen={isOpen} onClose={onClose}>
+    <ModalWrapper isOpen={isOpen} onClose={onClose} testId={DATA_TEST_ID.signUpSuccessModal}>
         <Image src={registrationImage} alt='registration' />
         <Box>
             <Heading mb={4} fontSize='2xl'>

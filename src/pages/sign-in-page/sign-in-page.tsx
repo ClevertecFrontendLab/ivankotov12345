@@ -9,6 +9,7 @@ import { LABELS } from '~/constants/labels';
 import { PLACEHOLDERS } from '~/constants/placeholders';
 import { ROUTER_PATHS } from '~/constants/router-paths';
 import { AUTHORIZATION_STATUS, RESPONSE_STATUS } from '~/constants/statuses';
+import { DATA_TEST_ID } from '~/constants/test-id';
 import { SignInSchema, signInSchema } from '~/constants/validation-schemas/sign-in';
 import { useAppToast } from '~/hooks/use-app-toast';
 import { useSignInMutation } from '~/query/services/auth';
@@ -26,6 +27,7 @@ export const SignInPage: React.FC = () => {
 
     const {
         register,
+        setValue,
         handleSubmit,
         formState: { errors },
     } = useForm({
@@ -51,13 +53,21 @@ export const SignInPage: React.FC = () => {
 
     return (
         <>
-            <VStack as='form' w='full' gap={6} onSubmit={handleSubmit(onSubmit)}>
+            <VStack
+                as='form'
+                w='full'
+                gap={6}
+                onSubmit={handleSubmit(onSubmit)}
+                data-test-id={DATA_TEST_ID.signInForm}
+            >
                 <InputAuth
                     isInvalid={!!errors.login}
                     label={LABELS.login}
                     placeholder={PLACEHOLDERS.login}
                     register={register('login')}
                     error={errors.login?.message}
+                    testId={DATA_TEST_ID.loginInput}
+                    setValue={setValue}
                 />
 
                 <InputPassword
@@ -66,9 +76,17 @@ export const SignInPage: React.FC = () => {
                     placeholder={PLACEHOLDERS.password}
                     register={register('password')}
                     error={errors.password?.message}
+                    testId={DATA_TEST_ID.passwordInput}
                 />
 
-                <Button variant='black' size='lg' w='full' mt={28} type='submit'>
+                <Button
+                    variant='black'
+                    size='lg'
+                    w='full'
+                    mt={28}
+                    type='submit'
+                    data-test-id={DATA_TEST_ID.submitButton}
+                >
                     Войти
                 </Button>
             </VStack>
@@ -80,6 +98,7 @@ export const SignInPage: React.FC = () => {
                 mt={4}
                 mx='auto'
                 onClick={onForgotDataClick}
+                data-test-id={DATA_TEST_ID.forgotPassword}
             >
                 Забыли логин или пароль?
             </Button>

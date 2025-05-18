@@ -3,6 +3,7 @@ import { Box, Heading, Image, Text } from '@chakra-ui/react';
 import verificationErrorImage from '~/assets/modal-images/verification-error-image.png';
 import { ModalWrapper } from '~/components/modal-wrapper';
 import { COLORS_BLACK_ALPHA } from '~/constants/colors';
+import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectModalVerification, setIsModalVerificationOpen } from '~/store/slices/app-slice';
 
@@ -13,7 +14,11 @@ export const ModalVerificationError: React.FC = () => {
 
     const onClose = () => dispatch(setIsModalVerificationOpen(false));
     return (
-        <ModalWrapper isOpen={isModalVerificationOen} onClose={onClose}>
+        <ModalWrapper
+            isOpen={isModalVerificationOen}
+            onClose={onClose}
+            testId={DATA_TEST_ID.emailVerificationFailedModal}
+        >
             <Image src={verificationErrorImage} alt='verification error' />
             <Box>
                 <Heading mb={4} fontSize='2xl'>

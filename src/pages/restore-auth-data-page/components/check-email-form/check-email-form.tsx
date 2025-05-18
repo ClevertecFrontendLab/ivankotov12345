@@ -8,6 +8,7 @@ import { COLORS_BLACK_ALPHA } from '~/constants/colors';
 import { LABELS } from '~/constants/labels';
 import { PLACEHOLDERS } from '~/constants/placeholders';
 import { ALERT_ERROR_TEXT, EMAIL_VERIFICATION_STATUS, RESPONSE_STATUS } from '~/constants/statuses';
+import { DATA_TEST_ID } from '~/constants/test-id';
 import { EmailSchema, emailSchema } from '~/constants/validation-schemas/e-mail';
 import { useAppToast } from '~/hooks/use-app-toast';
 import { useSendOtpMutation } from '~/query/services/auth';
@@ -67,9 +68,18 @@ export const CheckEmailForm: React.FC<CheckEmailFormProps> = ({ setStep, step, s
                     label={LABELS.email}
                     placeholder={PLACEHOLDERS.email}
                     register={register('email')}
+                    testId={DATA_TEST_ID.emailInput}
+                    setValue={setValue}
                 />
 
-                <Button type='submit' variant='black' size='lg' w='full' mt={6}>
+                <Button
+                    type='submit'
+                    variant='black'
+                    size='lg'
+                    w='full'
+                    mt={6}
+                    data-test-id={DATA_TEST_ID.submitButton}
+                >
                     Получить код
                 </Button>
             </Box>

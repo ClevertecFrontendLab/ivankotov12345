@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 
 import { COLORS } from '~/constants/colors';
+import { DATA_TEST_ID } from '~/constants/test-id';
 
 const DURATION = 15000;
 
@@ -42,6 +43,7 @@ export const useAppToast = () => {
                     py={3}
                     px={4}
                     bottom={{ base: INDENT_BOTTOM.sm, lg: INDENT_BOTTOM.lg }}
+                    data-test-id={DATA_TEST_ID.errorNotification}
                 >
                     <AlertIcon color={COLORS.white} />
 
@@ -50,7 +52,12 @@ export const useAppToast = () => {
                         {description && <AlertDescription>{description}</AlertDescription>}
                     </Box>
 
-                    <CloseButton size='sm' alignSelf='start' onClick={onClose} />
+                    <CloseButton
+                        size='sm'
+                        alignSelf='start'
+                        onClick={onClose}
+                        data-test-id={DATA_TEST_ID.closeAlertButton}
+                    />
                 </Alert>
             ),
             ...options,

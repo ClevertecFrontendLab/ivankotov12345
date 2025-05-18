@@ -3,10 +3,17 @@ import { useNavigate } from 'react-router';
 
 import { ModalWrapper } from '~/components/modal-wrapper';
 import { ROUTER_PATHS } from '~/constants/router-paths';
+import { DATA_TEST_ID } from '~/constants/test-id';
 
 import { CheckEmailForm } from './components/check-email-form';
 import { CheckOtp } from './components/check-otp';
 import { RestoreDataForm } from './components/restore-data-form';
+
+const testIdSteps = [
+    DATA_TEST_ID.sendEmailModal,
+    DATA_TEST_ID.verificationCodeModal,
+    DATA_TEST_ID.resetCredentialsModal,
+];
 
 export const RestoreAuthDataPage: React.FC = () => {
     const [step, setStep] = useState(0);
@@ -21,7 +28,7 @@ export const RestoreAuthDataPage: React.FC = () => {
     ];
 
     return (
-        <ModalWrapper isOpen={true} onClose={onClose}>
+        <ModalWrapper isOpen={true} onClose={onClose} testId={testIdSteps[step]}>
             {restoreAuthDataSteps[step]}
         </ModalWrapper>
     );

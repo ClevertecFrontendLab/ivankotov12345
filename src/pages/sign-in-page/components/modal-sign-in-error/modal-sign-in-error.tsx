@@ -3,6 +3,7 @@ import { Box, Button, Heading, Image, ModalProps, Text } from '@chakra-ui/react'
 import breakfast from '~/assets/modal-images/breakfast.png';
 import { ModalWrapper } from '~/components/modal-wrapper';
 import { COLORS_BLACK_ALPHA } from '~/constants/colors';
+import { DATA_TEST_ID } from '~/constants/test-id';
 
 type ModalSignInErrorProps = Pick<ModalProps, 'isOpen' | 'onClose'> & { onSubmit: () => void };
 
@@ -11,7 +12,7 @@ export const ModalSignInError: React.FC<ModalSignInErrorProps> = ({
     onClose,
     onSubmit,
 }) => (
-    <ModalWrapper isOpen={isOpen} onClose={onClose}>
+    <ModalWrapper isOpen={isOpen} onClose={onClose} testId={DATA_TEST_ID.signInErrorModal}>
         <Image src={breakfast} alt='breakfast' />
 
         <Box>
@@ -23,7 +24,12 @@ export const ModalSignInError: React.FC<ModalSignInErrorProps> = ({
             </Text>
         </Box>
 
-        <Button variant='black' w='full' onClick={onSubmit}>
+        <Button
+            variant='black'
+            w='full'
+            onClick={onSubmit}
+            data-test-id={DATA_TEST_ID.repeatButton}
+        >
             Повторить
         </Button>
     </ModalWrapper>

@@ -7,6 +7,7 @@ import { ZodType } from 'zod';
 import { CredentialsDataForm } from '~/components/credentials-data-form';
 import { COLORS_BLACK_ALPHA } from '~/constants/colors';
 import { ALERT_ERROR_TEXT, RESPONSE_STATUS } from '~/constants/statuses';
+import { DATA_TEST_ID } from '~/constants/test-id';
 import { credentialsSchema } from '~/constants/validation-schemas/credentials';
 import { userDataSchema } from '~/constants/validation-schemas/user-data';
 import { useAppToast } from '~/hooks/use-app-toast';
@@ -19,6 +20,7 @@ import { UserDataFormStep } from './components/user-data-form-step';
 
 const STEPS_LIST = ['Шаг 1. Личная информация', 'Шаг 2. Логин и пароль'];
 const STEPS_BUTTON_TEXT_LIST = ['Дальше', 'Зарегистрироваться'];
+const FIELDS_COUNT = 6;
 
 const signUpSchema: ZodType[] = [userDataSchema, credentialsSchema];
 
@@ -46,7 +48,7 @@ export const SignUpPage: React.FC = () => {
         return acc;
     }, 0);
 
-    const progressValue = (validatedCount * 100) / 6;
+    const progressValue = (validatedCount * 100) / FIELDS_COUNT;
 
     const [signUp] = useSignUpMutation();
 
@@ -92,12 +94,27 @@ export const SignUpPage: React.FC = () => {
                 size='sm'
                 value={progressValue}
                 bgColor={COLORS_BLACK_ALPHA[100]}
+                data-test-id={DATA_TEST_ID.signUpProgress}
             />
 
-            <VStack as='form' w='full' mt={6} gap={6} onSubmit={handleSubmit(onSubmit)}>
+            <VStack
+                as='form'
+                w='full'
+                mt={6}
+                gap={6}
+                onSubmit={handleSubmit(onSubmit)}
+                data-test-id={DATA_TEST_ID.signUpForm}
+            >
                 {formSteps[step]}
 
-                <Button type='submit' variant='black' size='lg' w='full' mt={12}>
+                <Button
+                    type='submit'
+                    variant='black'
+                    size='lg'
+                    w='full'
+                    mt={12}
+                    data-test-id={DATA_TEST_ID.submitButton}
+                >
                     {STEPS_BUTTON_TEXT_LIST[step]}
                 </Button>
             </VStack>

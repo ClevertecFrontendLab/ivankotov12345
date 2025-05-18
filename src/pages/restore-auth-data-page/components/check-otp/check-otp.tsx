@@ -13,6 +13,7 @@ import { useState } from 'react';
 import verify from '~/assets/modal-images/verify.png';
 import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/colors';
 import { ALERT_ERROR_TEXT, RESPONSE_STATUS } from '~/constants/statuses';
+import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppToast } from '~/hooks/use-app-toast';
 import { useVerifyOtpMutation } from '~/query/services/auth';
 import { ResponseError } from '~/types/response';
@@ -75,6 +76,7 @@ export const CheckOtp: React.FC<CheckOtpProps> = ({ setStep, step, email }) => {
                                 color={COLORS_LIME[800]}
                                 _focus={{ borderColor: 'inherit' }}
                                 _placeholder={{ color: COLORS_LIME[800] }}
+                                data-test-id={`${DATA_TEST_ID.verificationCodeInput}${pinItem}`}
                             />
                         ))}
                     </PinInput>
