@@ -1,6 +1,5 @@
 import { RouteObject } from 'react-router';
 
-import { AuthLayout } from '~/components/auth-layout';
 import { ROUTER_PATHS } from '~/constants/router-paths';
 import { RestoreAuthDataPage } from '~/pages/restore-auth-data-page';
 import { SignInPage } from '~/pages/sign-in-page';
@@ -8,7 +7,10 @@ import { SignUpPage } from '~/pages/sign-up-page';
 import { VerificationPage } from '~/pages/verification-page';
 
 export const authPage: RouteObject = {
-    element: <AuthLayout />,
+    lazy: async () => {
+        const { AuthLayout } = await import('~/components/auth-layout');
+        return { Component: AuthLayout };
+    },
     children: [
         {
             path: ROUTER_PATHS.signIn,
