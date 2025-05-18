@@ -13,6 +13,16 @@ import { COLORS } from '~/constants/colors';
 
 const DURATION = 15000;
 
+const ALERT_WIDTH = {
+    sm: '328px',
+    lg: '400px',
+};
+
+const INDENT_BOTTOM = {
+    sm: '100px',
+    lg: '80px',
+};
+
 export const useAppToast = () => {
     const toast = useToast();
 
@@ -25,7 +35,14 @@ export const useAppToast = () => {
                 right: isLeftSideToast ? { base: 0, lg: '25%' } : 0,
             },
             render: ({ status, title, description, onClose }) => (
-                <Alert variant='solid' status={status} py={3} px={4} bottom={20}>
+                <Alert
+                    variant='solid'
+                    status={status}
+                    w={{ base: ALERT_WIDTH.sm, lg: ALERT_WIDTH.lg }}
+                    py={3}
+                    px={4}
+                    bottom={{ base: INDENT_BOTTOM.sm, lg: INDENT_BOTTOM.lg }}
+                >
                     <AlertIcon color={COLORS.white} />
 
                     <Box>

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ZodType } from 'zod';
 
+import { CredentialsDataForm } from '~/components/credentials-data-form';
 import { COLORS_BLACK_ALPHA } from '~/constants/colors';
 import { ALERT_ERROR_TEXT, RESPONSE_STATUS } from '~/constants/statuses';
 import { credentialsSchema } from '~/constants/validation-schemas/credentials';
@@ -12,7 +13,6 @@ import { useAppToast } from '~/hooks/use-app-toast';
 import { useSignUpMutation } from '~/query/services/auth';
 import { ResponseError } from '~/types/response';
 
-import { CredentialsDataFormStep } from './components/credentials-data-form-step';
 import { ModalSignUpSuccess } from './components/modal-sign-up-success';
 import { ModalVerificationError } from './components/modal-verification-error';
 import { UserDataFormStep } from './components/user-data-form-step';
@@ -78,7 +78,7 @@ export const SignUpPage: React.FC = () => {
 
     const formSteps = [
         <UserDataFormStep register={register} errors={errors} />,
-        <CredentialsDataFormStep register={register} errors={errors} />,
+        <CredentialsDataForm register={register} errors={errors} />,
     ];
 
     return (

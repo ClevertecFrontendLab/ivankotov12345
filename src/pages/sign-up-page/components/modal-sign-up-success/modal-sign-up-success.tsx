@@ -17,9 +17,11 @@ export const ModalSignUpSuccess: React.FC<ModalSignUpSuccessProps> = ({
             <Heading mb={4} fontSize='2xl'>
                 Остался последний шаг. Нужно верифицировать ваш e-mail{' '}
             </Heading>
-            <Text color={COLORS_BLACK_ALPHA[900]}>
-                Мы отправили вам на почту <b>{email}</b> ссылку для верификации.
-            </Text>
+            <Box color={COLORS_BLACK_ALPHA[900]}>
+                <Text>Мы отправили вам на почту</Text>
+                <Text fontWeight='semibold'>{email}</Text>
+                <Text>ссылку для верификации.</Text>
+            </Box>
         </Box>
 
         <Text fontSize='xs' color={COLORS_BLACK_ALPHA[600]}>
