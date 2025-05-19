@@ -53,9 +53,8 @@ export const AlertError: React.FC = () => {
 
                 <CloseButton
                     data-test-id={DATA_TEST_ID.closeAlertButton}
-                    position='relative'
-                    right={-1}
-                    top={-1}
+                    position='absolute'
+                    right={3}
                     onClick={onAlertCloseClick}
                 />
             </Alert>
