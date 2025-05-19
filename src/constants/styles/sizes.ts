@@ -7,6 +7,7 @@ export const SIZES = {
     fullWieportWidth: '100vw',
     fullWieportHeight: '100dvh',
     full: 'full',
+    auto: 'auto',
 };
 
 export const ERROE_PAGE_SIZES = {

@@ -2,13 +2,13 @@ import { EditIcon } from '@chakra-ui/icons';
 import { Flex, IconButton, Spacer, Text, VStack } from '@chakra-ui/react';
 
 import { COLORS, COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
-import { BG_GRADIENT_SIZE } from '~/constants/styles/sizes';
+import { BG_GRADIENT_SIZE, SIZES } from '~/constants/styles/sizes';
 import { Z_INDEX } from '~/constants/styles/z-index';
 
 import { Stats } from '../stats';
 
 export const Aside: React.FC = () => (
-    <Flex direction='column' h='full' position='relative'>
+    <Flex direction='column' h={SIZES.full} position='relative'>
         <Stats size='md' />
 
         <Spacer />
@@ -19,7 +19,7 @@ export const Aside: React.FC = () => (
                 icon={<EditIcon w={6} h={6} />}
                 bg={COLORS.black}
                 color={COLORS.white}
-                borderRadius='full'
+                borderRadius={SIZES.full}
                 size='lg'
                 _after={{
                     content: '""',

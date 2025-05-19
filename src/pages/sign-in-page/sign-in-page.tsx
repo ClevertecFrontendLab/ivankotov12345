@@ -9,6 +9,7 @@ import { LABELS } from '~/constants/labels';
 import { PLACEHOLDERS } from '~/constants/placeholders';
 import { ROUTER_PATHS } from '~/constants/router-paths';
 import { AUTHORIZATION_STATUS, RESPONSE_STATUS } from '~/constants/statuses';
+import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { SignInSchema, signInSchema } from '~/constants/validation-schemas/sign-in';
@@ -56,7 +57,7 @@ export const SignInPage: React.FC = () => {
         <>
             <VStack
                 as='form'
-                w='full'
+                w={SIZES.full}
                 gap={6}
                 onSubmit={handleSubmit(onSubmit)}
                 data-test-id={DATA_TEST_ID.signInForm}
@@ -83,7 +84,7 @@ export const SignInPage: React.FC = () => {
                 <Button
                     variant={STYLE_VARIANTS.black}
                     size='lg'
-                    w='full'
+                    w={SIZES.full}
                     mt={28}
                     type='submit'
                     data-test-id={DATA_TEST_ID.submitButton}

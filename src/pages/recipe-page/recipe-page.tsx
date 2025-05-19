@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { Сarousel } from '~/components/carousel';
 import { UserCard } from '~/components/user-card';
 import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
+import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { usePathItems } from '~/hooks/use-path-items';
 import { IngredientsTable } from '~/pages/recipe-page/components/ingredients-table';
@@ -58,7 +59,7 @@ export const RecipePage: React.FC = () => {
                 <NutritionValueSection {...nutritionValue} />
                 <IngredientsTable ingredients={ingredients} portions={portions} />
 
-                <VStack as='section' w='full' gap={5} alignItems='start'>
+                <VStack as='section' w={SIZES.full} gap={5} alignItems='start'>
                     <Heading variant={STYLE_VARIANTS.sectionHeading}>Шаги приготовления</Heading>
                     {steps.map((step, index) => (
                         <StepCard
@@ -76,7 +77,7 @@ export const RecipePage: React.FC = () => {
                 <UserCard />
             </VStack>
 
-            <Box w='full'>
+            <Box w={SIZES.full}>
                 <Сarousel />
             </Box>
         </VStack>

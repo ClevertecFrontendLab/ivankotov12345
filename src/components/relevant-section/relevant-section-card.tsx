@@ -1,6 +1,7 @@
 import { Card, CardBody, CardFooter, Flex, Heading, Spacer, Text } from '@chakra-ui/react';
 
 import { COLORS_LIME } from '~/constants/styles/colors';
+import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { getCardCategories } from '~/helpers/get-card-categories';
 import { useAppSelector } from '~/store/hooks';
@@ -37,8 +38,8 @@ export const RelevantSectionCard: React.FC<RelevantSectionCardProps> = ({
                 </Text>
             </CardBody>
 
-            <CardFooter p={0} w='full'>
-                <Flex alignItems='center' w='full'>
+            <CardFooter p={0} w={SIZES.full}>
+                <Flex alignItems='center' w={SIZES.full}>
                     {cardCategories.map(({ _id, title, icon }) => (
                         <CardBadge
                             backgroundColor={COLORS_LIME[50]}

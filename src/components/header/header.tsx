@@ -3,6 +3,7 @@ import { Flex, HStack, Image, Spacer, Stack, useMediaQuery } from '@chakra-ui/re
 import avatar from '~/assets/img/avatar.jpg';
 import { ROUTER_PATHS } from '~/constants/router-paths';
 import { COLORS, COLORS_LIME } from '~/constants/styles/colors';
+import { SIZES } from '~/constants/styles/sizes';
 import { usePathItems } from '~/hooks/use-path-items';
 import { useAppSelector } from '~/store/hooks';
 import { selectBurger } from '~/store/slices/burger-slice';
@@ -22,8 +23,8 @@ export const Header: React.FC = () => {
     return (
         <Flex
             maxW='1920px'
-            w='full'
-            h='full'
+            w={SIZES.full}
+            h={SIZES.full}
             alignItems='center'
             py={{ base: 1, lg: 4 }}
             pl={{ base: 5, lg: 4 }}

@@ -41,7 +41,7 @@ export const AuthLayout: React.FC = () => {
             <SimpleGrid columns={{ base: 1, lg: 2 }} minH={SIZES.fullWieportHeight}>
                 <Center pb={20}>
                     <VStack
-                        w={{ base: 'full', md: AUTH_SIZES.widthMd, lg: AUTH_SIZES.widthLg }}
+                        w={{ base: SIZES.full, md: AUTH_SIZES.widthMd, lg: AUTH_SIZES.widthLg }}
                         mx={4}
                         gap={0}
                     >
@@ -52,7 +52,7 @@ export const AuthLayout: React.FC = () => {
 
                         <Tabs
                             variant={STYLE_VARIANTS.limeTabs}
-                            w='full'
+                            w={SIZES.full}
                             defaultIndex={activeTabIndex}
                             mb={10}
                         >
@@ -79,7 +79,13 @@ export const AuthLayout: React.FC = () => {
                 />
             </SimpleGrid>
 
-            <HStack position='absolute' justifyContent='space-between' w='full' bottom={0} p={7}>
+            <HStack
+                position='absolute'
+                justifyContent='space-between'
+                w={SIZES.full}
+                bottom={0}
+                p={7}
+            >
                 <Text fontSize='xs' fontWeight='semibold'>
                     Все права защищены, ученический файл, ©Клевер Технолоджи, 2025
                 </Text>

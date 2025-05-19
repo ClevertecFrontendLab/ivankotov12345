@@ -5,6 +5,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { CredentialsDataForm } from '~/components/credentials-data-form';
 import { AUTH_SERVER_ERROR, RESTORE_DATA_SUCCESS } from '~/constants/statuses';
+import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { CredentialsSchema, credentialsSchema } from '~/constants/validation-schemas/credentials';
@@ -51,7 +52,7 @@ export const RestoreDataForm: React.FC<RestoreDataFormProps> = ({ email, onClose
                     variant={STYLE_VARIANTS.black}
                     size='lg'
                     type='submit'
-                    w='full'
+                    w={SIZES.full}
                     data-test-id={DATA_TEST_ID.submitButton}
                 >
                     Зарегистрироваться

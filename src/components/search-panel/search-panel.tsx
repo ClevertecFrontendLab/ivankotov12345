@@ -12,6 +12,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { PLACEHOLDERS } from '~/constants/placeholders';
 import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
+import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
@@ -95,8 +96,8 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
     }, [dispatch, filters, searchInputValue, filteredRecipes, isOpen]);
 
     return (
-        <VStack w='full' px={{ md: 36, lg: 48 }} gap={4}>
-            <HStack w='full'>
+        <VStack w={SIZES.full} px={{ md: 36, lg: 48 }} gap={4}>
+            <HStack w={SIZES.full}>
                 <IconButton
                     aria-label='filter'
                     icon={<FilterIcon />}
@@ -142,7 +143,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
             </HStack>
 
             {!isTablet && (
-                <HStack w='full' gap={4} maxH={12} h='full'>
+                <HStack w={SIZES.full} gap={4} maxH={12} h={SIZES.full}>
                     <AllergensSelectMenu />
                 </HStack>
             )}

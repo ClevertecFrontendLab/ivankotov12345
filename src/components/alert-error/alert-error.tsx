@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react';
 
 import { COLORS } from '~/constants/styles/colors';
+import { SIZES } from '~/constants/styles/sizes';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectApp, setToastData, setToastIsOpen } from '~/store/slices/app-slice';
@@ -33,7 +34,11 @@ export const AlertError: React.FC = () => {
         dispatch(setToastData());
     };
     return (
-        <Center position='fixed' w='full' bottom={{ base: INDENT_BOTTOM.sm, lg: INDENT_BOTTOM.lg }}>
+        <Center
+            position='fixed'
+            w={SIZES.full}
+            bottom={{ base: INDENT_BOTTOM.sm, lg: INDENT_BOTTOM.lg }}
+        >
             <Alert
                 status='error'
                 w={{ base: ALERT_WIDTH.sm, lg: ALERT_WIDTH.lg }}

@@ -12,6 +12,7 @@ import {
     RESPONSE_STATUS,
 } from '~/constants/statuses';
 import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
+import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { EmailSchema, emailSchema } from '~/constants/validation-schemas/e-mail';
@@ -67,7 +68,7 @@ export const CheckEmailForm: React.FC<CheckEmailFormProps> = ({ setStep, step, s
                 Для восстановления входа введите ваш e-mail, куда можно отправить уникальный код
             </Text>
 
-            <Box as='form' onSubmit={handleSubmit(onSubmit)} w='full'>
+            <Box as='form' onSubmit={handleSubmit(onSubmit)} w={SIZES.full}>
                 <InputAuth
                     isInvalid={!!errors.email}
                     label={LABELS.email}
@@ -82,7 +83,7 @@ export const CheckEmailForm: React.FC<CheckEmailFormProps> = ({ setStep, step, s
                     type='submit'
                     variant={STYLE_VARIANTS.black}
                     size='lg'
-                    w='full'
+                    w={SIZES.full}
                     mt={6}
                     data-test-id={DATA_TEST_ID.submitButton}
                 >

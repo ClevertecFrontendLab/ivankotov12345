@@ -22,6 +22,7 @@ import { NavLink } from 'react-router';
 
 import fallback from '~/assets/fallback.png';
 import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
+import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { getCardCategories } from '~/helpers/get-card-categories';
@@ -79,17 +80,17 @@ export const FoodCard: React.FC<CardData> = memo(
                 )}
 
                 <VStack
-                    w='full'
+                    w={SIZES.full}
                     alignItems='start'
                     pt={{ base: 2, lg: 5 }}
                     px={{ base: 2, lg: 6 }}
                     pb={{ base: 1, lg: 5 }}
                     spacing={{ base: 2, lg: 4 }}
                 >
-                    <CardHeader w='full' p={0}>
+                    <CardHeader w={SIZES.full} p={0}>
                         <Flex>
                             <VStack
-                                w='full'
+                                w={SIZES.full}
                                 alignItems='start'
                                 layerStyle='absolute'
                                 top={2}
@@ -144,8 +145,8 @@ export const FoodCard: React.FC<CardData> = memo(
                         </Box>
                     </CardBody>
 
-                    <CardFooter p={0} display='block' w='full'>
-                        <ButtonGroup w='full' justifyContent='flex-end'>
+                    <CardFooter p={0} display='block' w={SIZES.full}>
+                        <ButtonGroup w={SIZES.full} justifyContent='flex-end'>
                             <Button
                                 variant={STYLE_VARIANTS.outline}
                                 leftIcon={<LikeIcon />}

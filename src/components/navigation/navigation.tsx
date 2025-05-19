@@ -2,6 +2,7 @@ import { Accordion, Button, Text, useMediaQuery, useOutsideClick, VStack } from 
 import { useMemo, useRef } from 'react';
 
 import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
+import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { Z_INDEX } from '~/constants/styles/z-index';
 import { DATA_TEST_ID } from '~/constants/test-id';
@@ -60,13 +61,17 @@ export const Navigation: React.FC<NavigationProps> = ({ buttonRef }) => {
         >
             {isTablet && <Breadcrumbs />}
 
-            <Accordion overflowY='auto' w={{ base: 'full', lg: 'auto' }} defaultIndex={activeIndex}>
+            <Accordion
+                overflowY='auto'
+                w={{ base: SIZES.full, lg: SIZES.auto }}
+                defaultIndex={activeIndex}
+            >
                 {categories &&
                     categories.map((props) => <CategoryItem {...props} key={props.category} />)}
             </Accordion>
 
             <VStack
-                w='full'
+                w={SIZES.full}
                 pb={8}
                 px={6}
                 gap={5}

@@ -12,6 +12,7 @@ import {
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 
 import { COLORS, COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
+import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch } from '~/store/hooks';
@@ -57,8 +58,8 @@ export const DrawerMenu: React.FC<DrawerProps> = ({
                 as={Button}
                 rightIcon={<ChevronDownIcon />}
                 variant={STYLE_VARIANTS.menuButton}
-                w='full'
-                height='auto'
+                w={SIZES.full}
+                height={SIZES.auto}
                 data-test-id={testId}
             >
                 <HStack alignItems='start' rowGap={1} columnGap={2} flexWrap='wrap'>

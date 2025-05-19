@@ -3,13 +3,14 @@ import { Avatar, SimpleGrid, Text, VStack } from '@chakra-ui/react';
 
 import avatar from '~/assets/img/avatar.jpg';
 import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
+import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 
 import { HomeIcon } from '../icons';
 import { FooterItem } from './footer-item';
 
 export const Footer: React.FC = () => (
-    <SimpleGrid as='footer' columns={4} spacing={0} w='full' overflow='hidden'>
+    <SimpleGrid as='footer' columns={4} spacing={0} w={SIZES.full} overflow='hidden'>
         <FooterItem icon={<HomeIcon />} description='Главная' variant='highlighted' />
         <FooterItem
             icon={<SearchIcon w={6} h={6} />}

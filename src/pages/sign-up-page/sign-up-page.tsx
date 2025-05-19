@@ -9,6 +9,7 @@ import { CredentialsDataForm } from '~/components/credentials-data-form';
 import { ROUTER_PATHS } from '~/constants/router-paths';
 import { AUTH_SERVER_ERROR, RESPONSE_STATUS } from '~/constants/statuses';
 import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
+import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { credentialsSchema } from '~/constants/validation-schemas/credentials';
@@ -96,12 +97,12 @@ export const SignUpPage: React.FC = () => {
 
     return (
         <>
-            <Text w='full'>{STEPS_LIST[step]}</Text>
+            <Text w={SIZES.full}>{STEPS_LIST[step]}</Text>
 
             <Progress
                 variant={STYLE_VARIANTS.progressLime}
                 hasStripe
-                w='full'
+                w={SIZES.full}
                 size='sm'
                 value={progressValue}
                 bgColor={COLORS_BLACK_ALPHA[100]}
@@ -110,7 +111,7 @@ export const SignUpPage: React.FC = () => {
 
             <VStack
                 as='form'
-                w='full'
+                w={SIZES.full}
                 mt={6}
                 gap={6}
                 onSubmit={handleSubmit(onSubmit)}
@@ -122,7 +123,7 @@ export const SignUpPage: React.FC = () => {
                     type='submit'
                     variant={STYLE_VARIANTS.black}
                     size='lg'
-                    w='full'
+                    w={SIZES.full}
                     mt={12}
                     data-test-id={DATA_TEST_ID.submitButton}
                 >

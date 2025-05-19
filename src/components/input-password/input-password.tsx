@@ -12,6 +12,7 @@ import {
 import { useState } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
+import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { INPUT_ERROR_POSITION } from '~/constants/styles/styles';
 import { DATA_TEST_ID } from '~/constants/test-id';
@@ -53,7 +54,7 @@ export const InputPassword: React.FC<InputPasswordProps> = ({
                     size='lg'
                     data-test-id={testId}
                 />
-                <InputRightElement h='full'>
+                <InputRightElement h={SIZES.full}>
                     <IconButton
                         onMouseDown={onPasswordVisible}
                         onMouseUp={onPasswordHidden}

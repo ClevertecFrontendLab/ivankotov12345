@@ -3,6 +3,7 @@ import { Box, Button, Heading, Image, ModalProps, Text } from '@chakra-ui/react'
 import breakfast from '~/assets/modal-images/breakfast.png';
 import { ModalWrapper } from '~/components/modal-wrapper';
 import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
+import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 
@@ -27,7 +28,7 @@ export const ModalSignInError: React.FC<ModalSignInErrorProps> = ({
 
         <Button
             variant={STYLE_VARIANTS.black}
-            w='full'
+            w={SIZES.full}
             onClick={onSubmit}
             data-test-id={DATA_TEST_ID.repeatButton}
         >

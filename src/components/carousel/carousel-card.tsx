@@ -15,7 +15,7 @@ import { NavLink } from 'react-router';
 
 import fallback from '~/assets/fallback.png';
 import { COLORS_LIME } from '~/constants/styles/colors';
-import { MIN_CAROUSEL_CARD_HEIGHT } from '~/constants/styles/sizes';
+import { MIN_CAROUSEL_CARD_HEIGHT, SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { getCardCategories } from '~/helpers/get-card-categories';
@@ -50,7 +50,7 @@ export const CarouselCard: React.FC<CardData> = ({
             minH={MIN_CAROUSEL_CARD_HEIGHT}
             overflow='hidden'
             borderRadius='lg'
-            h='full'
+            h={SIZES.full}
             data-test-id={`${DATA_TEST_ID.carouselCard}-${index}`}
         >
             <CardBody as={Flex} flexDirection='column' p={0}>

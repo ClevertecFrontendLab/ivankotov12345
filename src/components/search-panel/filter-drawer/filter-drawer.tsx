@@ -21,7 +21,7 @@ import {
     DRAWER_SIDES_ITEMS,
 } from '~/constants/drawer-filter-items';
 import { PLACEHOLDERS } from '~/constants/placeholders';
-import { BACKDROP_FILTER } from '~/constants/styles/sizes';
+import { BACKDROP_FILTER, SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
@@ -88,7 +88,7 @@ export const FilterDrawer: React.FC = () => {
             <DrawerContent
                 data-test-id={DATA_TEST_ID.filterDrawer}
                 maxW={{ base: 'drawerWidth.sm', lg: 'drawerWidth.lg' }}
-                w='full'
+                w={SIZES.full}
             >
                 <DrawerHeader as={Flex} alignItems='center' px={4} py={8}>
                     <Heading fontSize='2xl' fontWeight='bold'>
@@ -101,7 +101,7 @@ export const FilterDrawer: React.FC = () => {
                         variant={STYLE_VARIANTS.black}
                         icon={<CloseIcon />}
                         aria-label='close'
-                        borderRadius='full'
+                        borderRadius={SIZES.full}
                         size='xs'
                         onClick={onClose}
                         data-test-id={DATA_TEST_ID.closeFilterDrawer}
