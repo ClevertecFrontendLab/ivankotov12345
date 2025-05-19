@@ -32,7 +32,7 @@ export const JuiciestPage: React.FC = memo(() => {
         [filters, searchInputValue],
     );
 
-    const { isLoading, isFetching, data, fetchNextPage } = useGetRecipesInfiniteQuery({
+    const { isFetching, data, fetchNextPage } = useGetRecipesInfiniteQuery({
         endpoint: Endpoints.RECIPE,
         ...queryParams,
         ...JUICIEST_QUERY_PARAMS,
@@ -77,7 +77,7 @@ export const JuiciestPage: React.FC = memo(() => {
             </Box>
 
             <RelevantSection />
-            <Loader isLoading={isLoading} />
+            <Loader isLoading={isFetching} />
         </Box>
     );
 });

@@ -1,5 +1,6 @@
 import { RouteObject } from 'react-router';
 
+import { HydrateFallback } from '~/app-router/fallback/hydrate-fallback';
 import { ROUTER_PATHS } from '~/constants/router-paths';
 import { RestoreAuthDataPage } from '~/pages/restore-auth-data-page';
 import { SignInPage } from '~/pages/sign-in-page';
@@ -11,6 +12,7 @@ export const authPage: RouteObject = {
         const { AuthLayout } = await import('~/components/auth-layout');
         return { Component: AuthLayout };
     },
+    HydrateFallback: HydrateFallback,
     children: [
         {
             path: ROUTER_PATHS.signIn,

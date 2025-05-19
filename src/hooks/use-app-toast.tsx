@@ -28,6 +28,8 @@ export const useAppToast = () => {
     const toast = useToast();
 
     const showToast = (options: UseToastOptions, isLeftSideToast: boolean = true) => {
+        toast.closeAll();
+
         toast({
             duration: DURATION,
             position: 'bottom',
@@ -55,6 +57,8 @@ export const useAppToast = () => {
                     <CloseButton
                         size='sm'
                         alignSelf='start'
+                        position='absolute'
+                        right={3}
                         onClick={onClose}
                         data-test-id={DATA_TEST_ID.closeAlertButton}
                     />

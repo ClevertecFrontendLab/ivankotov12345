@@ -7,7 +7,11 @@ import { InputAuth } from '~/components/input-auth';
 import { COLORS_BLACK_ALPHA } from '~/constants/colors';
 import { LABELS } from '~/constants/labels';
 import { PLACEHOLDERS } from '~/constants/placeholders';
-import { ALERT_ERROR_TEXT, EMAIL_VERIFICATION_STATUS, RESPONSE_STATUS } from '~/constants/statuses';
+import {
+    AUTH_SERVER_ERROR,
+    EMAIL_VERIFICATION_STATUS,
+    RESPONSE_STATUS,
+} from '~/constants/statuses';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { EmailSchema, emailSchema } from '~/constants/validation-schemas/e-mail';
 import { useAppToast } from '~/hooks/use-app-toast';
@@ -45,12 +49,12 @@ export const CheckEmailForm: React.FC<CheckEmailFormProps> = ({ setStep, step, s
             const currentError = error as ResponseError;
 
             if (+currentError.status >= RESPONSE_STATUS.SERVER_ERROR) {
-                showToast(ALERT_ERROR_TEXT, false);
+                showToast(AUTH_SERVER_ERROR, false);
             } else {
                 showToast(EMAIL_VERIFICATION_STATUS[+currentError.status], false);
-                setValue('email', '');
-                setError('email', { message: '' });
             }
+            setValue('email', '');
+            setError('email', { message: '' });
         }
     };
 
@@ -68,6 +72,7 @@ export const CheckEmailForm: React.FC<CheckEmailFormProps> = ({ setStep, step, s
                     label={LABELS.email}
                     placeholder={PLACEHOLDERS.email}
                     register={register('email')}
+                    error={errors.email?.message}
                     testId={DATA_TEST_ID.emailInput}
                     setValue={setValue}
                 />

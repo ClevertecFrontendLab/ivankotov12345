@@ -12,7 +12,7 @@ import { useState } from 'react';
 
 import verify from '~/assets/modal-images/verify.png';
 import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/colors';
-import { ALERT_ERROR_TEXT, RESPONSE_STATUS } from '~/constants/statuses';
+import { AUTH_SERVER_ERROR, RESPONSE_STATUS } from '~/constants/statuses';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppToast } from '~/hooks/use-app-toast';
 import { useVerifyOtpMutation } from '~/query/services/auth';
@@ -32,21 +32,25 @@ export const CheckOtp: React.FC<CheckOtpProps> = ({ setStep, step, email }) => {
     const [verifyOtp] = useVerifyOtpMutation();
     const showToast = useAppToast();
 
-    const onOtpChange = (value: string) => setOtpValue(value);
+    const onOtpChange = (value: string) => {
+        setIsError(false);
+        setOtpValue(value);
+    };
 
     const onOtpComplete = async (value: string) => {
         try {
-            verifyOtp({ email: email, otpToken: value }).unwrap();
+            await verifyOtp({ email: email, otpToken: value }).unwrap();
+
             setIsError(false);
             setStep(step + 1);
         } catch (error) {
             const currentError = error as ResponseError;
 
             if (+currentError.status >= RESPONSE_STATUS.SERVER_ERROR) {
-                showToast(ALERT_ERROR_TEXT, false);
+                showToast(AUTH_SERVER_ERROR, false);
+            } else {
+                setIsError(true);
             }
-
-            setIsError(true);
             setOtpValue('');
         }
     };

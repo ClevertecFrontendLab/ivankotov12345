@@ -27,7 +27,7 @@ export const JuiciestSection: React.FC = () => {
 
                 <Spacer />
 
-                <Box display={{ base: 'none', md: 'block' }}>
+                <Box display={{ base: 'none', lg: 'block' }}>
                     <JuiciestButton testId={DATA_TEST_ID.juiciestLink} />
                 </Box>
             </Flex>
@@ -38,7 +38,7 @@ export const JuiciestSection: React.FC = () => {
                 ))}
             </CardsWrapper>
 
-            <Flex justifyContent='center' pt={4} display={{ base: 'flex', md: 'none' }}>
+            <Flex justifyContent='center' pt={4} display={{ base: 'flex', lg: 'none' }}>
                 <JuiciestButton testId={DATA_TEST_ID.juiciestLinkMobile} />
             </Flex>
         </Box>

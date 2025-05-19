@@ -1,9 +1,13 @@
 import { Box, Grid, GridItem, useMediaQuery } from '@chakra-ui/react';
-import { Outlet } from 'react-router';
+import { useEffect, useMemo } from 'react';
+import { Outlet, useNavigate } from 'react-router';
 
 import { COLORS_LIME } from '~/constants/colors';
+import { ROUTER_PATHS } from '~/constants/router-paths';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { Z_INDEX } from '~/constants/z-index';
+import { getLocalStorageItem } from '~/helpers/storage';
+import { ACCESS_TOKEN_STORAGE_KEY } from '~/query/constants/storage-keys';
 import { useGetCategoriesQuery } from '~/query/services/category';
 import { useAppSelector } from '~/store/hooks';
 import { selectApp } from '~/store/slices/app-slice';
@@ -22,10 +26,19 @@ const fixedContainer = {
 };
 
 export const Layout: React.FC = () => {
+    const navigate = useNavigate();
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
     const { isLoading: isCategoriesLoading } = useGetCategoriesQuery(undefined);
 
     const { isResponseStatusOpen } = useAppSelector(selectApp);
+
+    const token = useMemo(() => getLocalStorageItem(ACCESS_TOKEN_STORAGE_KEY), []);
+
+    useEffect(() => {
+        if (!token) {
+            navigate(ROUTER_PATHS.signIn);
+        }
+    }, [navigate, token]);
 
     return (
         <Box height='100vh'>

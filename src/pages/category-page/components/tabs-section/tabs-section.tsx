@@ -69,7 +69,7 @@ export const TabsSection: React.FC = memo(() => {
         ?.subCategories.map(({ _id }) => _id)
         .toString();
 
-    const { isLoading, isFetching, data, fetchNextPage } = useGetRecipesInfiniteQuery({
+    const { isFetching, data, fetchNextPage } = useGetRecipesInfiniteQuery({
         endpoint: categoryEndpoint,
         ...queryParams,
         subcategoriesIds: isFiltered ? categoryIds : undefined,
@@ -135,7 +135,7 @@ export const TabsSection: React.FC = memo(() => {
                 </TabPanels>
             </Tabs>
 
-            <Loader isLoading={isLoading} />
+            <Loader isLoading={isFetching} />
         </>
     );
 });

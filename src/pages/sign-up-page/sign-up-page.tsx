@@ -2,11 +2,13 @@ import { Button, Progress, Text, useDisclosure, VStack } from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 import { ZodType } from 'zod';
 
 import { CredentialsDataForm } from '~/components/credentials-data-form';
 import { COLORS_BLACK_ALPHA } from '~/constants/colors';
-import { ALERT_ERROR_TEXT, RESPONSE_STATUS } from '~/constants/statuses';
+import { ROUTER_PATHS } from '~/constants/router-paths';
+import { AUTH_SERVER_ERROR, RESPONSE_STATUS } from '~/constants/statuses';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { credentialsSchema } from '~/constants/validation-schemas/credentials';
 import { userDataSchema } from '~/constants/validation-schemas/user-data';
@@ -28,12 +30,20 @@ export const SignUpPage: React.FC = () => {
     const [step, setStep] = useState(0);
     const [email, setEmail] = useState('');
 
+    const navigate = useNavigate();
+
     const { isOpen, onClose, onOpen } = useDisclosure();
     const showTaost = useAppToast();
+
+    const onSuccessModalClose = () => {
+        navigate(ROUTER_PATHS.signIn);
+        onClose();
+    };
 
     const {
         register,
         handleSubmit,
+        setValue,
         getValues,
         formState: { errors, dirtyFields },
     } = useForm({
@@ -73,14 +83,14 @@ export const SignUpPage: React.FC = () => {
                 showTaost({ status: 'error', title: data.message });
 
             if (+status >= RESPONSE_STATUS.SERVER_ERROR) {
-                showTaost(ALERT_ERROR_TEXT);
+                showTaost(AUTH_SERVER_ERROR);
             }
         }
     };
 
     const formSteps = [
-        <UserDataFormStep register={register} errors={errors} />,
-        <CredentialsDataForm register={register} errors={errors} />,
+        <UserDataFormStep register={register} errors={errors} setValue={setValue} />,
+        <CredentialsDataForm register={register} errors={errors} setValue={setValue} />,
     ];
 
     return (
@@ -120,7 +130,7 @@ export const SignUpPage: React.FC = () => {
             </VStack>
 
             <ModalVerificationError />
-            <ModalSignUpSuccess isOpen={isOpen} onClose={onClose} email={email} />
+            <ModalSignUpSuccess isOpen={isOpen} onClose={onSuccessModalClose} email={email} />
         </>
     );
 };

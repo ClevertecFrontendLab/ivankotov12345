@@ -13,6 +13,12 @@ export const ALERT_ERROR_TEXT: ToastStatus = {
     description: 'Попробуйте поискать снова попозже',
 };
 
+export const AUTH_SERVER_ERROR: ToastStatus = {
+    status: 'error',
+    title: 'Ошибка сервера',
+    description: 'Попробуйте немного позже',
+};
+
 export const VERIFIES_SUCCESS: ToastStatus = {
     status: 'success',
     title: 'Верификация прошла успешно',

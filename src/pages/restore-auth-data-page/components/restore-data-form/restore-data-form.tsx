@@ -4,7 +4,7 @@ import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { CredentialsDataForm } from '~/components/credentials-data-form';
-import { ALERT_ERROR_TEXT, RESTORE_DATA_SUCCESS } from '~/constants/statuses';
+import { AUTH_SERVER_ERROR, RESTORE_DATA_SUCCESS } from '~/constants/statuses';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { CredentialsSchema, credentialsSchema } from '~/constants/validation-schemas/credentials';
 import { useAppToast } from '~/hooks/use-app-toast';
@@ -35,7 +35,7 @@ export const RestoreDataForm: React.FC<RestoreDataFormProps> = ({ email, onClose
             onClose();
             showToast(RESTORE_DATA_SUCCESS, false);
         } catch {
-            showToast(ALERT_ERROR_TEXT, false);
+            showToast(AUTH_SERVER_ERROR, false);
         }
     };
 
