@@ -12,7 +12,8 @@ import { useState } from 'react';
 
 import verify from '~/assets/modal-images/verify.png';
 import { AUTH_SERVER_ERROR, RESPONSE_STATUS } from '~/constants/statuses';
-import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
+import { COLORS, COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
+import { BORDERS } from '~/constants/styles/styles';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppToast } from '~/hooks/use-app-toast';
 import { useVerifyOtpMutation } from '~/query/services/auth';
@@ -78,7 +79,15 @@ export const CheckOtp: React.FC<CheckOtpProps> = ({ setStep, step, email }) => {
                             <PinInputField
                                 key={pinItem}
                                 color={COLORS_LIME[800]}
-                                _focus={{ borderColor: 'inherit' }}
+                                _invalid={{
+                                    boxShadow: 'none',
+                                    border: BORDERS.solid,
+                                    borderColor: COLORS.red,
+                                }}
+                                _focus={{
+                                    border: BORDERS.solid,
+                                    borderColor: isError ? COLORS.red : 'inherit',
+                                }}
                                 _placeholder={{ color: COLORS_LIME[800] }}
                                 data-test-id={`${DATA_TEST_ID.verificationCodeInput}${pinItem}`}
                             />
