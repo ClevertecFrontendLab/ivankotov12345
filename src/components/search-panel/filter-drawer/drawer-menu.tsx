@@ -12,6 +12,7 @@ import {
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 
 import { COLORS, COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch } from '~/store/hooks';
 import { FilterItem } from '~/types/filter-item';
@@ -55,7 +56,7 @@ export const DrawerMenu: React.FC<DrawerProps> = ({
             <MenuButton
                 as={Button}
                 rightIcon={<ChevronDownIcon />}
-                variant='menuButton'
+                variant={STYLE_VARIANTS.menuButton}
                 w='full'
                 height='auto'
                 data-test-id={testId}
@@ -79,7 +80,7 @@ export const DrawerMenu: React.FC<DrawerProps> = ({
                         py={1.5}
                     >
                         <Checkbox
-                            variant='limeCheckbox'
+                            variant={STYLE_VARIANTS.limeCheckbox}
                             value={item}
                             onChange={toggleItem}
                             data-test-id={`${DATA_TEST_ID.checkbox}-${label.toLowerCase()}`}

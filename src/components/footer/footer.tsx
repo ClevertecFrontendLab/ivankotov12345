@@ -3,6 +3,7 @@ import { Avatar, SimpleGrid, Text, VStack } from '@chakra-ui/react';
 
 import avatar from '~/assets/img/avatar.jpg';
 import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 
 import { HomeIcon } from '../icons';
 import { FooterItem } from './footer-item';
@@ -14,13 +15,13 @@ export const Footer: React.FC = () => (
             icon={<SearchIcon w={6} h={6} />}
             description='Поиск'
             textColor={COLORS_BLACK_ALPHA[600]}
-            variant='none'
+            variant={STYLE_VARIANTS.none}
         />
         <FooterItem
             icon={<EditIcon w={6} h={6} />}
             description='Записать'
             textColor={COLORS_BLACK_ALPHA[600]}
-            variant='none'
+            variant={STYLE_VARIANTS.none}
         />
 
         <VStack gap={1} py={2.5}>

@@ -5,6 +5,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { CredentialsDataForm } from '~/components/credentials-data-form';
 import { AUTH_SERVER_ERROR, RESTORE_DATA_SUCCESS } from '~/constants/statuses';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { CredentialsSchema, credentialsSchema } from '~/constants/validation-schemas/credentials';
 import { useAppToast } from '~/hooks/use-app-toast';
@@ -47,7 +48,7 @@ export const RestoreDataForm: React.FC<RestoreDataFormProps> = ({ email, onClose
             <VStack as='form' onSubmit={handleSubmit(onSubmit)} gap={6} textAlign='start'>
                 <CredentialsDataForm register={register} errors={errors} setValue={setValue} />
                 <Button
-                    variant='black'
+                    variant={STYLE_VARIANTS.black}
                     size='lg'
                     type='submit'
                     w='full'

@@ -2,6 +2,7 @@ import { Accordion, Button, Text, useMediaQuery, useOutsideClick, VStack } from 
 import { useMemo, useRef } from 'react';
 
 import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { Z_INDEX } from '~/constants/styles/z-index';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { usePathItems } from '~/hooks/use-path-items';
@@ -79,7 +80,7 @@ export const Navigation: React.FC<NavigationProps> = ({ buttonRef }) => {
                 <Text color={COLORS_BLACK_ALPHA[700]}>
                     Все права защищены, ученический файл, <br /> ©Клевер Технолоджи, 2025
                 </Text>
-                <Button leftIcon={<ExitIcon />} variant='none' p={0} size='2xs'>
+                <Button leftIcon={<ExitIcon />} variant={STYLE_VARIANTS.none} p={0} size='2xs'>
                     Выйти
                 </Button>
             </VStack>

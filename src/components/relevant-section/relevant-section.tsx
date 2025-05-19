@@ -2,6 +2,7 @@ import { Box, Heading, SimpleGrid, Text, VStack } from '@chakra-ui/react';
 import { useEffect, useMemo } from 'react';
 
 import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { useLazyGetRecipesByCategoryQuery } from '~/query/services/recipe';
 import { useAppSelector } from '~/store/hooks';
 import { selectCategory } from '~/store/slices/category-slice';
@@ -43,7 +44,7 @@ export const RelevantSection: React.FC = () => {
                 gap={5}
                 py={{ base: 6, '2xl': 5 }}
             >
-                <Heading as='h2' variant='section' pr={3.5}>
+                <Heading as='h2' variant={STYLE_VARIANTS.sectionHeading} pr={3.5}>
                     {randomCategory?.title}
                 </Heading>
 

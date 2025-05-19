@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { Сarousel } from '~/components/carousel';
 import { UserCard } from '~/components/user-card';
 import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { usePathItems } from '~/hooks/use-path-items';
 import { IngredientsTable } from '~/pages/recipe-page/components/ingredients-table';
 import { NutritionValueSection } from '~/pages/recipe-page/components/nutrition-value-section';
@@ -58,7 +59,7 @@ export const RecipePage: React.FC = () => {
                 <IngredientsTable ingredients={ingredients} portions={portions} />
 
                 <VStack as='section' w='full' gap={5} alignItems='start'>
-                    <Heading variant='sectionHeader'>Шаги приготовления</Heading>
+                    <Heading variant={STYLE_VARIANTS.sectionHeading}>Шаги приготовления</Heading>
                     {steps.map((step, index) => (
                         <StepCard
                             key={step.stepNumber}

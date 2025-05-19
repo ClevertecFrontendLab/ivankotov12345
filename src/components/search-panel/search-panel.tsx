@@ -12,6 +12,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { PLACEHOLDERS } from '~/constants/placeholders';
 import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { openDrawer, selectFilterDrawer } from '~/store/slices/filter-drawer-slice';
@@ -99,7 +100,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
                 <IconButton
                     aria-label='filter'
                     icon={<FilterIcon />}
-                    variant='outline'
+                    variant={STYLE_VARIANTS.outline}
                     size={{ base: 'sm', lg: 'lg' }}
                     width={{ base: 8, lg: 12 }}
                     borderColor={COLORS_BLACK_ALPHA[600]}
@@ -110,7 +111,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
                 <InputGroup size={{ base: 'sm', lg: 'lg' }}>
                     <Input
                         data-test-id={DATA_TEST_ID.searchInput}
-                        variant='searchInput'
+                        variant={STYLE_VARIANTS.searchInput}
                         name='search'
                         placeholder={PLACEHOLDERS.search}
                         borderColor={searchBorderColor}
@@ -130,7 +131,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
                         <IconButton
                             pointerEvents={isSearchButtonDisabled ? 'none' : 'auto'}
                             aria-label='search'
-                            variant='none'
+                            variant={STYLE_VARIANTS.none}
                             icon={<SearchIcon />}
                             disabled={isSearchButtonDisabled}
                             onClick={onSearchClick}

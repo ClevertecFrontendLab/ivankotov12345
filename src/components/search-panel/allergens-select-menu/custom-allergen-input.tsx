@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { PlusIcon } from '~/components/icons';
 import { PLACEHOLDERS } from '~/constants/placeholders';
 import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { addAllergen, removeIsFiltered, selectAllergensFilter } from '~/store/slices/filters-slice';
@@ -58,7 +59,7 @@ export const CustomAllergenInput: React.FC<CustomAllergenInputProps> = ({ inputR
 
             <IconButton
                 size='sm'
-                variant='none'
+                variant={STYLE_VARIANTS.none}
                 icon={<PlusIcon />}
                 aria-label='add'
                 onClick={handleAddCustomAllergen}

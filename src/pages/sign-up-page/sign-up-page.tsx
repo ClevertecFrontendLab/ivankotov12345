@@ -9,6 +9,7 @@ import { CredentialsDataForm } from '~/components/credentials-data-form';
 import { ROUTER_PATHS } from '~/constants/router-paths';
 import { AUTH_SERVER_ERROR, RESPONSE_STATUS } from '~/constants/statuses';
 import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { credentialsSchema } from '~/constants/validation-schemas/credentials';
 import { userDataSchema } from '~/constants/validation-schemas/user-data';
@@ -98,7 +99,7 @@ export const SignUpPage: React.FC = () => {
             <Text w='full'>{STEPS_LIST[step]}</Text>
 
             <Progress
-                variant='progressLime'
+                variant={STYLE_VARIANTS.progressLime}
                 hasStripe
                 w='full'
                 size='sm'
@@ -119,7 +120,7 @@ export const SignUpPage: React.FC = () => {
 
                 <Button
                     type='submit'
-                    variant='black'
+                    variant={STYLE_VARIANTS.black}
                     size='lg'
                     w='full'
                     mt={12}

@@ -12,6 +12,7 @@ import {
 import { useState } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { INPUT_ERROR_POSITION } from '~/constants/styles/styles';
 import { DATA_TEST_ID } from '~/constants/test-id';
 
@@ -48,7 +49,7 @@ export const InputPassword: React.FC<InputPasswordProps> = ({
                     placeholder={placeholder}
                     {...register}
                     type={isPasswordVisible ? 'text' : 'password'}
-                    variant='authInput'
+                    variant={STYLE_VARIANTS.authInput}
                     size='lg'
                     data-test-id={testId}
                 />
@@ -59,7 +60,7 @@ export const InputPassword: React.FC<InputPasswordProps> = ({
                         onMouseLeave={onPasswordHidden}
                         icon={isPasswordVisible ? <ViewIcon /> : <ViewOffIcon />}
                         aria-label='show/hide password'
-                        variant='none'
+                        variant={STYLE_VARIANTS.none}
                         data-test-id={DATA_TEST_ID.passwordVisibilityButton}
                     />
                 </InputRightElement>

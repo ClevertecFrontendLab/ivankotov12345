@@ -16,6 +16,7 @@ import {
 import { useState } from 'react';
 
 import { COLORS, COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { Ingredient } from '~/types/recipe';
 
@@ -45,11 +46,11 @@ export const IngredientsTable: React.FC<IngredientsTableProps> = ({ ingredients,
             <Thead>
                 <Tr>
                     <Th>
-                        <Text variant='limeUppercase'>Ингредиенты</Text>
+                        <Text variant={STYLE_VARIANTS.limeUppercase}>Ингредиенты</Text>
                     </Th>
                     <Th px={0}>
                         <HStack justifyContent='end'>
-                            <Text variant='limeUppercase'>Порций</Text>
+                            <Text variant={STYLE_VARIANTS.limeUppercase}>Порций</Text>
 
                             <NumberInput
                                 value={inputPortions}

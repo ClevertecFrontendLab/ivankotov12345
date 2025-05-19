@@ -22,6 +22,7 @@ import { NavLink } from 'react-router';
 
 import fallback from '~/assets/fallback.png';
 import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { getCardCategories } from '~/helpers/get-card-categories';
 import { getFullImagePath } from '~/helpers/get-full-image-path';
@@ -125,7 +126,7 @@ export const FoodCard: React.FC<CardData> = memo(
 
                     <CardBody p={0}>
                         <Box>
-                            <Heading as='h3' variant='card' mb={2}>
+                            <Heading as='h3' variant={STYLE_VARIANTS.cardHeading} mb={2}>
                                 <Highlight
                                     query={searchInputValue}
                                     styles={{ color: COLORS_LIME[600] }}
@@ -146,7 +147,7 @@ export const FoodCard: React.FC<CardData> = memo(
                     <CardFooter p={0} display='block' w='full'>
                         <ButtonGroup w='full' justifyContent='flex-end'>
                             <Button
-                                variant='outline'
+                                variant={STYLE_VARIANTS.outline}
                                 leftIcon={<LikeIcon />}
                                 size={{ base: 'xs', lg: 'sm' }}
                                 borderColor={COLORS_BLACK_ALPHA[600]}
@@ -159,7 +160,7 @@ export const FoodCard: React.FC<CardData> = memo(
                                 as={NavLink}
                                 to={recipePath}
                                 size={{ base: 'xs', lg: 'sm' }}
-                                variant='black'
+                                variant={STYLE_VARIANTS.black}
                                 data-test-id={`${DATA_TEST_ID.cardLink}-${index}`}
                             >
                                 Готовить

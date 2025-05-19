@@ -8,6 +8,7 @@ import { LoadMoreButton } from '~/components/load-more-button';
 import { Loader } from '~/components/loader';
 import { PageHeader } from '~/components/page-header';
 import { getQueryParams } from '~/components/search-panel/helpers/get-query-params';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { usePathItems } from '~/hooks/use-path-items';
 import { Endpoints } from '~/query/constants/paths';
@@ -106,7 +107,7 @@ export const TabsSection: React.FC = memo(() => {
         <>
             <PageHeader title={title} subtitle={description} isFetching={isFetching} />
 
-            <Tabs as='section' mb={10} index={activeIndex} variant='limeTabs'>
+            <Tabs as='section' mb={10} index={activeIndex} variant={STYLE_VARIANTS.limeTabs}>
                 <TabList>
                     {tabs &&
                         tabs.map(({ title, category }, index) => (

@@ -12,6 +12,7 @@ import {
     RESPONSE_STATUS,
 } from '~/constants/statuses';
 import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { EmailSchema, emailSchema } from '~/constants/validation-schemas/e-mail';
 import { useAppToast } from '~/hooks/use-app-toast';
@@ -79,7 +80,7 @@ export const CheckEmailForm: React.FC<CheckEmailFormProps> = ({ setStep, step, s
 
                 <Button
                     type='submit'
-                    variant='black'
+                    variant={STYLE_VARIANTS.black}
                     size='lg'
                     w='full'
                     mt={6}

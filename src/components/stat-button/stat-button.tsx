@@ -1,6 +1,7 @@
 import { Button } from '@chakra-ui/react';
 
 import { COLORS_LIME } from '~/constants/styles/colors';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 
 type StatButtonProps = {
     quantity: number;
@@ -14,7 +15,7 @@ export const StatButton: React.FC<StatButtonProps> = ({ quantity, icon, size }) 
         color={COLORS_LIME[600]}
         size={size}
         px={1}
-        variant='none'
+        variant={STYLE_VARIANTS.none}
         _hover={{
             borderColor: 'white',
         }}

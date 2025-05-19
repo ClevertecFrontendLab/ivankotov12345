@@ -2,6 +2,7 @@ import { Avatar, Box, Button, Card, Flex, Spacer, Text, VStack } from '@chakra-u
 
 import authorAvatar from '~/assets/img/author-avatar.jpg';
 import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 
 import { PeopleIcon, SignUp } from '../icons';
 import { StatButton } from '../stat-button';
@@ -49,7 +50,7 @@ export const UserCard: React.FC = () => (
             </Box>
 
             <Flex w='full' alignItems='center'>
-                <Button leftIcon={<SignUp />} variant='black' size='xs'>
+                <Button leftIcon={<SignUp />} variant={STYLE_VARIANTS.black} size='xs'>
                     Подписаться
                 </Button>
 

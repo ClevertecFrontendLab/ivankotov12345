@@ -1,6 +1,7 @@
 import { FormControl, FormErrorMessage, FormHelperText, FormLabel, Input } from '@chakra-ui/react';
 import { FieldValues, SetFieldValue, UseFormRegisterReturn } from 'react-hook-form';
 
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { INPUT_ERROR_POSITION } from '~/constants/styles/styles';
 
 export type InputAuthProps = {
@@ -38,7 +39,7 @@ export const InputAuth: React.FC<InputAuthProps> = ({
             <Input
                 placeholder={placeholder}
                 {...register}
-                variant='authInput'
+                variant={STYLE_VARIANTS.authInput}
                 size='lg'
                 data-test-id={testId}
                 onBlur={trimOnBlur}

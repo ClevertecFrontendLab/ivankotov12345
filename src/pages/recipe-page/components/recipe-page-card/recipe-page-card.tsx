@@ -20,6 +20,7 @@ import { CardBadge } from '~/components/card-badge';
 import { FavoriteIcon, LikeIcon, TimerIcon } from '~/components/icons';
 import { StatButton } from '~/components/stat-button';
 import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { getCardCategories } from '~/helpers/get-card-categories';
 import { getFullImagePath } from '~/helpers/get-full-image-path';
 import { useAppSelector } from '~/store/hooks';
@@ -48,7 +49,7 @@ export const RecipePageCard: React.FC<RecipePageCardProps> = ({
             flexDirection={{ base: 'column', md: 'row' }}
             w='full'
             gap={{ base: 4, lg: 6 }}
-            variant='none'
+            variant={STYLE_VARIANTS.none}
             _hover={{
                 boxShadow: 'none',
             }}
@@ -122,7 +123,7 @@ export const RecipePageCard: React.FC<RecipePageCardProps> = ({
                         <Button
                             size={{ base: 'xs', lg: 'sm', '2xl': 'lg' }}
                             leftIcon={<FavoriteIcon />}
-                            variant='outline'
+                            variant={STYLE_VARIANTS.outline}
                             borderColor={COLORS_BLACK_ALPHA[600]}
                             color={COLORS_BLACK_ALPHA[800]}
                             fontWeight='semibold'

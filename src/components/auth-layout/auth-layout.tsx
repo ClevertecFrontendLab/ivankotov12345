@@ -19,6 +19,7 @@ import yeeDaa from '~/assets/svg/yee-daa.svg';
 import { ROUTER_PATHS } from '~/constants/router-paths';
 import { COLORS } from '~/constants/styles/colors';
 import { AUTH_SIZES, SIZES } from '~/constants/styles/sizes';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { useAppSelector } from '~/store/hooks';
 import { selectApp } from '~/store/slices/app-slice';
 
@@ -49,7 +50,12 @@ export const AuthLayout: React.FC = () => {
                             <Image src={yeeDaa} alt='yee daa' w={{ base: 'auto', lg: 48 }} />
                         </HStack>
 
-                        <Tabs variant='limeTabs' w='full' defaultIndex={activeTabIndex} mb={10}>
+                        <Tabs
+                            variant={STYLE_VARIANTS.limeTabs}
+                            w='full'
+                            defaultIndex={activeTabIndex}
+                            mb={10}
+                        >
                             <TabList justifyContent='start'>
                                 <Tab as={NavLink} to={ROUTER_PATHS.signIn} px={6} py={3}>
                                     Вход на сайт

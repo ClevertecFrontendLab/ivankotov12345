@@ -1,6 +1,7 @@
 import { CloseButton, Modal, ModalContent, ModalOverlay, ModalProps } from '@chakra-ui/react';
 
 import { SIZES } from '~/constants/styles/sizes';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { BORDERS } from '~/constants/styles/styles';
 import { DATA_TEST_ID } from '~/constants/test-id';
 
@@ -10,7 +11,7 @@ export const ModalWrapper: React.FC<ModalProps & { testId: string }> = ({
     onClose,
     testId,
 }) => (
-    <Modal isOpen={isOpen} onClose={onClose} isCentered={true} variant='authModal'>
+    <Modal isOpen={isOpen} onClose={onClose} isCentered={true} variant={STYLE_VARIANTS.authModal}>
         <ModalOverlay />
 
         <ModalContent data-test-id={testId}>

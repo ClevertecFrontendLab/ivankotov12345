@@ -9,6 +9,7 @@ import { LABELS } from '~/constants/labels';
 import { PLACEHOLDERS } from '~/constants/placeholders';
 import { ROUTER_PATHS } from '~/constants/router-paths';
 import { AUTHORIZATION_STATUS, RESPONSE_STATUS } from '~/constants/statuses';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { SignInSchema, signInSchema } from '~/constants/validation-schemas/sign-in';
 import { useAppToast } from '~/hooks/use-app-toast';
@@ -80,7 +81,7 @@ export const SignInPage: React.FC = () => {
                 />
 
                 <Button
-                    variant='black'
+                    variant={STYLE_VARIANTS.black}
                     size='lg'
                     w='full'
                     mt={28}
@@ -92,7 +93,7 @@ export const SignInPage: React.FC = () => {
             </VStack>
 
             <Button
-                variant='none'
+                variant={STYLE_VARIANTS.none}
                 size='xs'
                 fontSize='md'
                 mt={4}

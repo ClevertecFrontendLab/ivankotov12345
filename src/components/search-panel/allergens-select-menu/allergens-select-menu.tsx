@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 
 import { ALLERGENS_LIST } from '~/constants/drawer-filter-items';
 import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectAllergens, toggleAllergenDisabled } from '~/store/slices/allergens-slice';
@@ -53,7 +54,7 @@ export const AllergensSelectMenu: React.FC<{ isDrawerType?: boolean }> = ({ isDr
                 <MenuButton
                     as={Button}
                     rightIcon={<ChevronDownIcon />}
-                    variant='menuButton'
+                    variant={STYLE_VARIANTS.menuButton}
                     height='auto'
                     data-test-id={
                         isDrawerType
