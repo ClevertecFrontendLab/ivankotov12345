@@ -19,7 +19,7 @@ import {
 import { CardBadge } from '~/components/card-badge';
 import { FavoriteIcon, LikeIcon, TimerIcon } from '~/components/icons';
 import { StatButton } from '~/components/stat-button';
-import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/colors';
+import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
 import { getCardCategories } from '~/helpers/get-card-categories';
 import { getFullImagePath } from '~/helpers/get-full-image-path';
 import { useAppSelector } from '~/store/hooks';

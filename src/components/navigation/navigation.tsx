@@ -1,9 +1,9 @@
 import { Accordion, Button, Text, useMediaQuery, useOutsideClick, VStack } from '@chakra-ui/react';
 import { useMemo, useRef } from 'react';
 
-import { COLORS_BLACK_ALPHA } from '~/constants/colors';
+import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
+import { Z_INDEX } from '~/constants/styles/z-index';
 import { DATA_TEST_ID } from '~/constants/test-id';
-import { Z_INDEX } from '~/constants/z-index';
 import { usePathItems } from '~/hooks/use-path-items';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { closeBurgerMenu } from '~/store/slices/burger-slice';

@@ -1,6 +1,6 @@
 import { Avatar, Box, Flex, Text } from '@chakra-ui/react';
 
-import { COLORS_BLACK_ALPHA } from '~/constants/colors';
+import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
 import { UserData } from '~/types/card-data';
 
 export const User: React.FC<UserData> = ({ avatar, name, email }) => (

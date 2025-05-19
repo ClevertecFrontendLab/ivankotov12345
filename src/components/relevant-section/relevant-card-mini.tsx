@@ -1,6 +1,6 @@
 import { Button, Card, Heading, HStack, Image } from '@chakra-ui/react';
 
-import { COLORS_LIME } from '~/constants/colors';
+import { COLORS_LIME } from '~/constants/styles/colors';
 import { getCardCategories } from '~/helpers/get-card-categories';
 import { getFullImagePath } from '~/helpers/get-full-image-path';
 import { useAppSelector } from '~/store/hooks';

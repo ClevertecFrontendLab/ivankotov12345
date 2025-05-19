@@ -2,8 +2,8 @@ import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { Button } from '@chakra-ui/react';
 import { NavLink } from 'react-router';
 
-import { COLORS_LIME } from '~/constants/colors';
 import { ROUTER_PATHS } from '~/constants/router-paths';
+import { COLORS_LIME } from '~/constants/styles/colors';
 
 type JuiciestButtonProps = {
     testId: string;

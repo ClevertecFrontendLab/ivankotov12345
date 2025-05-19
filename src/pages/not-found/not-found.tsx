@@ -2,9 +2,9 @@ import { Center, Heading, Image, Link, Text, VStack } from '@chakra-ui/react';
 import { NavLink } from 'react-router';
 
 import notFound from '~/assets/not-found.png';
-import { COLORS_BLACK_ALPHA } from '~/constants/colors';
 import { ROUTER_PATHS } from '~/constants/router-paths';
-import { ERROE_PAGE_SIZES } from '~/constants/sizes';
+import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
+import { ERROE_PAGE_SIZES } from '~/constants/styles/sizes';
 import { DATA_TEST_ID } from '~/constants/test-id';
 
 export const NotFound: React.FC = () => (

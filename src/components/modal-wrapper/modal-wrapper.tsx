@@ -1,7 +1,7 @@
 import { CloseButton, Modal, ModalContent, ModalOverlay, ModalProps } from '@chakra-ui/react';
 
-import { SIZES } from '~/constants/sizes';
-import { BORDERS } from '~/constants/styles';
+import { SIZES } from '~/constants/styles/sizes';
+import { BORDERS } from '~/constants/styles/styles';
 import { DATA_TEST_ID } from '~/constants/test-id';
 
 export const ModalWrapper: React.FC<ModalProps & { testId: string }> = ({

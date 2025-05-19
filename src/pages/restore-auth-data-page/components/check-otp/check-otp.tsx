@@ -11,8 +11,8 @@ import {
 import { useState } from 'react';
 
 import verify from '~/assets/modal-images/verify.png';
-import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/colors';
 import { AUTH_SERVER_ERROR, RESPONSE_STATUS } from '~/constants/statuses';
+import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppToast } from '~/hooks/use-app-toast';
 import { useVerifyOtpMutation } from '~/query/services/auth';
@@ -63,7 +63,7 @@ export const CheckOtp: React.FC<CheckOtpProps> = ({ setStep, step, email }) => {
                 {isError && <Heading fontSize='2xl'>Неверный код</Heading>}
                 <Box>
                     <Text>Мы отправили вам на e-mail</Text>
-                    <Text>{email}</Text>
+                    <Text fontWeight='semibold'>{email}</Text>
                     <Text>шестизначный код. Введите его ниже.</Text>
                 </Box>
 

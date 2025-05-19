@@ -2,7 +2,7 @@ import { EditIcon, SearchIcon } from '@chakra-ui/icons';
 import { Avatar, SimpleGrid, Text, VStack } from '@chakra-ui/react';
 
 import avatar from '~/assets/img/avatar.jpg';
-import { COLORS_BLACK_ALPHA } from '~/constants/colors';
+import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
 
 import { HomeIcon } from '../icons';
 import { FooterItem } from './footer-item';

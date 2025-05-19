@@ -1,8 +1,8 @@
 import { Box, Flex, Heading, SimpleGrid, Spacer, useMediaQuery } from '@chakra-ui/react';
 
 import { BLOG_CARD_DATA } from '~/constants/blog-card-data';
-import { COLORS_LIME } from '~/constants/colors';
 import { PAGE_TITLES } from '~/constants/page-titles';
+import { COLORS_LIME } from '~/constants/styles/colors';
 
 import { BlogCard } from './blog-card';
 import { BlogSectionButton } from './blog-section-button';

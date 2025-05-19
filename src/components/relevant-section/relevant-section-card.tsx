@@ -1,6 +1,6 @@
 import { Card, CardBody, CardFooter, Flex, Heading, Spacer, Text } from '@chakra-ui/react';
 
-import { COLORS_LIME } from '~/constants/colors';
+import { COLORS_LIME } from '~/constants/styles/colors';
 import { getCardCategories } from '~/helpers/get-card-categories';
 import { useAppSelector } from '~/store/hooks';
 import { selectCategory } from '~/store/slices/category-slice';

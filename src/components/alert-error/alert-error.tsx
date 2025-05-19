@@ -8,7 +8,7 @@ import {
     VStack,
 } from '@chakra-ui/react';
 
-import { COLORS } from '~/constants/colors';
+import { COLORS } from '~/constants/styles/colors';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectApp, setToastData, setToastIsOpen } from '~/store/slices/app-slice';

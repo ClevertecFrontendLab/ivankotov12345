@@ -9,7 +9,7 @@ import {
     UseToastOptions,
 } from '@chakra-ui/react';
 
-import { COLORS } from '~/constants/colors';
+import { COLORS } from '~/constants/styles/colors';
 import { DATA_TEST_ID } from '~/constants/test-id';
 
 const DURATION = 15000;

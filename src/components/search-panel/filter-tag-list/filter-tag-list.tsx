@@ -2,12 +2,12 @@ import { CloseIcon } from '@chakra-ui/icons';
 import { HStack, Tag, TagLabel, TagRightIcon } from '@chakra-ui/react';
 import { useMemo } from 'react';
 
-import { COLORS_LIME } from '~/constants/colors';
 import {
     AUTHORS_LIST,
     DRAWER_MEAT_ITEMS,
     DRAWER_SIDES_ITEMS,
 } from '~/constants/drawer-filter-items';
+import { COLORS_LIME } from '~/constants/styles/colors';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppSelector } from '~/store/hooks';
 import { selectCategories } from '~/store/slices/category-slice';

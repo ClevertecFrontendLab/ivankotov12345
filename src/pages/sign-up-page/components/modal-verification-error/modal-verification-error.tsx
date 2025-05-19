@@ -2,7 +2,7 @@ import { Box, Heading, Image, Text } from '@chakra-ui/react';
 
 import verificationErrorImage from '~/assets/modal-images/verification-error-image.png';
 import { ModalWrapper } from '~/components/modal-wrapper';
-import { COLORS_BLACK_ALPHA } from '~/constants/colors';
+import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectModalVerification, setIsModalVerificationOpen } from '~/store/slices/app-slice';

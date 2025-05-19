@@ -1,6 +1,6 @@
 import { Card, CardBody, Image, Tag, TagLabel, Text, VStack } from '@chakra-ui/react';
 
-import { STEP_CARD_IMAGE_MAX_WIDTH } from '~/constants/sizes';
+import { STEP_CARD_IMAGE_MAX_WIDTH } from '~/constants/styles/sizes';
 import { getFullImagePath } from '~/helpers/get-full-image-path';
 import { RecipeStep } from '~/types/recipe';
 

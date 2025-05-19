@@ -10,8 +10,8 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useMemo, useState } from 'react';
 
-import { COLORS_BLACK_ALPHA } from '~/constants/colors';
 import { PLACEHOLDERS } from '~/constants/placeholders';
+import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { openDrawer, selectFilterDrawer } from '~/store/slices/filter-drawer-slice';

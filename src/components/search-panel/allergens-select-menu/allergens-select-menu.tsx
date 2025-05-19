@@ -2,8 +2,8 @@ import { ChevronDownIcon } from '@chakra-ui/icons';
 import { Box, Button, HStack, Menu, MenuButton, MenuList, Switch, Text } from '@chakra-ui/react';
 import { useRef, useState } from 'react';
 
-import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/colors';
 import { ALLERGENS_LIST } from '~/constants/drawer-filter-items';
+import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectAllergens, toggleAllergenDisabled } from '~/store/slices/allergens-slice';

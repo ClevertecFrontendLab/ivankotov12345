@@ -1,7 +1,7 @@
 import { Box, Heading, SimpleGrid, Text, VStack } from '@chakra-ui/react';
 import { useEffect, useMemo } from 'react';
 
-import { COLORS_BLACK_ALPHA } from '~/constants/colors';
+import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
 import { useLazyGetRecipesByCategoryQuery } from '~/query/services/recipe';
 import { useAppSelector } from '~/store/hooks';
 import { selectCategory } from '~/store/slices/category-slice';

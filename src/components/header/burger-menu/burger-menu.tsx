@@ -4,9 +4,9 @@ import { useRef } from 'react';
 
 import { BurgerIcon } from '~/components/icons';
 import { Navigation } from '~/components/navigation';
-import { BACKDROP_FILTER } from '~/constants/sizes';
+import { BACKDROP_FILTER } from '~/constants/styles/sizes';
+import { Z_INDEX } from '~/constants/styles/z-index';
 import { DATA_TEST_ID } from '~/constants/test-id';
-import { Z_INDEX } from '~/constants/z-index';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { closeBurgerMenu, selectBurger, toggleBurgerMenu } from '~/store/slices/burger-slice';
 

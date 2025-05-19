@@ -1,6 +1,6 @@
 import { Box, SimpleGrid, Text } from '@chakra-ui/react';
 
-import { COLORS_BLACK_ALPHA } from '~/constants/colors';
+import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
 import { NutritionValue } from '~/types/recipe';
 
 import { NutritionValueCard } from './nutrition-value-card';

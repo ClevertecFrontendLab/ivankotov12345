@@ -1,7 +1,7 @@
 import { FormControl, FormErrorMessage, FormHelperText, FormLabel, Input } from '@chakra-ui/react';
 import { FieldValues, SetFieldValue, UseFormRegisterReturn } from 'react-hook-form';
 
-import { INPUT_ERROR_POSITION } from '~/constants/styles';
+import { INPUT_ERROR_POSITION } from '~/constants/styles/styles';
 
 export type InputAuthProps = {
     isInvalid: boolean;

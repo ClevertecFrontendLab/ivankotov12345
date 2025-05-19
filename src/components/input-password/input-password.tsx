@@ -12,7 +12,7 @@ import {
 import { useState } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
-import { INPUT_ERROR_POSITION } from '~/constants/styles';
+import { INPUT_ERROR_POSITION } from '~/constants/styles/styles';
 import { DATA_TEST_ID } from '~/constants/test-id';
 
 type InputPasswordProps = {

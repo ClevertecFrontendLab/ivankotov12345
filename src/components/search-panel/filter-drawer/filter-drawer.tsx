@@ -21,7 +21,7 @@ import {
     DRAWER_SIDES_ITEMS,
 } from '~/constants/drawer-filter-items';
 import { PLACEHOLDERS } from '~/constants/placeholders';
-import { BACKDROP_FILTER } from '~/constants/sizes';
+import { BACKDROP_FILTER } from '~/constants/styles/sizes';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectCategories } from '~/store/slices/category-slice';

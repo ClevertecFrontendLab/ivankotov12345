@@ -1,6 +1,6 @@
 import { Button } from '@chakra-ui/react';
 
-import { COLORS_LIME } from '~/constants/colors';
+import { COLORS_LIME } from '~/constants/styles/colors';
 
 type StatButtonProps = {
     quantity: number;

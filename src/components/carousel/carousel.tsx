@@ -8,8 +8,8 @@ import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
 import { PAGE_TITLES } from '~/constants/page-titles';
 import { CAROUSEL_QUERY_PARAMS } from '~/constants/query-params';
+import { Z_INDEX } from '~/constants/styles/z-index';
 import { DATA_TEST_ID } from '~/constants/test-id';
-import { Z_INDEX } from '~/constants/z-index';
 import { Endpoints } from '~/query/constants/paths';
 import { useGetRecipesInfiniteQuery } from '~/query/services/recipe';
 

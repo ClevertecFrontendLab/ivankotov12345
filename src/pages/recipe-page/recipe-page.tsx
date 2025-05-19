@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 import { Сarousel } from '~/components/carousel';
 import { UserCard } from '~/components/user-card';
-import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/colors';
+import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
 import { usePathItems } from '~/hooks/use-path-items';
 import { IngredientsTable } from '~/pages/recipe-page/components/ingredients-table';
 import { NutritionValueSection } from '~/pages/recipe-page/components/nutrition-value-section';

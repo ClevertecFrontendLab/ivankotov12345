@@ -2,10 +2,10 @@ import { Box, Grid, GridItem, useMediaQuery } from '@chakra-ui/react';
 import { useEffect, useMemo } from 'react';
 import { Outlet, useNavigate } from 'react-router';
 
-import { COLORS_LIME } from '~/constants/colors';
 import { ROUTER_PATHS } from '~/constants/router-paths';
+import { COLORS_LIME } from '~/constants/styles/colors';
+import { Z_INDEX } from '~/constants/styles/z-index';
 import { DATA_TEST_ID } from '~/constants/test-id';
-import { Z_INDEX } from '~/constants/z-index';
 import { getLocalStorageItem } from '~/helpers/storage';
 import { ACCESS_TOKEN_STORAGE_KEY } from '~/query/constants/storage-keys';
 import { useGetCategoriesQuery } from '~/query/services/category';

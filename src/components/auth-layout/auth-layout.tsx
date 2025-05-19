@@ -16,9 +16,9 @@ import { NavLink, Outlet, useLocation } from 'react-router';
 import authBackground from '~/assets/img/auth-background.jpg';
 import pan from '~/assets/svg/pan.svg';
 import yeeDaa from '~/assets/svg/yee-daa.svg';
-import { COLORS } from '~/constants/colors';
 import { ROUTER_PATHS } from '~/constants/router-paths';
-import { AUTH_SIZES, SIZES } from '~/constants/sizes';
+import { COLORS } from '~/constants/styles/colors';
+import { AUTH_SIZES, SIZES } from '~/constants/styles/sizes';
 import { useAppSelector } from '~/store/hooks';
 import { selectApp } from '~/store/slices/app-slice';
 

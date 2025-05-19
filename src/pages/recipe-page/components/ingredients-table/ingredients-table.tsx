@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
-import { COLORS, COLORS_BLACK_ALPHA } from '~/constants/colors';
+import { COLORS, COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { Ingredient } from '~/types/recipe';
 

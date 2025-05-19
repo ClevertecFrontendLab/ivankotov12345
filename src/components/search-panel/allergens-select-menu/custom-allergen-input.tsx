@@ -2,8 +2,8 @@ import { HStack, IconButton, Input } from '@chakra-ui/react';
 import { useState } from 'react';
 
 import { PlusIcon } from '~/components/icons';
-import { COLORS_BLACK_ALPHA } from '~/constants/colors';
 import { PLACEHOLDERS } from '~/constants/placeholders';
+import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { addAllergen, removeIsFiltered, selectAllergensFilter } from '~/store/slices/filters-slice';

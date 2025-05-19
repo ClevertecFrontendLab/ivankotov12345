@@ -4,7 +4,6 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import breakfast from '~/assets/modal-images/breakfast.png';
 import { InputAuth } from '~/components/input-auth';
-import { COLORS_BLACK_ALPHA } from '~/constants/colors';
 import { LABELS } from '~/constants/labels';
 import { PLACEHOLDERS } from '~/constants/placeholders';
 import {
@@ -12,6 +11,7 @@ import {
     EMAIL_VERIFICATION_STATUS,
     RESPONSE_STATUS,
 } from '~/constants/statuses';
+import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { EmailSchema, emailSchema } from '~/constants/validation-schemas/e-mail';
 import { useAppToast } from '~/hooks/use-app-toast';

@@ -21,7 +21,7 @@ import { memo } from 'react';
 import { NavLink } from 'react-router';
 
 import fallback from '~/assets/fallback.png';
-import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/colors';
+import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { getCardCategories } from '~/helpers/get-card-categories';
 import { getFullImagePath } from '~/helpers/get-full-image-path';

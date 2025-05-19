@@ -6,9 +6,9 @@ import { useNavigate } from 'react-router';
 import { ZodType } from 'zod';
 
 import { CredentialsDataForm } from '~/components/credentials-data-form';
-import { COLORS_BLACK_ALPHA } from '~/constants/colors';
 import { ROUTER_PATHS } from '~/constants/router-paths';
 import { AUTH_SERVER_ERROR, RESPONSE_STATUS } from '~/constants/statuses';
+import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { credentialsSchema } from '~/constants/validation-schemas/credentials';
 import { userDataSchema } from '~/constants/validation-schemas/user-data';

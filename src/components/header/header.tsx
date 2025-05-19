@@ -1,8 +1,8 @@
 import { Flex, HStack, Image, Spacer, Stack, useMediaQuery } from '@chakra-ui/react';
 
 import avatar from '~/assets/img/avatar.jpg';
-import { COLORS, COLORS_LIME } from '~/constants/colors';
 import { ROUTER_PATHS } from '~/constants/router-paths';
+import { COLORS, COLORS_LIME } from '~/constants/styles/colors';
 import { usePathItems } from '~/hooks/use-path-items';
 import { useAppSelector } from '~/store/hooks';
 import { selectBurger } from '~/store/slices/burger-slice';

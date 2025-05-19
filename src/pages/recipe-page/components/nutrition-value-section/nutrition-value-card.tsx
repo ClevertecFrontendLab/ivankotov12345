@@ -1,7 +1,7 @@
 import { Card, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
-import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/colors';
+import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
 
 type NutritionValueCardProps = {
     description: string;

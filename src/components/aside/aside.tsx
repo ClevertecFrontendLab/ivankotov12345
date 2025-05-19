@@ -1,9 +1,9 @@
 import { EditIcon } from '@chakra-ui/icons';
 import { Flex, IconButton, Spacer, Text, VStack } from '@chakra-ui/react';
 
-import { COLORS, COLORS_BLACK_ALPHA } from '~/constants/colors';
-import { BG_GRADIENT_SIZE } from '~/constants/sizes';
-import { Z_INDEX } from '~/constants/z-index';
+import { COLORS, COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
+import { BG_GRADIENT_SIZE } from '~/constants/styles/sizes';
+import { Z_INDEX } from '~/constants/styles/z-index';
 
 import { Stats } from '../stats';
 

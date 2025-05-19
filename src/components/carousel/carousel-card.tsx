@@ -14,8 +14,8 @@ import React from 'react';
 import { NavLink } from 'react-router';
 
 import fallback from '~/assets/fallback.png';
-import { COLORS_LIME } from '~/constants/colors';
-import { MIN_CAROUSEL_CARD_HEIGHT } from '~/constants/sizes';
+import { COLORS_LIME } from '~/constants/styles/colors';
+import { MIN_CAROUSEL_CARD_HEIGHT } from '~/constants/styles/sizes';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { getCardCategories } from '~/helpers/get-card-categories';
 import { getFullImagePath } from '~/helpers/get-full-image-path';

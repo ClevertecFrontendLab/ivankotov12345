@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 
-import { COLORS, COLORS_BLACK_ALPHA } from '~/constants/colors';
+import { COLORS, COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch } from '~/store/hooks';
 import { FilterItem } from '~/types/filter-item';
