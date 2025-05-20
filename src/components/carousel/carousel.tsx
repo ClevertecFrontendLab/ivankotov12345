@@ -91,6 +91,7 @@ export const Сarousel: React.FC = () => {
                             ref={swiperRef}
                             loop={true}
                             breakpoints={carouselBreakpoints}
+                            speed={0}
                         >
                             {carouselCardsData.map((props, index) => (
                                 <SwiperSlide key={props._id}>
