@@ -118,7 +118,7 @@ export const Layout: React.FC = () => {
             </Box>
 
             <Loader isLoading={isCategoriesLoading} />
-            {isResponseStatusOpen ? <AlertError /> : null}
+            {isResponseStatusOpen && <AlertError />}
         </Box>
     );
 };

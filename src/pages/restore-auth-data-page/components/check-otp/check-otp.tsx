@@ -13,17 +13,15 @@ import { useState } from 'react';
 import verify from '~/assets/modal-images/verify.png';
 import { AUTH_SERVER_ERROR, RESPONSE_STATUS } from '~/constants/statuses';
 import { COLORS, COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
+import { SIZES } from '~/constants/styles/sizes';
 import { BORDERS } from '~/constants/styles/styles';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppToast } from '~/hooks/use-app-toast';
 import { useVerifyOtpMutation } from '~/query/services/auth';
+import { StepFormProps } from '~/types/props';
 import { ResponseError } from '~/types/response';
 
-type CheckOtpProps = {
-    setStep: (step: number) => void;
-    step: number;
-    email: string;
-};
+type CheckOtpProps = StepFormProps & { email: string };
 
 const pinItems = Array.from({ length: 6 }).map((_, index) => index + 1);
 
@@ -58,7 +56,7 @@ export const CheckOtp: React.FC<CheckOtpProps> = ({ setStep, step, email }) => {
 
     return (
         <>
-            <Image src={verify} alt='verify' />
+            <Image src={verify} alt='verify' maxW={{ base: SIZES.imageBase, lg: SIZES.full }} />
 
             <VStack gap={4}>
                 {isError && <Heading fontSize='2xl'>Неверный код</Heading>}

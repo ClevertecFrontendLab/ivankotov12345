@@ -18,13 +18,10 @@ import { DATA_TEST_ID } from '~/constants/test-id';
 import { EmailSchema, emailSchema } from '~/constants/validation-schemas/e-mail';
 import { useAppToast } from '~/hooks/use-app-toast';
 import { useSendOtpMutation } from '~/query/services/auth';
+import { StepFormProps } from '~/types/props';
 import { ResponseError } from '~/types/response';
 
-type CheckEmailFormProps = {
-    setStep: (step: number) => void;
-    setEmail: (email: string) => void;
-    step: number;
-};
+type CheckEmailFormProps = StepFormProps & { setEmail: (email: string) => void };
 
 export const CheckEmailForm: React.FC<CheckEmailFormProps> = ({ setStep, step, setEmail }) => {
     const {
@@ -62,7 +59,11 @@ export const CheckEmailForm: React.FC<CheckEmailFormProps> = ({ setStep, step, s
 
     return (
         <>
-            <Image src={breakfast} alt='breakfast' />
+            <Image
+                src={breakfast}
+                alt='breakfast'
+                maxW={{ base: SIZES.imageBase, lg: SIZES.full }}
+            />
 
             <Text color={COLORS_BLACK_ALPHA[900]} px={3}>
                 Для восстановления входа введите ваш e-mail, куда можно отправить уникальный код

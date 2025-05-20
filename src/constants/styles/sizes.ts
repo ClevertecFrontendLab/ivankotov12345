@@ -8,6 +8,8 @@ export const SIZES = {
     fullWieportHeight: '100dvh',
     full: 'full',
     auto: 'auto',
+    imageBase: '108px',
+    imagelg: '206px',
 };
 
 export const ERROE_PAGE_SIZES = {

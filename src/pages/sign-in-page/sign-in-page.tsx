@@ -30,6 +30,7 @@ export const SignInPage: React.FC = () => {
     const {
         register,
         setValue,
+        setError,
         handleSubmit,
         formState: { errors },
     } = useForm({
@@ -46,6 +47,8 @@ export const SignInPage: React.FC = () => {
             const { status } = currentError;
             if (status && +status < RESPONSE_STATUS.SERVER_ERROR) {
                 showTaost(AUTHORIZATION_STATUS[+status]);
+                setError('login', { message: '' });
+                setError('password', { message: '' });
             }
             if (+status >= RESPONSE_STATUS.SERVER_ERROR) {
                 onOpen();

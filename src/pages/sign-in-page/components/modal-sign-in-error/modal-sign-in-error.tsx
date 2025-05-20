@@ -15,7 +15,7 @@ export const ModalSignInError: React.FC<ModalSignInErrorProps> = ({
     onSubmit,
 }) => (
     <ModalWrapper isOpen={isOpen} onClose={onClose} testId={DATA_TEST_ID.signInErrorModal}>
-        <Image src={breakfast} alt='breakfast' />
+        <Image src={breakfast} alt='breakfast' maxW={{ base: SIZES.imageBase, lg: SIZES.full }} />
 
         <Box>
             <Heading mb={4} fontSize='2xl'>

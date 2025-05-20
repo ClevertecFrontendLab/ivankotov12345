@@ -17,7 +17,7 @@ import authBackground from '~/assets/img/auth-background.jpg';
 import pan from '~/assets/svg/pan.svg';
 import yeeDaa from '~/assets/svg/yee-daa.svg';
 import { ROUTER_PATHS } from '~/constants/router-paths';
-import { COLORS } from '~/constants/styles/colors';
+import { COLORS, COLORS_LIME } from '~/constants/styles/colors';
 import { AUTH_SIZES, SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { useAppSelector } from '~/store/hooks';
@@ -54,14 +54,35 @@ export const AuthLayout: React.FC = () => {
                             variant={STYLE_VARIANTS.limeTabs}
                             w={SIZES.full}
                             defaultIndex={activeTabIndex}
+                            fontWeight='medium'
                             mb={10}
                         >
                             <TabList justifyContent='start'>
-                                <Tab as={NavLink} to={ROUTER_PATHS.signIn} px={6} py={3}>
+                                <Tab
+                                    as={NavLink}
+                                    to={ROUTER_PATHS.signIn}
+                                    px={6}
+                                    py={3}
+                                    _selected={{
+                                        borderBottom: STYLE_VARIANTS.black,
+                                        color: COLORS_LIME[700],
+                                        borderColor: COLORS_LIME[700],
+                                    }}
+                                >
                                     Вход на сайт
                                 </Tab>
 
-                                <Tab as={NavLink} to={ROUTER_PATHS.signUp} px={6} py={3}>
+                                <Tab
+                                    as={NavLink}
+                                    to={ROUTER_PATHS.signUp}
+                                    px={6}
+                                    py={3}
+                                    _selected={{
+                                        borderBottom: STYLE_VARIANTS.black,
+                                        color: COLORS_LIME[700],
+                                        borderColor: COLORS_LIME[700],
+                                    }}
+                                >
                                     Регистрация
                                 </Tab>
                             </TabList>
