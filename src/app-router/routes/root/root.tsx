@@ -1,7 +1,6 @@
 import { type RouteObject } from 'react-router';
 
 import { RecipeErrorBoundary } from '~/app-router/error-boundaries/recipe-error';
-import { RootError } from '~/app-router/error-boundaries/root-error';
 import { HydrateFallback } from '~/app-router/fallback/hydrate-fallback';
 import { authLoader } from '~/app-router/loaders/auth-loader';
 import { recipeLoader } from '~/app-router/loaders/recipe-loader';
@@ -26,7 +25,7 @@ export const rootPage: RouteObject = {
         {
             index: true,
             element: <HomePage />,
-            ErrorBoundary: RootError,
+            HydrateFallback: HydrateFallback,
         },
         {
             path: ROUTER_PATHS.juiciestPage,
