@@ -14,8 +14,9 @@ import React from 'react';
 import { NavLink } from 'react-router';
 
 import fallback from '~/assets/fallback.png';
-import { COLORS_LIME } from '~/constants/colors';
-import { MIN_CAROUSEL_CARD_HEIGHT } from '~/constants/sizes';
+import { COLORS_LIME } from '~/constants/styles/colors';
+import { MIN_CAROUSEL_CARD_HEIGHT, SIZES } from '~/constants/styles/sizes';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { getCardCategories } from '~/helpers/get-card-categories';
 import { getFullImagePath } from '~/helpers/get-full-image-path';
@@ -49,7 +50,7 @@ export const CarouselCard: React.FC<CardData> = ({
             minH={MIN_CAROUSEL_CARD_HEIGHT}
             overflow='hidden'
             borderRadius='lg'
-            h='full'
+            h={SIZES.full}
             data-test-id={`${DATA_TEST_ID.carouselCard}-${index}`}
         >
             <CardBody as={Flex} flexDirection='column' p={0}>
@@ -60,7 +61,7 @@ export const CarouselCard: React.FC<CardData> = ({
                     h={{ base: 'imageHeight.md', lg: 'imageHeight.lg' }}
                 />
                 <Box pt={{ base: 3, '2xl': 4 }} px={{ base: 3, '2xl': 6 }}>
-                    <Heading as='h3' mb={2} variant='card'>
+                    <Heading as='h3' mb={2} variant={STYLE_VARIANTS.cardHeading}>
                         {title}
                     </Heading>
                     <Text noOfLines={3} fontSize='sm' display={{ base: 'none', lg: '-webkit-box' }}>

@@ -1,5 +1,7 @@
 import { IconButton, Text, VStack } from '@chakra-ui/react';
 
+import { SIZES } from '~/constants/styles/sizes';
+
 type FooterItemProps = {
     icon: React.ReactElement;
     description: string;
@@ -17,7 +19,7 @@ export const FooterItem: React.FC<FooterItemProps> = ({
         <IconButton
             aria-label='edit button'
             icon={icon}
-            borderRadius='full'
+            borderRadius={SIZES.full}
             size='md'
             variant={variant}
         />

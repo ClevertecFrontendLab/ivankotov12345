@@ -509,11 +509,11 @@ const fillPersonalInfoForm = (
 const fillCredentialsForm = (
     login = VALIDATION_TO_TRIM_VALUE.Login,
     password = VALIDATION_PASS_VALUE.Password,
-    confirmPassword = password,
+    passwordConfirm = password,
 ) => {
     cy.getByTestId(TEST_ID.Input.Login).type(login);
     cy.getByTestId(TEST_ID.Input.Password).type(password);
-    cy.getByTestId(TEST_ID.Input.PasswordConfirm).type(confirmPassword);
+    cy.getByTestId(TEST_ID.Input.PasswordConfirm).type(passwordConfirm);
 };
 
 const fillSignUpForm = () => {
@@ -982,7 +982,7 @@ describe('authorization', () => {
                     expectedBody: {
                         login: VALIDATION_PASS_VALUE.Login,
                         password: VALIDATION_PASS_VALUE.Password,
-                        confirmPassword: VALIDATION_PASS_VALUE.Password,
+                        passwordConfirm: VALIDATION_PASS_VALUE.Password,
                         firstName: VALIDATION_PASS_VALUE.FirstName,
                         lastName: VALIDATION_PASS_VALUE.LastName,
                         email: VALIDATION_PASS_VALUE.Email,

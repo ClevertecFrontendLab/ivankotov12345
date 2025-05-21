@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { NavLink } from 'react-router';
 
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { getFullImagePath } from '~/helpers/get-full-image-path';
 import { usePathItems } from '~/hooks/use-path-items';
@@ -43,7 +44,7 @@ export const CategoryItem: React.FC<NavMenuItem> = ({ title, category, icon, sub
                                 key={subCategory.category}
                                 as={NavLink}
                                 to={`/${category}/${subCategory.category}`}
-                                variant='navigationLink'
+                                variant={STYLE_VARIANTS.navigationLink}
                                 data-test-id={
                                     thirdItemPath === subCategory.category &&
                                     `${subCategory.category}-active`

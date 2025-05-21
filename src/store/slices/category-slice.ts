@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { getLocalStorageItem } from '~/helpers/storage-categories';
+import { getLocalStorageItem } from '~/helpers/storage';
 import { CATEGORY_STORAGE_KEY, SUBCATEGORY_STORAGE_KEY } from '~/query/constants/storage-keys';
 import { NavMenuItem, Subcategory } from '~/types/nav-menu';
 
@@ -15,8 +15,8 @@ const storageCategoryItem = getLocalStorageItem(CATEGORY_STORAGE_KEY);
 const storageSubCategoryItem = getLocalStorageItem(SUBCATEGORY_STORAGE_KEY);
 
 const initialState: CategoryStateType = {
-    categories: storageCategoryItem,
-    subCategories: storageSubCategoryItem,
+    categories: storageCategoryItem || [],
+    subCategories: storageSubCategoryItem || [],
 };
 
 export const categorySlice = createSlice({

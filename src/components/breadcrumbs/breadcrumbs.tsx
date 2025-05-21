@@ -2,8 +2,8 @@ import { ChevronRightIcon } from '@chakra-ui/icons';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
 import { NavLink } from 'react-router';
 
-import { COLORS, COLORS_BLACK_ALPHA } from '~/constants/colors';
 import { ROUTER_PATHS } from '~/constants/router-paths';
+import { COLORS, COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { usePathItems } from '~/hooks/use-path-items';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';

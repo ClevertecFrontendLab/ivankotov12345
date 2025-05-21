@@ -19,7 +19,9 @@ import {
 import { CardBadge } from '~/components/card-badge';
 import { FavoriteIcon, LikeIcon, TimerIcon } from '~/components/icons';
 import { StatButton } from '~/components/stat-button';
-import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/colors';
+import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
+import { SIZES } from '~/constants/styles/sizes';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { getCardCategories } from '~/helpers/get-card-categories';
 import { getFullImagePath } from '~/helpers/get-full-image-path';
 import { useAppSelector } from '~/store/hooks';
@@ -46,16 +48,16 @@ export const RecipePageCard: React.FC<RecipePageCardProps> = ({
     return (
         <Card
             flexDirection={{ base: 'column', md: 'row' }}
-            w='full'
+            w={SIZES.full}
             gap={{ base: 4, lg: 6 }}
-            variant='none'
+            variant={STYLE_VARIANTS.none}
             _hover={{
                 boxShadow: 'none',
             }}
         >
             <Image
-                maxW={{ base: 'full', md: 'recipeImageWidth.md', lg: 'recipeImageWidth.lg' }}
-                w='full'
+                maxW={{ base: SIZES.full, md: 'recipeImageWidth.md', lg: 'recipeImageWidth.lg' }}
+                w={SIZES.full}
                 height={{ base: 'auto', lg: 'imageHeight.xl' }}
                 src={getFullImagePath(image)}
                 alt={title}
@@ -65,7 +67,7 @@ export const RecipePageCard: React.FC<RecipePageCardProps> = ({
             />
 
             <VStack alignItems='start'>
-                <CardHeader w='full' p={0}>
+                <CardHeader w={SIZES.full} p={0}>
                     <Flex>
                         <HStack flexWrap='wrap'>
                             {cardCategories.map(({ title, icon }) => (
@@ -110,7 +112,7 @@ export const RecipePageCard: React.FC<RecipePageCardProps> = ({
                     <Text maxW={{ base: '100%', '2xl': '90%' }}>{description}</Text>
                 </CardBody>
 
-                <CardFooter as={Flex} flexWrap='wrap' w='full' alignItems='end' gap={3} p={0}>
+                <CardFooter as={Flex} flexWrap='wrap' w={SIZES.full} alignItems='end' gap={3} p={0}>
                     <Tag h={5} py={0.5} px={{ base: 1, lg: 2 }} bg={COLORS_BLACK_ALPHA[100]}>
                         <TagLeftIcon as={TimerIcon} />
                         <TagLabel>{time} минут</TagLabel>
@@ -122,7 +124,7 @@ export const RecipePageCard: React.FC<RecipePageCardProps> = ({
                         <Button
                             size={{ base: 'xs', lg: 'sm', '2xl': 'lg' }}
                             leftIcon={<FavoriteIcon />}
-                            variant='outline'
+                            variant={STYLE_VARIANTS.outline}
                             borderColor={COLORS_BLACK_ALPHA[600]}
                             color={COLORS_BLACK_ALPHA[800]}
                             fontWeight='semibold'

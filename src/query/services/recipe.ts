@@ -19,7 +19,10 @@ export const recpeApi = apiSlice.injectEndpoints({
         >({
             infiniteQueryOptions: {
                 initialPageParam: { page: 1 },
-                getNextPageParam: (lastPageParam) => ({ page: lastPageParam.meta.page + 1 }),
+                getNextPageParam: (_1, _2, lastPageParam) => {
+                    const current = lastPageParam.page || 1;
+                    return { page: current + 1 };
+                },
             },
             query: ({ queryArg, pageParam }) => {
                 const { endpoint, ...queryParams } = queryArg;

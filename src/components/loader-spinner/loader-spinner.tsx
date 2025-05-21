@@ -1,6 +1,6 @@
 import { Flex, Spinner } from '@chakra-ui/react';
 
-import { COLORS } from '~/constants/colors';
+import { COLORS } from '~/constants/styles/colors';
 
 type LoaderSpinner = {
     wrapperSpinnerSize: string;

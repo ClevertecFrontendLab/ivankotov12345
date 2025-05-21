@@ -3,24 +3,23 @@ import { createMultiStyleConfigHelpers } from '@chakra-ui/styled-system';
 
 const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpers(parts.keys);
 
-const loader = definePartsStyle({
+const authModal = definePartsStyle({
     overlay: {
         bg: 'shadowed',
         backdropFilter: 'blur(2px)',
     },
     dialog: {
-        w: '206px',
-        h: '206px',
-        display: 'flex',
+        maxW: { base: '316px', lg: '400px' },
         alignItems: 'center',
-        justifyContent: 'center',
-        bg: 'transparent',
-        boxShadow: 'none',
+        gap: 6,
+        p: 8,
+        borderRadius: '2xl',
+        textAlign: 'center',
     },
 });
 
 export const modalTheme = defineMultiStyleConfig({
     variants: {
-        loader: loader,
+        authModal: authModal,
     },
 });

@@ -1,18 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { ErrorType } from '~/types/error-type';
+import { ToastStatus } from '~/types/toast-status';
 
 import { ApplicationState } from '../configure-store';
 
 type AppStateType = {
     isLoading: boolean;
-    isErrorAlertOpen: boolean;
-    errorData?: ErrorType;
+    isResponseStatusOpen: boolean;
+    isModalVerificationOpen: boolean;
+    statusData?: ToastStatus;
 };
 
 const initialState: AppStateType = {
     isLoading: false,
-    isErrorAlertOpen: false,
+    isModalVerificationOpen: false,
+    isResponseStatusOpen: false,
 };
 
 export const appSlice = createSlice({
@@ -22,15 +24,22 @@ export const appSlice = createSlice({
         setIsLoading: (state, action: PayloadAction<boolean>) => {
             state.isLoading = action.payload;
         },
-        setErrorData: (state, action: PayloadAction<ErrorType | undefined>) => {
-            state.errorData = action.payload;
+        setToastData: (state, action: PayloadAction<ToastStatus | undefined>) => {
+            state.statusData = action.payload;
         },
-        setErrorAlertIsOpen: (state, action: PayloadAction<boolean>) => {
-            state.isErrorAlertOpen = action.payload;
+        setToastIsOpen: (state, action: PayloadAction<boolean>) => {
+            state.isResponseStatusOpen = action.payload;
+        },
+        setIsModalVerificationOpen: (state, action: PayloadAction<boolean>) => {
+            state.isModalVerificationOpen = action.payload;
         },
     },
 });
 
 export const selectApp = (state: ApplicationState) => state.appSlice;
+export const selectModalVerification = (state: ApplicationState) =>
+    state.appSlice.isModalVerificationOpen;
+
 export const appReducer = appSlice.reducer;
-export const { setIsLoading, setErrorData, setErrorAlertIsOpen } = appSlice.actions;
+export const { setIsLoading, setToastData, setToastIsOpen, setIsModalVerificationOpen } =
+    appSlice.actions;

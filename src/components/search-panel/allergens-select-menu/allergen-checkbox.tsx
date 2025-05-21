@@ -1,6 +1,7 @@
 import { Checkbox } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectAllergens } from '~/store/slices/allergens-slice';
@@ -46,7 +47,7 @@ export const AllergenCheckbox: React.FC<AllergenCheckboxPropsType> = ({
     return (
         <Checkbox
             name='allergen'
-            variant='limeCheckbox'
+            variant={STYLE_VARIANTS.limeCheckbox}
             value={item}
             onChange={toggleAllergen}
             data-test-id={`${DATA_TEST_ID.allergen}-${index}`}

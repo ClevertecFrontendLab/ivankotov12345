@@ -1,9 +1,14 @@
 import { Box, Grid, GridItem, useMediaQuery } from '@chakra-ui/react';
-import { Outlet } from 'react-router';
+import { useEffect, useMemo } from 'react';
+import { Outlet, useNavigate } from 'react-router';
 
-import { COLORS_LIME } from '~/constants/colors';
+import { ROUTER_PATHS } from '~/constants/router-paths';
+import { COLORS_LIME } from '~/constants/styles/colors';
+import { SIZES } from '~/constants/styles/sizes';
+import { Z_INDEX } from '~/constants/styles/z-index';
 import { DATA_TEST_ID } from '~/constants/test-id';
-import { Z_INDEX } from '~/constants/z-index';
+import { getLocalStorageItem } from '~/helpers/storage';
+import { ACCESS_TOKEN_STORAGE_KEY } from '~/query/constants/storage-keys';
 import { useGetCategoriesQuery } from '~/query/services/category';
 import { useAppSelector } from '~/store/hooks';
 import { selectApp } from '~/store/slices/app-slice';
@@ -22,10 +27,19 @@ const fixedContainer = {
 };
 
 export const Layout: React.FC = () => {
+    const navigate = useNavigate();
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
     const { isLoading: isCategoriesLoading } = useGetCategoriesQuery(undefined);
 
-    const { isErrorAlertOpen } = useAppSelector(selectApp);
+    const { isResponseStatusOpen } = useAppSelector(selectApp);
+
+    const token = useMemo(() => getLocalStorageItem(ACCESS_TOKEN_STORAGE_KEY), []);
+
+    useEffect(() => {
+        if (!token) {
+            navigate(ROUTER_PATHS.signIn);
+        }
+    }, [navigate, token]);
 
     return (
         <Box height='100vh'>
@@ -34,7 +48,7 @@ export const Layout: React.FC = () => {
                 justifyItems='center'
                 bg={COLORS_LIME[50]}
                 position='fixed'
-                w='full'
+                w={SIZES.full}
                 zIndex={Z_INDEX.layout}
                 data-test-id={DATA_TEST_ID.header}
             >
@@ -47,7 +61,7 @@ export const Layout: React.FC = () => {
                         base: '1fr / 1fr',
                         lg: '1fr / 256px 1fr clamp(220px, 20%, 260px)',
                     }}
-                    w='full'
+                    w={SIZES.full}
                     maxW='1920px'
                     gridTemplateAreas={{
                         base: '"main"',
@@ -94,7 +108,7 @@ export const Layout: React.FC = () => {
                         bottom={0}
                         justifyItems='center'
                         bg={COLORS_LIME[50]}
-                        w='full'
+                        w={SIZES.full}
                         data-test-id={DATA_TEST_ID.footer}
                         display={{ base: 'block', lg: 'none' }}
                     >
@@ -104,7 +118,7 @@ export const Layout: React.FC = () => {
             </Box>
 
             <Loader isLoading={isCategoriesLoading} />
-            {isErrorAlertOpen ? <AlertError /> : null}
+            {isResponseStatusOpen && <AlertError />}
         </Box>
     );
 };

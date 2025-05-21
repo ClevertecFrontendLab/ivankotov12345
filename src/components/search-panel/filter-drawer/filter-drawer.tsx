@@ -21,7 +21,8 @@ import {
     DRAWER_SIDES_ITEMS,
 } from '~/constants/drawer-filter-items';
 import { PLACEHOLDERS } from '~/constants/placeholders';
-import { BACKDROP_FILTER } from '~/constants/sizes';
+import { BACKDROP_FILTER, SIZES } from '~/constants/styles/sizes';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectCategories } from '~/store/slices/category-slice';
@@ -87,7 +88,7 @@ export const FilterDrawer: React.FC = () => {
             <DrawerContent
                 data-test-id={DATA_TEST_ID.filterDrawer}
                 maxW={{ base: 'drawerWidth.sm', lg: 'drawerWidth.lg' }}
-                w='full'
+                w={SIZES.full}
             >
                 <DrawerHeader as={Flex} alignItems='center' px={4} py={8}>
                     <Heading fontSize='2xl' fontWeight='bold'>
@@ -97,10 +98,10 @@ export const FilterDrawer: React.FC = () => {
                     <Spacer />
 
                     <IconButton
-                        variant='black'
+                        variant={STYLE_VARIANTS.black}
                         icon={<CloseIcon />}
                         aria-label='close'
-                        borderRadius='full'
+                        borderRadius={SIZES.full}
                         size='xs'
                         onClick={onClose}
                         data-test-id={DATA_TEST_ID.closeFilterDrawer}
@@ -149,14 +150,14 @@ export const FilterDrawer: React.FC = () => {
 
                 <DrawerFooter justifyContent='center' p={8} gap={2}>
                     <Button
-                        variant='outline'
+                        variant={STYLE_VARIANTS.outline}
                         onClick={onClearFiltersClick}
                         data-test-id={DATA_TEST_ID.clearFilterButton}
                     >
                         Очистить фильтр
                     </Button>
                     <Button
-                        variant='black'
+                        variant={STYLE_VARIANTS.black}
                         onClick={onFindRecipeClick}
                         isDisabled={isDisabled}
                         data-test-id={DATA_TEST_ID.findRecipeButton}

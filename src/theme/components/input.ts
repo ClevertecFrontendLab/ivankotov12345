@@ -5,8 +5,9 @@ const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpe
     inputAnatomy.keys,
 );
 
-const baseStyle = definePartsStyle({
+const searchInput = definePartsStyle({
     field: {
+        border: '1px solid',
         color: 'lime.800',
         caretColor: 'lime.800',
         _placeholder: {
@@ -21,4 +22,31 @@ const baseStyle = definePartsStyle({
     },
 });
 
-export const inputTheme = defineMultiStyleConfig({ baseStyle });
+const authInput = definePartsStyle({
+    field: {
+        color: 'lime.800',
+        caretColor: 'lime.800',
+        bg: 'white',
+        border: '1px solid',
+        borderColor: 'lime.150',
+        borderRadius: 'md',
+
+        _placeholder: {
+            color: 'lime.800',
+        },
+        _hover: {
+            borderColor: 'lime.150',
+        },
+        _invalid: {
+            border: '2px solid',
+            borderColor: 'red.500',
+        },
+    },
+});
+
+export const inputTheme = defineMultiStyleConfig({
+    variants: {
+        searchInput: searchInput,
+        authInput: authInput,
+    },
+});

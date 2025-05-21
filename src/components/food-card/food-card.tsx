@@ -21,7 +21,9 @@ import { memo } from 'react';
 import { NavLink } from 'react-router';
 
 import fallback from '~/assets/fallback.png';
-import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/colors';
+import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
+import { SIZES } from '~/constants/styles/sizes';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { getCardCategories } from '~/helpers/get-card-categories';
 import { getFullImagePath } from '~/helpers/get-full-image-path';
@@ -78,17 +80,17 @@ export const FoodCard: React.FC<CardData> = memo(
                 )}
 
                 <VStack
-                    w='full'
+                    w={SIZES.full}
                     alignItems='start'
                     pt={{ base: 2, lg: 5 }}
                     px={{ base: 2, lg: 6 }}
                     pb={{ base: 1, lg: 5 }}
                     spacing={{ base: 2, lg: 4 }}
                 >
-                    <CardHeader w='full' p={0}>
+                    <CardHeader w={SIZES.full} p={0}>
                         <Flex>
                             <VStack
-                                w='full'
+                                w={SIZES.full}
                                 alignItems='start'
                                 layerStyle='absolute'
                                 top={2}
@@ -125,7 +127,7 @@ export const FoodCard: React.FC<CardData> = memo(
 
                     <CardBody p={0}>
                         <Box>
-                            <Heading as='h3' variant='card' mb={2}>
+                            <Heading as='h3' variant={STYLE_VARIANTS.cardHeading} mb={2}>
                                 <Highlight
                                     query={searchInputValue}
                                     styles={{ color: COLORS_LIME[600] }}
@@ -143,10 +145,10 @@ export const FoodCard: React.FC<CardData> = memo(
                         </Box>
                     </CardBody>
 
-                    <CardFooter p={0} display='block' w='full'>
-                        <ButtonGroup w='full' justifyContent='flex-end'>
+                    <CardFooter p={0} display='block' w={SIZES.full}>
+                        <ButtonGroup w={SIZES.full} justifyContent='flex-end'>
                             <Button
-                                variant='outline'
+                                variant={STYLE_VARIANTS.outline}
                                 leftIcon={<LikeIcon />}
                                 size={{ base: 'xs', lg: 'sm' }}
                                 borderColor={COLORS_BLACK_ALPHA[600]}
@@ -159,7 +161,7 @@ export const FoodCard: React.FC<CardData> = memo(
                                 as={NavLink}
                                 to={recipePath}
                                 size={{ base: 'xs', lg: 'sm' }}
-                                variant='black'
+                                variant={STYLE_VARIANTS.black}
                                 data-test-id={`${DATA_TEST_ID.cardLink}-${index}`}
                             >
                                 Готовить

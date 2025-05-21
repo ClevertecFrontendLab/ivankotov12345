@@ -1,8 +1,8 @@
 import { Center, useMediaQuery } from '@chakra-ui/react';
 
-import { BACKDROP_FILTER, SIZES, SPINNER_SIZE } from '~/constants/sizes';
+import { BACKDROP_FILTER, SIZES, SPINNER_SIZE } from '~/constants/styles/sizes';
+import { Z_INDEX } from '~/constants/styles/z-index';
 import { DATA_TEST_ID } from '~/constants/test-id';
-import { Z_INDEX } from '~/constants/z-index';
 
 import { LoaderSpinner } from '../loader-spinner';
 

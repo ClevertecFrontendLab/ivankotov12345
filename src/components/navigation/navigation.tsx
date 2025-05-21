@@ -1,9 +1,11 @@
 import { Accordion, Button, Text, useMediaQuery, useOutsideClick, VStack } from '@chakra-ui/react';
 import { useMemo, useRef } from 'react';
 
-import { COLORS_BLACK_ALPHA } from '~/constants/colors';
+import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
+import { SIZES } from '~/constants/styles/sizes';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
+import { Z_INDEX } from '~/constants/styles/z-index';
 import { DATA_TEST_ID } from '~/constants/test-id';
-import { Z_INDEX } from '~/constants/z-index';
 import { usePathItems } from '~/hooks/use-path-items';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { closeBurgerMenu } from '~/store/slices/burger-slice';
@@ -59,13 +61,17 @@ export const Navigation: React.FC<NavigationProps> = ({ buttonRef }) => {
         >
             {isTablet && <Breadcrumbs />}
 
-            <Accordion overflowY='auto' w={{ base: 'full', lg: 'auto' }} defaultIndex={activeIndex}>
+            <Accordion
+                overflowY='auto'
+                w={{ base: SIZES.full, lg: SIZES.auto }}
+                defaultIndex={activeIndex}
+            >
                 {categories &&
                     categories.map((props) => <CategoryItem {...props} key={props.category} />)}
             </Accordion>
 
             <VStack
-                w='full'
+                w={SIZES.full}
                 pb={8}
                 px={6}
                 gap={5}
@@ -79,7 +85,7 @@ export const Navigation: React.FC<NavigationProps> = ({ buttonRef }) => {
                 <Text color={COLORS_BLACK_ALPHA[700]}>
                     Все права защищены, ученический файл, <br /> ©Клевер Технолоджи, 2025
                 </Text>
-                <Button leftIcon={<ExitIcon />} variant='none' p={0} size='2xs'>
+                <Button leftIcon={<ExitIcon />} variant={STYLE_VARIANTS.none} p={0} size='2xs'>
                     Выйти
                 </Button>
             </VStack>

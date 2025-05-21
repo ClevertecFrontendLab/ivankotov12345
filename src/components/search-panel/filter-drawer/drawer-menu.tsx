@@ -11,7 +11,9 @@ import {
 } from '@chakra-ui/react';
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 
-import { COLORS, COLORS_BLACK_ALPHA } from '~/constants/colors';
+import { COLORS, COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
+import { SIZES } from '~/constants/styles/sizes';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch } from '~/store/hooks';
 import { FilterItem } from '~/types/filter-item';
@@ -55,9 +57,9 @@ export const DrawerMenu: React.FC<DrawerProps> = ({
             <MenuButton
                 as={Button}
                 rightIcon={<ChevronDownIcon />}
-                variant='menuButton'
-                w='full'
-                height='auto'
+                variant={STYLE_VARIANTS.menuButton}
+                w={SIZES.full}
+                height={SIZES.auto}
                 data-test-id={testId}
             >
                 <HStack alignItems='start' rowGap={1} columnGap={2} flexWrap='wrap'>
@@ -79,7 +81,7 @@ export const DrawerMenu: React.FC<DrawerProps> = ({
                         py={1.5}
                     >
                         <Checkbox
-                            variant='limeCheckbox'
+                            variant={STYLE_VARIANTS.limeCheckbox}
                             value={item}
                             onChange={toggleItem}
                             data-test-id={`${DATA_TEST_ID.checkbox}-${label.toLowerCase()}`}

@@ -1,8 +1,8 @@
 import { Heading, Text, VStack } from '@chakra-ui/react';
 import { useState } from 'react';
 
-import { COLORS_BLACK_ALPHA } from '~/constants/colors';
-import { SPINNER_SIZE } from '~/constants/sizes';
+import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
+import { SPINNER_SIZE } from '~/constants/styles/sizes';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppSelector } from '~/store/hooks';
 import { selectAllergensFilter } from '~/store/slices/filters-slice';

@@ -8,8 +8,9 @@ import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
 import { PAGE_TITLES } from '~/constants/page-titles';
 import { CAROUSEL_QUERY_PARAMS } from '~/constants/query-params';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
+import { Z_INDEX } from '~/constants/styles/z-index';
 import { DATA_TEST_ID } from '~/constants/test-id';
-import { Z_INDEX } from '~/constants/z-index';
 import { Endpoints } from '~/query/constants/paths';
 import { useGetRecipesInfiniteQuery } from '~/query/services/recipe';
 
@@ -54,17 +55,13 @@ export const Сarousel: React.FC = () => {
 
     const carouselCardsData = useMemo(() => data?.pages[0].data || [], [data]);
 
-    const sortedCardsData = [...carouselCardsData].sort(
-        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-    );
-
     const onBack = () => swiperRef.current?.swiper.slidePrev();
     const onForward = () => swiperRef.current?.swiper.slideNext();
     return (
         <>
-            {sortedCardsData.length > 0 ? (
+            {carouselCardsData.length > 0 ? (
                 <Box as='section' mt={{ base: 0, lg: 6 }} mb={{ base: 8, xl: 10 }}>
-                    <Heading as='h2' variant='section' mb={6}>
+                    <Heading as='h2' variant={STYLE_VARIANTS.sectionHeading} mb={6}>
                         {title}
                     </Heading>
                     <Box
@@ -80,7 +77,7 @@ export const Сarousel: React.FC = () => {
                             top='calc(50% - 38px)'
                             transform='translate(-10%, -50%)'
                             zIndex={Z_INDEX.carousel}
-                            variant='black'
+                            variant={STYLE_VARIANTS.black}
                             display={{ base: 'none', lg: 'block' }}
                             onClick={onBack}
                             data-test-id={DATA_TEST_ID.carouselBack}
@@ -94,8 +91,9 @@ export const Сarousel: React.FC = () => {
                             ref={swiperRef}
                             loop={true}
                             breakpoints={carouselBreakpoints}
+                            speed={0}
                         >
-                            {sortedCardsData.map((props, index) => (
+                            {carouselCardsData.map((props, index) => (
                                 <SwiperSlide key={props._id}>
                                     <CarouselCard {...props} index={index} />
                                 </SwiperSlide>
@@ -111,7 +109,7 @@ export const Сarousel: React.FC = () => {
                             transform='translate(20%, -50%)'
                             right='0'
                             zIndex={Z_INDEX.carousel}
-                            variant='black'
+                            variant={STYLE_VARIANTS.black}
                             display={{ base: 'none', lg: 'block' }}
                             onClick={onForward}
                             data-test-id={DATA_TEST_ID.carouselForward}

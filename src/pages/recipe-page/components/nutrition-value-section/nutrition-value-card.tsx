@@ -1,7 +1,8 @@
 import { Card, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 
-import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/colors';
+import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 
 type NutritionValueCardProps = {
     description: string;
@@ -18,7 +19,7 @@ export const NutritionValueCard: React.FC<NutritionValueCardProps> = ({
         as={Flex}
         direction={{ base: 'row', md: 'column' }}
         alignItems='center'
-        variant='outline'
+        variant={STYLE_VARIANTS.outline}
         borderRadius='2xl'
         p={4}
         gap={3}

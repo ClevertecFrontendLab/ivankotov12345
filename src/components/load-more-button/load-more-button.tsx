@@ -1,7 +1,7 @@
 import { Button, Center } from '@chakra-ui/react';
 import React from 'react';
 
-import { COLORS_LIME } from '~/constants/colors';
+import { COLORS_LIME } from '~/constants/styles/colors';
 import { DATA_TEST_ID } from '~/constants/test-id';
 
 type LoadMoreButtonProps = {

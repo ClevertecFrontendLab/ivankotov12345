@@ -1,4 +1,4 @@
-import { COLORS, COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/colors';
+import { COLORS, COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
 
 export const getSearchBorderColor = (
     currentSearchValue: string,

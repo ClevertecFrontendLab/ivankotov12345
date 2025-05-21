@@ -1,6 +1,7 @@
 import { Checkbox, CheckboxGroup, Text, VStack } from '@chakra-ui/react';
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch } from '~/store/hooks';
 import { FilterItem } from '~/types/filter-item';
@@ -39,7 +40,7 @@ export const FilterCheckboxGroup: React.FC<FilterCheckboxGroupProps> = ({
             <CheckboxGroup value={selectedItems}>
                 {itemsList.map(({ item, label }) => (
                     <Checkbox
-                        variant='limeCheckbox'
+                        variant={STYLE_VARIANTS.limeCheckbox}
                         key={item}
                         value={item}
                         onChange={toggleItem}

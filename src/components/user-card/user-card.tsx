@@ -1,7 +1,9 @@
 import { Avatar, Box, Button, Card, Flex, Spacer, Text, VStack } from '@chakra-ui/react';
 
 import authorAvatar from '~/assets/img/author-avatar.jpg';
-import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/colors';
+import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
+import { SIZES } from '~/constants/styles/sizes';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 
 import { PeopleIcon, SignUp } from '../icons';
 import { StatButton } from '../stat-button';
@@ -18,14 +20,14 @@ const { avatar, name, email, followers } = userData;
 export const UserCard: React.FC = () => (
     <Card
         bg={COLORS_LIME[300]}
-        w='full'
+        w={SIZES.full}
         flexDirection='row'
         alignItems='center'
         p={{ base: 3, md: 6 }}
         gap={4}
     >
         <Avatar src={avatar} name={name} w={24} h={24} />
-        <VStack w='full' gap={4}>
+        <VStack w={SIZES.full} gap={4}>
             <Text
                 position='absolute'
                 right={{ base: 1, md: 6 }}
@@ -35,7 +37,7 @@ export const UserCard: React.FC = () => (
                 Автор рецепта
             </Text>
 
-            <Box w='full'>
+            <Box w={SIZES.full}>
                 <Text
                     fontSize={{ base: 'sm', md: '2xl' }}
                     fontWeight={{ base: 'semibold', md: 'bold' }}
@@ -48,8 +50,8 @@ export const UserCard: React.FC = () => (
                 </Text>
             </Box>
 
-            <Flex w='full' alignItems='center'>
-                <Button leftIcon={<SignUp />} variant='black' size='xs'>
+            <Flex w={SIZES.full} alignItems='center'>
+                <Button leftIcon={<SignUp />} variant={STYLE_VARIANTS.black} size='xs'>
                     Подписаться
                 </Button>
 

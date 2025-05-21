@@ -5,6 +5,7 @@ import { CardsWrapper } from '~/components/cards-wrapper';
 import { FoodCard } from '~/components/food-card';
 import { PAGE_TITLES } from '~/constants/page-titles';
 import { JUICIEST_SECTION_QUERY_PARAMS } from '~/constants/query-params';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { Endpoints } from '~/query/constants/paths';
 import { useGetRecipesInfiniteQuery } from '~/query/services/recipe';
@@ -23,11 +24,11 @@ export const JuiciestSection: React.FC = () => {
     return (
         <Box as='section' mb={{ base: 8, lg: 10 }}>
             <Flex alignItems='center' mb={{ base: 4, '2xl': 6 }}>
-                <Heading variant='section'>{title}</Heading>
+                <Heading variant={STYLE_VARIANTS.sectionHeading}>{title}</Heading>
 
                 <Spacer />
 
-                <Box display={{ base: 'none', md: 'block' }}>
+                <Box display={{ base: 'none', lg: 'block' }}>
                     <JuiciestButton testId={DATA_TEST_ID.juiciestLink} />
                 </Box>
             </Flex>
@@ -38,7 +39,7 @@ export const JuiciestSection: React.FC = () => {
                 ))}
             </CardsWrapper>
 
-            <Flex justifyContent='center' pt={4} display={{ base: 'flex', md: 'none' }}>
+            <Flex justifyContent='center' pt={4} display={{ base: 'flex', lg: 'none' }}>
                 <JuiciestButton testId={DATA_TEST_ID.juiciestLinkMobile} />
             </Flex>
         </Box>
