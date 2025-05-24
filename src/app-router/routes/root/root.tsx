@@ -9,6 +9,7 @@ import { ROUTER_PATHS } from '~/constants/router-paths';
 import { CategoryPage } from '~/pages/category-page';
 import { HomePage } from '~/pages/home-page';
 import { JuiciestPage } from '~/pages/juiciest-page';
+import { NewRecipePage } from '~/pages/new-recipe-page';
 import { RecipePage } from '~/pages/recipe-page';
 
 import { notFoundPage } from '../not-found';
@@ -31,6 +32,10 @@ export const rootPage: RouteObject = {
             path: ROUTER_PATHS.juiciestPage,
             element: <JuiciestPage />,
             ErrorBoundary: RecipeErrorBoundary,
+        },
+        {
+            path: ROUTER_PATHS.newRecipe,
+            element: <NewRecipePage />,
         },
         {
             path: ROUTER_PATHS.subcategory,
