@@ -7,3 +7,14 @@ export type ResponseData = {
 };
 
 export type ResponseError = Omit<FetchBaseQueryError, 'data'> & { data: ResponseData };
+
+export type ImageLoadResponse = {
+    name: string;
+    url: string;
+    _id: string;
+};
+
+export type MeasureUnitResponse = {
+    _id: string;
+    name: string;
+};

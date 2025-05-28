@@ -34,6 +34,7 @@ export const categorySlice = createSlice({
 
 export const selectCategory = (state: ApplicationState) => state.categorySlice;
 export const selectCategories = (state: ApplicationState) => state.categorySlice.categories;
+export const selectSubCategories = (state: ApplicationState) => state.categorySlice.subCategories;
 
 export const categoryReducer = categorySlice.reducer;
 export const { setCategories, setSubCategories } = categorySlice.actions;

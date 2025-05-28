@@ -10,22 +10,14 @@ import {
     InputRightElement,
 } from '@chakra-ui/react';
 import { useState } from 'react';
-import { UseFormRegisterReturn } from 'react-hook-form';
 
 import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { INPUT_ERROR_POSITION } from '~/constants/styles/styles';
 import { DATA_TEST_ID } from '~/constants/test-id';
+import { AppInputProps } from '~/types/props';
 
-type InputPasswordProps = {
-    placeholder: string;
-    register: UseFormRegisterReturn;
-    isInvalid: boolean;
-    label: string;
-    testId: string;
-    hint?: string;
-    error?: string;
-};
+type InputPasswordProps = Omit<AppInputProps, 'variant' | 'setValue'>;
 
 export const InputPassword: React.FC<InputPasswordProps> = ({
     placeholder,

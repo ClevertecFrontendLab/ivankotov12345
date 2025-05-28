@@ -7,8 +7,14 @@ const limeUppercase = defineStyle({
     color: 'lime.600',
 });
 
+const inputLabel = defineStyle({
+    fontWeight: 'semibold',
+    lineHeight: '24px',
+});
+
 export const textTheme = defineStyleConfig({
     variants: {
         limeUppercase: limeUppercase,
+        inputLabel: inputLabel,
     },
 });

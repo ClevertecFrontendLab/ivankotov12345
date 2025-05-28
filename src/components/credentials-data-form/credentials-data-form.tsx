@@ -1,11 +1,13 @@
 import { FieldErrors, FieldValues, SetFieldValue, UseFormRegister } from 'react-hook-form';
 
-import { InputAuth } from '~/components/input-auth';
-import { InputPassword } from '~/components/input-password';
+import { InputPassword } from '~/components/form-fields';
 import { LABELS, LOGIN_HINT_TEXT, PASSWORD_HINT_TEXT } from '~/constants/labels';
 import { PLACEHOLDERS } from '~/constants/placeholders';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { CredentialsSchema } from '~/constants/validation-schemas/credentials';
+
+import { AppInput } from '../form-fields';
 
 type CredentialsDataFormStepProps = {
     register: UseFormRegister<CredentialsSchema>;
@@ -19,7 +21,7 @@ export const CredentialsDataForm: React.FC<CredentialsDataFormStepProps> = ({
     setValue,
 }) => (
     <>
-        <InputAuth
+        <AppInput
             isInvalid={!!errors.login}
             label={LABELS.login}
             placeholder={PLACEHOLDERS.loginShort}
@@ -27,6 +29,7 @@ export const CredentialsDataForm: React.FC<CredentialsDataFormStepProps> = ({
             hint={LOGIN_HINT_TEXT}
             error={errors.login?.message}
             testId={DATA_TEST_ID.loginInput}
+            variant={STYLE_VARIANTS.authInput}
             setValue={setValue}
         />
 

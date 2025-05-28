@@ -3,7 +3,7 @@ import { Box, Button, HStack, Menu, MenuButton, MenuList, Switch, Text } from '@
 import { useRef, useState } from 'react';
 
 import { ALLERGENS_LIST } from '~/constants/drawer-filter-items';
-import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
+import { COLORS, COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
@@ -87,7 +87,7 @@ export const AllergensSelectMenu: React.FC<{ isDrawerType?: boolean }> = ({ isDr
                         <Box
                             key={item}
                             gap={2}
-                            background={index % 2 ? 'white' : COLORS_BLACK_ALPHA[100]}
+                            background={index % 2 ? COLORS.white : COLORS_BLACK_ALPHA[100]}
                             px={4}
                             py={1.5}
                         >

@@ -55,7 +55,7 @@ export const RecipePage: React.FC = () => {
                 time={time}
             />
 
-            <VStack gap={10} maxW='recipeDetailsMaxWidth'>
+            <VStack gap={10} maxW={SIZES.recipeDetailsMaxWidth}>
                 <NutritionValueSection {...nutritionValue} />
                 <IngredientsTable ingredients={ingredients} portions={portions} />
 
