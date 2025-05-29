@@ -8,6 +8,7 @@ import { MetaParams, RecipeListResponse, RecipeType } from '~/types/recipe';
 import { RecipeInfiniteParams, RecipeParams } from '~/types/request-params';
 
 import { Endpoints } from '../constants/paths';
+import { RECIPE_TAG } from '../constants/tags';
 import { apiSlice } from '../create-api';
 
 export const recpeApi = apiSlice.injectEndpoints({
@@ -38,6 +39,7 @@ export const recpeApi = apiSlice.injectEndpoints({
                     dispatch(setIsSearching(false));
                 }
             },
+            providesTags: [RECIPE_TAG],
         }),
         getRecipesByCategory: build.query<RecipeListResponse, RecipeParams>({
             query: (params) => {
@@ -52,6 +54,7 @@ export const recpeApi = apiSlice.injectEndpoints({
                     dispatch(setIsLoading(false));
                 }
             },
+            providesTags: [RECIPE_TAG],
         }),
         getRecipe: build.query<RecipeType, string>({
             query: (id) => ({ url: `${Endpoints.RECIPE}/${id}` }),
@@ -81,6 +84,7 @@ export const recpeApi = apiSlice.injectEndpoints({
                     dispatch(setIsLoading(false));
                 }
             },
+            providesTags: [RECIPE_TAG],
         }),
     }),
 });

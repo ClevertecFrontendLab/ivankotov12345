@@ -43,7 +43,8 @@ export const RecipeDescription: React.FC<RecipeFormProps> = ({
                 <HStack justifyContent='space-between' w={SIZES.full}>
                     <Text variant={STYLE_VARIANTS.inputLabel}>На сколько человек ваш рецепт?</Text>
                     <AppNumberInput
-                        register={register('portions', { valueAsNumber: true })}
+                        control={control}
+                        name='portions'
                         isInvalid={!!errors.portions}
                         withStepper={true}
                     />
@@ -54,7 +55,8 @@ export const RecipeDescription: React.FC<RecipeFormProps> = ({
                         Сколько времени готовить в минутах?
                     </Text>
                     <AppNumberInput
-                        register={register('time', { valueAsNumber: true })}
+                        control={control}
+                        name='time'
                         isInvalid={!!errors.time}
                         withStepper={true}
                     />

@@ -1,5 +1,5 @@
 import { Button, Heading, Image, Input, VStack } from '@chakra-ui/react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Control, FieldPath, useController } from 'react-hook-form';
 
 import { FallbackImage } from '~/components/fallback-image';
@@ -62,6 +62,13 @@ export const LoadImageModal: React.FC<LoadImageModalProps> = ({
             onClose();
         }
     };
+
+    useEffect(() => {
+        if (field.value) {
+            const imageUrl = field.value as string;
+            setImageUrl(imageUrl);
+        }
+    }, [field, setImageUrl]);
 
     const imagePreviewUrl = imageUrl ? getFullImagePath(imageUrl) : selectedImageUrl;
 

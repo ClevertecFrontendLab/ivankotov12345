@@ -67,8 +67,9 @@ export const RecipeIngredients: React.FC<RecipeFormProps> = ({
                     </Box>
 
                     <AppNumberInput
+                        control={control}
+                        name={`ingredients.${index}.count`}
                         isInvalid={!!errors.ingredients?.[index]?.count}
-                        register={register(`ingredients.${index}.count`, { valueAsNumber: true })}
                         placeholder={PLACEHOLDERS.ingredientMeasure}
                     />
 

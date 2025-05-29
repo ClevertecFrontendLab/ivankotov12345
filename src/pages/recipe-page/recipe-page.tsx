@@ -34,6 +34,7 @@ export const RecipePage: React.FC = () => {
         ingredients,
         steps,
         portions,
+        authorId,
     } = data as unknown as RecipeType;
 
     useEffect(
@@ -53,6 +54,7 @@ export const RecipePage: React.FC = () => {
                 bookmarks={bookmarks}
                 likes={likes}
                 time={time}
+                authorId={authorId}
             />
 
             <VStack gap={10} maxW={SIZES.recipeDetailsMaxWidth}>

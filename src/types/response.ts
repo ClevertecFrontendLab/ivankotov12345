@@ -2,7 +2,8 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 export type ResponseData = {
     message: string;
-    error: string;
+    statusText?: string;
+    error?: string;
     statusCode: number;
 };
 

@@ -1,3 +1,4 @@
+import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
 import {
     Button,
     Card,
@@ -7,6 +8,7 @@ import {
     Flex,
     Heading,
     HStack,
+    IconButton,
     Image,
     Spacer,
     Tag,
@@ -15,22 +17,33 @@ import {
     Text,
     VStack,
 } from '@chakra-ui/react';
+import { useLocation, useNavigate, useParams } from 'react-router';
 
 import { CardBadge } from '~/components/card-badge';
 import { FavoriteIcon, LikeIcon, TimerIcon } from '~/components/icons';
 import { StatButton } from '~/components/stat-button';
+import { EDIT_ITEM_PATH, ROUTER_PATHS } from '~/constants/router-paths';
 import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
 import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { getCardCategories } from '~/helpers/get-card-categories';
 import { getFullImagePath } from '~/helpers/get-full-image-path';
+import { useDeleteRecipeMutation } from '~/query/services/create-recipe';
 import { useAppSelector } from '~/store/hooks';
+import { selectUserId } from '~/store/slices/app-slice';
 import { selectCategory } from '~/store/slices/category-slice';
 import { RecipeType } from '~/types/recipe';
 
 export type RecipePageCardProps = Pick<
     RecipeType,
-    'image' | 'title' | 'description' | 'categoriesIds' | 'bookmarks' | 'likes' | 'time'
+    | 'image'
+    | 'title'
+    | 'description'
+    | 'categoriesIds'
+    | 'bookmarks'
+    | 'likes'
+    | 'time'
+    | 'authorId'
 >;
 
 export const RecipePageCard: React.FC<RecipePageCardProps> = ({
@@ -41,10 +54,33 @@ export const RecipePageCard: React.FC<RecipePageCardProps> = ({
     bookmarks,
     likes,
     time,
+    authorId,
 }) => {
+    const userId = useAppSelector(selectUserId);
+    const navigate = useNavigate();
     const { categories, subCategories } = useAppSelector(selectCategory);
+    const [deleteRecipe] = useDeleteRecipeMutation();
+
+    const { id } = useParams();
+
+    const { pathname } = useLocation();
+
+    const onEditRecipeClick = () => navigate(`${EDIT_ITEM_PATH}${pathname}`);
+
+    const onDeleteRecipeClick = async () => {
+        try {
+            if (id) {
+                await deleteRecipe(id);
+                navigate(ROUTER_PATHS.homePage);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const cardCategories = getCardCategories(categories, subCategories, categoriesIds);
+
+    const isUserAuthor = authorId === userId;
     return (
         <Card
             flexDirection={{ base: 'column', md: 'row' }}
@@ -120,26 +156,45 @@ export const RecipePageCard: React.FC<RecipePageCardProps> = ({
 
                     <Spacer />
 
-                    <HStack gap={3}>
-                        <Button
-                            size={{ base: 'xs', lg: 'sm', '2xl': 'lg' }}
-                            leftIcon={<FavoriteIcon />}
-                            variant={STYLE_VARIANTS.outline}
-                            borderColor={COLORS_BLACK_ALPHA[600]}
-                            color={COLORS_BLACK_ALPHA[800]}
-                            fontWeight='semibold'
-                        >
-                            Оценить рецепт
-                        </Button>
-                        <Button
-                            size={{ base: 'xs', lg: 'sm', '2xl': 'lg' }}
-                            leftIcon={<LikeIcon />}
-                            fontWeight='semibold'
-                            background={COLORS_LIME[400]}
-                        >
-                            Сохранить в закладки
-                        </Button>
-                    </HStack>
+                    {isUserAuthor ? (
+                        <HStack>
+                            <IconButton
+                                aria-label='delete recipe'
+                                icon={<DeleteIcon />}
+                                variant={STYLE_VARIANTS.none}
+                                onClick={onDeleteRecipeClick}
+                            />
+
+                            <Button
+                                variant={STYLE_VARIANTS.outline}
+                                leftIcon={<EditIcon />}
+                                onClick={onEditRecipeClick}
+                            >
+                                Редактировать рецепт
+                            </Button>
+                        </HStack>
+                    ) : (
+                        <HStack gap={3}>
+                            <Button
+                                size={{ base: 'xs', lg: 'sm', '2xl': 'lg' }}
+                                leftIcon={<FavoriteIcon />}
+                                variant={STYLE_VARIANTS.outline}
+                                borderColor={COLORS_BLACK_ALPHA[600]}
+                                color={COLORS_BLACK_ALPHA[800]}
+                                fontWeight='semibold'
+                            >
+                                Оценить рецепт
+                            </Button>
+                            <Button
+                                size={{ base: 'xs', lg: 'sm', '2xl': 'lg' }}
+                                leftIcon={<LikeIcon />}
+                                fontWeight='semibold'
+                                background={COLORS_LIME[400]}
+                            >
+                                Сохранить в закладки
+                            </Button>
+                        </HStack>
+                    )}
                 </CardFooter>
             </VStack>
         </Card>

@@ -8,7 +8,10 @@ export const ROUTER_PATHS = {
     newRecipe: '/new-recipe',
     category: ':category',
     subcategory: ':category/:subcategory',
+    editRecipe: '/edit-recipe/:category/:subcategory/:id',
     recipe: ':id',
     anyRoute: '*',
     notFound: '/not-found',
 };
+
+export const EDIT_ITEM_PATH = '/edit-recipe';

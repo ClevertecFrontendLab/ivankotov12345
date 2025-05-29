@@ -1,5 +1,6 @@
 import { Box, Grid, GridItem, useMediaQuery } from '@chakra-ui/react';
-import { useEffect, useMemo } from 'react';
+import { jwtDecode } from 'jwt-decode';
+import { useEffect, useMemo, useRef } from 'react';
 import { Outlet, useNavigate } from 'react-router';
 
 import { ROUTER_PATHS } from '~/constants/router-paths';
@@ -9,9 +10,10 @@ import { Z_INDEX } from '~/constants/styles/z-index';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { getLocalStorageItem } from '~/helpers/storage';
 import { ACCESS_TOKEN_STORAGE_KEY } from '~/query/constants/storage-keys';
+import { useRefreshTokenMutation } from '~/query/services/auth';
 import { useGetCategoriesQuery } from '~/query/services/category';
-import { useAppSelector } from '~/store/hooks';
-import { selectApp } from '~/store/slices/app-slice';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { selectApp, setUserId } from '~/store/slices/app-slice';
 
 import { AlertError } from '../alert-error';
 import { Aside } from '../aside';
@@ -27,19 +29,38 @@ const fixedContainer = {
 };
 
 export const Layout: React.FC = () => {
+    const isFirstRender = useRef(true);
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
     const { isLoading: isCategoriesLoading } = useGetCategoriesQuery(undefined);
 
     const { isResponseStatusOpen } = useAppSelector(selectApp);
 
-    const token = useMemo(() => getLocalStorageItem(ACCESS_TOKEN_STORAGE_KEY), []);
+    const token: string = useMemo(() => getLocalStorageItem(ACCESS_TOKEN_STORAGE_KEY), []);
+
+    const [refreshToken] = useRefreshTokenMutation();
 
     useEffect(() => {
         if (!token) {
             navigate(ROUTER_PATHS.signIn);
         }
     }, [navigate, token]);
+
+    useEffect(() => {
+        if (token) {
+            const decodedToken = jwtDecode<{ userId: string }>(token);
+            dispatch(setUserId(decodedToken.userId));
+        }
+    }, [token, dispatch]);
+
+    useEffect(() => {
+        if (isFirstRender.current) {
+            refreshToken();
+            isFirstRender.current = false;
+        }
+    }, [isFirstRender, refreshToken]);
 
     return (
         <Box height='100vh'>

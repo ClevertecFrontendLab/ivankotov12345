@@ -1,25 +1,32 @@
 import { EditIcon } from '@chakra-ui/icons';
-import { Box, Button, HStack } from '@chakra-ui/react';
+import { Box, Button, HStack, useDisclosure } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useBlocker, useParams } from 'react-router';
 
 import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
 import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { RecipeSchema, recipeSchema } from '~/constants/validation-schemas/recipe';
-import { useCreateRecipeMutation } from '~/query/services/create-recipe';
+import { useCreateRecipeMutation, useUpdateRecipeMutation } from '~/query/services/create-recipe';
+import { useGetRecipeQuery } from '~/query/services/recipe';
 
+import { setDefaultFormValues } from './helpers/set-default-form-values';
+import { ModalBlockNavigation } from './modal-block-navigation';
 import { RecipeDescription } from './recipe-description';
 import { RecipeIngredients } from './recipe-ingredients';
 import { RecipeSteps } from './recipe-steps';
 
 export const RecipeForm: React.FC = () => {
+    const { isOpen, onOpen, onClose } = useDisclosure();
     const {
         control,
         register,
         setValue,
+        reset,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isDirty },
     } = useForm({
         resolver: zodResolver(recipeSchema),
         defaultValues: {
@@ -28,17 +35,37 @@ export const RecipeForm: React.FC = () => {
         },
     });
 
-    console.log(errors);
+    const { id } = useParams();
+    const { data: recipeData } = useGetRecipeQuery(id as string, { skip: !id });
 
     const [createRecipe] = useCreateRecipeMutation();
+    const [updateRecipe] = useUpdateRecipeMutation();
+
+    const blocker = useBlocker(isDirty);
+
+    useEffect(() => {
+        if (blocker.state === 'blocked') {
+            onOpen();
+        }
+    }, [blocker, onOpen]);
 
     const onSubmit: SubmitHandler<RecipeSchema> = async (data) => {
         try {
-            await createRecipe(data).unwrap();
+            if (recipeData && id) {
+                updateRecipe({ id: id, body: data }).unwrap();
+            } else {
+                await createRecipe(data).unwrap();
+            }
         } catch (error) {
             console.log(error);
         }
     };
+
+    useEffect(() => {
+        if (recipeData) {
+            setDefaultFormValues(recipeData, reset);
+        }
+    }, [recipeData, reset]);
 
     return (
         <Box as='form' mt={14} mb={9} onSubmit={handleSubmit(onSubmit)}>
@@ -78,6 +105,8 @@ export const RecipeForm: React.FC = () => {
                     </Button>
                 </HStack>
             </Box>
+
+            <ModalBlockNavigation isOpen={isOpen} onClose={onClose} />
         </Box>
     );
 };

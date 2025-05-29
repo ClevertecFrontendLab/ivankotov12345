@@ -18,10 +18,10 @@ export const recipeSchema = z.object({
     categoriesIds: z.array(z.string()).min(3, EMPTY_MESSAGE),
     title: z.string().min(1, EMPTY_MESSAGE).max(50, EMPTY_MESSAGE),
     description: z.string().min(1, EMPTY_MESSAGE).max(500, EMPTY_MESSAGE),
-    portions: z.number().min(1, EMPTY_MESSAGE).nullable(),
-    time: z.number().min(1, EMPTY_MESSAGE).nullable(),
+    portions: z.number().min(1, EMPTY_MESSAGE),
+    time: z.number().min(1, EMPTY_MESSAGE),
     image: z.string().min(1, EMPTY_MESSAGE),
-    ingredients: z.array(ingredient),
+    ingredients: z.array(ingredient).min(1, EMPTY_MESSAGE),
     steps: z.array(step),
 });
 
