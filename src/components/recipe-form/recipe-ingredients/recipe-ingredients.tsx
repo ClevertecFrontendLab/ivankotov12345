@@ -26,9 +26,9 @@ export const RecipeIngredients: React.FC<RecipeFormProps> = ({
 
     const addIngredient = () => {
         append({
-            measureUnit: null,
-            title: null,
-            count: null,
+            measureUnit: '',
+            title: '',
+            count: 0,
         });
     };
 

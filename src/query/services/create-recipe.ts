@@ -25,6 +25,10 @@ export const createRecipeApi = apiSlice.injectEndpoints({
         deleteRecipe: build.mutation<void, string>({
             query: (id) => ({ url: `${Endpoints.RECIPE}/${id}`, method: 'DELETE' }),
         }),
+
+        createDraft: build.mutation<RecipeType, Partial<RecipeSchema>>({
+            query: (body) => ({ url: Endpoints.CREATE_DRAFT, method: 'POST', body }),
+        }),
     }),
 });
 
@@ -33,4 +37,5 @@ export const {
     useCreateRecipeMutation,
     useUpdateRecipeMutation,
     useDeleteRecipeMutation,
+    useCreateDraftMutation,
 } = createRecipeApi;

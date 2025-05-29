@@ -15,6 +15,7 @@ export enum Endpoints {
     RESET_AUTH_DATA = 'auth/reset-password',
     LOAD_IMAGE = 'file/upload',
     MEASURE_UNITS = 'measure-units',
+    CREATE_DRAFT = 'recipe/draft',
 }
 
 export const ACCESS_TOKEN = 'Authentication-Access';

@@ -31,7 +31,7 @@ export const RecipeSteps: React.FC<RecipeFormProps> = ({ control, register, setV
         const stepsLength = fields.length;
         append({
             stepNumber: stepsLength + 1,
-            description: null,
+            description: '',
             image: null,
         });
     };

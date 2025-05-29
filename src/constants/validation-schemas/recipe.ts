@@ -1,28 +1,30 @@
 import { z } from 'zod';
 
-import { EMPTY_MESSAGE } from './validation-error-messages';
-
-const ingredient = z.object({
-    title: z.string().min(1, EMPTY_MESSAGE).nullable(),
-    count: z.number().min(1, EMPTY_MESSAGE).nullable(),
-    measureUnit: z.string().nullable(),
-});
-
-const step = z.object({
-    stepNumber: z.number().nullable(),
-    description: z.string().min(1, EMPTY_MESSAGE).max(300, EMPTY_MESSAGE).nullable(),
-    image: z.string().nullable(),
-});
-
-export const recipeSchema = z.object({
-    categoriesIds: z.array(z.string()).min(3, EMPTY_MESSAGE),
-    title: z.string().min(1, EMPTY_MESSAGE).max(50, EMPTY_MESSAGE),
-    description: z.string().min(1, EMPTY_MESSAGE).max(500, EMPTY_MESSAGE),
-    portions: z.number().min(1, EMPTY_MESSAGE),
-    time: z.number().min(1, EMPTY_MESSAGE),
-    image: z.string().min(1, EMPTY_MESSAGE),
-    ingredients: z.array(ingredient).min(1, EMPTY_MESSAGE),
-    steps: z.array(step),
-});
+export const recipeSchema = z
+    .object({
+        title: z.string().max(50).nonempty(),
+        description: z.string().max(500).nonempty(),
+        portions: z.number().positive(),
+        time: z.number().positive().max(10000),
+        image: z.string().min(1).nonempty(),
+        categoriesIds: z.array(z.unknown()).min(3).nonempty(),
+        ingredients: z.array(
+            z.object({
+                title: z.string().max(50).nonempty(),
+                count: z.number().positive(),
+                measureUnit: z.string().nonempty(),
+            }),
+        ),
+        steps: z
+            .array(
+                z.object({
+                    stepNumber: z.number(),
+                    description: z.string().max(300).nonempty(),
+                    image: z.string().nullable(),
+                }),
+            )
+            .nullable(),
+    })
+    .required();
 
 export type RecipeSchema = z.output<typeof recipeSchema>;
