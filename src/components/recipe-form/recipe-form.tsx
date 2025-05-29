@@ -17,6 +17,7 @@ import {
 } from '~/query/services/create-recipe';
 import { useGetRecipeQuery } from '~/query/services/recipe';
 
+import { DEFAULT_RECIPE_FORM_VALUES } from './constants';
 import { setDefaultFormValues } from './helpers/set-default-form-values';
 import { ModalBlockNavigation } from './modal-block-navigation';
 import { RecipeDescription } from './recipe-description';
@@ -36,16 +37,7 @@ export const RecipeForm: React.FC = () => {
         formState: { errors, isDirty, touchedFields },
     } = useForm({
         resolver: zodResolver(recipeSchema),
-        defaultValues: {
-            title: '',
-            description: '',
-            image: '',
-            time: 0,
-            portions: 0,
-            categoriesIds: [],
-            ingredients: [{ measureUnit: '', title: '', count: 0 }],
-            steps: [{ stepNumber: 1, description: '', image: null }],
-        },
+        defaultValues: { ...DEFAULT_RECIPE_FORM_VALUES },
     });
 
     const navigate = useNavigate();

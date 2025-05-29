@@ -28,6 +28,7 @@ import { DATA_TEST_ID } from '~/constants/test-id';
 import { getCardCategories } from '~/helpers/get-card-categories';
 import { getFullImagePath } from '~/helpers/get-full-image-path';
 import { useRecipePath } from '~/hooks/use-path-to-recipe';
+import { useBookmarkRecipeMutation } from '~/query/services/recipe';
 import { useAppSelector } from '~/store/hooks';
 import { selectCategory } from '~/store/slices/category-slice';
 import { selectSearchInput } from '~/store/slices/search-input-slice';
@@ -41,6 +42,10 @@ export const FoodCard: React.FC<CardData> = memo(
     ({ _id, image, title, description, bookmarks, likes, categoriesIds, recommendedBy, index }) => {
         const { searchInputValue } = useAppSelector(selectSearchInput);
         const { categories, subCategories } = useAppSelector(selectCategory);
+
+        const [bookmarkRecipe] = useBookmarkRecipeMutation();
+
+        const onBookmarkRecipeClick = () => bookmarkRecipe(_id);
 
         const cardCategories = getCardCategories(categories, subCategories, categoriesIds);
 
@@ -153,6 +158,7 @@ export const FoodCard: React.FC<CardData> = memo(
                                 size={{ base: 'xs', lg: 'sm' }}
                                 borderColor={COLORS_BLACK_ALPHA[600]}
                                 iconSpacing={{ base: 0, lg: 0.5 }}
+                                onClick={onBookmarkRecipeClick}
                             >
                                 <Text display={{ base: 'none', lg: 'inline' }}>Сохранить</Text>
                             </Button>

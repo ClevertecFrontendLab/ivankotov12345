@@ -29,6 +29,7 @@ import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { getCardCategories } from '~/helpers/get-card-categories';
 import { getFullImagePath } from '~/helpers/get-full-image-path';
 import { useDeleteRecipeMutation } from '~/query/services/create-recipe';
+import { useBookmarkRecipeMutation, useLikeRecipeMutation } from '~/query/services/recipe';
 import { useAppSelector } from '~/store/hooks';
 import { selectUserId } from '~/store/slices/app-slice';
 import { selectCategory } from '~/store/slices/category-slice';
@@ -60,6 +61,8 @@ export const RecipePageCard: React.FC<RecipePageCardProps> = ({
     const navigate = useNavigate();
     const { categories, subCategories } = useAppSelector(selectCategory);
     const [deleteRecipe] = useDeleteRecipeMutation();
+    const [likeRecipe] = useLikeRecipeMutation();
+    const [bookmarkRecipe] = useBookmarkRecipeMutation();
 
     const { id } = useParams();
 
@@ -75,6 +78,18 @@ export const RecipePageCard: React.FC<RecipePageCardProps> = ({
             }
         } catch (error) {
             console.log(error);
+        }
+    };
+
+    const onLikeRecipeClick = async () => {
+        if (id) {
+            await likeRecipe(id);
+        }
+    };
+
+    const onBookmarkRecipeClick = async () => {
+        if (id) {
+            await bookmarkRecipe(id);
         }
     };
 
@@ -182,6 +197,7 @@ export const RecipePageCard: React.FC<RecipePageCardProps> = ({
                                 borderColor={COLORS_BLACK_ALPHA[600]}
                                 color={COLORS_BLACK_ALPHA[800]}
                                 fontWeight='semibold'
+                                onClick={onLikeRecipeClick}
                             >
                                 Оценить рецепт
                             </Button>
@@ -190,6 +206,7 @@ export const RecipePageCard: React.FC<RecipePageCardProps> = ({
                                 leftIcon={<LikeIcon />}
                                 fontWeight='semibold'
                                 background={COLORS_LIME[400]}
+                                onClick={onBookmarkRecipeClick}
                             >
                                 Сохранить в закладки
                             </Button>

@@ -86,8 +86,22 @@ export const recpeApi = apiSlice.injectEndpoints({
             },
             providesTags: [RECIPE_TAG],
         }),
+        likeRecipe: build.mutation<string, string>({
+            query: (id) => ({ url: `${Endpoints.RECIPE}/${id}/${Endpoints.LIKE}`, method: 'POST' }),
+        }),
+        bookmarkRecipe: build.mutation<string, string>({
+            query: (id) => ({
+                url: `${Endpoints.RECIPE}/${id}/${Endpoints.BOOKMARK}`,
+                method: 'POST',
+            }),
+        }),
     }),
 });
 
-export const { useGetRecipesInfiniteQuery, useLazyGetRecipesByCategoryQuery, useGetRecipeQuery } =
-    recpeApi;
+export const {
+    useGetRecipesInfiniteQuery,
+    useLazyGetRecipesByCategoryQuery,
+    useGetRecipeQuery,
+    useLikeRecipeMutation,
+    useBookmarkRecipeMutation,
+} = recpeApi;

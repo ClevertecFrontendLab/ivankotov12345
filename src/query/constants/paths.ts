@@ -16,6 +16,8 @@ export enum Endpoints {
     LOAD_IMAGE = 'file/upload',
     MEASURE_UNITS = 'measure-units',
     CREATE_DRAFT = 'recipe/draft',
+    LIKE = 'like',
+    BOOKMARK = 'bookmark',
 }
 
 export const ACCESS_TOKEN = 'Authentication-Access';
