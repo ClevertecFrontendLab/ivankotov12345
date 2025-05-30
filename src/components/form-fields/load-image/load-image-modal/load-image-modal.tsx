@@ -15,7 +15,7 @@ type LoadImageModalProps = {
     name: FieldPath<RecipeSchema>;
     isOpen: boolean;
     onClose: () => void;
-    setImageUrl: (imageUrl: string | undefined) => void;
+    setImageUrl: (imageUrl?: string) => void;
     imageUrl?: string;
 };
 
@@ -27,8 +27,8 @@ export const LoadImageModal: React.FC<LoadImageModalProps> = ({
     name,
     imageUrl,
 }) => {
-    const [selectedImageUrl, setSelectedImageUrl] = useState<string>();
-    const [selectedImageFile, setSelectedImageFile] = useState<File>();
+    const [selectedImageUrl, setSelectedImageUrl] = useState<string | null>();
+    const [selectedImageFile, setSelectedImageFile] = useState<File | null>();
 
     const onSelectImage = () => inputRef.current?.click();
     const inputRef = useRef<HTMLInputElement | null>(null);
@@ -62,6 +62,18 @@ export const LoadImageModal: React.FC<LoadImageModalProps> = ({
         }
     };
 
+    const onDeleteImage = () => {
+        field.onChange(null);
+        setImageUrl();
+        setSelectedImageFile(null);
+        setSelectedImageUrl(null);
+        if (inputRef.current) {
+            inputRef.current.value = '';
+        }
+
+        onClose();
+    };
+
     useEffect(() => {
         if (field.value) {
             const imageUrl = field.value as string;
@@ -74,7 +86,7 @@ export const LoadImageModal: React.FC<LoadImageModalProps> = ({
         <ModalWrapper isOpen={isOpen} onClose={onClose} testId=''>
             <Heading fontSize='2xl'>Изображение</Heading>
 
-            <VStack w={SIZES.imagelg} h={SIZES.imagelg} onClick={onSelectImage}>
+            <VStack w={SIZES.imagelg} h={SIZES.imagelg} onClick={onSelectImage} my={4}>
                 <Image
                     src={imagePreviewUrl}
                     fallback={<FallbackImage />}
@@ -84,12 +96,16 @@ export const LoadImageModal: React.FC<LoadImageModalProps> = ({
             </VStack>
 
             {selectedImageUrl && (
-                <Button variant={STYLE_VARIANTS.black} onClick={onSaveImage} w={SIZES.full}>
-                    Сохранить
-                </Button>
-            )}
+                <VStack gap={4} w={SIZES.full}>
+                    <Button variant={STYLE_VARIANTS.black} onClick={onSaveImage} w={SIZES.full}>
+                        Сохранить
+                    </Button>
 
-            {imageUrl && <Button>Удалить</Button>}
+                    <Button onClick={onDeleteImage} variant={STYLE_VARIANTS.none}>
+                        Удалить
+                    </Button>
+                </VStack>
+            )}
 
             <Input
                 type='file'

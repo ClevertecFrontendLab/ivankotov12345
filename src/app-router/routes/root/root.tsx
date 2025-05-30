@@ -7,10 +7,9 @@ import { recipeLoader } from '~/app-router/loaders/recipe-loader';
 import { checkRouteExists } from '~/app-router/utils/check-route-exists';
 import { ROUTER_PATHS } from '~/constants/router-paths';
 import { CategoryPage } from '~/pages/category-page';
-import { EditRecipePage } from '~/pages/edit-recipe-page';
+import { CreateRecipePage } from '~/pages/create-recipe-page';
 import { HomePage } from '~/pages/home-page';
 import { JuiciestPage } from '~/pages/juiciest-page';
-import { NewRecipePage } from '~/pages/new-recipe-page';
 import { RecipePage } from '~/pages/recipe-page';
 
 import { notFoundPage } from '../not-found';
@@ -36,11 +35,11 @@ export const rootPage: RouteObject = {
         },
         {
             path: ROUTER_PATHS.newRecipe,
-            element: <NewRecipePage />,
+            element: <CreateRecipePage />,
         },
         {
             path: ROUTER_PATHS.editRecipe,
-            element: <EditRecipePage />,
+            element: <CreateRecipePage />,
         },
         {
             path: ROUTER_PATHS.subcategory,
