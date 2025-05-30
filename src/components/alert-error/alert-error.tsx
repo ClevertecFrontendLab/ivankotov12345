@@ -7,9 +7,11 @@ import {
     CloseButton,
     VStack,
 } from '@chakra-ui/react';
+import { useCallback, useEffect } from 'react';
 
 import { COLORS } from '~/constants/styles/colors';
 import { SIZES } from '~/constants/styles/sizes';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectApp, setToastData, setToastIsOpen } from '~/store/slices/app-slice';
@@ -24,15 +26,27 @@ const ALERT_WIDTH = {
     lg: '400px',
 };
 
+const DURATION = 15000;
+
 export const AlertError: React.FC = () => {
     const { statusData } = useAppSelector(selectApp);
 
     const dispatch = useAppDispatch();
 
-    const onAlertCloseClick = () => {
+    const onAlertClose = useCallback(() => {
         dispatch(setToastIsOpen(false));
         dispatch(setToastData());
-    };
+    }, [dispatch]);
+
+    useEffect(() => {
+        const timerId = setTimeout(() => {
+            onAlertClose();
+        }, DURATION);
+        return () => clearTimeout(timerId);
+    }, [dispatch, onAlertClose]);
+
+    if (!statusData) return null;
+
     return (
         <Center
             position='fixed'
@@ -40,27 +54,31 @@ export const AlertError: React.FC = () => {
             bottom={{ base: INDENT_BOTTOM.sm, lg: INDENT_BOTTOM.lg }}
         >
             <Alert
-                status='error'
+                variant={STYLE_VARIANTS.solid}
+                status={statusData?.status || 'error'}
                 w={{ base: ALERT_WIDTH.sm, lg: ALERT_WIDTH.lg }}
                 py={3}
                 px={4}
                 gap={3}
-                bg={COLORS.red}
                 color={COLORS.white}
                 data-test-id={DATA_TEST_ID.errorNotification}
             >
                 <AlertIcon color={COLORS.white} />
 
-                <VStack alignItems='start'>
+                <VStack alignItems='start' gap={0}>
                     <AlertTitle>{statusData?.title}</AlertTitle>
-                    <AlertDescription>{statusData?.description}</AlertDescription>
+                    {statusData?.description && (
+                        <AlertDescription>{statusData?.description}</AlertDescription>
+                    )}
                 </VStack>
 
                 <CloseButton
                     data-test-id={DATA_TEST_ID.closeAlertButton}
                     position='absolute'
+                    variant={STYLE_VARIANTS.none}
+                    top={1}
                     right={3}
-                    onClick={onAlertCloseClick}
+                    onClick={onAlertClose}
                 />
             </Alert>
         </Center>

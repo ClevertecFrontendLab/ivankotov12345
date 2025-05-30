@@ -21,7 +21,7 @@ export const LoadImage: React.FC<LoadImageProps> = ({ control, isInvalid, name }
     const { isOpen, onClose, onOpen } = useDisclosure();
     const [imageUrl, setImageUrl] = useState<string>();
 
-    const imageSrc = imageUrl ? getFullImagePath(imageUrl) : undefined;
+    const imageSrc = imageUrl && getFullImagePath(imageUrl);
 
     return (
         <Box w={SIZES.full}>
@@ -38,6 +38,7 @@ export const LoadImage: React.FC<LoadImageProps> = ({ control, isInvalid, name }
                     w={SIZES.full}
                     h={SIZES.full}
                     objectFit='cover'
+                    borderRadius='lg'
                 />
             </Box>
 

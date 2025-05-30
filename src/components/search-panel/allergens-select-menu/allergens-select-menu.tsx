@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectAllergens, toggleAllergenDisabled } from '~/store/slices/allergens-slice';
 import { clearAllergensFilters, selectAllergensFilter } from '~/store/slices/filters-slice';
 
-import { FilterTag } from '../filter-tag';
+import { FilterTag } from '../../filter-tag';
 import { AllergenCheckbox } from './allergen-checkbox';
 import { CustomAllergenInput } from './custom-allergen-input';
 

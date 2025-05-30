@@ -57,8 +57,7 @@ export const LoadImageModal: React.FC<LoadImageModalProps> = ({
             setImageUrl(url);
             field.onChange(url);
             onClose();
-        } catch (error) {
-            console.log(error);
+        } catch {
             onClose();
         }
     };
@@ -70,8 +69,7 @@ export const LoadImageModal: React.FC<LoadImageModalProps> = ({
         }
     }, [field, setImageUrl]);
 
-    const imagePreviewUrl = imageUrl ? getFullImagePath(imageUrl) : selectedImageUrl;
-
+    const imagePreviewUrl = selectedImageUrl ?? (imageUrl && getFullImagePath(imageUrl));
     return (
         <ModalWrapper isOpen={isOpen} onClose={onClose} testId=''>
             <Heading fontSize='2xl'>Изображение</Heading>

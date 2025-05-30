@@ -7,9 +7,17 @@ import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
 import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 
-type ModalBlockNavigationProps = Pick<ModalProps, 'isOpen' | 'onClose'>;
+type ModalBlockNavigationProps = Pick<ModalProps, 'isOpen' | 'onClose'> & {
+    onSubmitDraft: () => Promise<void>;
+    unblockNavigation: () => void;
+};
 
-export const ModalBlockNavigation: React.FC<ModalBlockNavigationProps> = ({ isOpen, onClose }) => (
+export const ModalBlockNavigation: React.FC<ModalBlockNavigationProps> = ({
+    isOpen,
+    onClose,
+    onSubmitDraft,
+    unblockNavigation,
+}) => (
     <ModalWrapper isOpen={isOpen} onClose={onClose} testId=''>
         <Image src={breakfast} alt='breakfast' />
 
@@ -22,9 +30,16 @@ export const ModalBlockNavigation: React.FC<ModalBlockNavigationProps> = ({ isOp
             </Text>
         </Box>
 
-        <Button variant={STYLE_VARIANTS.black} w={SIZES.full} leftIcon={<EditIcon />}>
+        <Button
+            variant={STYLE_VARIANTS.black}
+            w={SIZES.full}
+            leftIcon={<EditIcon />}
+            onClick={onSubmitDraft}
+        >
             Сохранить черновик
         </Button>
-        <Button variant={STYLE_VARIANTS.none}>Выйти без сохраненеия</Button>
+        <Button variant={STYLE_VARIANTS.none} onClick={unblockNavigation}>
+            Выйти без сохраненеия
+        </Button>
     </ModalWrapper>
 );

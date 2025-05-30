@@ -23,6 +23,7 @@ import { CardBadge } from '~/components/card-badge';
 import { FavoriteIcon, LikeIcon, TimerIcon } from '~/components/icons';
 import { StatButton } from '~/components/stat-button';
 import { EDIT_ITEM_PATH, ROUTER_PATHS } from '~/constants/router-paths';
+import { DELETE_RECIPE_STATUS, RESPONSE_STATUS } from '~/constants/statuses';
 import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
 import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
@@ -30,8 +31,8 @@ import { getCardCategories } from '~/helpers/get-card-categories';
 import { getFullImagePath } from '~/helpers/get-full-image-path';
 import { useDeleteRecipeMutation } from '~/query/services/create-recipe';
 import { useBookmarkRecipeMutation, useLikeRecipeMutation } from '~/query/services/recipe';
-import { useAppSelector } from '~/store/hooks';
-import { selectUserId } from '~/store/slices/app-slice';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { selectUserId, setToastData, setToastIsOpen } from '~/store/slices/app-slice';
 import { selectCategory } from '~/store/slices/category-slice';
 import { RecipeType } from '~/types/recipe';
 
@@ -63,6 +64,7 @@ export const RecipePageCard: React.FC<RecipePageCardProps> = ({
     const [deleteRecipe] = useDeleteRecipeMutation();
     const [likeRecipe] = useLikeRecipeMutation();
     const [bookmarkRecipe] = useBookmarkRecipeMutation();
+    const dispatch = useAppDispatch();
 
     const { id } = useParams();
 
@@ -73,11 +75,13 @@ export const RecipePageCard: React.FC<RecipePageCardProps> = ({
     const onDeleteRecipeClick = async () => {
         try {
             if (id) {
-                await deleteRecipe(id);
+                await deleteRecipe(id).unwrap();
+                dispatch(setToastData(DELETE_RECIPE_STATUS[RESPONSE_STATUS.SUCCESS]));
+                dispatch(setToastIsOpen(true));
                 navigate(ROUTER_PATHS.homePage);
             }
-        } catch (error) {
-            console.log(error);
+        } catch {
+            return;
         }
     };
 

@@ -1,4 +1,4 @@
-import { setIsLoading } from '~/store/slices/app-slice';
+import { ALERT_ERROR_TEXT } from '~/constants/statuses';
 import { setIsSearching } from '~/store/slices/search-input-slice';
 import {
     clearSelectedRecipeTitle,
@@ -39,6 +39,7 @@ export const recpeApi = apiSlice.injectEndpoints({
                     dispatch(setIsSearching(false));
                 }
             },
+            transformErrorResponse: (response) => ({ ...response, ...ALERT_ERROR_TEXT }),
             providesTags: [RECIPE_TAG],
         }),
         getRecipesByCategory: build.query<RecipeListResponse, RecipeParams>({
@@ -46,14 +47,7 @@ export const recpeApi = apiSlice.injectEndpoints({
                 const { id, ...queryParams } = params;
                 return { url: `${Endpoints.RECIPES_BY_CATEGORY}/${id}`, params: queryParams };
             },
-            async onQueryStarted(_, { dispatch, queryFulfilled }) {
-                try {
-                    dispatch(setIsLoading(true));
-                    await queryFulfilled;
-                } finally {
-                    dispatch(setIsLoading(false));
-                }
-            },
+            transformErrorResponse: (response) => ({ ...response, ...ALERT_ERROR_TEXT }),
             providesTags: [RECIPE_TAG],
         }),
         getRecipe: build.query<RecipeType, string>({
@@ -75,25 +69,26 @@ export const recpeApi = apiSlice.injectEndpoints({
             },
             async onQueryStarted(_, { dispatch, queryFulfilled }) {
                 try {
-                    dispatch(setIsLoading(true));
                     const { data } = await queryFulfilled;
                     dispatch(setSelectedRecipeTitle(data.title));
                 } catch {
                     dispatch(clearSelectedRecipeTitle());
-                } finally {
-                    dispatch(setIsLoading(false));
                 }
             },
             providesTags: [RECIPE_TAG],
         }),
         likeRecipe: build.mutation<string, string>({
             query: (id) => ({ url: `${Endpoints.RECIPE}/${id}/${Endpoints.LIKE}`, method: 'POST' }),
+            invalidatesTags: [RECIPE_TAG],
+            transformErrorResponse: (response) => ({ ...response, ...ALERT_ERROR_TEXT }),
         }),
         bookmarkRecipe: build.mutation<string, string>({
             query: (id) => ({
                 url: `${Endpoints.RECIPE}/${id}/${Endpoints.BOOKMARK}`,
                 method: 'POST',
             }),
+            invalidatesTags: [RECIPE_TAG],
+            transformErrorResponse: (response) => ({ ...response, ...ALERT_ERROR_TEXT }),
         }),
     }),
 });

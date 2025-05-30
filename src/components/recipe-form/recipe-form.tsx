@@ -6,6 +6,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useBlocker, useNavigate, useParams } from 'react-router';
 
 import { ROUTER_PATHS } from '~/constants/router-paths';
+import { CREATE_DRAFT_STATUS, CREATE_RECIPE_STATUS, RESPONSE_STATUS } from '~/constants/statuses';
 import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
 import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
@@ -16,6 +17,8 @@ import {
     useUpdateRecipeMutation,
 } from '~/query/services/create-recipe';
 import { useGetRecipeQuery } from '~/query/services/recipe';
+import { useAppDispatch } from '~/store/hooks';
+import { setToastData, setToastIsOpen } from '~/store/slices/app-slice';
 
 import { DEFAULT_RECIPE_FORM_VALUES } from './constants';
 import { setDefaultFormValues } from './helpers/set-default-form-values';
@@ -25,6 +28,7 @@ import { RecipeIngredients } from './recipe-ingredients';
 import { RecipeSteps } from './recipe-steps';
 
 export const RecipeForm: React.FC = () => {
+    const dispatch = useAppDispatch();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const {
         control,
@@ -34,7 +38,7 @@ export const RecipeForm: React.FC = () => {
         trigger,
         handleSubmit,
         getValues,
-        formState: { errors, isDirty, touchedFields },
+        formState: { errors, isDirty, dirtyFields },
     } = useForm({
         resolver: zodResolver(recipeSchema),
         defaultValues: { ...DEFAULT_RECIPE_FORM_VALUES },
@@ -45,15 +49,19 @@ export const RecipeForm: React.FC = () => {
     const { id } = useParams();
     const { data: recipeData } = useGetRecipeQuery(id as string, { skip: !id });
 
-    const [createRecipe, { isSuccess: isSuccesCreateRecipe }] = useCreateRecipeMutation();
-    const [updateRecipe, { isSuccess: isSuccesUpdateRecipe }] = useUpdateRecipeMutation();
-    const [createDraft, { isSuccess: isSuccesCreateDrafr }] = useCreateDraftMutation();
+    const [createRecipe, { isSuccess: isSuccessCreateRecipe }] = useCreateRecipeMutation();
+    const [updateRecipe, { isSuccess: isSuccessUpdateRecipe }] = useUpdateRecipeMutation();
+    const [createDraft, { isSuccess: isSuccessCreateDraft }] = useCreateDraftMutation();
 
-    const blocker = useBlocker(
-        isDirty && !isSuccesCreateRecipe && !isSuccesUpdateRecipe && !isSuccesCreateDrafr,
-    );
+    const shouldBlockNavigation =
+        isDirty && !isSuccessCreateRecipe && !isSuccessUpdateRecipe && !isSuccessCreateDraft;
 
-    const unblockNavigation = () => blocker.proceed?.();
+    const blocker = useBlocker(() => shouldBlockNavigation);
+
+    const unblockNavigation = () => {
+        onClose();
+        blocker.proceed?.();
+    };
 
     useEffect(() => {
         if (blocker.state === 'blocked') {
@@ -62,18 +70,15 @@ export const RecipeForm: React.FC = () => {
     }, [blocker, onOpen]);
 
     const onSubmit: SubmitHandler<RecipeSchema> = async (data) => {
-        try {
-            if (recipeData && id) {
-                await updateRecipe({ id: id, body: data }).unwrap();
-                unblockNavigation();
-                navigate(ROUTER_PATHS.homePage);
-            } else {
-                await createRecipe(data).unwrap();
-                unblockNavigation();
-                navigate(ROUTER_PATHS.homePage);
-            }
-        } catch (error) {
-            console.log(error);
+        if (recipeData && id) {
+            await updateRecipe({ id: id, body: data }).unwrap();
+            dispatch(setToastData(CREATE_RECIPE_STATUS[RESPONSE_STATUS.SUCCESS]));
+            dispatch(setToastIsOpen(true));
+            unblockNavigation();
+            navigate(ROUTER_PATHS.homePage);
+        } else {
+            await createRecipe(data).unwrap();
+            navigate(ROUTER_PATHS.homePage);
         }
     };
 
@@ -82,7 +87,7 @@ export const RecipeForm: React.FC = () => {
         if (!isValidTitle) return;
 
         const values = getValues();
-        const touched = Object.keys(touchedFields);
+        const touched = Object.keys(dirtyFields);
 
         const draftData = Object.fromEntries(
             Object.entries(values).map(([key, value]) => [
@@ -91,13 +96,10 @@ export const RecipeForm: React.FC = () => {
             ]),
         );
 
-        try {
-            await createDraft(draftData).unwrap();
-            unblockNavigation();
-            navigate(ROUTER_PATHS.homePage);
-        } catch (error) {
-            console.log(error);
-        }
+        await createDraft(draftData).unwrap();
+        dispatch(setToastData(CREATE_DRAFT_STATUS[RESPONSE_STATUS.SUCCESS]));
+        dispatch(setToastIsOpen(true));
+        navigate(ROUTER_PATHS.homePage);
     };
 
     useEffect(() => {
@@ -146,7 +148,13 @@ export const RecipeForm: React.FC = () => {
                 </HStack>
             </Box>
 
-            <ModalBlockNavigation isOpen={isOpen} onClose={onClose} />
+            <ModalBlockNavigation
+                //stopNavigation={stopNavigation}
+                unblockNavigation={unblockNavigation}
+                isOpen={isOpen}
+                onClose={onClose}
+                onSubmitDraft={onSubmitDraft}
+            />
         </Box>
     );
 };

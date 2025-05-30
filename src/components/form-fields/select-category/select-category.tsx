@@ -1,7 +1,8 @@
 import { ChevronDownIcon } from '@chakra-ui/icons';
-import { Box, Button, Checkbox, Menu, MenuButton, MenuList } from '@chakra-ui/react';
+import { Box, Button, Checkbox, Menu, MenuButton, MenuList, Text } from '@chakra-ui/react';
 import { Control, FieldPath, useController } from 'react-hook-form';
 
+import { FilterTag } from '~/components/filter-tag';
 import { PLACEHOLDERS } from '~/constants/placeholders';
 import { COLORS, COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
 import { SELECT_SIZES } from '~/constants/styles/sizes';
@@ -25,7 +26,7 @@ export const SelectCategory: React.FC<SelectCategoryProps> = ({ control }) => {
     } = useController({ control, name: CATEGORY_FIELD_NAME });
 
     const onCheckboxClick = (value: string) => {
-        const currentValue = Array.isArray(field.value) ? field.value : [];
+        const currentValue = Array.isArray(field.value) ? (field.value as string[]) : [];
 
         if (currentValue.includes(value)) {
             field.onChange(currentValue.filter((item) => item !== value));
@@ -33,6 +34,13 @@ export const SelectCategory: React.FC<SelectCategoryProps> = ({ control }) => {
             field.onChange([...currentValue, value]);
         }
     };
+
+    const selectedCategories = subCategories
+        .filter((category) => field.value?.includes(category._id))
+        .map((category) => category.title);
+
+    const visibleTags = subCategories.slice(0, 2);
+    const restTagsCount = selectedCategories.length - 2;
 
     return (
         <Menu closeOnSelect={false} matchWidth>
@@ -43,7 +51,17 @@ export const SelectCategory: React.FC<SelectCategoryProps> = ({ control }) => {
                 maxW={SELECT_SIZES.maxW}
                 borderColor={error ? COLORS.red : COLORS_BLACK_ALPHA[200]}
             >
-                {PLACEHOLDERS.selectFromList}
+                {selectedCategories.length > 0 ? (
+                    <>
+                        {visibleTags.map((tag) => (
+                            <FilterTag key={tag._id} item={tag.title} />
+                        ))}
+
+                        {selectedCategories.length > 2 && <FilterTag item={`+${restTagsCount}`} />}
+                    </>
+                ) : (
+                    <Text>{PLACEHOLDERS.selectFromList}</Text>
+                )}
             </MenuButton>
 
             <MenuList maxH={SELECT_SIZES.maxOptionListHeight} overflowY='scroll'>

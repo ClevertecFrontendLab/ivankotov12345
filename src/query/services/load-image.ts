@@ -1,3 +1,4 @@
+import { LOAD_IMAGE_STATUS, RESPONSE_STATUS } from '~/constants/statuses';
 import { ImageLoadResponse } from '~/types/response';
 
 import { Endpoints } from '../constants/paths';
@@ -11,6 +12,10 @@ export const loadImageApi = apiSlice.injectEndpoints({
                 method: 'POST',
                 body,
                 formData: true,
+            }),
+            transformErrorResponse: (response) => ({
+                ...response,
+                ...LOAD_IMAGE_STATUS[RESPONSE_STATUS.SERVER_ERROR],
             }),
         }),
     }),

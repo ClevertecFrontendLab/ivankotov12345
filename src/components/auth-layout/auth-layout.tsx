@@ -10,8 +10,8 @@ import {
     Text,
     VStack,
 } from '@chakra-ui/react';
-import { useMemo } from 'react';
-import { NavLink, Outlet, useLocation } from 'react-router';
+import { useEffect, useMemo } from 'react';
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router';
 
 import authBackground from '~/assets/img/auth-background.jpg';
 import pan from '~/assets/svg/pan.svg';
@@ -20,6 +20,8 @@ import { ROUTER_PATHS } from '~/constants/router-paths';
 import { COLORS, COLORS_LIME } from '~/constants/styles/colors';
 import { AUTH_SIZES, SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
+import { getLocalStorageItem } from '~/helpers/storage';
+import { ACCESS_TOKEN_STORAGE_KEY } from '~/query/constants/storage-keys';
 import { useAppSelector } from '~/store/hooks';
 import { selectApp } from '~/store/slices/app-slice';
 
@@ -29,6 +31,7 @@ const tabs = [ROUTER_PATHS.signIn, ROUTER_PATHS.signUp];
 
 export const AuthLayout: React.FC = () => {
     const { pathname } = useLocation();
+    const navigate = useNavigate();
 
     const { isLoading } = useAppSelector(selectApp);
 
@@ -36,6 +39,14 @@ export const AuthLayout: React.FC = () => {
         () => tabs.findIndex((tabItem) => tabItem === pathname),
         [pathname],
     );
+
+    const token: string = useMemo(() => getLocalStorageItem(ACCESS_TOKEN_STORAGE_KEY), []);
+
+    useEffect(() => {
+        if (token) {
+            navigate(ROUTER_PATHS.homePage);
+        }
+    }, [navigate, token]);
     return (
         <Box background={COLORS.bgAuth}>
             <SimpleGrid columns={{ base: 1, lg: 2 }} minH={SIZES.fullWieportHeight}>
