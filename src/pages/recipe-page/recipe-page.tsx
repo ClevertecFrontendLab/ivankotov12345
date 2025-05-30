@@ -1,12 +1,12 @@
 import { Box, Heading, VStack } from '@chakra-ui/react';
 import { useEffect } from 'react';
+import { useParams } from 'react-router';
 
 import { Сarousel } from '~/components/carousel';
 import { UserCard } from '~/components/user-card';
 import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
 import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
-import { usePathItems } from '~/hooks/use-path-items';
 import { IngredientsTable } from '~/pages/recipe-page/components/ingredients-table';
 import { NutritionValueSection } from '~/pages/recipe-page/components/nutrition-value-section';
 import { RecipePageCard } from '~/pages/recipe-page/components/recipe-page-card';
@@ -17,8 +17,8 @@ import { clearSelectedRecipeTitle } from '~/store/slices/selected-recipe-slice';
 import { RecipeType } from '~/types/recipe';
 
 export const RecipePage: React.FC = () => {
-    const { currId } = usePathItems();
-    const { data } = useGetRecipeQuery(currId);
+    const { id } = useParams();
+    const { data } = useGetRecipeQuery(id as string);
 
     const dispatch = useAppDispatch();
 
@@ -41,7 +41,7 @@ export const RecipePage: React.FC = () => {
         () => () => {
             dispatch(clearSelectedRecipeTitle());
         },
-        [dispatch],
+        [id, dispatch],
     );
 
     return (

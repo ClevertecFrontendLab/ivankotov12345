@@ -1,41 +1,37 @@
 import { ChevronRightIcon } from '@chakra-ui/icons';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
-import { NavLink } from 'react-router';
+import { NavLink, useLocation, useParams } from 'react-router';
 
 import { ROUTER_PATHS } from '~/constants/router-paths';
 import { COLORS, COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
 import { DATA_TEST_ID } from '~/constants/test-id';
-import { usePathItems } from '~/hooks/use-path-items';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { closeBurgerMenu } from '~/store/slices/burger-slice';
 import { selectCategories } from '~/store/slices/category-slice';
 import { selectSelectedRecipe } from '~/store/slices/selected-recipe-slice';
 
 const THE_JUICIEST = 'the-juiciest';
-const THE_JUICIEST_TITLE = 'Самое сочное';
+const NEW_RECIPE = 'new-recipe';
 
 export const Breadcrumbs: React.FC = () => {
     const dispatch = useAppDispatch();
     const { selectedRecipeTitle } = useAppSelector(selectSelectedRecipe);
     const categories = useAppSelector(selectCategories);
 
-    const { secondItemPath, thirdItemPath } = usePathItems();
+    const { category, subcategory } = useParams();
+    const { pathname } = useLocation();
 
-    const isJuiciest = secondItemPath === THE_JUICIEST;
+    const isJuiciest = pathname.includes(THE_JUICIEST);
+    const isNewRecipe = pathname.includes(NEW_RECIPE);
 
-    const firstSubcategoryPath = categories.find(({ category }) => category === secondItemPath)
+    const firstSubcategoryPath = categories.find((item) => item.category === category)
         ?.subCategories[0].category;
 
-    const secondItemName =
-        secondItemPath && secondItemPath === THE_JUICIEST
-            ? THE_JUICIEST_TITLE
-            : categories.find(({ category }) => category === secondItemPath)?.title;
+    const categoryName = categories.find((item) => item.category === category)?.title;
 
-    const thirdItemName =
-        thirdItemPath &&
-        categories
-            .find(({ category }) => category === secondItemPath)
-            ?.subCategories.find(({ category }) => category === thirdItemPath)?.title;
+    const subCategoryName = categories
+        .find((item) => item.category === category)
+        ?.subCategories.find((item) => item.category === subcategory)?.title;
 
     return (
         <Breadcrumb
@@ -48,37 +44,50 @@ export const Breadcrumbs: React.FC = () => {
             onClick={() => dispatch(closeBurgerMenu())}
             data-test-id={DATA_TEST_ID.breadcrumbs}
         >
-            <BreadcrumbItem color={secondItemPath ? COLORS_BLACK_ALPHA[700] : COLORS.inherit}>
+            <BreadcrumbItem color={category ? COLORS_BLACK_ALPHA[700] : COLORS.inherit}>
                 <BreadcrumbLink as={NavLink} to={ROUTER_PATHS.homePage}>
                     Главная
                 </BreadcrumbLink>
             </BreadcrumbItem>
 
-            {secondItemPath && (
-                <BreadcrumbItem>
-                    <BreadcrumbLink
-                        as={NavLink}
-                        to={
-                            isJuiciest
-                                ? ROUTER_PATHS.juiciestPage
-                                : `/${secondItemPath}/${firstSubcategoryPath}`
-                        }
-                        color={thirdItemPath ? COLORS_BLACK_ALPHA[700] : COLORS.inherit}
-                    >
-                        {secondItemName}
+            {isJuiciest && (
+                <BreadcrumbItem color={COLORS_BLACK_ALPHA[700]}>
+                    <BreadcrumbLink as={NavLink} to={ROUTER_PATHS.juiciestPage}>
+                        Самое сочное
                     </BreadcrumbLink>
                 </BreadcrumbItem>
             )}
 
-            {thirdItemPath && (
-                <BreadcrumbItem
-                    color={selectedRecipeTitle ? COLORS_BLACK_ALPHA[700] : COLORS.inherit}
-                >
-                    <BreadcrumbLink as={NavLink} to={`/${secondItemPath}/${thirdItemPath}`}>
-                        {thirdItemName}
+            {isNewRecipe && (
+                <BreadcrumbItem color={COLORS_BLACK_ALPHA[700]}>
+                    <BreadcrumbLink as={NavLink} to={ROUTER_PATHS.newRecipe}>
+                        Новый рецепт
                     </BreadcrumbLink>
                 </BreadcrumbItem>
             )}
+
+            {category && (
+                <BreadcrumbItem>
+                    <BreadcrumbLink
+                        as={NavLink}
+                        to={`/${category}/${firstSubcategoryPath}`}
+                        color={subcategory ? COLORS_BLACK_ALPHA[700] : COLORS.inherit}
+                    >
+                        {categoryName}
+                    </BreadcrumbLink>
+                </BreadcrumbItem>
+            )}
+
+            {subcategory && (
+                <BreadcrumbItem
+                    color={selectedRecipeTitle ? COLORS_BLACK_ALPHA[700] : COLORS.inherit}
+                >
+                    <BreadcrumbLink as={NavLink} to={`/${category}/${subcategory}`}>
+                        {subCategoryName}
+                    </BreadcrumbLink>
+                </BreadcrumbItem>
+            )}
+
             {selectedRecipeTitle && (
                 <BreadcrumbItem>
                     <BreadcrumbLink>{selectedRecipeTitle}</BreadcrumbLink>
