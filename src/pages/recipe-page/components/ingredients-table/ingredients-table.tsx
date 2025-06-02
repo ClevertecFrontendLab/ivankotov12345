@@ -25,21 +25,22 @@ type IngredientsTableProps = {
     portions?: number;
 };
 
-export const IngredientsTable: React.FC<IngredientsTableProps> = ({ ingredients, portions }) => {
-    const [inputPortions, setInputPortions] = useState(portions || 1);
-    const [currentIngredients, setCurrentIngredients] = useState(ingredients);
+export const IngredientsTable: React.FC<IngredientsTableProps> = ({
+    ingredients,
+    portions = 1,
+}) => {
+    const [inputPortions, setInputPortions] = useState(portions);
 
     const getOnePortionSize = (count: string, portions: number = 1) => +count / portions;
 
     const onPortionsChange = (_: string, value: number) => {
-        const updated = currentIngredients.map((ingredient) => ({
-            ...ingredient,
-            count: `${getOnePortionSize(ingredient.count, inputPortions) * value}`,
-        }));
-
-        setCurrentIngredients(updated);
         setInputPortions(value);
     };
+
+    const currentIngredients = ingredients.map((ingredient) => ({
+        ...ingredient,
+        count: `${getOnePortionSize(ingredient.count, portions) * inputPortions}`,
+    }));
 
     return (
         <Table colorScheme='blackAlpha'>
@@ -51,7 +52,6 @@ export const IngredientsTable: React.FC<IngredientsTableProps> = ({ ingredients,
                     <Th px={0}>
                         <HStack justifyContent='end'>
                             <Text variant={STYLE_VARIANTS.limeUppercase}>Порций</Text>
-
                             <NumberInput
                                 value={inputPortions}
                                 min={1}

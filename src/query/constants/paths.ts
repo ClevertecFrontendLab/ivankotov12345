@@ -5,11 +5,19 @@ export enum Endpoints {
     CATEGORY = 'category',
     RECIPE = 'recipe',
     RECIPES_BY_CATEGORY = 'recipe/category',
-    SIGN_IN = '/auth/login',
-    SIGN_UP = '/auth/signup',
-    FORGOT_PASSWORD = '/auth/forgot-password',
-    VERIFY_OTP = '/auth/verify-otp',
-    RESET_AUTH_DATA = '/auth/reset-password',
+    SIGN_IN = 'auth/login',
+    SIGN_UP = 'auth/signup',
+    CHECK_AUTH = 'auth/check-auth',
+    REFRESH_TOKEN = 'auth/refresh',
+
+    FORGOT_PASSWORD = 'auth/forgot-password',
+    VERIFY_OTP = 'auth/verify-otp',
+    RESET_AUTH_DATA = 'auth/reset-password',
+    LOAD_IMAGE = 'file/upload',
+    MEASURE_UNITS = 'measure-units',
+    CREATE_DRAFT = 'recipe/draft',
+    LIKE = 'like',
+    BOOKMARK = 'bookmark',
 }
 
 export const ACCESS_TOKEN = 'Authentication-Access';

@@ -3,8 +3,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Outlet, useNavigate } from 'react-router';
 
-import { InputAuth } from '~/components/input-auth';
-import { InputPassword } from '~/components/input-password';
+import { InputPassword } from '~/components/form-fields';
+import { AppInput } from '~/components/form-fields';
 import { LABELS } from '~/constants/labels';
 import { PLACEHOLDERS } from '~/constants/placeholders';
 import { ROUTER_PATHS } from '~/constants/router-paths';
@@ -65,12 +65,13 @@ export const SignInPage: React.FC = () => {
                 onSubmit={handleSubmit(onSubmit)}
                 data-test-id={DATA_TEST_ID.signInForm}
             >
-                <InputAuth
+                <AppInput
                     isInvalid={!!errors.login}
                     label={LABELS.login}
                     placeholder={PLACEHOLDERS.login}
                     register={register('login')}
                     error={errors.login?.message}
+                    variant={STYLE_VARIANTS.authInput}
                     testId={DATA_TEST_ID.loginInput}
                     setValue={setValue}
                 />

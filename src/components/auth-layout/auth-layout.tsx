@@ -36,6 +36,7 @@ export const AuthLayout: React.FC = () => {
         () => tabs.findIndex((tabItem) => tabItem === pathname),
         [pathname],
     );
+
     return (
         <Box background={COLORS.bgAuth}>
             <SimpleGrid columns={{ base: 1, lg: 2 }} minH={SIZES.fullWieportHeight}>

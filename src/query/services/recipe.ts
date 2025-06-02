@@ -1,4 +1,4 @@
-import { setIsLoading } from '~/store/slices/app-slice';
+import { ALERT_ERROR_TEXT, LIKE_RECIPE_ERROR } from '~/constants/statuses';
 import { setIsSearching } from '~/store/slices/search-input-slice';
 import {
     clearSelectedRecipeTitle,
@@ -8,6 +8,7 @@ import { MetaParams, RecipeListResponse, RecipeType } from '~/types/recipe';
 import { RecipeInfiniteParams, RecipeParams } from '~/types/request-params';
 
 import { Endpoints } from '../constants/paths';
+import { RECIPE_TAG } from '../constants/tags';
 import { apiSlice } from '../create-api';
 
 export const recpeApi = apiSlice.injectEndpoints({
@@ -38,20 +39,16 @@ export const recpeApi = apiSlice.injectEndpoints({
                     dispatch(setIsSearching(false));
                 }
             },
+            transformErrorResponse: (response) => ({ ...response, ...ALERT_ERROR_TEXT }),
+            providesTags: [RECIPE_TAG],
         }),
         getRecipesByCategory: build.query<RecipeListResponse, RecipeParams>({
             query: (params) => {
                 const { id, ...queryParams } = params;
                 return { url: `${Endpoints.RECIPES_BY_CATEGORY}/${id}`, params: queryParams };
             },
-            async onQueryStarted(_, { dispatch, queryFulfilled }) {
-                try {
-                    dispatch(setIsLoading(true));
-                    await queryFulfilled;
-                } finally {
-                    dispatch(setIsLoading(false));
-                }
-            },
+            transformErrorResponse: (response) => ({ ...response, ...ALERT_ERROR_TEXT }),
+            providesTags: [RECIPE_TAG],
         }),
         getRecipe: build.query<RecipeType, string>({
             query: (id) => ({ url: `${Endpoints.RECIPE}/${id}` }),
@@ -72,18 +69,34 @@ export const recpeApi = apiSlice.injectEndpoints({
             },
             async onQueryStarted(_, { dispatch, queryFulfilled }) {
                 try {
-                    dispatch(setIsLoading(true));
                     const { data } = await queryFulfilled;
                     dispatch(setSelectedRecipeTitle(data.title));
                 } catch {
                     dispatch(clearSelectedRecipeTitle());
-                } finally {
-                    dispatch(setIsLoading(false));
                 }
             },
+            providesTags: [RECIPE_TAG],
+        }),
+        likeRecipe: build.mutation<string, string>({
+            query: (id) => ({ url: `${Endpoints.RECIPE}/${id}/${Endpoints.LIKE}`, method: 'POST' }),
+            invalidatesTags: [RECIPE_TAG],
+            transformErrorResponse: (response) => ({ ...response, ...LIKE_RECIPE_ERROR }),
+        }),
+        bookmarkRecipe: build.mutation<string, string>({
+            query: (id) => ({
+                url: `${Endpoints.RECIPE}/${id}/${Endpoints.BOOKMARK}`,
+                method: 'POST',
+            }),
+            invalidatesTags: [RECIPE_TAG],
+            transformErrorResponse: (response) => ({ ...response, ...LIKE_RECIPE_ERROR }),
         }),
     }),
 });
 
-export const { useGetRecipesInfiniteQuery, useLazyGetRecipesByCategoryQuery, useGetRecipeQuery } =
-    recpeApi;
+export const {
+    useGetRecipesInfiniteQuery,
+    useLazyGetRecipesByCategoryQuery,
+    useGetRecipeQuery,
+    useLikeRecipeMutation,
+    useBookmarkRecipeMutation,
+} = recpeApi;

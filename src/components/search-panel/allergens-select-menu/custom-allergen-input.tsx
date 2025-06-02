@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { PlusIcon } from '~/components/icons';
 import { PLACEHOLDERS } from '~/constants/placeholders';
-import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
+import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
@@ -60,7 +60,7 @@ export const CustomAllergenInput: React.FC<CustomAllergenInputProps> = ({ inputR
             <IconButton
                 size='sm'
                 variant={STYLE_VARIANTS.none}
-                icon={<PlusIcon />}
+                icon={<PlusIcon fill={COLORS_LIME[600]} />}
                 aria-label='add'
                 onClick={handleAddCustomAllergen}
                 data-test-id={isOpen && DATA_TEST_ID.addAllergenButton}

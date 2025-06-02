@@ -2,11 +2,11 @@ import { type RouteObject } from 'react-router';
 
 import { RecipeErrorBoundary } from '~/app-router/error-boundaries/recipe-error';
 import { HydrateFallback } from '~/app-router/fallback/hydrate-fallback';
-import { authLoader } from '~/app-router/loaders/auth-loader';
 import { recipeLoader } from '~/app-router/loaders/recipe-loader';
 import { checkRouteExists } from '~/app-router/utils/check-route-exists';
 import { ROUTER_PATHS } from '~/constants/router-paths';
 import { CategoryPage } from '~/pages/category-page';
+import { CreateRecipePage } from '~/pages/create-recipe-page';
 import { HomePage } from '~/pages/home-page';
 import { JuiciestPage } from '~/pages/juiciest-page';
 import { RecipePage } from '~/pages/recipe-page';
@@ -20,7 +20,6 @@ export const rootPage: RouteObject = {
         return { Component: Layout };
     },
     HydrateFallback: HydrateFallback,
-    loader: authLoader,
     children: [
         {
             index: true,
@@ -31,6 +30,14 @@ export const rootPage: RouteObject = {
             path: ROUTER_PATHS.juiciestPage,
             element: <JuiciestPage />,
             ErrorBoundary: RecipeErrorBoundary,
+        },
+        {
+            path: ROUTER_PATHS.newRecipe,
+            element: <CreateRecipePage />,
+        },
+        {
+            path: ROUTER_PATHS.editRecipe,
+            element: <CreateRecipePage />,
         },
         {
             path: ROUTER_PATHS.subcategory,

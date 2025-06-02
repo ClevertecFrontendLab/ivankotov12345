@@ -1,5 +1,5 @@
+import { ALERT_ERROR_TEXT } from '~/constants/statuses';
 import { setLocalStorageItem } from '~/helpers/storage';
-import { setIsLoading } from '~/store/slices/app-slice';
 import { setCategories, setSubCategories } from '~/store/slices/category-slice';
 import { NavMenuItem, Subcategory } from '~/types/nav-menu';
 
@@ -14,8 +14,6 @@ export const categoryApi = apiSlice.injectEndpoints({
             query: () => ({ url: Endpoints.CATEGORY }),
             async onQueryStarted(_, { dispatch, queryFulfilled }) {
                 try {
-                    dispatch(setIsLoading(true));
-
                     const { data } = await queryFulfilled;
                     const categoriesData = getCategories(data);
                     const subCategoriesData = getSubCategories(data);
@@ -27,10 +25,9 @@ export const categoryApi = apiSlice.injectEndpoints({
                     setLocalStorageItem(SUBCATEGORY_STORAGE_KEY, subCategoriesData);
                 } catch (error) {
                     console.log(error);
-                } finally {
-                    dispatch(setIsLoading(false));
                 }
             },
+            transformErrorResponse: (response) => ({ ...response, ...ALERT_ERROR_TEXT }),
         }),
     }),
 });

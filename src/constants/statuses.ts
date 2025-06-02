@@ -1,9 +1,11 @@
 import { ToastStatus } from '~/types/toast-status';
 
 export const RESPONSE_STATUS = {
+    SUCCESS: 200,
     BAD_REQUEST: 400,
     UNAUTHORIZED: 401,
     FORBIDDEN: 403,
+    CONFLICT: 409,
     SERVER_ERROR: 500,
 };
 
@@ -11,6 +13,17 @@ export const ALERT_ERROR_TEXT: ToastStatus = {
     status: 'error',
     title: 'Ошибка сервера',
     description: 'Попробуйте поискать снова попозже',
+};
+export const LIKE_RECIPE_ERROR: ToastStatus = {
+    status: 'error',
+    title: 'Ошибка сервера',
+    description: 'Попробуйте немного позже',
+};
+
+const ERROR_RECIPE_EXISTS: ToastStatus = {
+    status: 'error',
+    title: 'Ошибка',
+    description: 'Рецепт с таким названием уже существует',
 };
 
 export const AUTH_SERVER_ERROR: ToastStatus = {
@@ -47,5 +60,51 @@ export const EMAIL_VERIFICATION_STATUS: Record<number, ToastStatus> = {
         status: 'error',
         title: 'Такого e-mail нет',
         description: 'Попробуйте другой e-mail или проверьте правильность его написания',
+    },
+};
+
+export const CREATE_RECIPE_STATUS: Record<number, ToastStatus> = {
+    [RESPONSE_STATUS.SUCCESS]: {
+        status: 'success',
+        title: 'Рецепт успешно опубликован',
+    },
+    [RESPONSE_STATUS.CONFLICT]: ERROR_RECIPE_EXISTS,
+    [RESPONSE_STATUS.SERVER_ERROR]: {
+        status: 'error',
+        title: 'Ошибка сервера',
+        description: 'Попробуйте пока сохранить в черновик.',
+    },
+};
+
+export const DELETE_RECIPE_STATUS: Record<number, ToastStatus> = {
+    [RESPONSE_STATUS.SUCCESS]: {
+        status: 'success',
+        title: 'Рецепт успешно удален',
+    },
+    [RESPONSE_STATUS.SERVER_ERROR]: {
+        status: 'error',
+        title: 'Ошибка сервера',
+        description: 'Не удалось удалить рецепт',
+    },
+};
+
+export const CREATE_DRAFT_STATUS: Record<number, ToastStatus> = {
+    [RESPONSE_STATUS.SUCCESS]: {
+        status: 'success',
+        title: 'Черновик успешно сохранен',
+    },
+    [RESPONSE_STATUS.CONFLICT]: ERROR_RECIPE_EXISTS,
+    [RESPONSE_STATUS.SERVER_ERROR]: {
+        status: 'error',
+        title: 'Ошибка сервера',
+        description: 'Не удалось сохранить черновик рецепта',
+    },
+};
+
+export const LOAD_IMAGE_STATUS: Record<number, ToastStatus> = {
+    [RESPONSE_STATUS.SERVER_ERROR]: {
+        status: 'error',
+        title: 'Ошибка сервера',
+        description: 'Попробуйте сохранить фото позже.',
     },
 };

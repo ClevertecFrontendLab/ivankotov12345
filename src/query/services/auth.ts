@@ -1,4 +1,5 @@
 import { removeLocalStorageItem, setLocalStorageItem } from '~/helpers/storage';
+import { ResponseData } from '~/types/response';
 
 import { ACCESS_TOKEN, Endpoints } from '../constants/paths';
 import { ACCESS_TOKEN_STORAGE_KEY } from '../constants/storage-keys';
@@ -13,6 +14,24 @@ export const authApi = apiSlice.injectEndpoints({
                 body,
                 credentials: 'include',
             }),
+            async onQueryStarted(_, { queryFulfilled }) {
+                try {
+                    const { meta } = await queryFulfilled;
+                    const accessToken = meta?.response?.headers.get(ACCESS_TOKEN);
+
+                    if (accessToken) {
+                        setLocalStorageItem(ACCESS_TOKEN_STORAGE_KEY, accessToken);
+                    }
+                } catch {
+                    removeLocalStorageItem(ACCESS_TOKEN_STORAGE_KEY);
+                }
+            },
+        }),
+        checkAuth: build.query<ResponseData, void>({
+            query: () => ({ url: Endpoints.CHECK_AUTH, method: 'GET', credentials: 'include' }),
+        }),
+        refreshToken: build.mutation<ResponseData, void>({
+            query: () => ({ url: Endpoints.REFRESH_TOKEN, method: 'GET', credentials: 'include' }),
             async onQueryStarted(_, { queryFulfilled }) {
                 try {
                     const { meta } = await queryFulfilled;
@@ -47,4 +66,6 @@ export const {
     useSendOtpMutation,
     useVerifyOtpMutation,
     useResetAuthDataMutation,
+    useCheckAuthQuery,
+    useRefreshTokenMutation,
 } = authApi;

@@ -1,5 +1,6 @@
 export const PLACEHOLDERS = {
     search: 'Название или ингредиент...',
+    selectFromList: 'Выберите из списка...',
     differentAllergen: 'Другой аллерген',
     searchByCategories: 'Поиск по категории',
     searchByAuthor: 'Поиск по автору',
@@ -13,4 +14,10 @@ export const PLACEHOLDERS = {
     loginShort: 'Логин',
     passwordShort: 'Пароль',
     repeatPassword: 'Повторите пароль',
+    recipeTitle: 'Название рецепта',
+    recipeDescription: 'Краткое описание рецепта',
+    ingredient: 'Ингредиент',
+    measureUnit: 'Единица измерения',
+    step: 'Шаг',
+    ingredientMeasure: '300',
 };

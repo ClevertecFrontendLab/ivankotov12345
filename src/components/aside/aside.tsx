@@ -1,9 +1,12 @@
 import { EditIcon } from '@chakra-ui/icons';
 import { Flex, IconButton, Spacer, Text, VStack } from '@chakra-ui/react';
+import { NavLink } from 'react-router';
 
+import { ROUTER_PATHS } from '~/constants/router-paths';
 import { COLORS, COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
 import { BG_GRADIENT_SIZE, SIZES } from '~/constants/styles/sizes';
 import { Z_INDEX } from '~/constants/styles/z-index';
+import { DATA_TEST_ID } from '~/constants/test-id';
 
 import { Stats } from '../stats';
 
@@ -15,6 +18,7 @@ export const Aside: React.FC = () => (
 
         <VStack pb={14} pl={5}>
             <IconButton
+                as={NavLink}
                 aria-label='edit button'
                 icon={<EditIcon w={6} h={6} />}
                 bg={COLORS.black}
@@ -29,6 +33,9 @@ export const Aside: React.FC = () => (
                     h: BG_GRADIENT_SIZE,
                     bg: COLORS.bgRadialGradient,
                 }}
+                to={ROUTER_PATHS.newRecipe}
+                variant='none'
+                data-test-id={DATA_TEST_ID.addRecipeButton}
             />
             <Text fontSize='xs' color={COLORS_BLACK_ALPHA[600]}>
                 Записать рецепт

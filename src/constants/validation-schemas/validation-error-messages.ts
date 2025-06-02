@@ -11,4 +11,7 @@ export const VALIDATION_ERRORS = {
     cyrillicOnly: 'Только кириллица А-Я, и "-"',
     repeatPassword: 'Повторите пароль',
     matchesPassword: 'Пароли должны совпадать',
+    wrongCategoriesLength: 'Не менее 3 категорий',
 };
+
+export const EMPTY_MESSAGE = { message: '' };

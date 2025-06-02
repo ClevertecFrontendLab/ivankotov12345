@@ -18,7 +18,7 @@ import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch } from '~/store/hooks';
 import { FilterItem } from '~/types/filter-item';
 
-import { FilterTag } from '../filter-tag';
+import { FilterTag } from '../../filter-tag';
 
 type DrawerProps = {
     placeholder: string;

@@ -32,6 +32,7 @@ const menuButton = defineStyle({
     borderColor: 'blackAlpha.200',
     borderRadius: 'md',
     color: 'blackAlpha.700',
+    fontWeight: 'normal',
     px: 4,
     py: 2,
     _disabled: {

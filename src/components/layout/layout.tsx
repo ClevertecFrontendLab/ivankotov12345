@@ -1,17 +1,19 @@
 import { Box, Grid, GridItem, useMediaQuery } from '@chakra-ui/react';
-import { useEffect, useMemo } from 'react';
-import { Outlet, useNavigate } from 'react-router';
+import { jwtDecode } from 'jwt-decode';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { Navigate, Outlet, useLocation } from 'react-router';
 
-import { ROUTER_PATHS } from '~/constants/router-paths';
+import { EDIT_ITEM_PATH, ROUTER_PATHS } from '~/constants/router-paths';
 import { COLORS_LIME } from '~/constants/styles/colors';
 import { SIZES } from '~/constants/styles/sizes';
 import { Z_INDEX } from '~/constants/styles/z-index';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { getLocalStorageItem } from '~/helpers/storage';
 import { ACCESS_TOKEN_STORAGE_KEY } from '~/query/constants/storage-keys';
+import { useRefreshTokenMutation } from '~/query/services/auth';
 import { useGetCategoriesQuery } from '~/query/services/category';
-import { useAppSelector } from '~/store/hooks';
-import { selectApp } from '~/store/slices/app-slice';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { selectApp, setUserId } from '~/store/slices/app-slice';
 
 import { AlertError } from '../alert-error';
 import { Aside } from '../aside';
@@ -27,19 +29,53 @@ const fixedContainer = {
 };
 
 export const Layout: React.FC = () => {
-    const navigate = useNavigate();
+    const [isAuthChecking, setIsAuthChecking] = useState(true);
+    const isFirstRender = useRef(true);
+    const dispatch = useAppDispatch();
+    const { pathname } = useLocation();
+
+    const isNewRecipePage =
+        pathname.includes(EDIT_ITEM_PATH) || pathname.includes(ROUTER_PATHS.newRecipe);
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
     const { isLoading: isCategoriesLoading } = useGetCategoriesQuery(undefined);
-
     const { isResponseStatusOpen } = useAppSelector(selectApp);
+    const token: string = useMemo(() => getLocalStorageItem(ACCESS_TOKEN_STORAGE_KEY), []);
 
-    const token = useMemo(() => getLocalStorageItem(ACCESS_TOKEN_STORAGE_KEY), []);
+    const [refreshToken, { isError }] = useRefreshTokenMutation();
 
     useEffect(() => {
-        if (!token) {
-            navigate(ROUTER_PATHS.signIn);
+        if (token) {
+            const decodedToken = jwtDecode<{ userId: string }>(token);
+            dispatch(setUserId(decodedToken.userId));
         }
-    }, [navigate, token]);
+    }, [token, dispatch]);
+
+    useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                if (!token) {
+                    await refreshToken().unwrap();
+                }
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setIsAuthChecking(false);
+            }
+        };
+
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            checkAuth();
+        }
+    }, [refreshToken, token]);
+
+    if (isAuthChecking || isCategoriesLoading) {
+        return <Loader isLoading={true} />;
+    }
+
+    if (isError) {
+        return <Navigate to={ROUTER_PATHS.signIn} replace />;
+    }
 
     return (
         <Box height='100vh'>
@@ -99,7 +135,7 @@ export const Layout: React.FC = () => {
                         w='auto'
                         display={{ base: 'none', lg: 'block' }}
                     >
-                        <Aside />
+                        {!isNewRecipePage && <Aside />}
                     </GridItem>
 
                     <GridItem
@@ -119,6 +155,7 @@ export const Layout: React.FC = () => {
 
             <Loader isLoading={isCategoriesLoading} />
             {isResponseStatusOpen && <AlertError />}
+            <AlertError />
         </Box>
     );
 };
