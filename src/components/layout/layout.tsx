@@ -53,7 +53,11 @@ export const Layout: React.FC = () => {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                await refreshToken().unwrap();
+                if (!token) {
+                    await refreshToken().unwrap();
+                }
+            } catch (error) {
+                console.error(error);
             } finally {
                 setIsAuthChecking(false);
             }
@@ -63,7 +67,7 @@ export const Layout: React.FC = () => {
             isFirstRender.current = false;
             checkAuth();
         }
-    }, [refreshToken]);
+    }, [refreshToken, token]);
 
     if (isAuthChecking || isCategoriesLoading) {
         return <Loader isLoading={true} />;
