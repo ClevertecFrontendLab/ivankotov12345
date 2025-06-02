@@ -13,15 +13,19 @@ export const categoryApi = apiSlice.injectEndpoints({
         getCategories: build.query<(NavMenuItem | Subcategory)[], void>({
             query: () => ({ url: Endpoints.CATEGORY }),
             async onQueryStarted(_, { dispatch, queryFulfilled }) {
-                const { data } = await queryFulfilled;
-                const categoriesData = getCategories(data);
-                const subCategoriesData = getSubCategories(data);
+                try {
+                    const { data } = await queryFulfilled;
+                    const categoriesData = getCategories(data);
+                    const subCategoriesData = getSubCategories(data);
 
-                dispatch(setCategories(categoriesData));
-                dispatch(setSubCategories(subCategoriesData));
+                    dispatch(setCategories(categoriesData));
+                    dispatch(setSubCategories(subCategoriesData));
 
-                setLocalStorageItem(CATEGORY_STORAGE_KEY, categoriesData);
-                setLocalStorageItem(SUBCATEGORY_STORAGE_KEY, subCategoriesData);
+                    setLocalStorageItem(CATEGORY_STORAGE_KEY, categoriesData);
+                    setLocalStorageItem(SUBCATEGORY_STORAGE_KEY, subCategoriesData);
+                } catch (error) {
+                    console.log(error);
+                }
             },
             transformErrorResponse: (response) => ({ ...response, ...ALERT_ERROR_TEXT }),
         }),

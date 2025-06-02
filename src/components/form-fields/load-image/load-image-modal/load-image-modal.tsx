@@ -6,6 +6,7 @@ import { FallbackImage } from '~/components/fallback-image';
 import { ModalWrapper } from '~/components/modal-wrapper';
 import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
+import { DATA_TEST_ID } from '~/constants/test-id';
 import { RecipeSchema } from '~/constants/validation-schemas/recipe';
 import { getFullImagePath } from '~/helpers/get-full-image-path';
 import { useLoadImageMutation } from '~/query/services/load-image';
@@ -16,6 +17,7 @@ type LoadImageModalProps = {
     isOpen: boolean;
     onClose: () => void;
     setImageUrl: (imageUrl?: string) => void;
+    testIdInput: string;
     imageUrl?: string;
 };
 
@@ -26,6 +28,7 @@ export const LoadImageModal: React.FC<LoadImageModalProps> = ({
     control,
     name,
     imageUrl,
+    testIdInput,
 }) => {
     const [selectedImageUrl, setSelectedImageUrl] = useState<string | null>();
     const [selectedImageFile, setSelectedImageFile] = useState<File | null>();
@@ -83,19 +86,30 @@ export const LoadImageModal: React.FC<LoadImageModalProps> = ({
 
     const imagePreviewUrl = selectedImageUrl ?? (imageUrl && getFullImagePath(imageUrl));
     return (
-        <ModalWrapper isOpen={isOpen} onClose={onClose} testId=''>
+        <ModalWrapper isOpen={isOpen} onClose={onClose} testId={DATA_TEST_ID.recipeImageModal}>
             <Heading fontSize='2xl'>Изображение</Heading>
 
-            <VStack w={SIZES.imagelg} h={SIZES.imagelg} onClick={onSelectImage} my={4}>
-                <Image
-                    src={imagePreviewUrl}
-                    fallback={<FallbackImage />}
-                    h={SIZES.imagelg}
-                    borderRadius='lg'
-                />
+            <VStack
+                w={SIZES.imagelg}
+                h={SIZES.imagelg}
+                onClick={onSelectImage}
+                my={4}
+                data-test-id={DATA_TEST_ID.recipeImageModalImageBlock}
+            >
+                {imagePreviewUrl ? (
+                    <Image
+                        src={imagePreviewUrl}
+                        h={SIZES.imagelg}
+                        borderRadius='lg'
+                        alt='preview image'
+                        data-test-id={DATA_TEST_ID.recipeImageModalPreviewImage}
+                    />
+                ) : (
+                    <FallbackImage />
+                )}
             </VStack>
 
-            {selectedImageUrl && (
+            {imagePreviewUrl && (
                 <VStack gap={4} w={SIZES.full}>
                     <Button variant={STYLE_VARIANTS.black} onClick={onSaveImage} w={SIZES.full}>
                         Сохранить
@@ -113,6 +127,7 @@ export const LoadImageModal: React.FC<LoadImageModalProps> = ({
                 ref={inputRef}
                 display='none'
                 onChange={onImageChange}
+                data-test-id={testIdInput}
             />
         </ModalWrapper>
     );

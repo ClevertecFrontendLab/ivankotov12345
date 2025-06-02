@@ -24,9 +24,11 @@ export const ERROE_PAGE_SIZES = {
     titleWidthFull: 'full',
 };
 
-export const STEP_CARD_IMAGE_MAX_WIDTH = {
+export const STEP_CARD_IMAGE_SIZES = {
     lg: '340px',
     base: '160px',
+    heightImageBase: '328px',
+    heightImageMd: '346',
 };
 
 export const SPINNER_SIZE = {

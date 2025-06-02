@@ -8,13 +8,14 @@ import {
 } from '@chakra-ui/react';
 import { Control, FieldPath, useController } from 'react-hook-form';
 
-import { COLORS, COLORS_LIME } from '~/constants/styles/colors';
+import { COLORS } from '~/constants/styles/colors';
 import { SIZES, SIZES_NUMBER_INPUT } from '~/constants/styles/sizes';
 import { RecipeSchema } from '~/constants/validation-schemas/recipe';
 
 type AppNumberInputProps = {
     control: Control<RecipeSchema>;
     name: FieldPath<RecipeSchema>;
+    testId: string;
     isInvalid: boolean;
     withStepper?: boolean;
     placeholder?: string;
@@ -26,6 +27,7 @@ export const AppNumberInput: React.FC<AppNumberInputProps> = ({
     isInvalid,
     withStepper,
     placeholder,
+    testId,
 }) => {
     const { field } = useController({ control, name: name });
 
@@ -48,7 +50,8 @@ export const AppNumberInput: React.FC<AppNumberInputProps> = ({
                     step={1}
                     min={1}
                     _invalid={{ borderColor: COLORS.red, boxShadow: 'none' }}
-                    _focus={{ borderColor: COLORS_LIME[150] }}
+                    _focusVisible='none'
+                    data-test-id={testId}
                     placeholder={placeholder}
                 />
 

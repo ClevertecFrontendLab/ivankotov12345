@@ -6,6 +6,7 @@ import { ROUTER_PATHS } from '~/constants/router-paths';
 import { COLORS, COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
 import { BG_GRADIENT_SIZE, SIZES } from '~/constants/styles/sizes';
 import { Z_INDEX } from '~/constants/styles/z-index';
+import { DATA_TEST_ID } from '~/constants/test-id';
 
 import { Stats } from '../stats';
 
@@ -34,6 +35,7 @@ export const Aside: React.FC = () => (
                 }}
                 to={ROUTER_PATHS.newRecipe}
                 variant='none'
+                data-test-id={DATA_TEST_ID.addRecipeButton}
             />
             <Text fontSize='xs' color={COLORS_BLACK_ALPHA[600]}>
                 Записать рецепт

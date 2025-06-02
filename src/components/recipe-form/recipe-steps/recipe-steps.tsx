@@ -1,5 +1,6 @@
 import { DeleteIcon } from '@chakra-ui/icons';
 import {
+    Box,
     Button,
     Card,
     CardBody,
@@ -17,8 +18,9 @@ import { LoadImage } from '~/components/form-fields/load-image';
 import { PlusIcon } from '~/components/icons';
 import { PLACEHOLDERS } from '~/constants/placeholders';
 import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
-import { SIZES } from '~/constants/styles/sizes';
+import { SIZES, STEP_CARD_IMAGE_SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
+import { DATA_TEST_ID } from '~/constants/test-id';
 import { RecipeFormProps } from '~/types/props';
 
 export const RecipeSteps: React.FC<RecipeFormProps> = ({ control, register, setValue, errors }) => {
@@ -52,8 +54,28 @@ export const RecipeSteps: React.FC<RecipeFormProps> = ({ control, register, setV
             </Text>
 
             {fields.map(({ stepNumber, id }, index) => (
-                <Card key={id} flexDir='row' w={SIZES.full}>
-                    <LoadImage control={control} name={`steps.${index}.image`} />
+                <Card
+                    key={id}
+                    flexDir={{ base: 'column', lg: 'row' }}
+                    w={SIZES.full}
+                    h={{ base: SIZES.auto, lg: STEP_CARD_IMAGE_SIZES.base }}
+                >
+                    <Box
+                        w={SIZES.full}
+                        h={{
+                            base: STEP_CARD_IMAGE_SIZES.base,
+                            md: STEP_CARD_IMAGE_SIZES.heightImageMd,
+                            lg: SIZES.auto,
+                        }}
+                    >
+                        <LoadImage
+                            control={control}
+                            name={`steps.${index}.image`}
+                            testIdImageBlock={`${DATA_TEST_ID.recipeStepsImageBlock}${index}`}
+                            testIdImage={`recipe-steps-image-block-${index}-preview-image`}
+                            testIdInput={`recipe-steps-image-block-${index}-input-file`}
+                        />
+                    </Box>
 
                     <CardBody p={4} flex={SIZES.flexFull}>
                         <Flex mb={4}>
@@ -65,6 +87,7 @@ export const RecipeSteps: React.FC<RecipeFormProps> = ({ control, register, setV
                                     icon={<DeleteIcon />}
                                     onClick={() => removeStep(index)}
                                     aria-label='remove'
+                                    data-test-id={`${DATA_TEST_ID.recipeStepsRemoveButton}${index}`}
                                 />
                             )}
                         </Flex>
@@ -74,6 +97,7 @@ export const RecipeSteps: React.FC<RecipeFormProps> = ({ control, register, setV
                             register={register(`steps.${index}.description`)}
                             setValue={setValue}
                             isInvalid={!!errors.steps?.[index]?.description}
+                            testId={`${DATA_TEST_ID.recipeStepsDescription}${index}`}
                         />
                     </CardBody>
                 </Card>

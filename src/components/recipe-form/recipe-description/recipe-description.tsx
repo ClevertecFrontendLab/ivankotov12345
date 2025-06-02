@@ -6,6 +6,7 @@ import { SelectCategory } from '~/components/form-fields/select-category';
 import { PLACEHOLDERS } from '~/constants/placeholders';
 import { RECIPE_DESCRIPTION_SIZES, SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
+import { DATA_TEST_ID } from '~/constants/test-id';
 import { RecipeFormProps } from '~/types/props';
 
 export const RecipeDescription: React.FC<RecipeFormProps> = ({
@@ -14,8 +15,22 @@ export const RecipeDescription: React.FC<RecipeFormProps> = ({
     errors,
     setValue,
 }) => (
-    <Flex gap={6} pr={28} h={RECIPE_DESCRIPTION_SIZES.height}>
-        <LoadImage control={control} name='image' isInvalid={!!errors.image} />
+    <Flex
+        flexDir={{ base: 'column', md: 'row' }}
+        gap={6}
+        pr={{ base: 0, '2xl': 28 }}
+        h={{ base: SIZES.auto, md: RECIPE_DESCRIPTION_SIZES.height }}
+    >
+        <Box w={SIZES.full} height={{ base: 56, lg: SIZES.full }}>
+            <LoadImage
+                control={control}
+                name='image'
+                isInvalid={!!errors.image}
+                testIdImageBlock={DATA_TEST_ID.recipeImageBlock}
+                testIdInput={DATA_TEST_ID.recipeImageBlockInputFile}
+                testIdImage={DATA_TEST_ID.recipeImageBlockPreviewImage}
+            />
+        </Box>
 
         <Box maxW={SIZES.recipeDetailsMaxWidth} w={SIZES.full}>
             <HStack justifyContent='space-between' mb={8}>
@@ -30,7 +45,7 @@ export const RecipeDescription: React.FC<RecipeFormProps> = ({
                     variant={STYLE_VARIANTS.titleInput}
                     isInvalid={!!errors.title}
                     setValue={setValue}
-                    testId=''
+                    testId={DATA_TEST_ID.recipeTitle}
                 />
 
                 <AppTextarea
@@ -38,6 +53,7 @@ export const RecipeDescription: React.FC<RecipeFormProps> = ({
                     placeholder={PLACEHOLDERS.recipeDescription}
                     isInvalid={!!errors.description}
                     setValue={setValue}
+                    testId={DATA_TEST_ID.recipeDescription}
                 />
 
                 <HStack justifyContent='space-between' w={SIZES.full}>
@@ -47,6 +63,7 @@ export const RecipeDescription: React.FC<RecipeFormProps> = ({
                         name='portions'
                         isInvalid={!!errors.portions}
                         withStepper={true}
+                        testId={DATA_TEST_ID.recipePortions}
                     />
                 </HStack>
 
@@ -59,6 +76,7 @@ export const RecipeDescription: React.FC<RecipeFormProps> = ({
                         name='time'
                         isInvalid={!!errors.time}
                         withStepper={true}
+                        testId={DATA_TEST_ID.recipeTime}
                     />
                 </HStack>
             </VStack>

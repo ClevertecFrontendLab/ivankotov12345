@@ -14,23 +14,34 @@ import { LoadImageModal } from './load-image-modal';
 type LoadImageProps = {
     control: Control<RecipeSchema>;
     name: FieldPath<RecipeSchema>;
+    testIdImageBlock: string;
+    testIdImage: string;
+    testIdInput: string;
     isInvalid?: boolean;
 };
 
-export const LoadImage: React.FC<LoadImageProps> = ({ control, isInvalid, name }) => {
+export const LoadImage: React.FC<LoadImageProps> = ({
+    control,
+    isInvalid,
+    name,
+    testIdImageBlock,
+    testIdImage,
+    testIdInput,
+}) => {
     const { isOpen, onClose, onOpen } = useDisclosure();
     const [imageUrl, setImageUrl] = useState<string>();
 
     const imageSrc = imageUrl && getFullImagePath(imageUrl);
 
     return (
-        <Box w={SIZES.full}>
+        <Box w={SIZES.full} h={SIZES.full}>
             <Box
                 onClick={onOpen}
                 h={SIZES.full}
                 border={BORDERS.solid}
                 borderRadius='lg'
                 borderColor={isInvalid ? COLORS.red : COLORS_BLACK_ALPHA[200]}
+                data-test-id={testIdImageBlock}
             >
                 <Image
                     src={imageSrc}
@@ -39,6 +50,7 @@ export const LoadImage: React.FC<LoadImageProps> = ({ control, isInvalid, name }
                     h={SIZES.full}
                     objectFit='cover'
                     borderRadius='lg'
+                    data-test-id={testIdImage}
                 />
             </Box>
 
@@ -49,6 +61,7 @@ export const LoadImage: React.FC<LoadImageProps> = ({ control, isInvalid, name }
                 imageUrl={imageUrl}
                 control={control}
                 name={name}
+                testIdInput={testIdInput}
             />
         </Box>
     );

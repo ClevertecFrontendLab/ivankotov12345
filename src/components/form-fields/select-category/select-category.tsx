@@ -1,5 +1,15 @@
-import { ChevronDownIcon } from '@chakra-ui/icons';
-import { Box, Button, Checkbox, Menu, MenuButton, MenuList, Text } from '@chakra-ui/react';
+import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
+import {
+    Box,
+    Button,
+    Checkbox,
+    Flex,
+    Menu,
+    MenuButton,
+    MenuList,
+    Text,
+    useDisclosure,
+} from '@chakra-ui/react';
 import { Control, FieldPath, useController } from 'react-hook-form';
 
 import { FilterTag } from '~/components/filter-tag';
@@ -7,6 +17,7 @@ import { PLACEHOLDERS } from '~/constants/placeholders';
 import { COLORS, COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
 import { SELECT_SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
+import { DATA_TEST_ID } from '~/constants/test-id';
 import { RecipeSchema } from '~/constants/validation-schemas/recipe';
 import { useAppSelector } from '~/store/hooks';
 import { selectSubCategories } from '~/store/slices/category-slice';
@@ -19,6 +30,7 @@ const CATEGORY_FIELD_NAME: FieldPath<RecipeSchema> = 'categoriesIds';
 
 export const SelectCategory: React.FC<SelectCategoryProps> = ({ control }) => {
     const subCategories = useAppSelector(selectSubCategories);
+    const { isOpen, onToggle } = useDisclosure();
 
     const {
         field,
@@ -39,26 +51,30 @@ export const SelectCategory: React.FC<SelectCategoryProps> = ({ control }) => {
         .filter((category) => field.value?.includes(category._id))
         .map((category) => category.title);
 
-    const visibleTags = subCategories.slice(0, 2);
+    const visibleTags = selectedCategories.slice(0, 2);
     const restTagsCount = selectedCategories.length - 2;
 
     return (
-        <Menu closeOnSelect={false} matchWidth>
+        <Menu closeOnSelect={false} matchWidth isOpen={isOpen}>
             <MenuButton
                 as={Button}
-                rightIcon={<ChevronDownIcon />}
+                rightIcon={isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
                 variant={STYLE_VARIANTS.menuButton}
                 maxW={SELECT_SIZES.maxW}
                 borderColor={error ? COLORS.red : COLORS_BLACK_ALPHA[200]}
+                onClick={onToggle}
+                data-test-id={DATA_TEST_ID.recipeCategories}
             >
                 {selectedCategories.length > 0 ? (
-                    <>
-                        {visibleTags.map((tag) => (
-                            <FilterTag key={tag._id} item={tag.title} />
-                        ))}
+                    <Flex>
+                        <Box overflow='hidden'>
+                            {visibleTags.map((tag) => (
+                                <FilterTag key={tag} item={tag} />
+                            ))}
+                        </Box>
 
                         {selectedCategories.length > 2 && <FilterTag item={`+${restTagsCount}`} />}
-                    </>
+                    </Flex>
                 ) : (
                     <Text>{PLACEHOLDERS.selectFromList}</Text>
                 )}

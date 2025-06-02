@@ -1,4 +1,4 @@
-import { ALERT_ERROR_TEXT } from '~/constants/statuses';
+import { ALERT_ERROR_TEXT, LIKE_RECIPE_ERROR } from '~/constants/statuses';
 import { setIsSearching } from '~/store/slices/search-input-slice';
 import {
     clearSelectedRecipeTitle,
@@ -80,7 +80,7 @@ export const recpeApi = apiSlice.injectEndpoints({
         likeRecipe: build.mutation<string, string>({
             query: (id) => ({ url: `${Endpoints.RECIPE}/${id}/${Endpoints.LIKE}`, method: 'POST' }),
             invalidatesTags: [RECIPE_TAG],
-            transformErrorResponse: (response) => ({ ...response, ...ALERT_ERROR_TEXT }),
+            transformErrorResponse: (response) => ({ ...response, ...LIKE_RECIPE_ERROR }),
         }),
         bookmarkRecipe: build.mutation<string, string>({
             query: (id) => ({
@@ -88,7 +88,7 @@ export const recpeApi = apiSlice.injectEndpoints({
                 method: 'POST',
             }),
             invalidatesTags: [RECIPE_TAG],
-            transformErrorResponse: (response) => ({ ...response, ...ALERT_ERROR_TEXT }),
+            transformErrorResponse: (response) => ({ ...response, ...LIKE_RECIPE_ERROR }),
         }),
     }),
 });

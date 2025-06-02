@@ -14,6 +14,11 @@ export const ALERT_ERROR_TEXT: ToastStatus = {
     title: 'Ошибка сервера',
     description: 'Попробуйте поискать снова попозже',
 };
+export const LIKE_RECIPE_ERROR: ToastStatus = {
+    status: 'error',
+    title: 'Ошибка сервера',
+    description: 'Попробуйте немного позже',
+};
 
 const ERROR_RECIPE_EXISTS: ToastStatus = {
     status: 'error',

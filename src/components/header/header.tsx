@@ -1,9 +1,11 @@
 import { Flex, HStack, Image, Spacer, Stack, useMediaQuery } from '@chakra-ui/react';
+import { NavLink } from 'react-router';
 
 import avatar from '~/assets/img/avatar.jpg';
 import { ROUTER_PATHS } from '~/constants/router-paths';
 import { COLORS, COLORS_LIME } from '~/constants/styles/colors';
 import { SIZES } from '~/constants/styles/sizes';
+import { DATA_TEST_ID } from '~/constants/test-id';
 import { usePathItems } from '~/hooks/use-path-items';
 import { useAppSelector } from '~/store/hooks';
 import { selectBurger } from '~/store/slices/burger-slice';
@@ -31,7 +33,13 @@ export const Header: React.FC = () => {
             pr={{ base: 5, lg: 24 }}
             bg={isOpen ? COLORS.white : COLORS_LIME[50]}
         >
-            <Stack direction='row' alignItems='flex-end'>
+            <Stack
+                as={NavLink}
+                to={ROUTER_PATHS.homePage}
+                direction='row'
+                alignItems='flex-end'
+                data-test-id={DATA_TEST_ID.headerLogo}
+            >
                 <Image src={pan} alt='pan' />
                 <Image src={yeeDaa} alt='yee daa' display={{ base: 'none', md: 'block' }} />
             </Stack>

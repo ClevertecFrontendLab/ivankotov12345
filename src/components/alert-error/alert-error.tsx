@@ -10,7 +10,6 @@ import {
 import { useCallback, useEffect } from 'react';
 
 import { COLORS } from '~/constants/styles/colors';
-import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
@@ -28,9 +27,10 @@ const ALERT_WIDTH = {
 
 const DURATION = 15000;
 
+const VALID_STATUSES = ['error', 'success', 'warning', 'info'] as const;
+
 export const AlertError: React.FC = () => {
     const { statusData } = useAppSelector(selectApp);
-
     const dispatch = useAppDispatch();
 
     const onAlertClose = useCallback(() => {
@@ -39,23 +39,23 @@ export const AlertError: React.FC = () => {
     }, [dispatch]);
 
     useEffect(() => {
+        if (!statusData) return;
+
         const timerId = setTimeout(() => {
             onAlertClose();
         }, DURATION);
         return () => clearTimeout(timerId);
-    }, [dispatch, onAlertClose]);
+    }, [dispatch, onAlertClose, statusData]);
 
     if (!statusData) return null;
 
+    const status = VALID_STATUSES.includes(statusData.status) ? statusData.status : 'error';
+
     return (
-        <Center
-            position='fixed'
-            w={SIZES.full}
-            bottom={{ base: INDENT_BOTTOM.sm, lg: INDENT_BOTTOM.lg }}
-        >
+        <Center bottom={{ base: INDENT_BOTTOM.sm, lg: INDENT_BOTTOM.lg }}>
             <Alert
                 variant={STYLE_VARIANTS.solid}
-                status={statusData?.status || 'error'}
+                status={status}
                 w={{ base: ALERT_WIDTH.sm, lg: ALERT_WIDTH.lg }}
                 py={3}
                 px={4}
@@ -66,9 +66,9 @@ export const AlertError: React.FC = () => {
                 <AlertIcon color={COLORS.white} />
 
                 <VStack alignItems='start' gap={0}>
-                    <AlertTitle>{statusData?.title}</AlertTitle>
-                    {statusData?.description && (
-                        <AlertDescription>{statusData?.description}</AlertDescription>
+                    <AlertTitle>{statusData.title || 'Error'}</AlertTitle>
+                    {statusData.description && (
+                        <AlertDescription>{statusData.description}</AlertDescription>
                     )}
                 </VStack>
 

@@ -32,7 +32,7 @@ export const createRecipeApi = apiSlice.injectEndpoints({
 
         updateRecipe: build.mutation<RecipeType, { id: string; body: RecipeSchema }>({
             query: ({ id, body }) => ({ url: `${Endpoints.RECIPE}/${id}`, method: 'PATCH', body }),
-            invalidatesTags: (_result, _error, { id }) => [{ type: RECIPE_TAG, id: id }],
+            invalidatesTags: () => [RECIPE_TAG],
             transformErrorResponse: (response) => {
                 if (response.status === RESPONSE_STATUS.CONFLICT) {
                     return { ...response, ...CREATE_RECIPE_STATUS[RESPONSE_STATUS.CONFLICT] };
@@ -44,7 +44,7 @@ export const createRecipeApi = apiSlice.injectEndpoints({
 
         deleteRecipe: build.mutation<void, string>({
             query: (id) => ({ url: `${Endpoints.RECIPE}/${id}`, method: 'DELETE' }),
-            invalidatesTags: () => [{ type: RECIPE_TAG, id: 'LIST' }],
+            invalidatesTags: () => [RECIPE_TAG],
             transformErrorResponse: (response) => ({
                 ...response,
                 ...DELETE_RECIPE_STATUS[RESPONSE_STATUS.SERVER_ERROR],

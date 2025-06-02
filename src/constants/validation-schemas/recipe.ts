@@ -7,7 +7,7 @@ export const recipeSchema = z
         portions: z.number().positive(),
         time: z.number().positive().max(10000),
         image: z.string().min(1).nonempty(),
-        categoriesIds: z.array(z.unknown()).min(3).nonempty(),
+        categoriesIds: z.array(z.string()).min(3).nonempty(),
         ingredients: z.array(
             z.object({
                 title: z.string().max(50).nonempty(),

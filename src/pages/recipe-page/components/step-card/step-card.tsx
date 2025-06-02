@@ -1,6 +1,6 @@
 import { Card, CardBody, Image, Tag, TagLabel, Text, VStack } from '@chakra-ui/react';
 
-import { SIZES, STEP_CARD_IMAGE_MAX_WIDTH } from '~/constants/styles/sizes';
+import { SIZES, STEP_CARD_IMAGE_SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { getFullImagePath } from '~/helpers/get-full-image-path';
 import { RecipeStep } from '~/types/recipe';
@@ -22,7 +22,7 @@ export const StepCard: React.FC<RecipeStep & { background: string }> = ({
             <Image
                 src={getFullImagePath(image)}
                 alt={description}
-                w={{ base: STEP_CARD_IMAGE_MAX_WIDTH.base, lg: STEP_CARD_IMAGE_MAX_WIDTH.lg }}
+                w={{ base: STEP_CARD_IMAGE_SIZES.base, lg: STEP_CARD_IMAGE_SIZES.lg }}
                 h={{ base: 'imageHeight.md', lg: 'auto' }}
             />
         )}
