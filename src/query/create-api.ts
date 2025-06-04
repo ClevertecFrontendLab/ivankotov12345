@@ -4,6 +4,7 @@ import { getLocalStorageItem } from '~/helpers/storage';
 
 import { BASE_URL } from './constants/paths';
 import { ACCESS_TOKEN_STORAGE_KEY } from './constants/storage-keys';
+import { BLOGGERS_TAG, RECIPE_TAG } from './constants/tags';
 
 export const apiSlice = createApi({
     reducerPath: 'api',
@@ -18,6 +19,6 @@ export const apiSlice = createApi({
             return headers;
         },
     }),
-    tagTypes: ['Recipe'],
+    tagTypes: [RECIPE_TAG, BLOGGERS_TAG],
     endpoints: () => ({}),
 });

@@ -20,3 +20,8 @@ export type BloggerResponse = {
     favorites: BloggerType[];
     others: BloggerType[];
 };
+
+export type SubscriptionRequest = {
+    toUserId: string;
+    fromUserId: string;
+};

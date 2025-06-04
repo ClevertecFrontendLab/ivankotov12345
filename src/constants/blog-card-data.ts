@@ -35,3 +35,8 @@ export const BLOG_CARD_DATA: BlogCardData[] = [
             'Как раз после праздников, когда мясные продукты еще остались, но никто их уже не хочет, время варить солянку.',
     },
 ];
+
+export const BLOG_CARD_TYPE = {
+    anyBlogger: 'anyBlogger',
+    favoritesBlogger: 'favoritesBlogger',
+} as const;
