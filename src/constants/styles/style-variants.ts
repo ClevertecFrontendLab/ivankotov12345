@@ -6,6 +6,7 @@ export const STYLE_VARIANTS = {
 
     navigationLink: 'navigationLink',
     menuButton: 'menuButton',
+    limeButton: 'limeButton',
     cardHeading: 'card',
     sectionHeading: 'section',
     inputLabel: 'inputLabel',

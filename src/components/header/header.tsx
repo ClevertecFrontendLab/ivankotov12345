@@ -49,7 +49,12 @@ export const Header: React.FC = () => {
             <Spacer />
 
             {!isTablet && (
-                <User avatar={avatar} name='Екатерина Константинопольская' email='@bake_and_pie' />
+                <User
+                    avatar={avatar}
+                    firstName='Екатерина'
+                    lastName='Константинопольская'
+                    login='@bake_and_pie'
+                />
             )}
 
             <HStack display={{ base: 'flex', lg: 'none' }}>

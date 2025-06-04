@@ -47,11 +47,19 @@ const menuButton = defineStyle({
     },
 });
 
+const limeButton = defineStyle({
+    color: 'lime.600',
+    border: '1px solid',
+    borderColor: 'lime.600',
+    p: 2,
+});
+
 export const buttonTheme = defineStyleConfig({
     variants: {
         black: buttonBlack,
         highlighted: buttonHighlighted,
         menuButton: menuButton,
+        limeButton: limeButton,
         none: {
             color: 'black',
         },

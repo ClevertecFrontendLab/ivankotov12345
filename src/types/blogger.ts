@@ -13,6 +13,7 @@ export type BloggerType = {
     isFavorite: boolean;
     notes: BloggerNotes[];
     newRecipesCount: number;
+    avatar?: string;
 };
 
 export type BloggerResponse = {

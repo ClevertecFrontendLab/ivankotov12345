@@ -4,7 +4,7 @@ export type SortOrder = 'asc' | 'desc';
 export type QueryParams = Partial<{
     sortBy: SortBy;
     sortOrder: SortOrder;
-    limit: number;
+    limit: number | string;
     allergens: string;
     searchString: string;
     meat: string;
