@@ -5,6 +5,7 @@ import { HydrateFallback } from '~/app-router/fallback/hydrate-fallback';
 import { recipeLoader } from '~/app-router/loaders/recipe-loader';
 import { checkRouteExists } from '~/app-router/utils/check-route-exists';
 import { ROUTER_PATHS } from '~/constants/router-paths';
+import { BlogsPage } from '~/pages/blogs-page';
 import { CategoryPage } from '~/pages/category-page';
 import { CreateRecipePage } from '~/pages/create-recipe-page';
 import { HomePage } from '~/pages/home-page';
@@ -38,6 +39,10 @@ export const rootPage: RouteObject = {
         {
             path: ROUTER_PATHS.editRecipe,
             element: <CreateRecipePage />,
+        },
+        {
+            path: ROUTER_PATHS.blogs,
+            element: <BlogsPage />,
         },
         {
             path: ROUTER_PATHS.subcategory,

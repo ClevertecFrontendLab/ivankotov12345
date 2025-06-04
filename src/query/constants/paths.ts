@@ -18,6 +18,7 @@ export enum Endpoints {
     CREATE_DRAFT = 'recipe/draft',
     LIKE = 'like',
     BOOKMARK = 'bookmark',
+    BLOGGERS = 'bloggers',
 }
 
 export const ACCESS_TOKEN = 'Authentication-Access';

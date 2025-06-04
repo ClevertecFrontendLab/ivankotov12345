@@ -53,9 +53,7 @@ export const Layout: React.FC = () => {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                if (!token) {
-                    await refreshToken().unwrap();
-                }
+                await refreshToken().unwrap();
             } catch (error) {
                 console.error(error);
             } finally {
