@@ -9,6 +9,9 @@ import { useAppSelector } from '~/store/hooks';
 import { selectUserId } from '~/store/slices/app-slice';
 
 import { BloggerCard } from './components/blogger-card';
+import { NotesSection } from './components/notes-section';
+
+const INITIAL_RECIPES = 8;
 
 export const BloggerProfilePage: React.FC = () => {
     const { bloggerId } = useParams();
@@ -25,11 +28,11 @@ export const BloggerProfilePage: React.FC = () => {
 
     const displayedRecipes = collapsed
         ? bloggerActivity?.recipes || []
-        : (bloggerActivity?.recipes || []).slice(0, 8);
+        : (bloggerActivity?.recipes || []).slice(0, INITIAL_RECIPES);
 
     const onLoadMoreClick = () => setCollapsed(!collapsed);
 
-    console.log(bloggerActivity?.recipes);
+    console.log(bloggerActivity?.notes);
 
     return (
         <>
@@ -42,6 +45,8 @@ export const BloggerProfilePage: React.FC = () => {
             {!collapsed && (
                 <LoadMoreButton onLoadMoreClick={onLoadMoreClick} isLoading={isFetching} />
             )}
+
+            {bloggerActivity?.notes && <NotesSection bloggerNotes={bloggerActivity.notes} />}
         </>
     );
 };

@@ -10,6 +10,7 @@ import {
 import { useCallback, useEffect } from 'react';
 
 import { COLORS } from '~/constants/styles/colors';
+import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
@@ -52,7 +53,11 @@ export const AlertError: React.FC = () => {
     const status = VALID_STATUSES.includes(statusData.status) ? statusData.status : 'error';
 
     return (
-        <Center bottom={{ base: INDENT_BOTTOM.sm, lg: INDENT_BOTTOM.lg }}>
+        <Center
+            position='fixed'
+            w={SIZES.full}
+            bottom={{ base: INDENT_BOTTOM.sm, lg: INDENT_BOTTOM.lg }}
+        >
             <Alert
                 variant={STYLE_VARIANTS.solid}
                 status={status}
