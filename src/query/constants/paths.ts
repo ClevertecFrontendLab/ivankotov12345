@@ -20,6 +20,7 @@ export enum Endpoints {
     BOOKMARK = 'bookmark',
     BLOGGERS = 'bloggers',
     TOGGLE_SUBSCRIPTION = 'users/toggle-subscription',
+    BLOGGER_RECIPES = 'recipe/user',
 }
 
 export const ACCESS_TOKEN = 'Authentication-Access';

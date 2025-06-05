@@ -3,7 +3,7 @@ import { Icon, IconProps } from '@chakra-ui/react';
 export const LikeIcon: React.FC<IconProps> = (props) => (
     <Icon viewBox='0 0 16 16' {...props}>
         <path
-            fill-rule='evenodd'
+            fillRule='evenodd'
             clipRule='evenodd'
             d='M7.9998 4.41001C9.3868 2.98501 12.8538 5.48001 7.9998 8.68701C3.1458 5.48001 6.6128 2.98601 7.9998 4.41201V4.41001Z'
             fill='black'

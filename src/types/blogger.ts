@@ -47,3 +47,11 @@ export type BloggerInfoResponse = {
     totalBookmarks: number;
     isFavorite: false;
 };
+
+export type BloggerActivityInfo = {
+    notes: BloggerNotes[];
+    recipes: RecipeType[];
+    totalBookmarks: number;
+    totalSubscribers: number;
+    userId: string;
+};

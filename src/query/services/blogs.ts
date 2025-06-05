@@ -1,4 +1,9 @@
-import { BloggerInfoResponse, BloggerResponse, SubscriptionRequest } from '~/types/blogger';
+import {
+    BloggerActivityInfo,
+    BloggerInfoResponse,
+    BloggerResponse,
+    SubscriptionRequest,
+} from '~/types/blogger';
 import { BloggerByIdParams, BloggersParams } from '~/types/request-params';
 
 import { Endpoints } from '../constants/paths';
@@ -18,7 +23,7 @@ export const blogsApi = apiSlice.injectEndpoints({
             query: (body) => ({ url: Endpoints.TOGGLE_SUBSCRIPTION, method: 'PATCH', body }),
             invalidatesTags: () => [BLOGGERS_TAG],
         }),
-        getBloggerById: build.query<BloggerInfoResponse, BloggerByIdParams>({
+        getBloggerById: build.query<BloggerInfoResponse, Partial<BloggerByIdParams>>({
             query: (params) => {
                 const { bloggerId, currentUserId } = params;
                 return {
@@ -28,8 +33,15 @@ export const blogsApi = apiSlice.injectEndpoints({
                 };
             },
         }),
+        getBloggerActivity: build.query<BloggerActivityInfo, string | undefined>({
+            query: (id) => ({ url: `${Endpoints.BLOGGER_RECIPES}/${id}` }),
+        }),
     }),
 });
 
-export const { useGetBloggersQuery, useToggleSubscriptionMutation, useGetBloggerByIdQuery } =
-    blogsApi;
+export const {
+    useGetBloggersQuery,
+    useToggleSubscriptionMutation,
+    useGetBloggerByIdQuery,
+    useGetBloggerActivityQuery,
+} = blogsApi;
