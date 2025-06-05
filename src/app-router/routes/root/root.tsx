@@ -5,6 +5,7 @@ import { HydrateFallback } from '~/app-router/fallback/hydrate-fallback';
 import { recipeLoader } from '~/app-router/loaders/recipe-loader';
 import { checkRouteExists } from '~/app-router/utils/check-route-exists';
 import { ROUTER_PATHS } from '~/constants/router-paths';
+import { BloggerProfilePage } from '~/pages/blogger-profile-page';
 import { BlogsPage } from '~/pages/blogs-page';
 import { CategoryPage } from '~/pages/category-page';
 import { CreateRecipePage } from '~/pages/create-recipe-page';
@@ -43,6 +44,10 @@ export const rootPage: RouteObject = {
         {
             path: ROUTER_PATHS.blogs,
             element: <BlogsPage />,
+        },
+        {
+            path: ROUTER_PATHS.blogggerProfile,
+            element: <BloggerProfilePage />,
         },
         {
             path: ROUTER_PATHS.subcategory,

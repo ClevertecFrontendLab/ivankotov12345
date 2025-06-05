@@ -1,30 +1,25 @@
 import { Button, Card, CardBody, CardFooter, Flex, Spacer, Text, VStack } from '@chakra-ui/react';
 
 import { BLOG_CARD_TYPE } from '~/constants/blog-card-data';
+import { ANCHOR_NOTES } from '~/constants/router-paths';
 import { COLORS_LIME } from '~/constants/styles/colors';
 import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
-import { useToggleSubscriptionMutation } from '~/query/services/blogs';
-import { useAppSelector } from '~/store/hooks';
-import { selectUserId } from '~/store/slices/app-slice';
 import { BloggerType } from '~/types/blogger';
 
 import { LikeIcon, PeopleIcon } from '../icons';
 import { StatButton } from '../stat-button';
+import { SubscribeButton } from '../subscribe-button';
 import { User } from '../user';
+import { useBloggerNavigation } from './hooks';
 
 type BlogCardProps = BloggerType & { cardType: keyof typeof BLOG_CARD_TYPE };
 
 export const BlogCard: React.FC<BlogCardProps> = (props) => {
-    const [toggleSubscription] = useToggleSubscriptionMutation();
-    const userId = useAppSelector(selectUserId);
+    const navigateToBlogger = useBloggerNavigation();
 
-    const onSubscribeBusttonClick = async () => {
-        if (!userId || !props._id) return;
-
-        await toggleSubscription({ fromUserId: userId, toUserId: props._id });
-    };
-
+    const handleBloggerClick = () => navigateToBlogger(props._id);
+    const handleReadBloggerClick = () => navigateToBlogger(props._id, ANCHOR_NOTES);
     return (
         <Card>
             <CardBody
@@ -43,22 +38,20 @@ export const BlogCard: React.FC<BlogCardProps> = (props) => {
             <CardFooter>
                 <Flex w={SIZES.full} gap={2}>
                     {props.cardType === BLOG_CARD_TYPE.favoritesBlogger && (
-                        <Button size='xs' bg={COLORS_LIME[400]} onClick={onSubscribeBusttonClick}>
+                        <Button size='xs' bg={COLORS_LIME[400]} onClick={handleBloggerClick}>
                             Рецепты
                         </Button>
                     )}
 
                     {props.cardType === BLOG_CARD_TYPE.anyBlogger && (
-                        <Button
-                            variant={STYLE_VARIANTS.black}
-                            size='xs'
-                            onClick={onSubscribeBusttonClick}
-                        >
-                            Подписаться
-                        </Button>
+                        <SubscribeButton bloggerId={props._id} isFavorite={props.isFavorite} />
                     )}
 
-                    <Button variant={STYLE_VARIANTS.limeButton} size='xs'>
+                    <Button
+                        variant={STYLE_VARIANTS.limeButton}
+                        size='xs'
+                        onClick={handleReadBloggerClick}
+                    >
                         Читать
                     </Button>
 
@@ -71,3 +64,5 @@ export const BlogCard: React.FC<BlogCardProps> = (props) => {
         </Card>
     );
 };
+
+('67e66476d2dc8b36a297cfb1');

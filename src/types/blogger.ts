@@ -1,3 +1,5 @@
+import { RecipeType } from './recipe';
+
 export type BloggerNotes = {
     date: string;
     text: string;
@@ -24,4 +26,24 @@ export type BloggerResponse = {
 export type SubscriptionRequest = {
     toUserId: string;
     fromUserId: string;
+};
+
+export type BloggerInfo = {
+    _id: string;
+    email: string;
+    login: string;
+    firstName: string;
+    lastName: string;
+    recipesIds: string[];
+    drafts: RecipeType[];
+    subscriptions: string[];
+    subscribers: string[];
+    avatar?: string;
+};
+
+export type BloggerInfoResponse = {
+    bloggerInfo: BloggerInfo;
+    totalSubscribers: number;
+    totalBookmarks: number;
+    isFavorite: false;
 };

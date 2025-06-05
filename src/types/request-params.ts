@@ -14,6 +14,11 @@ export type QueryParams = Partial<{
 
 export type BloggersParams = QueryParams & { currentUserId: string };
 
+export type BloggerByIdParams = {
+    bloggerId: string;
+    currentUserId: string;
+};
+
 export type RecipeParams = QueryParams & {
     id?: string;
 };

@@ -1,12 +1,13 @@
 import { Avatar, Box, Flex, Text } from '@chakra-ui/react';
 
 import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
+import { getFullName } from '~/helpers/get-full-name';
 import { BloggerType } from '~/types/blogger';
 
 type UserProps = Pick<BloggerType, 'firstName' | 'lastName' | 'avatar' | 'login'>;
 
 export const User: React.FC<UserProps> = ({ firstName, lastName, avatar, login }) => {
-    const fullName = [firstName, lastName].join(' ');
+    const fullName = getFullName(firstName, lastName);
     return (
         <Flex gap={3} alignItems='center'>
             <Avatar size={{ base: 'sm', lg: 'md' }} src={avatar} name={fullName} />
