@@ -10,6 +10,7 @@ import { selectUserId } from '~/store/slices/app-slice';
 
 import { BloggerCard } from './components/blogger-card';
 import { NotesSection } from './components/notes-section';
+import { OtherSection } from './components/others-section';
 
 const INITIAL_RECIPES = 8;
 
@@ -32,8 +33,6 @@ export const BloggerProfilePage: React.FC = () => {
 
     const onLoadMoreClick = () => setCollapsed(!collapsed);
 
-    console.log(bloggerActivity?.notes);
-
     return (
         <>
             {bloggerInfo && <BloggerCard {...bloggerInfo} />}
@@ -46,7 +45,11 @@ export const BloggerProfilePage: React.FC = () => {
                 <LoadMoreButton onLoadMoreClick={onLoadMoreClick} isLoading={isFetching} />
             )}
 
-            {bloggerActivity?.notes && <NotesSection bloggerNotes={bloggerActivity.notes} />}
+            {bloggerActivity?.notes && bloggerActivity.notes.length > 0 && (
+                <NotesSection bloggerNotes={bloggerActivity.notes} />
+            )}
+
+            <OtherSection />
         </>
     );
 };

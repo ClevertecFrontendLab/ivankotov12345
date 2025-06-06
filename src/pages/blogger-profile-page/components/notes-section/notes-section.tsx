@@ -34,6 +34,7 @@ export const NotesSection: React.FC<{ bloggerNotes: BloggerNotes[] }> = ({ blogg
                         border={BORDERS.solid}
                         borderColor={COLORS_BLACK_ALPHA[200]}
                         borderRadius='lg'
+                        key={text}
                     >
                         <Flex direction='column' gap={4}>
                             <Text color={COLORS_LIME[600]}>{formatDate(date)}</Text>

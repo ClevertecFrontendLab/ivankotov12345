@@ -2,7 +2,11 @@ import { Box, Flex, Heading, SimpleGrid, Spacer, useMediaQuery } from '@chakra-u
 
 import { PAGE_TITLES } from '~/constants/page-titles';
 import { COLORS_LIME } from '~/constants/styles/colors';
+import { useGetBloggersQuery } from '~/query/services/blogs';
+import { useAppSelector } from '~/store/hooks';
+import { selectUserId } from '~/store/slices/app-slice';
 
+import { BlogCard } from './blog-card';
 import { BlogSectionButton } from './blog-section-button';
 
 const { title } = PAGE_TITLES.blog;
@@ -10,6 +14,11 @@ const { title } = PAGE_TITLES.blog;
 export const BlogSection: React.FC = () => {
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
 
+    const userId = useAppSelector(selectUserId);
+
+    const { data } = useGetBloggersQuery({ limit: '', currentUserId: userId ?? '' });
+
+    const bloggersList = data?.others ?? [];
     return (
         <Box
             as='section'
@@ -29,9 +38,9 @@ export const BlogSection: React.FC = () => {
             </Flex>
 
             <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 2, md: 4 }}>
-                {/* {BLOG_CARD_DATA.map((props) => (
-                    <BlogCard key={props.id} {...props} />
-                ))} */}
+                {bloggersList.map((props) => (
+                    <BlogCard key={props._id} {...props} />
+                ))}
             </SimpleGrid>
 
             {isTablet && (

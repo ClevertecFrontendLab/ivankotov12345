@@ -1,10 +1,11 @@
-import { useLocation, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
+
+import { ROUTER_PATHS } from '~/constants/router-paths';
 
 export const useBloggerNavigation = () => {
     const navigate = useNavigate();
-    const { pathname } = useLocation();
 
     return (id: string, anchor: string = '') => {
-        navigate(`${pathname}/${id}${anchor}`);
+        navigate(`${ROUTER_PATHS.blogs}/${id}${anchor}`);
     };
 };
