@@ -1,6 +1,6 @@
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { Box, Button, Heading, HStack, SimpleGrid } from '@chakra-ui/react';
-import { useNavigate } from 'react-router';
+import { Navigate, useNavigate } from 'react-router';
 
 import { BlogCard } from '~/components/blog-card';
 import { ROUTER_PATHS } from '~/constants/router-paths';
@@ -13,7 +13,7 @@ export const OtherSection: React.FC = () => {
     const navigate = useNavigate();
 
     const userId = useAppSelector(selectUserId);
-    const { data } = useGetBloggersQuery(
+    const { data, error } = useGetBloggersQuery(
         { limit: '', currentUserId: userId ?? '' },
         { refetchOnMountOrArgChange: true },
     );
@@ -21,6 +21,10 @@ export const OtherSection: React.FC = () => {
     const onAllAuthorsClick = () => navigate(ROUTER_PATHS.blogs);
 
     const bloggersList = data?.others ?? [];
+
+    if (error) {
+        return <Navigate to={ROUTER_PATHS.homePage} />;
+    }
     return (
         <Box as='section'>
             <HStack justifyContent='space-between'>
@@ -33,7 +37,7 @@ export const OtherSection: React.FC = () => {
 
             <SimpleGrid columns={3} gap={4}>
                 {bloggersList.map((blogger) => (
-                    <BlogCard cardType='anyBlogger' {...blogger} />
+                    <BlogCard key={blogger._id} cardType='anyBlogger' {...blogger} />
                 ))}
             </SimpleGrid>
         </Box>

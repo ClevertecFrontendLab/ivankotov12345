@@ -31,7 +31,6 @@ export const rootPage: RouteObject = {
         {
             path: ROUTER_PATHS.juiciestPage,
             element: <JuiciestPage />,
-            ErrorBoundary: RecipeErrorBoundary,
         },
         {
             path: ROUTER_PATHS.newRecipe,
@@ -56,7 +55,6 @@ export const rootPage: RouteObject = {
                 {
                     index: true,
                     element: <CategoryPage />,
-                    ErrorBoundary: RecipeErrorBoundary,
                 },
                 {
                     path: ROUTER_PATHS.recipe,

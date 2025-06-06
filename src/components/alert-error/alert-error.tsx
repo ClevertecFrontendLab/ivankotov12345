@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { useCallback, useEffect } from 'react';
 
+import { ALERT_ERROR_TEXT } from '~/constants/statuses';
 import { COLORS } from '~/constants/styles/colors';
 import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
@@ -71,9 +72,12 @@ export const AlertError: React.FC = () => {
                 <AlertIcon color={COLORS.white} />
 
                 <VStack alignItems='start' gap={0}>
-                    <AlertTitle>{statusData.title || 'Error'}</AlertTitle>
+                    <AlertTitle>{statusData.title || ALERT_ERROR_TEXT.title}</AlertTitle>
                     {statusData.description && (
                         <AlertDescription>{statusData.description}</AlertDescription>
+                    )}
+                    {status === 'error' && !statusData.description && (
+                        <AlertDescription>{ALERT_ERROR_TEXT.description}</AlertDescription>
                     )}
                 </VStack>
 

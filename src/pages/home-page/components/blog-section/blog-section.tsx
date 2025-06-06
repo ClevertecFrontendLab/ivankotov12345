@@ -16,7 +16,7 @@ export const BlogSection: React.FC = () => {
 
     const userId = useAppSelector(selectUserId);
 
-    const { data } = useGetBloggersQuery({ limit: '', currentUserId: userId ?? '' });
+    const { data } = useGetBloggersQuery({ limit: '', currentUserId: userId }, { skip: !userId });
 
     const bloggersList = data?.others ?? [];
     return (

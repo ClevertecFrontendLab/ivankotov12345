@@ -45,43 +45,49 @@ export const RecipePage: React.FC = () => {
     );
 
     return (
-        <VStack gap={10} mt={{ base: 6, lg: 14 }} mb={20}>
-            <RecipePageCard
-                image={image}
-                title={title}
-                description={description}
-                categoriesIds={categoriesIds}
-                bookmarks={bookmarks}
-                likes={likes}
-                time={time}
-                authorId={authorId}
-            />
+        <>
+            {data && (
+                <VStack gap={10} mt={{ base: 6, lg: 14 }} mb={20}>
+                    <RecipePageCard
+                        image={image}
+                        title={title}
+                        description={description}
+                        categoriesIds={categoriesIds}
+                        bookmarks={bookmarks}
+                        likes={likes}
+                        time={time}
+                        authorId={authorId}
+                    />
 
-            <VStack gap={10} maxW={SIZES.recipeDetailsMaxWidth}>
-                <NutritionValueSection {...nutritionValue} />
-                <IngredientsTable ingredients={ingredients} portions={portions} />
+                    <VStack gap={10} maxW={SIZES.recipeDetailsMaxWidth}>
+                        <NutritionValueSection {...nutritionValue} />
+                        <IngredientsTable ingredients={ingredients} portions={portions} />
 
-                <VStack as='section' w={SIZES.full} gap={5} alignItems='start'>
-                    <Heading variant={STYLE_VARIANTS.sectionHeading}>Шаги приготовления</Heading>
-                    {steps.map((step, index) => (
-                        <StepCard
-                            key={step.stepNumber}
-                            {...step}
-                            background={
-                                index === steps.length - 1
-                                    ? COLORS_LIME[50]
-                                    : COLORS_BLACK_ALPHA[100]
-                            }
-                        />
-                    ))}
+                        <VStack as='section' w={SIZES.full} gap={5} alignItems='start'>
+                            <Heading variant={STYLE_VARIANTS.sectionHeading}>
+                                Шаги приготовления
+                            </Heading>
+                            {steps.map((step, index) => (
+                                <StepCard
+                                    key={step.stepNumber}
+                                    {...step}
+                                    background={
+                                        index === steps.length - 1
+                                            ? COLORS_LIME[50]
+                                            : COLORS_BLACK_ALPHA[100]
+                                    }
+                                />
+                            ))}
+                        </VStack>
+
+                        <UserCard />
+                    </VStack>
+
+                    <Box w={SIZES.full}>
+                        <Сarousel />
+                    </Box>
                 </VStack>
-
-                <UserCard />
-            </VStack>
-
-            <Box w={SIZES.full}>
-                <Сarousel />
-            </Box>
-        </VStack>
+            )}
+        </>
     );
 };

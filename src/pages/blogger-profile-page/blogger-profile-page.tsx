@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { useParams } from 'react-router';
+import { Navigate, useParams } from 'react-router';
 
 import { CardsWrapper } from '~/components/cards-wrapper';
 import { FoodCard } from '~/components/food-card';
 import { LoadMoreButton } from '~/components/load-more-button';
+import { ROUTER_PATHS } from '~/constants/router-paths';
+import { RESPONSE_STATUS } from '~/constants/statuses';
 import { useGetBloggerActivityQuery, useGetBloggerByIdQuery } from '~/query/services/blogs';
 import { useAppSelector } from '~/store/hooks';
 import { selectUserId } from '~/store/slices/app-slice';
@@ -20,12 +22,16 @@ export const BloggerProfilePage: React.FC = () => {
 
     const [collapsed, setCollapsed] = useState(false);
 
-    const { data: bloggerInfo } = useGetBloggerByIdQuery({
+    const { data: bloggerInfo, error: bloggerError } = useGetBloggerByIdQuery({
         bloggerId: bloggerId,
         currentUserId: userId,
     });
 
-    const { data: bloggerActivity, isFetching } = useGetBloggerActivityQuery(bloggerId);
+    const {
+        data: bloggerActivity,
+        isFetching,
+        error: bloggerActivitiesError,
+    } = useGetBloggerActivityQuery(bloggerId);
 
     const displayedRecipes = collapsed
         ? bloggerActivity?.recipes || []
@@ -33,12 +39,23 @@ export const BloggerProfilePage: React.FC = () => {
 
     const onLoadMoreClick = () => setCollapsed(!collapsed);
 
+    const error = bloggerActivitiesError || bloggerError;
+
+    if (error) {
+        const isNotFoundError =
+            'status' in error &&
+            typeof error.status === 'number' &&
+            error.status === RESPONSE_STATUS.NOT_FOUND;
+
+        return <Navigate to={isNotFoundError ? ROUTER_PATHS.notFound : ROUTER_PATHS.homePage} />;
+    }
+
     return (
         <>
             {bloggerInfo && <BloggerCard {...bloggerInfo} />}
             <CardsWrapper>
                 {displayedRecipes.length > 0 &&
-                    displayedRecipes.map((recipe) => <FoodCard {...recipe} />)}
+                    displayedRecipes.map((recipe) => <FoodCard key={recipe._id} {...recipe} />)}
             </CardsWrapper>
 
             {!collapsed && (

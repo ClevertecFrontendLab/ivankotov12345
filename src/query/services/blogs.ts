@@ -32,6 +32,7 @@ export const blogsApi = apiSlice.injectEndpoints({
                     params: { currentUserId: currentUserId },
                 };
             },
+            providesTags: [{ type: BLOGGERS_TAG, id: 'LIST' }],
         }),
         getBloggerActivity: build.query<BloggerActivityInfo, string | undefined>({
             query: (id) => ({ url: `${Endpoints.BLOGGER_RECIPES}/${id}` }),
