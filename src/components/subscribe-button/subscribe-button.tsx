@@ -10,6 +10,7 @@ import { selectUserId } from '~/store/slices/app-slice';
 import { SubscribeIcon, UnsubscribeIcon } from '../icons';
 
 type SubscribeButtonProps = {
+    setIsLoading: (isLoading: boolean) => void;
     bloggerId: string;
     isFavorite: boolean;
 };
@@ -19,14 +20,20 @@ const SUBSCRIBE_LABEL = 'Нажмите, если хотите отписать�
 export const SubscribeButton: React.FC<Partial<SubscribeButtonProps>> = ({
     bloggerId,
     isFavorite,
+    setIsLoading,
 }) => {
     const userId = useAppSelector(selectUserId);
     const [toggleSubscription] = useToggleSubscriptionMutation();
 
     const onSubscribeButtonClick = async () => {
         if (!userId || !bloggerId) return;
+        setIsLoading?.(true);
 
-        await toggleSubscription({ fromUserId: userId, toUserId: bloggerId });
+        try {
+            await toggleSubscription({ fromUserId: userId, toUserId: bloggerId }).unwrap();
+        } finally {
+            setIsLoading?.(false);
+        }
     };
     return (
         <Tooltip

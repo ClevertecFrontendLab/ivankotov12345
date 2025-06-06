@@ -16,6 +16,7 @@ import { Endpoints } from '~/query/constants/paths';
 import { useGetRecipesInfiniteQuery } from '~/query/services/recipe';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { setAllergenDisabled } from '~/store/slices/allergens-slice';
+import { selectApp } from '~/store/slices/app-slice';
 import { clearFilters, selectFilter } from '~/store/slices/filters-slice';
 import { clearSearchInputValue, selectSearchInput } from '~/store/slices/search-input-slice';
 
@@ -23,6 +24,7 @@ const { title: juiciestPageTitle } = PAGE_TITLES.juiciest;
 
 export const JuiciestPage: React.FC = memo(() => {
     const [isLoadMoreActive, setIsLoadMoreActive] = useState(true);
+    const { isLoading } = useAppSelector(selectApp);
 
     const { ...filters } = useAppSelector(selectFilter);
     const { searchInputValue } = useAppSelector(selectSearchInput);
@@ -83,7 +85,7 @@ export const JuiciestPage: React.FC = memo(() => {
             </Box>
 
             <RelevantSection />
-            <Loader isLoading={isFetching} />
+            <Loader isLoading={isFetching || isLoading} />
         </Box>
     );
 });

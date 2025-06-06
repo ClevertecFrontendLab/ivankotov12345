@@ -4,6 +4,7 @@ import { Navigate, useParams } from 'react-router';
 import { CardsWrapper } from '~/components/cards-wrapper';
 import { FoodCard } from '~/components/food-card';
 import { LoadMoreButton } from '~/components/load-more-button';
+import { Loader } from '~/components/loader';
 import { ROUTER_PATHS } from '~/constants/router-paths';
 import { RESPONSE_STATUS } from '~/constants/statuses';
 import { useGetBloggerActivityQuery, useGetBloggerByIdQuery } from '~/query/services/blogs';
@@ -22,7 +23,11 @@ export const BloggerProfilePage: React.FC = () => {
 
     const [collapsed, setCollapsed] = useState(false);
 
-    const { data: bloggerInfo, error: bloggerError } = useGetBloggerByIdQuery({
+    const {
+        data: bloggerInfo,
+        error: bloggerError,
+        isLoading,
+    } = useGetBloggerByIdQuery({
         bloggerId: bloggerId,
         currentUserId: userId,
     });
@@ -53,6 +58,7 @@ export const BloggerProfilePage: React.FC = () => {
     return (
         <>
             {bloggerInfo && <BloggerCard {...bloggerInfo} />}
+
             <CardsWrapper>
                 {displayedRecipes.length > 0 &&
                     displayedRecipes.map((recipe) => <FoodCard key={recipe._id} {...recipe} />)}
@@ -67,6 +73,8 @@ export const BloggerProfilePage: React.FC = () => {
             )}
 
             <OtherSection />
+
+            {isLoading && <Loader isLoading={true} />}
         </>
     );
 };

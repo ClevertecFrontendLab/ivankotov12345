@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import { BlogCard } from '~/components/blog-card';
 import { Сarousel } from '~/components/carousel';
+import { Loader } from '~/components/loader';
 import { BLOG_CARD_TYPE } from '~/constants/blog-card-data';
 import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
 import { SIZES } from '~/constants/styles/sizes';
@@ -17,7 +18,7 @@ import { BASE_LIMIT, BUTTON_TEXT, LIMIT_ALL } from './constants';
 export const BlogsPage: React.FC = () => {
     const [limit, setLimit] = useState<string | number>(BASE_LIMIT);
     const userId = useAppSelector(selectUserId);
-    const { data } = useGetBloggersQuery(
+    const { data, isLoading } = useGetBloggersQuery(
         { limit: limit, currentUserId: userId ?? '' },
         { refetchOnMountOrArgChange: true },
     );
@@ -83,6 +84,8 @@ export const BlogsPage: React.FC = () => {
             <Box w={SIZES.full}>
                 <Сarousel />
             </Box>
+
+            {isLoading && <Loader isLoading={true} />}
         </VStack>
     );
 };

@@ -37,12 +37,12 @@ export const Layout: React.FC = () => {
         pathname.includes(EDIT_ITEM_PATH) || pathname.includes(ROUTER_PATHS.newRecipe);
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
 
-    const { isLoading } = useAppSelector(selectApp);
+    //const { isLoading } = useAppSelector(selectApp);
     const { isLoading: isCategoriesLoading } = useGetCategoriesQuery(undefined);
     const { isResponseStatusOpen } = useAppSelector(selectApp);
     const token: string = getLocalStorageItem(ACCESS_TOKEN_STORAGE_KEY);
 
-    const [refreshToken, { isError }] = useRefreshTokenMutation();
+    const [refreshToken, { isError, isLoading: isTokenRefreshing }] = useRefreshTokenMutation();
 
     useEffect(() => {
         if (token) {
@@ -148,7 +148,7 @@ export const Layout: React.FC = () => {
                 </Grid>
             </Box>
 
-            <Loader isLoading={isCategoriesLoading || isLoading} />
+            <Loader isLoading={isCategoriesLoading || isTokenRefreshing} />
             {isResponseStatusOpen && <AlertError />}
         </Box>
     );
