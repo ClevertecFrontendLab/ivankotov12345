@@ -37,7 +37,6 @@ export const Layout: React.FC = () => {
         pathname.includes(EDIT_ITEM_PATH) || pathname.includes(ROUTER_PATHS.newRecipe);
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
 
-    //const { isLoading } = useAppSelector(selectApp);
     const { isLoading: isCategoriesLoading } = useGetCategoriesQuery(undefined);
     const { isResponseStatusOpen } = useAppSelector(selectApp);
     const token: string = getLocalStorageItem(ACCESS_TOKEN_STORAGE_KEY);

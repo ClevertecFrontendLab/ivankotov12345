@@ -1,13 +1,13 @@
-import { Avatar, Box, Button, Card, Flex, Spacer, Text, VStack } from '@chakra-ui/react';
+import { Avatar, Box, Card, Flex, Spacer, Text, VStack } from '@chakra-ui/react';
 
 import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
 import { SIZES } from '~/constants/styles/sizes';
-import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { getFullName } from '~/helpers/get-full-name';
 import { BloggerInfoResponse } from '~/types/blogger';
 
-import { PeopleIcon, SignUp } from '../icons';
+import { PeopleIcon } from '../icons';
 import { StatButton } from '../stat-button';
+import { SubscribeButton } from '../subscribe-button';
 
 export const UserCard: React.FC<BloggerInfoResponse> = ({ bloggerInfo, totalSubscribers }) => {
     const fullName = getFullName(bloggerInfo.firstName, bloggerInfo.lastName);
@@ -45,9 +45,7 @@ export const UserCard: React.FC<BloggerInfoResponse> = ({ bloggerInfo, totalSubs
                 </Box>
 
                 <Flex w={SIZES.full} alignItems='center'>
-                    <Button leftIcon={<SignUp />} variant={STYLE_VARIANTS.black} size='xs'>
-                        Подписаться
-                    </Button>
+                    <SubscribeButton />
 
                     <Spacer />
 

@@ -41,6 +41,8 @@ export const RecipePage: React.FC = () => {
         authorId,
     } = data as unknown as RecipeType;
 
+    const isUserAuthor = userId === authorId;
+
     const { data: bloggerData } = useGetBloggerByIdQuery({
         bloggerId: authorId,
         currentUserId: userId,
@@ -89,7 +91,7 @@ export const RecipePage: React.FC = () => {
                             ))}
                         </VStack>
 
-                        {bloggerData && <UserCard {...bloggerData} />}
+                        {bloggerData && !isUserAuthor && <UserCard {...bloggerData} />}
                     </VStack>
 
                     <Box w={SIZES.full}>
