@@ -1,4 +1,15 @@
-import { Button, Card, CardBody, CardFooter, Flex, Spacer, Text, VStack } from '@chakra-ui/react';
+import {
+    Badge,
+    Button,
+    Card,
+    CardBody,
+    CardFooter,
+    Flex,
+    HStack,
+    Spacer,
+    Text,
+    VStack,
+} from '@chakra-ui/react';
 import { useState } from 'react';
 
 import { BLOG_CARD_TYPE } from '~/constants/blog-card-data';
@@ -13,6 +24,7 @@ import { LikeIcon, PeopleIcon } from '../icons';
 import { StatButton } from '../stat-button';
 import { SubscribeButton } from '../subscribe-button';
 import { User } from '../user';
+import { makeNewRecipeCountString } from './helpers';
 import { useBloggerNavigation } from './hooks';
 
 type BlogCardProps = BloggerType & { cardType: keyof typeof BLOG_CARD_TYPE };
@@ -33,39 +45,66 @@ export const BlogCard: React.FC<BlogCardProps> = (props) => {
             >
                 <VStack spacing={{ base: 3, '2xl': 5 }} align='start'>
                     <User {...props} />
-
+                    {props.cardType === BLOG_CARD_TYPE.favoritesBlogger &&
+                        props.newRecipesCount > 0 && (
+                            <Badge
+                                position='absolute'
+                                right={{ base: 1, lg: 2 }}
+                                top={{ base: 1, lg: 2 }}
+                                py={0.5}
+                                px={2}
+                                fontWeight='normal'
+                                fontSize='sm'
+                                textTransform='lowercase'
+                            >
+                                {makeNewRecipeCountString(props.newRecipesCount)}
+                            </Badge>
+                        )}
                     {props.notes.length > 0 && <Text noOfLines={3}>{props.notes[0].text}</Text>}
                 </VStack>
             </CardBody>
 
-            <CardFooter>
-                <Flex w={SIZES.full} gap={2}>
-                    {props.cardType === BLOG_CARD_TYPE.favoritesBlogger && (
-                        <Button size='xs' bg={COLORS_LIME[400]} onClick={handleBloggerClick}>
-                            Рецепты
+            <CardFooter pt={0} px={4} pb={4}>
+                <Flex
+                    direction={{ base: 'column-reverse', lg: 'row' }}
+                    alignItems='flex-end'
+                    w={SIZES.full}
+                    gap={2}
+                >
+                    <HStack>
+                        {props.cardType === BLOG_CARD_TYPE.favoritesBlogger && (
+                            <Button size='xs' bg={COLORS_LIME[400]} onClick={handleBloggerClick}>
+                                Рецепты
+                            </Button>
+                        )}
+
+                        {props.cardType === BLOG_CARD_TYPE.anyBlogger && (
+                            <SubscribeButton
+                                bloggerId={props._id}
+                                isFavorite={props.isFavorite}
+                                setIsLoading={setIsLoading}
+                            />
+                        )}
+
+                        <Button
+                            variant={STYLE_VARIANTS.limeButton}
+                            size='xs'
+                            onClick={handleReadBloggerClick}
+                        >
+                            Читать
                         </Button>
-                    )}
-
-                    {props.cardType === BLOG_CARD_TYPE.anyBlogger && (
-                        <SubscribeButton
-                            bloggerId={props._id}
-                            isFavorite={props.isFavorite}
-                            setIsLoading={setIsLoading}
-                        />
-                    )}
-
-                    <Button
-                        variant={STYLE_VARIANTS.limeButton}
-                        size='xs'
-                        onClick={handleReadBloggerClick}
-                    >
-                        Читать
-                    </Button>
+                    </HStack>
 
                     <Spacer />
 
-                    <StatButton icon={<LikeIcon />} quantity={props.bookmarksCount} size='xs' />
-                    <StatButton icon={<PeopleIcon />} quantity={props.subscribersCount} size='xs' />
+                    <HStack>
+                        <StatButton icon={<LikeIcon />} quantity={props.bookmarksCount} size='xs' />
+                        <StatButton
+                            icon={<PeopleIcon />}
+                            quantity={props.subscribersCount}
+                            size='xs'
+                        />
+                    </HStack>
                 </Flex>
             </CardFooter>
 

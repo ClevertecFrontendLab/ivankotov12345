@@ -1,5 +1,5 @@
 import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
-import { Box, Button, Heading, SimpleGrid, VStack } from '@chakra-ui/react';
+import { Box, Button, Heading, SimpleGrid, useBreakpointValue, VStack } from '@chakra-ui/react';
 import { useState } from 'react';
 
 import { BlogCard } from '~/components/blog-card';
@@ -17,6 +17,7 @@ import { BASE_LIMIT, BUTTON_TEXT, LIMIT_ALL } from './constants';
 
 export const BlogsPage: React.FC = () => {
     const [limit, setLimit] = useState<string | number>(BASE_LIMIT);
+    const isLargeScreen = useBreakpointValue({ base: false, '2xl': true });
     const userId = useAppSelector(selectUserId);
     const { data, isLoading } = useGetBloggersQuery(
         { limit: limit, currentUserId: userId ?? '' },
@@ -29,27 +30,32 @@ export const BlogsPage: React.FC = () => {
     const favoriteBloggers = data?.favorites ?? [];
     const anyBlogger = data?.others ?? [];
 
+    const displayedAnyBloggers =
+        limit === BASE_LIMIT && !isLargeScreen ? anyBlogger.slice(0, 8) : anyBlogger;
+
     return (
-        <VStack>
-            <Heading>Кулинарные блоги</Heading>
+        <VStack mt={8} mb={{ base: 20, lg: 0 }} gap={0}>
+            <Heading fontSize={{ base: '2xl', xl: '5xl' }} lineHeight='none' mb={6}>
+                Кулинарные блоги
+            </Heading>
 
             {limit === BASE_LIMIT && (
-                <SimpleGrid
-                    columns={2}
-                    p={6}
-                    gap={4}
-                    borderRadius='2xl'
-                    background={COLORS_LIME[300]}
-                >
-                    {favoriteBloggers &&
-                        favoriteBloggers.map((blogCardItem) => (
-                            <BlogCard
-                                key={blogCardItem._id}
-                                {...blogCardItem}
-                                cardType={BLOG_CARD_TYPE.favoritesBlogger}
-                            />
-                        ))}
-                </SimpleGrid>
+                <Box borderRadius='2xl' background={COLORS_LIME[300]} mb={10} p={6}>
+                    <Heading mb={4} fontSize={{ base: '2xl', xl: '4xl' }} fontWeight='normal'>
+                        Избранные блоги
+                    </Heading>
+
+                    <SimpleGrid columns={{ base: 1, md: 2 }} gap={4}>
+                        {favoriteBloggers &&
+                            favoriteBloggers.map((blogCardItem) => (
+                                <BlogCard
+                                    key={blogCardItem._id}
+                                    {...blogCardItem}
+                                    cardType={BLOG_CARD_TYPE.favoritesBlogger}
+                                />
+                            ))}
+                    </SimpleGrid>
+                </Box>
             )}
 
             <VStack
@@ -59,9 +65,14 @@ export const BlogsPage: React.FC = () => {
                 borderRadius='2xl'
                 background={COLORS_BLACK_ALPHA[50]}
             >
-                <SimpleGrid w={SIZES.full} columns={3} rowGap={6} columnGap={4}>
-                    {anyBlogger &&
-                        anyBlogger.map((blogCardItem) => (
+                <SimpleGrid
+                    w={SIZES.full}
+                    columns={{ base: 1, md: 2, '2xl': 3 }}
+                    rowGap={6}
+                    columnGap={4}
+                >
+                    {displayedAnyBloggers &&
+                        displayedAnyBloggers.map((blogCardItem) => (
                             <BlogCard
                                 key={blogCardItem._id}
                                 {...blogCardItem}

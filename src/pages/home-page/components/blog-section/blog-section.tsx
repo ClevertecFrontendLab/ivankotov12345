@@ -20,34 +20,38 @@ export const BlogSection: React.FC = () => {
 
     const bloggersList = data?.others ?? [];
     return (
-        <Box
-            as='section'
-            mb={{ base: 6, lg: 10 }}
-            p={{ base: 3, lg: 6 }}
-            borderRadius='2xl'
-            bg={COLORS_LIME[300]}
-        >
-            <Flex mb={{ base: 4, '2xl': 6 }}>
-                <Heading as='h2' fontSize={{ base: '2xl', lg: '4xl' }} lineHeight='none'>
-                    {title}
-                </Heading>
+        <>
+            {bloggersList.length > 0 && (
+                <Box
+                    as='section'
+                    mb={{ base: 6, lg: 10 }}
+                    p={{ base: 3, lg: 6 }}
+                    borderRadius='2xl'
+                    bg={COLORS_LIME[300]}
+                >
+                    <Flex mb={{ base: 4, '2xl': 6 }}>
+                        <Heading as='h2' fontSize={{ base: '2xl', lg: '4xl' }} lineHeight='none'>
+                            {title}
+                        </Heading>
 
-                <Spacer />
+                        <Spacer />
 
-                {!isTablet && <BlogSectionButton />}
-            </Flex>
+                        {!isTablet && <BlogSectionButton />}
+                    </Flex>
 
-            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 2, md: 4 }}>
-                {bloggersList.map((props) => (
-                    <BlogCard key={props._id} {...props} />
-                ))}
-            </SimpleGrid>
+                    <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 2, md: 4 }}>
+                        {bloggersList.map((props) => (
+                            <BlogCard key={props._id} {...props} />
+                        ))}
+                    </SimpleGrid>
 
-            {isTablet && (
-                <Flex justifyContent='center' pt={3}>
-                    <BlogSectionButton />
-                </Flex>
+                    {isTablet && (
+                        <Flex justifyContent='center' pt={3}>
+                            <BlogSectionButton />
+                        </Flex>
+                    )}
+                </Box>
             )}
-        </Box>
+        </>
     );
 };

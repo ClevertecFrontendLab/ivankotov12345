@@ -11,12 +11,16 @@ import { IngredientsTable } from '~/pages/recipe-page/components/ingredients-tab
 import { NutritionValueSection } from '~/pages/recipe-page/components/nutrition-value-section';
 import { RecipePageCard } from '~/pages/recipe-page/components/recipe-page-card';
 import { StepCard } from '~/pages/recipe-page/components/step-card';
+import { useGetBloggerByIdQuery } from '~/query/services/blogs';
 import { useGetRecipeQuery } from '~/query/services/recipe';
-import { useAppDispatch } from '~/store/hooks';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { selectUserId } from '~/store/slices/app-slice';
 import { clearSelectedRecipeTitle } from '~/store/slices/selected-recipe-slice';
 import { RecipeType } from '~/types/recipe';
 
 export const RecipePage: React.FC = () => {
+    const userId = useAppSelector(selectUserId);
+
     const { id } = useParams();
     const { data } = useGetRecipeQuery(id as string);
 
@@ -36,6 +40,11 @@ export const RecipePage: React.FC = () => {
         portions,
         authorId,
     } = data as unknown as RecipeType;
+
+    const { data: bloggerData } = useGetBloggerByIdQuery({
+        bloggerId: authorId,
+        currentUserId: userId,
+    });
 
     useEffect(
         () => () => {
@@ -80,7 +89,7 @@ export const RecipePage: React.FC = () => {
                             ))}
                         </VStack>
 
-                        <UserCard />
+                        {bloggerData && <UserCard {...bloggerData} />}
                     </VStack>
 
                     <Box w={SIZES.full}>

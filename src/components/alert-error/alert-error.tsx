@@ -11,7 +11,6 @@ import { useCallback, useEffect } from 'react';
 
 import { ALERT_ERROR_TEXT } from '~/constants/statuses';
 import { COLORS } from '~/constants/styles/colors';
-import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
@@ -56,7 +55,8 @@ export const AlertError: React.FC = () => {
     return (
         <Center
             position='fixed'
-            w={SIZES.full}
+            left='50%'
+            transform='translateX(-50%)'
             bottom={{ base: INDENT_BOTTOM.sm, lg: INDENT_BOTTOM.lg }}
         >
             <Alert
