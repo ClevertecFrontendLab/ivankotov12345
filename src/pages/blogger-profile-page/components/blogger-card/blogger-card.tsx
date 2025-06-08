@@ -47,8 +47,12 @@ export const BloggerCard: React.FC<BloggerInfoResponse> = (props) => {
 
                     <Spacer />
 
-                    <StatButton icon={<LikeIcon />} quantity={totalBookmarks} size='xs' />
-                    <StatButton icon={<PeopleIcon />} quantity={totalSubscribers} size='xs' />
+                    {totalBookmarks > 0 && (
+                        <StatButton icon={<LikeIcon />} quantity={totalBookmarks} size='xs' />
+                    )}
+                    {totalSubscribers > 0 && (
+                        <StatButton icon={<PeopleIcon />} quantity={totalSubscribers} size='xs' />
+                    )}
                 </Flex>
             </Flex>
 
