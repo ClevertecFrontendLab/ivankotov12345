@@ -6,6 +6,7 @@ import { authLoaderMiddleware } from './middleware/auth-loader-middleware';
 import { appErrorMiddleware } from './middleware/error-middleware';
 import { allergensReducer, allergensSlice } from './slices/allergens-slice';
 import { appReducer, appSlice } from './slices/app-slice';
+import { blogsReducer, blogsSlice } from './slices/blogs-slice';
 import { burgerReducer, burgerSlice } from './slices/burger-slice';
 import { categoryReducer, categorySlice } from './slices/category-slice';
 import { filterDrawerReducer, filterDrawerSlice } from './slices/filter-drawer-slice';
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
     [filterDrawerSlice.name]: filterDrawerReducer,
     [searchInputSlice.name]: searchInputReducer,
     [categorySlice.name]: categoryReducer,
+    [blogsSlice.name]: blogsReducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
 });
 

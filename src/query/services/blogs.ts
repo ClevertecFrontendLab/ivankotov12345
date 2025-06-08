@@ -1,3 +1,4 @@
+import { setSelectedBlogger } from '~/store/slices/blogs-slice';
 import {
     BloggerActivityInfo,
     BloggerInfoResponse,
@@ -31,6 +32,14 @@ export const blogsApi = apiSlice.injectEndpoints({
                     method: 'GET',
                     params: { currentUserId: currentUserId },
                 };
+            },
+            async onQueryStarted(_, { dispatch, queryFulfilled }) {
+                const { data } = await queryFulfilled;
+
+                console.log(data);
+                if (data) {
+                    dispatch(setSelectedBlogger(data.bloggerInfo));
+                }
             },
             providesTags: [{ type: BLOGGERS_TAG, id: 'LIST' }],
         }),

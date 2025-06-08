@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Navigate, useParams } from 'react-router';
 
 import { CardsWrapper } from '~/components/cards-wrapper';
@@ -9,8 +9,9 @@ import { Loader } from '~/components/loader';
 import { ROUTER_PATHS } from '~/constants/router-paths';
 import { RESPONSE_STATUS } from '~/constants/statuses';
 import { useGetBloggerActivityQuery, useGetBloggerByIdQuery } from '~/query/services/blogs';
-import { useAppSelector } from '~/store/hooks';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectUserId } from '~/store/slices/app-slice';
+import { setSelectedBlogger } from '~/store/slices/blogs-slice';
 
 import { BloggerCard } from './components/blogger-card';
 import { NotesSection } from './components/notes-section';
@@ -21,6 +22,7 @@ const INITIAL_RECIPES = 8;
 export const BloggerProfilePage: React.FC = () => {
     const { bloggerId } = useParams();
     const userId = useAppSelector(selectUserId);
+    const dispatch = useAppDispatch();
 
     const [collapsed, setCollapsed] = useState(false);
 
@@ -46,6 +48,13 @@ export const BloggerProfilePage: React.FC = () => {
     const onLoadMoreClick = () => setCollapsed(!collapsed);
 
     const error = bloggerActivitiesError || bloggerError;
+
+    useEffect(
+        () => () => {
+            dispatch(setSelectedBlogger(null));
+        },
+        [dispatch],
+    );
 
     if (error) {
         const isNotFoundError =
