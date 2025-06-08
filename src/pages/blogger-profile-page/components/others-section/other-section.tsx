@@ -26,18 +26,22 @@ export const OtherSection: React.FC = () => {
         return <Navigate to={ROUTER_PATHS.homePage} />;
     }
     return (
-        <Box as='section'>
-            <HStack justifyContent='space-between'>
+        <Box as='section' mt={10} mb={{ base: 24, lg: 6 }}>
+            <HStack justifyContent='space-between' my={6}>
                 <Heading variant={STYLE_VARIANTS.sectionHeading}>Другие блоги</Heading>
 
-                <Button rightIcon={<ArrowForwardIcon />} onClick={onAllAuthorsClick}>
+                <Button
+                    variant={STYLE_VARIANTS.none}
+                    rightIcon={<ArrowForwardIcon />}
+                    onClick={onAllAuthorsClick}
+                >
                     Все авторы
                 </Button>
             </HStack>
 
-            <SimpleGrid columns={3} gap={4}>
+            <SimpleGrid columns={{ base: 1, md: 3 }} gap={4}>
                 {bloggersList.map((blogger) => (
-                    <BlogCard key={blogger._id} cardType='anyBlogger' {...blogger} />
+                    <BlogCard key={blogger._id} cardType='otherBlogger' {...blogger} />
                 ))}
             </SimpleGrid>
         </Box>

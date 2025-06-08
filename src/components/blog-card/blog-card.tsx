@@ -66,7 +66,11 @@ export const BlogCard: React.FC<BlogCardProps> = (props) => {
 
             <CardFooter pt={0} px={4} pb={4}>
                 <Flex
-                    direction={{ base: 'column-reverse', lg: 'row' }}
+                    direction={
+                        props.cardType === BLOG_CARD_TYPE.otherBlogger
+                            ? { base: 'column-reverse', lg: 'row' }
+                            : { base: 'column-reverse', xl: 'row' }
+                    }
                     alignItems='flex-end'
                     w={SIZES.full}
                     gap={2}
@@ -78,7 +82,8 @@ export const BlogCard: React.FC<BlogCardProps> = (props) => {
                             </Button>
                         )}
 
-                        {props.cardType === BLOG_CARD_TYPE.anyBlogger && (
+                        {(props.cardType === BLOG_CARD_TYPE.anyBlogger ||
+                            props.cardType === BLOG_CARD_TYPE.otherBlogger) && (
                             <SubscribeButton
                                 bloggerId={props._id}
                                 isFavorite={props.isFavorite}
@@ -98,12 +103,20 @@ export const BlogCard: React.FC<BlogCardProps> = (props) => {
                     <Spacer />
 
                     <HStack>
-                        <StatButton icon={<LikeIcon />} quantity={props.bookmarksCount} size='xs' />
-                        <StatButton
-                            icon={<PeopleIcon />}
-                            quantity={props.subscribersCount}
-                            size='xs'
-                        />
+                        {props.bookmarksCount > 0 && (
+                            <StatButton
+                                icon={<LikeIcon />}
+                                quantity={props.bookmarksCount}
+                                size='xs'
+                            />
+                        )}
+                        {props.subscribersCount > 0 && (
+                            <StatButton
+                                icon={<PeopleIcon />}
+                                quantity={props.subscribersCount}
+                                size='xs'
+                            />
+                        )}
                     </HStack>
                 </Flex>
             </CardFooter>

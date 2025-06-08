@@ -39,4 +39,5 @@ export const BLOG_CARD_DATA: BlogCardData[] = [
 export const BLOG_CARD_TYPE = {
     anyBlogger: 'anyBlogger',
     favoritesBlogger: 'favoritesBlogger',
+    otherBlogger: 'otherBlogger',
 } as const;

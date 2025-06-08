@@ -1,3 +1,4 @@
+import { Box } from '@chakra-ui/react';
 import { useState } from 'react';
 import { Navigate, useParams } from 'react-router';
 
@@ -59,14 +60,16 @@ export const BloggerProfilePage: React.FC = () => {
         <>
             {bloggerInfo && <BloggerCard {...bloggerInfo} />}
 
-            <CardsWrapper>
-                {displayedRecipes.length > 0 &&
-                    displayedRecipes.map((recipe) => <FoodCard key={recipe._id} {...recipe} />)}
-            </CardsWrapper>
+            <Box as='section' mb={{ base: 8, lg: 10 }}>
+                <CardsWrapper>
+                    {displayedRecipes.length > 0 &&
+                        displayedRecipes.map((recipe) => <FoodCard key={recipe._id} {...recipe} />)}
+                </CardsWrapper>
 
-            {!collapsed && (
-                <LoadMoreButton onLoadMoreClick={onLoadMoreClick} isLoading={isFetching} />
-            )}
+                {!collapsed && displayedRecipes.length > INITIAL_RECIPES && (
+                    <LoadMoreButton onLoadMoreClick={onLoadMoreClick} isLoading={isFetching} />
+                )}
+            </Box>
 
             {bloggerActivity?.notes && bloggerActivity.notes.length > 0 && (
                 <NotesSection bloggerNotes={bloggerActivity.notes} />

@@ -5,6 +5,8 @@ import { BlogCardLoader } from '~/components/blog-card-loader/blog-card-loader';
 import { LikeIcon, PeopleIcon } from '~/components/icons';
 import { StatButton } from '~/components/stat-button';
 import { SubscribeButton } from '~/components/subscribe-button';
+import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
+import { SIZES } from '~/constants/styles/sizes';
 import { getFullName } from '~/helpers/get-full-name';
 import { BloggerInfoResponse } from '~/types/blogger';
 
@@ -15,12 +17,26 @@ export const BloggerCard: React.FC<BloggerInfoResponse> = (props) => {
 
     const fullName = getFullName(firstName, lastName);
     return (
-        <HStack justifyContent='center' gap={6} position='relative'>
-            <Avatar src={avatar} name={fullName} size='2xl' />
+        <HStack
+            w={{ base: SIZES.full, md: SIZES.auto }}
+            mt={{ base: 8, lg: 6 }}
+            mb={10}
+            flexDirection={{ base: 'column', md: 'row' }}
+            justifyContent='center'
+            gap={6}
+            position='relative'
+        >
+            <Avatar src={avatar} name={fullName} size={{ base: 'xl', lg: '2xl' }} />
 
-            <Flex flexDir='column' gap={4}>
-                <Heading>{fullName}</Heading>
-                <Text>{`@${login}`}</Text>
+            <Flex
+                w={{ base: SIZES.full, md: SIZES.auto }}
+                minWidth={{ base: 0, md: 64 }}
+                flexDir='column'
+                gap={4}
+                textAlign={{ base: 'center', md: 'start' }}
+            >
+                <Heading fontSize={{ base: '2xl', lg: '5xl' }}>{fullName}</Heading>
+                <Text fontSize='sm' color={COLORS_BLACK_ALPHA[700]}>{`@${login}`}</Text>
 
                 <Flex>
                     <SubscribeButton
