@@ -44,7 +44,7 @@ export const createRecipeApi = apiSlice.injectEndpoints({
 
         deleteRecipe: build.mutation<void, string>({
             query: (id) => ({ url: `${Endpoints.RECIPE}/${id}`, method: 'DELETE' }),
-            invalidatesTags: () => [RECIPE_TAG],
+            invalidatesTags: (_result, _error, id) => [{ type: RECIPE_TAG, id }],
             transformErrorResponse: (response) => ({
                 ...response,
                 ...DELETE_RECIPE_STATUS[RESPONSE_STATUS.SERVER_ERROR],
