@@ -1,24 +1,23 @@
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { Box, Button, Heading, HStack, SimpleGrid } from '@chakra-ui/react';
-import { Navigate, useNavigate } from 'react-router';
+import { Navigate, NavLink, useLocation } from 'react-router';
 
 import { BlogCard } from '~/components/blog-card';
 import { ROUTER_PATHS } from '~/constants/router-paths';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
+import { DATA_TEST_ID } from '~/constants/test-id';
 import { useGetBloggersQuery } from '~/query/services/blogs';
 import { useAppSelector } from '~/store/hooks';
 import { selectUserId } from '~/store/slices/app-slice';
 
 export const OtherSection: React.FC = () => {
-    const navigate = useNavigate();
+    const { pathname } = useLocation();
 
     const userId = useAppSelector(selectUserId);
     const { data, error } = useGetBloggersQuery(
         { limit: '', currentUserId: userId ?? '' },
         { refetchOnMountOrArgChange: true },
     );
-
-    const onAllAuthorsClick = () => navigate(ROUTER_PATHS.blogs);
 
     const bloggersList = data?.others ?? [];
 
@@ -31,15 +30,22 @@ export const OtherSection: React.FC = () => {
                 <Heading variant={STYLE_VARIANTS.sectionHeading}>Другие блоги</Heading>
 
                 <Button
+                    as={NavLink}
+                    to={ROUTER_PATHS.blogs}
+                    state={{ from: pathname }}
                     variant={STYLE_VARIANTS.none}
                     rightIcon={<ArrowForwardIcon />}
-                    onClick={onAllAuthorsClick}
+                    data-test-id={DATA_TEST_ID.bloggerUserOtherBlogsButton}
                 >
-                    Все авторы
+                    Всe авторы
                 </Button>
             </HStack>
 
-            <SimpleGrid columns={{ base: 1, md: 3 }} gap={4}>
+            <SimpleGrid
+                columns={{ base: 1, md: 3 }}
+                gap={4}
+                data-test-id={DATA_TEST_ID.bloggerUserOtherBlogsGrid}
+            >
                 {bloggersList.map((blogger) => (
                     <BlogCard key={blogger._id} cardType='otherBlogger' {...blogger} />
                 ))}

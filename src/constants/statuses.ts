@@ -13,7 +13,7 @@ export const RESPONSE_STATUS = {
 export const ALERT_ERROR_TEXT: ToastStatus = {
     status: 'error',
     title: 'Ошибка сервера',
-    description: 'Попробуйте поискать снова попозже',
+    description: 'Попробуйте немного позже.',
 };
 export const LIKE_RECIPE_ERROR: ToastStatus = {
     status: 'error',

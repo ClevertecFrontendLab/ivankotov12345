@@ -1,6 +1,7 @@
 import { Box, Grid, GridItem, useMediaQuery } from '@chakra-ui/react';
+import { isPast } from 'date-fns';
 import { jwtDecode } from 'jwt-decode';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router';
 
 import { EDIT_ITEM_PATH, ROUTER_PATHS } from '~/constants/router-paths';
@@ -28,45 +29,46 @@ const fixedContainer = {
     height: 'calc(100vh - var(--chakra-space-20))',
 };
 
-export const Layout: React.FC = () => {
-    const isFirstRender = useRef(true);
+export const Layout = () => {
     const dispatch = useAppDispatch();
     const { pathname } = useLocation();
+    const token = getLocalStorageItem(ACCESS_TOKEN_STORAGE_KEY);
+    const { isResponseStatusOpen } = useAppSelector(selectApp);
+
+    const [refreshToken, { isLoading: isTokenRefreshing }] = useRefreshTokenMutation();
+    const { isLoading: isCategoriesLoading } = useGetCategoriesQuery(undefined);
 
     const isNewRecipePage =
         pathname.includes(EDIT_ITEM_PATH) || pathname.includes(ROUTER_PATHS.newRecipe);
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
 
-    const { isLoading: isCategoriesLoading } = useGetCategoriesQuery(undefined);
-    const { isResponseStatusOpen } = useAppSelector(selectApp);
-    const token: string = getLocalStorageItem(ACCESS_TOKEN_STORAGE_KEY);
-
-    const [refreshToken, { isError, isLoading: isTokenRefreshing }] = useRefreshTokenMutation();
+    const checkTokenExpiration = (token: string): boolean => {
+        try {
+            const { exp } = jwtDecode<{ exp: number }>(token);
+            return isPast(new Date(exp * 1000));
+        } catch {
+            return true;
+        }
+    };
 
     useEffect(() => {
-        if (token) {
-            const decodedToken = jwtDecode<{ userId: string }>(token);
-            dispatch(setUserId(decodedToken.userId));
+        if (!token) return;
+
+        const isExpired = checkTokenExpiration(token);
+
+        if (isExpired) {
+            refreshToken();
+        } else {
+            const { userId } = jwtDecode<{ userId: string }>(token);
+            dispatch(setUserId(userId));
         }
-    }, [token, dispatch]);
+    }, [token, dispatch, refreshToken]);
 
-    useEffect(() => {
-        const fetchRefresh = async () => {
-            const token = getLocalStorageItem(ACCESS_TOKEN_STORAGE_KEY);
-            if (token) await refreshToken();
-        };
-
-        if (isFirstRender.current) {
-            fetchRefresh();
-            isFirstRender.current = false;
-        }
-    }, [refreshToken, token]);
-
-    if (isCategoriesLoading) {
-        return <Loader isLoading={true} />;
+    if (isCategoriesLoading || isTokenRefreshing) {
+        return <Loader isLoading />;
     }
 
-    if (isError || !token) {
+    if (!token) {
         return <Navigate to={ROUTER_PATHS.signIn} replace />;
     }
 
@@ -95,7 +97,7 @@ export const Layout: React.FC = () => {
                     gridTemplateAreas={{
                         base: '"main"',
                         lg: `"nav main aside"
-                        "footer footer footer"`,
+                "footer footer footer"`,
                     }}
                     position='relative'
                 >

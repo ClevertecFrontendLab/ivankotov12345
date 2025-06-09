@@ -7,6 +7,7 @@ import { StatButton } from '~/components/stat-button';
 import { SubscribeButton } from '~/components/subscribe-button';
 import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
 import { SIZES } from '~/constants/styles/sizes';
+import { DATA_TEST_ID } from '~/constants/test-id';
 import { getFullName } from '~/helpers/get-full-name';
 import { BloggerInfoResponse } from '~/types/blogger';
 
@@ -25,6 +26,7 @@ export const BloggerCard: React.FC<BloggerInfoResponse> = (props) => {
             justifyContent='center'
             gap={6}
             position='relative'
+            data-test-id={DATA_TEST_ID.bloggerUserInfoBox}
         >
             <Avatar src={avatar} name={fullName} size={{ base: 'xl', lg: '2xl' }} />
 
@@ -35,8 +37,17 @@ export const BloggerCard: React.FC<BloggerInfoResponse> = (props) => {
                 gap={4}
                 textAlign={{ base: 'center', md: 'start' }}
             >
-                <Heading fontSize={{ base: '2xl', lg: '5xl' }}>{fullName}</Heading>
-                <Text fontSize='sm' color={COLORS_BLACK_ALPHA[700]}>{`@${login}`}</Text>
+                <Heading
+                    fontSize={{ base: '2xl', lg: '5xl' }}
+                    data-test-id={DATA_TEST_ID.bloggerUserInfoName}
+                >
+                    {fullName}
+                </Heading>
+                <Text
+                    fontSize='sm'
+                    color={COLORS_BLACK_ALPHA[700]}
+                    data-test-id={DATA_TEST_ID.bloggerUserInfoLogin}
+                >{`@${login}`}</Text>
 
                 <Flex>
                     <SubscribeButton
@@ -48,10 +59,20 @@ export const BloggerCard: React.FC<BloggerInfoResponse> = (props) => {
                     <Spacer />
 
                     {totalBookmarks > 0 && (
-                        <StatButton icon={<LikeIcon />} quantity={totalBookmarks} size='xs' />
+                        <StatButton
+                            icon={<LikeIcon />}
+                            quantity={totalBookmarks}
+                            size='xs'
+                            testId={DATA_TEST_ID.bloggerFollowersBookmarks}
+                        />
                     )}
                     {totalSubscribers > 0 && (
-                        <StatButton icon={<PeopleIcon />} quantity={totalSubscribers} size='xs' />
+                        <StatButton
+                            icon={<PeopleIcon />}
+                            quantity={totalSubscribers}
+                            size='xs'
+                            testId={DATA_TEST_ID.bloggerFollowersCount}
+                        />
                     )}
                 </Flex>
             </Flex>

@@ -77,7 +77,10 @@ export const Breadcrumbs: React.FC = () => {
             )}
 
             {isBlogsPage && (
-                <BreadcrumbItem color={COLORS_BLACK_ALPHA[700]}>
+                <BreadcrumbItem
+                    color={COLORS_BLACK_ALPHA[700]}
+                    data-test-id={DATA_TEST_ID.bloggerUserBreadcrumbName}
+                >
                     <BreadcrumbLink as={NavLink} to={ROUTER_PATHS.blogs}>
                         Блоги
                     </BreadcrumbLink>
@@ -113,7 +116,7 @@ export const Breadcrumbs: React.FC = () => {
             )}
 
             {selectedBlogger && (
-                <BreadcrumbItem>
+                <BreadcrumbItem data-test-id={DATA_TEST_ID.bloggerUserBreadcrumbSection}>
                     <BreadcrumbLink>{selectedBloggerItemText}</BreadcrumbLink>
                 </BreadcrumbItem>
             )}

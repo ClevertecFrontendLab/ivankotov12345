@@ -54,6 +54,7 @@ export const Header: React.FC = () => {
                     firstName='Екатерина'
                     lastName='Константинопольская'
                     login='@bake_and_pie'
+                    withoutTestId={true}
                 />
             )}
 

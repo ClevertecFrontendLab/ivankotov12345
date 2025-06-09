@@ -17,6 +17,7 @@ import { ANCHOR_NOTES } from '~/constants/router-paths';
 import { COLORS_LIME } from '~/constants/styles/colors';
 import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
+import { DATA_TEST_ID } from '~/constants/test-id';
 import { BloggerType } from '~/types/blogger';
 
 import { BlogCardLoader } from '../blog-card-loader/blog-card-loader';
@@ -36,7 +37,7 @@ export const BlogCard: React.FC<BlogCardProps> = (props) => {
     const handleBloggerClick = () => navigateToBlogger(props._id);
     const handleReadBloggerClick = () => navigateToBlogger(props._id, ANCHOR_NOTES);
     return (
-        <Card position='relative'>
+        <Card position='relative' data-test-id={DATA_TEST_ID.blogsСard}>
             <CardBody
                 pt={{ base: 4, '2xl': 6 }}
                 px={{ base: 4, '2xl': 6 }}
@@ -56,70 +57,83 @@ export const BlogCard: React.FC<BlogCardProps> = (props) => {
                                 fontWeight='normal'
                                 fontSize='sm'
                                 textTransform='lowercase'
+                                data-test-id={DATA_TEST_ID.blogsCardNewRecipesBadge}
                             >
                                 {makeNewRecipeCountString(props.newRecipesCount)}
                             </Badge>
                         )}
-                    {props.notes.length > 0 && <Text noOfLines={3}>{props.notes[0].text}</Text>}
+                    {props.notes.length > 0 && (
+                        <Text noOfLines={3} data-test-id={DATA_TEST_ID.blogsCardNotesText}>
+                            {props.notes[0].text}
+                        </Text>
+                    )}
                 </VStack>
             </CardBody>
 
-            <CardFooter pt={0} px={4} pb={4}>
-                <Flex
-                    direction={
-                        props.cardType === BLOG_CARD_TYPE.otherBlogger
-                            ? { base: 'column-reverse', lg: 'row' }
-                            : { base: 'column-reverse', xl: 'row' }
-                    }
-                    alignItems='flex-end'
-                    w={SIZES.full}
-                    gap={2}
-                >
-                    <HStack>
-                        {props.cardType === BLOG_CARD_TYPE.favoritesBlogger && (
-                            <Button size='xs' bg={COLORS_LIME[400]} onClick={handleBloggerClick}>
-                                Рецепты
+            {props.cardType !== BLOG_CARD_TYPE.homePageBlogger && (
+                <CardFooter pt={0} px={4} pb={4}>
+                    <Flex
+                        direction={
+                            props.cardType === BLOG_CARD_TYPE.otherBlogger
+                                ? { base: 'column-reverse', lg: 'row' }
+                                : { base: 'column-reverse', xl: 'row' }
+                        }
+                        alignItems='flex-end'
+                        w={SIZES.full}
+                        gap={2}
+                    >
+                        <HStack>
+                            {props.cardType === BLOG_CARD_TYPE.favoritesBlogger && (
+                                <Button
+                                    size='xs'
+                                    bg={COLORS_LIME[400]}
+                                    onClick={handleBloggerClick}
+                                    data-test-id={DATA_TEST_ID.blogsCardRecipesButton}
+                                >
+                                    Рецепты
+                                </Button>
+                            )}
+
+                            {(props.cardType === BLOG_CARD_TYPE.anyBlogger ||
+                                props.cardType === BLOG_CARD_TYPE.otherBlogger) && (
+                                <SubscribeButton
+                                    bloggerId={props._id}
+                                    isFavorite={props.isFavorite}
+                                    setIsLoading={setIsLoading}
+                                />
+                            )}
+
+                            <Button
+                                variant={STYLE_VARIANTS.limeButton}
+                                size='xs'
+                                onClick={handleReadBloggerClick}
+                                data-test-id={DATA_TEST_ID.blogsCardNotesButton}
+                            >
+                                Читать
                             </Button>
-                        )}
+                        </HStack>
 
-                        {(props.cardType === BLOG_CARD_TYPE.anyBlogger ||
-                            props.cardType === BLOG_CARD_TYPE.otherBlogger) && (
-                            <SubscribeButton
-                                bloggerId={props._id}
-                                isFavorite={props.isFavorite}
-                                setIsLoading={setIsLoading}
-                            />
-                        )}
+                        <Spacer />
 
-                        <Button
-                            variant={STYLE_VARIANTS.limeButton}
-                            size='xs'
-                            onClick={handleReadBloggerClick}
-                        >
-                            Читать
-                        </Button>
-                    </HStack>
-
-                    <Spacer />
-
-                    <HStack>
-                        {props.bookmarksCount > 0 && (
-                            <StatButton
-                                icon={<LikeIcon />}
-                                quantity={props.bookmarksCount}
-                                size='xs'
-                            />
-                        )}
-                        {props.subscribersCount > 0 && (
-                            <StatButton
-                                icon={<PeopleIcon />}
-                                quantity={props.subscribersCount}
-                                size='xs'
-                            />
-                        )}
-                    </HStack>
-                </Flex>
-            </CardFooter>
+                        <HStack>
+                            {props.bookmarksCount > 0 && (
+                                <StatButton
+                                    icon={<LikeIcon />}
+                                    quantity={props.bookmarksCount}
+                                    size='xs'
+                                />
+                            )}
+                            {props.subscribersCount > 0 && (
+                                <StatButton
+                                    icon={<PeopleIcon />}
+                                    quantity={props.subscribersCount}
+                                    size='xs'
+                                />
+                            )}
+                        </HStack>
+                    </Flex>
+                </CardFooter>
+            )}
 
             {isLoading && <BlogCardLoader />}
         </Card>

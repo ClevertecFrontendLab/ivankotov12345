@@ -72,12 +72,16 @@ export const AlertError: React.FC = () => {
                 <AlertIcon color={COLORS.white} />
 
                 <VStack alignItems='start' gap={0}>
-                    <AlertTitle>{statusData.title || ALERT_ERROR_TEXT.title}</AlertTitle>
+                    <AlertTitle data-test-id={DATA_TEST_ID.errorNotificationTitle}>
+                        {statusData.title || ALERT_ERROR_TEXT.title}
+                    </AlertTitle>
                     {statusData.description && (
                         <AlertDescription>{statusData.description}</AlertDescription>
                     )}
                     {status === 'error' && !statusData.description && (
-                        <AlertDescription>{ALERT_ERROR_TEXT.description}</AlertDescription>
+                        <AlertDescription data-test-id={DATA_TEST_ID.errorNotificationDescription}>
+                            {ALERT_ERROR_TEXT.description}
+                        </AlertDescription>
                     )}
                 </VStack>
 

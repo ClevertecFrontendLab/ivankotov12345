@@ -3,7 +3,7 @@ import { type RouteObject } from 'react-router';
 import { RecipeErrorBoundary } from '~/app-router/error-boundaries/recipe-error';
 import { HydrateFallback } from '~/app-router/fallback/hydrate-fallback';
 import { recipeLoader } from '~/app-router/loaders/recipe-loader';
-import { checkRouteExists } from '~/app-router/utils/check-route-exists';
+import { CategoriesGuard } from '~/components/categories-guard';
 import { ROUTER_PATHS } from '~/constants/router-paths';
 import { BloggerProfilePage } from '~/pages/blogger-profile-page';
 import { BlogsPage } from '~/pages/blogs-page';
@@ -50,11 +50,14 @@ export const rootPage: RouteObject = {
         },
         {
             path: ROUTER_PATHS.subcategory,
-            loader: checkRouteExists,
             children: [
                 {
                     index: true,
-                    element: <CategoryPage />,
+                    element: (
+                        <CategoriesGuard>
+                            <CategoryPage />
+                        </CategoriesGuard>
+                    ),
                 },
                 {
                     path: ROUTER_PATHS.recipe,
