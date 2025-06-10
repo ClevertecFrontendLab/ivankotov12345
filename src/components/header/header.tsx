@@ -53,7 +53,7 @@ export const Header: React.FC = () => {
                     avatar={avatar}
                     firstName='Екатерина'
                     lastName='Константинопольская'
-                    login='@bake_and_pie'
+                    login='bake_and_pie'
                     withoutTestId={true}
                 />
             )}

@@ -39,6 +39,10 @@ export const BlogsPage: React.FC = () => {
     const displayedAnyBloggers =
         limit === BASE_LIMIT && !isLargeScreen ? anyBlogger.slice(0, 8) : anyBlogger;
 
+    if (isLoading) {
+        return <Loader isLoading={true} />;
+    }
+
     if (isError) {
         return <Navigate to={state?.from ?? ROUTER_PATHS.homePage} />;
     }
@@ -62,6 +66,7 @@ export const BlogsPage: React.FC = () => {
                     </Heading>
 
                     <SimpleGrid
+                        w={SIZES.full}
                         columns={{ base: 1, md: 2 }}
                         gap={4}
                         data-test-id={DATA_TEST_ID.blogsFavoritesGrid}

@@ -1,6 +1,7 @@
 import { EditIcon } from '@chakra-ui/icons';
 import { Box, Button, HStack } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { skipToken } from '@reduxjs/toolkit/query';
 import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router';
@@ -57,7 +58,7 @@ export const RecipeForm: React.FC = () => {
     const subCategories = useAppSelector(selectSubCategories);
 
     const { id } = useParams();
-    const { data: recipeData } = useGetRecipeQuery(id as string, { skip: !id });
+    const { data: recipeData } = useGetRecipeQuery(id ?? skipToken);
 
     const [createRecipe, { isSuccess: isSuccessCreateRecipe }] = useCreateRecipeMutation();
     const [updateRecipe, { isSuccess: isSuccessUpdateRecipe }] = useUpdateRecipeMutation();

@@ -1,5 +1,4 @@
 import { Box, Grid, GridItem, useMediaQuery } from '@chakra-ui/react';
-import { isPast } from 'date-fns';
 import { jwtDecode } from 'jwt-decode';
 import { useEffect } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router';
@@ -11,7 +10,6 @@ import { Z_INDEX } from '~/constants/styles/z-index';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { getLocalStorageItem } from '~/helpers/storage';
 import { ACCESS_TOKEN_STORAGE_KEY } from '~/query/constants/storage-keys';
-import { useRefreshTokenMutation } from '~/query/services/auth';
 import { useGetCategoriesQuery } from '~/query/services/category';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectApp, setUserId } from '~/store/slices/app-slice';
@@ -35,36 +33,20 @@ export const Layout = () => {
     const token = getLocalStorageItem(ACCESS_TOKEN_STORAGE_KEY);
     const { isResponseStatusOpen } = useAppSelector(selectApp);
 
-    const [refreshToken, { isLoading: isTokenRefreshing }] = useRefreshTokenMutation();
     const { isLoading: isCategoriesLoading } = useGetCategoriesQuery(undefined);
 
     const isNewRecipePage =
         pathname.includes(EDIT_ITEM_PATH) || pathname.includes(ROUTER_PATHS.newRecipe);
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
 
-    const checkTokenExpiration = (token: string): boolean => {
-        try {
-            const { exp } = jwtDecode<{ exp: number }>(token);
-            return isPast(new Date(exp * 1000));
-        } catch {
-            return true;
-        }
-    };
-
     useEffect(() => {
-        if (!token) return;
-
-        const isExpired = checkTokenExpiration(token);
-
-        if (isExpired) {
-            refreshToken();
-        } else {
-            const { userId } = jwtDecode<{ userId: string }>(token);
-            dispatch(setUserId(userId));
+        if (token) {
+            const decodedToken = jwtDecode<{ userId: string }>(token);
+            dispatch(setUserId(decodedToken.userId));
         }
-    }, [token, dispatch, refreshToken]);
+    }, [token, dispatch]);
 
-    if (isCategoriesLoading || isTokenRefreshing) {
+    if (isCategoriesLoading) {
         return <Loader isLoading />;
     }
 
@@ -149,7 +131,7 @@ export const Layout = () => {
                 </Grid>
             </Box>
 
-            <Loader isLoading={isCategoriesLoading || isTokenRefreshing} />
+            <Loader isLoading={isCategoriesLoading} />
             {isResponseStatusOpen && <AlertError />}
         </Box>
     );

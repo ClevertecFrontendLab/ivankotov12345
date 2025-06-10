@@ -27,8 +27,8 @@ export const ERROE_PAGE_SIZES = {
 export const STEP_CARD_IMAGE_SIZES = {
     lg: '340px',
     base: '160px',
-    heightImageBase: '328px',
-    heightImageMd: '346',
+    heightImageBase: '128px',
+    heightImageMd: '244px',
 };
 
 export const SPINNER_SIZE = {

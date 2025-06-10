@@ -16,7 +16,6 @@ import { useGetRecipeQuery } from '~/query/services/recipe';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectUserId } from '~/store/slices/app-slice';
 import { clearSelectedRecipeTitle } from '~/store/slices/selected-recipe-slice';
-import { RecipeType } from '~/types/recipe';
 
 export const RecipePage: React.FC = () => {
     const userId = useAppSelector(selectUserId);
@@ -26,27 +25,12 @@ export const RecipePage: React.FC = () => {
 
     const dispatch = useAppDispatch();
 
-    const {
-        image,
-        title,
-        description,
-        categoriesIds,
-        bookmarks,
-        likes,
-        time,
-        nutritionValue,
-        ingredients,
-        steps,
-        portions,
-        authorId,
-    } = data as unknown as RecipeType;
-
-    const isUserAuthor = userId === authorId;
-
     const { data: bloggerData } = useGetBloggerByIdQuery({
-        bloggerId: authorId,
+        bloggerId: data?.authorId,
         currentUserId: userId,
     });
+
+    const isUserAuthor = userId === data?.authorId;
 
     useEffect(
         () => () => {
@@ -59,31 +43,22 @@ export const RecipePage: React.FC = () => {
         <>
             {data && (
                 <VStack gap={10} mt={{ base: 6, lg: 14 }} mb={20}>
-                    <RecipePageCard
-                        image={image}
-                        title={title}
-                        description={description}
-                        categoriesIds={categoriesIds}
-                        bookmarks={bookmarks}
-                        likes={likes}
-                        time={time}
-                        authorId={authorId}
-                    />
+                    <RecipePageCard {...data} />
 
                     <VStack gap={10} maxW={SIZES.recipeDetailsMaxWidth}>
-                        <NutritionValueSection {...nutritionValue} />
-                        <IngredientsTable ingredients={ingredients} portions={portions} />
+                        <NutritionValueSection {...data.nutritionValue} />
+                        <IngredientsTable ingredients={data.ingredients} portions={data.portions} />
 
                         <VStack as='section' w={SIZES.full} gap={5} alignItems='start'>
                             <Heading variant={STYLE_VARIANTS.sectionHeading}>
                                 Шаги приготовления
                             </Heading>
-                            {steps.map((step, index) => (
+                            {data.steps.map((step, index) => (
                                 <StepCard
                                     key={step.stepNumber}
                                     {...step}
                                     background={
-                                        index === steps.length - 1
+                                        index === data.steps.length - 1
                                             ? COLORS_LIME[50]
                                             : COLORS_BLACK_ALPHA[100]
                                     }
@@ -91,7 +66,7 @@ export const RecipePage: React.FC = () => {
                             ))}
                         </VStack>
 
-                        {bloggerData && !isUserAuthor && <UserCard {...bloggerData} />}
+                        {bloggerData?.bloggerInfo && !isUserAuthor && <UserCard {...bloggerData} />}
                     </VStack>
 
                     <Box w={SIZES.full}>

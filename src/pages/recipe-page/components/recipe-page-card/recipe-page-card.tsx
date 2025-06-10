@@ -59,7 +59,7 @@ export const RecipePageCard: React.FC<RecipePageCardProps> = ({
     time,
     authorId,
 }) => {
-    const userId = useAppSelector(selectUserId);
+    const userId = useAppSelector(selectUserId) || '65a1bc23f8e7d901f4c3d2a1';
     const navigate = useNavigate();
     const { categories, subCategories } = useAppSelector(selectCategory);
     const [deleteRecipe] = useDeleteRecipeMutation();
@@ -176,7 +176,7 @@ export const RecipePageCard: React.FC<RecipePageCardProps> = ({
 
                     <Spacer />
 
-                    {isUserAuthor ? (
+                    {userId && isUserAuthor ? (
                         <HStack>
                             <IconButton
                                 aria-label='delete recipe'

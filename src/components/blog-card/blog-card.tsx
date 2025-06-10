@@ -14,7 +14,7 @@ import { useState } from 'react';
 
 import { BLOG_CARD_TYPE } from '~/constants/blog-card-data';
 import { ANCHOR_NOTES } from '~/constants/router-paths';
-import { COLORS_LIME } from '~/constants/styles/colors';
+import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
 import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
@@ -39,7 +39,7 @@ export const BlogCard: React.FC<BlogCardProps> = (props) => {
     return (
         <Card position='relative' data-test-id={DATA_TEST_ID.blogsСard}>
             <CardBody
-                pt={{ base: 4, '2xl': 6 }}
+                pt={6}
                 px={{ base: 4, '2xl': 6 }}
                 pb={{ base: 4, '2xl': 5 }}
                 borderRadius='lg'
@@ -54,6 +54,8 @@ export const BlogCard: React.FC<BlogCardProps> = (props) => {
                                 top={{ base: 1, lg: 2 }}
                                 py={0.5}
                                 px={2}
+                                borderRadius='base'
+                                background={COLORS_BLACK_ALPHA[100]}
                                 fontWeight='normal'
                                 fontSize='sm'
                                 textTransform='lowercase'
