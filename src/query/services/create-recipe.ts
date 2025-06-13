@@ -20,7 +20,13 @@ export const createRecipeApi = apiSlice.injectEndpoints({
 
         createRecipe: build.mutation<RecipeType, RecipeSchema>({
             query: (body) => ({ url: Endpoints.RECIPE, method: 'POST', body }),
-            invalidatesTags: () => [{ type: RECIPE_TAG, id: 'LIST' }],
+            invalidatesTags: (result) =>
+                result
+                    ? [
+                          { type: RECIPE_TAG, id: result._id },
+                          { type: RECIPE_TAG, id: 'LIST' },
+                      ]
+                    : [{ type: RECIPE_TAG, id: 'LIST' }],
             transformErrorResponse: (response) => {
                 if (response.status === RESPONSE_STATUS.CONFLICT) {
                     return { ...response, ...CREATE_RECIPE_STATUS[RESPONSE_STATUS.CONFLICT] };
@@ -44,7 +50,10 @@ export const createRecipeApi = apiSlice.injectEndpoints({
 
         deleteRecipe: build.mutation<void, string>({
             query: (id) => ({ url: `${Endpoints.RECIPE}/${id}`, method: 'DELETE' }),
-            invalidatesTags: () => [RECIPE_TAG],
+            invalidatesTags: (_result, _error, id) => [
+                { type: RECIPE_TAG, id },
+                { type: RECIPE_TAG, id: 'LIST' },
+            ],
             transformErrorResponse: (response) => ({
                 ...response,
                 ...DELETE_RECIPE_STATUS[RESPONSE_STATUS.SERVER_ERROR],

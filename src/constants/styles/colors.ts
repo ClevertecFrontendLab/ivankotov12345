@@ -8,6 +8,7 @@ export const COLORS = {
 };
 
 export const COLORS_BLACK_ALPHA = {
+    50: 'blackAlpha.50',
     100: 'blackAlpha.100',
     200: 'blackAlpha.200',
     300: 'blackAlpha.300',

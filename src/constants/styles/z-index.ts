@@ -4,5 +4,6 @@ export const Z_INDEX = {
     carousel: 2,
     layout: 12,
     backdrop: 10,
+    aside: 1000,
     burger: 1500,
 };

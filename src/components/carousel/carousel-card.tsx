@@ -11,7 +11,7 @@ import {
     VStack,
 } from '@chakra-ui/react';
 import React from 'react';
-import { NavLink } from 'react-router';
+import { NavLink, useLocation } from 'react-router';
 
 import fallback from '~/assets/fallback.png';
 import { COLORS_LIME } from '~/constants/styles/colors';
@@ -42,10 +42,13 @@ export const CarouselCard: React.FC<CardData> = ({
     const { categories, subCategories } = useAppSelector(selectCategory);
     const cardCategories = getCardCategories(categories, subCategories, categoriesIds);
     const recipePath = useRecipePath({ _id, categoriesIds, subCategories, categories });
+
+    const { pathname } = useLocation();
     return (
         <Card
             as={NavLink}
             to={recipePath}
+            state={{ from: pathname }}
             w={{ base: 'carouselItem.sm', lg: 'carouselItem.md', '2xl': 'carouselItem.lg' }}
             minH={MIN_CAROUSEL_CARD_HEIGHT}
             overflow='hidden'

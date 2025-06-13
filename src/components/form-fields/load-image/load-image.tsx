@@ -43,15 +43,18 @@ export const LoadImage: React.FC<LoadImageProps> = ({
                 borderColor={isInvalid ? COLORS.red : COLORS_BLACK_ALPHA[200]}
                 data-test-id={testIdImageBlock}
             >
-                <Image
-                    src={imageSrc}
-                    fallback={<FallbackImage />}
-                    w={SIZES.full}
-                    h={SIZES.full}
-                    objectFit='cover'
-                    borderRadius='lg'
-                    data-test-id={testIdImage}
-                />
+                {!imageSrc ? (
+                    <FallbackImage />
+                ) : (
+                    <Image
+                        src={imageSrc}
+                        w={SIZES.full}
+                        h={SIZES.full}
+                        objectFit='cover'
+                        borderRadius='lg'
+                        data-test-id={testIdImage}
+                    />
+                )}
             </Box>
 
             <LoadImageModal

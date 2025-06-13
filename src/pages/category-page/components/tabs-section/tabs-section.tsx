@@ -19,19 +19,15 @@ import { selectCategories } from '~/store/slices/category-slice';
 import { clearFilters, selectFilter, selectIsFiltered } from '~/store/slices/filters-slice';
 import { setFilteredRecipes } from '~/store/slices/recipe-slice';
 import { clearSearchInputValue, selectSearchInput } from '~/store/slices/search-input-slice';
-import { NavMenuItem } from '~/types/nav-menu';
 
 export const TabsSection: React.FC = memo(() => {
     const [isLoadMoreActive, setIsLoadMoreActive] = useState(true);
-
     const { secondItemPath, thirdItemPath } = usePathItems();
-
-    const categories = useAppSelector(selectCategories);
-    const { ...filters } = useAppSelector(selectFilter);
-    const { searchInputValue } = useAppSelector(selectSearchInput);
-
     const dispatch = useAppDispatch();
 
+    const categories = useAppSelector(selectCategories);
+    const filters = useAppSelector(selectFilter);
+    const { searchInputValue = '' } = useAppSelector(selectSearchInput);
     const isFiltered = useAppSelector(selectIsFiltered);
 
     const queryParams = useMemo(
@@ -40,35 +36,36 @@ export const TabsSection: React.FC = memo(() => {
     );
 
     const tabs = useMemo(
-        () => categories.find((item) => item.category === secondItemPath)?.subCategories,
+        () => categories.find((item) => item.category === secondItemPath)?.subCategories || [],
         [secondItemPath, categories],
     );
 
     const activeTab = useMemo(
-        () => tabs?.find((tab) => tab.category === thirdItemPath),
+        () => tabs.find((tab) => tab.category === thirdItemPath),
         [thirdItemPath, tabs],
     );
 
     const currentCategory = useMemo(
         () => categories.find(({ _id }) => _id === activeTab?.rootCategoryId),
-        [activeTab, categories],
+        [activeTab?.rootCategoryId, categories],
     );
 
-    const { title, description } = currentCategory as NavMenuItem;
-
     const activeIndex = useMemo(
-        () => tabs?.findIndex((tab) => tab.category === thirdItemPath),
+        () => tabs.findIndex((tab) => tab.category === thirdItemPath),
         [thirdItemPath, tabs],
     );
 
-    const categoryEndpoint = isFiltered
-        ? Endpoints.RECIPE
-        : `${Endpoints.RECIPES_BY_CATEGORY}/${activeTab?._id}`;
+    const categoryEndpoint = useMemo(() => {
+        if (isFiltered) return Endpoints.RECIPE;
+        return activeTab?._id
+            ? `${Endpoints.RECIPES_BY_CATEGORY}/${activeTab._id}`
+            : Endpoints.RECIPE;
+    }, [isFiltered, activeTab?._id]);
 
-    const categoryIds = categories
-        .find(({ category }) => category === secondItemPath)
-        ?.subCategories.map(({ _id }) => _id)
-        .toString();
+    const categoryIds = useMemo(() => {
+        const category = categories.find(({ category }) => category === secondItemPath);
+        return category?.subCategories.map(({ _id }) => _id).join(',') || '';
+    }, [secondItemPath, categories]);
 
     const { isFetching, data, fetchNextPage } = useGetRecipesInfiniteQuery({
         endpoint: categoryEndpoint,
@@ -76,21 +73,21 @@ export const TabsSection: React.FC = memo(() => {
         subcategoriesIds: isFiltered ? categoryIds : undefined,
     });
 
-    const currentRecipes = useMemo(() => data?.pages.map((element) => element.data).flat(), [data]);
+    const currentRecipes = useMemo(
+        () => data?.pages.flatMap((page) => page.data || []).filter(Boolean) || [],
+        [data],
+    );
 
     useEffect(() => {
-        const metaTotalRecipes = data?.pages[0].meta.total;
-
-        if (currentRecipes && metaTotalRecipes && currentRecipes.length >= metaTotalRecipes) {
-            setIsLoadMoreActive(false);
-        }
-    }, [currentRecipes, data]);
+        const totalRecipes = data?.pages[0]?.meta?.total || 0;
+        setIsLoadMoreActive(currentRecipes.length < totalRecipes);
+    }, [currentRecipes, data?.pages]);
 
     useEffect(() => {
-        if (isFiltered && currentRecipes) {
-            setFilteredRecipes(currentRecipes);
+        if (isFiltered && currentRecipes.length > 0) {
+            dispatch(setFilteredRecipes(currentRecipes));
         }
-    }, [isFiltered, currentRecipes]);
+    }, [isFiltered, currentRecipes, dispatch]);
 
     useEffect(
         () => () => {
@@ -103,31 +100,37 @@ export const TabsSection: React.FC = memo(() => {
 
     const handleLoadMore = () => fetchNextPage();
 
+    if (!currentCategory) {
+        return <Loader isLoading />;
+    }
+
     return (
         <>
-            <PageHeader title={title} subtitle={description} isFetching={isFetching} />
+            <PageHeader
+                title={currentCategory.title}
+                subtitle={currentCategory.description}
+                isFetching={isFetching}
+            />
 
             <Tabs as='section' mb={10} index={activeIndex} variant={STYLE_VARIANTS.limeTabs}>
                 <TabList>
-                    {tabs &&
-                        tabs.map(({ title, category }, index) => (
-                            <Tab
-                                as={NavLink}
-                                to={`/${secondItemPath}/${category}`}
-                                key={category}
-                                data-test-id={`${DATA_TEST_ID.tab}-${category}-${index}`}
-                            >
-                                {title}
-                            </Tab>
-                        ))}
+                    {tabs.map(({ title, category }, index) => (
+                        <Tab
+                            as={NavLink}
+                            to={`/${secondItemPath}/${category}`}
+                            key={category}
+                            data-test-id={`${DATA_TEST_ID.tab}-${category}-${index}`}
+                        >
+                            {title}
+                        </Tab>
+                    ))}
                 </TabList>
 
                 <TabPanels mt={6}>
                     <CardsWrapper>
-                        {currentRecipes &&
-                            currentRecipes.map((props, index) => (
-                                <FoodCard {...props} key={props._id} index={index} />
-                            ))}
+                        {currentRecipes.map((recipe, index) => (
+                            <FoodCard key={recipe._id} index={index} {...recipe} />
+                        ))}
                     </CardsWrapper>
 
                     {isLoadMoreActive && (

@@ -1,6 +1,6 @@
 import { Box, Grid, GridItem, useMediaQuery } from '@chakra-ui/react';
 import { jwtDecode } from 'jwt-decode';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router';
 
 import { EDIT_ITEM_PATH, ROUTER_PATHS } from '~/constants/router-paths';
@@ -10,7 +10,6 @@ import { Z_INDEX } from '~/constants/styles/z-index';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { getLocalStorageItem } from '~/helpers/storage';
 import { ACCESS_TOKEN_STORAGE_KEY } from '~/query/constants/storage-keys';
-import { useRefreshTokenMutation } from '~/query/services/auth';
 import { useGetCategoriesQuery } from '~/query/services/category';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectApp, setUserId } from '~/store/slices/app-slice';
@@ -28,20 +27,17 @@ const fixedContainer = {
     height: 'calc(100vh - var(--chakra-space-20))',
 };
 
-export const Layout: React.FC = () => {
-    const [isAuthChecking, setIsAuthChecking] = useState(true);
-    const isFirstRender = useRef(true);
+export const Layout = () => {
     const dispatch = useAppDispatch();
     const { pathname } = useLocation();
+    const token = getLocalStorageItem(ACCESS_TOKEN_STORAGE_KEY);
+    const { isResponseStatusOpen } = useAppSelector(selectApp);
+
+    const { isLoading: isCategoriesLoading } = useGetCategoriesQuery(undefined);
 
     const isNewRecipePage =
         pathname.includes(EDIT_ITEM_PATH) || pathname.includes(ROUTER_PATHS.newRecipe);
     const [isTablet] = useMediaQuery('(max-width: 74rem)');
-    const { isLoading: isCategoriesLoading } = useGetCategoriesQuery(undefined);
-    const { isResponseStatusOpen } = useAppSelector(selectApp);
-    const token: string = useMemo(() => getLocalStorageItem(ACCESS_TOKEN_STORAGE_KEY), []);
-
-    const [refreshToken, { isError }] = useRefreshTokenMutation();
 
     useEffect(() => {
         if (token) {
@@ -50,30 +46,11 @@ export const Layout: React.FC = () => {
         }
     }, [token, dispatch]);
 
-    useEffect(() => {
-        const checkAuth = async () => {
-            try {
-                if (!token) {
-                    await refreshToken().unwrap();
-                }
-            } catch (error) {
-                console.error(error);
-            } finally {
-                setIsAuthChecking(false);
-            }
-        };
-
-        if (isFirstRender.current) {
-            isFirstRender.current = false;
-            checkAuth();
-        }
-    }, [refreshToken, token]);
-
-    if (isAuthChecking || isCategoriesLoading) {
-        return <Loader isLoading={true} />;
+    if (isCategoriesLoading) {
+        return <Loader isLoading />;
     }
 
-    if (isError) {
+    if (!token) {
         return <Navigate to={ROUTER_PATHS.signIn} replace />;
     }
 
@@ -102,7 +79,7 @@ export const Layout: React.FC = () => {
                     gridTemplateAreas={{
                         base: '"main"',
                         lg: `"nav main aside"
-                        "footer footer footer"`,
+                "footer footer footer"`,
                     }}
                     position='relative'
                 >
@@ -134,6 +111,7 @@ export const Layout: React.FC = () => {
                         maxW='260px'
                         w='auto'
                         display={{ base: 'none', lg: 'block' }}
+                        zIndex={Z_INDEX.aside}
                     >
                         {!isNewRecipePage && <Aside />}
                     </GridItem>
@@ -155,7 +133,6 @@ export const Layout: React.FC = () => {
 
             <Loader isLoading={isCategoriesLoading} />
             {isResponseStatusOpen && <AlertError />}
-            <AlertError />
         </Box>
     );
 };

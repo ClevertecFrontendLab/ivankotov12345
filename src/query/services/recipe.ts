@@ -11,7 +11,7 @@ import { Endpoints } from '../constants/paths';
 import { RECIPE_TAG } from '../constants/tags';
 import { apiSlice } from '../create-api';
 
-export const recpeApi = apiSlice.injectEndpoints({
+export const recipeApi = apiSlice.injectEndpoints({
     endpoints: (build) => ({
         getRecipes: build.infiniteQuery<
             RecipeListResponse,
@@ -40,7 +40,7 @@ export const recpeApi = apiSlice.injectEndpoints({
                 }
             },
             transformErrorResponse: (response) => ({ ...response, ...ALERT_ERROR_TEXT }),
-            providesTags: [RECIPE_TAG],
+            providesTags: () => [{ type: RECIPE_TAG, id: 'LIST' }],
         }),
         getRecipesByCategory: build.query<RecipeListResponse, RecipeParams>({
             query: (params) => {
@@ -79,7 +79,10 @@ export const recpeApi = apiSlice.injectEndpoints({
         }),
         likeRecipe: build.mutation<string, string>({
             query: (id) => ({ url: `${Endpoints.RECIPE}/${id}/${Endpoints.LIKE}`, method: 'POST' }),
-            invalidatesTags: [RECIPE_TAG],
+            invalidatesTags: (_result, _error, id) => [
+                { type: RECIPE_TAG, id },
+                { type: RECIPE_TAG, id: 'LIST' },
+            ],
             transformErrorResponse: (response) => ({ ...response, ...LIKE_RECIPE_ERROR }),
         }),
         bookmarkRecipe: build.mutation<string, string>({
@@ -87,7 +90,10 @@ export const recpeApi = apiSlice.injectEndpoints({
                 url: `${Endpoints.RECIPE}/${id}/${Endpoints.BOOKMARK}`,
                 method: 'POST',
             }),
-            invalidatesTags: [RECIPE_TAG],
+            invalidatesTags: (_result, _error, id) => [
+                { type: RECIPE_TAG, id },
+                { type: RECIPE_TAG, id: 'LIST' },
+            ],
             transformErrorResponse: (response) => ({ ...response, ...LIKE_RECIPE_ERROR }),
         }),
     }),
@@ -99,4 +105,4 @@ export const {
     useGetRecipeQuery,
     useLikeRecipeMutation,
     useBookmarkRecipeMutation,
-} = recpeApi;
+} = recipeApi;

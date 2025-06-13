@@ -18,7 +18,7 @@ import {
     VStack,
 } from '@chakra-ui/react';
 import { memo } from 'react';
-import { NavLink } from 'react-router';
+import { NavLink, useLocation } from 'react-router';
 
 import fallback from '~/assets/fallback.png';
 import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
@@ -42,6 +42,8 @@ export const FoodCard: React.FC<CardData> = memo(
     ({ _id, image, title, description, bookmarks, likes, categoriesIds, recommendedBy, index }) => {
         const { searchInputValue } = useAppSelector(selectSearchInput);
         const { categories, subCategories } = useAppSelector(selectCategory);
+
+        const { pathname } = useLocation();
 
         const [bookmarkRecipe] = useBookmarkRecipeMutation();
 
@@ -166,6 +168,7 @@ export const FoodCard: React.FC<CardData> = memo(
                             <Button
                                 as={NavLink}
                                 to={recipePath}
+                                state={{ from: pathname }}
                                 size={{ base: 'xs', lg: 'sm' }}
                                 variant={STYLE_VARIANTS.black}
                                 data-test-id={`${DATA_TEST_ID.cardLink}-${index}`}

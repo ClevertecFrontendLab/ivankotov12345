@@ -7,4 +7,6 @@ export * from './like';
 export * from './people';
 export * from './plus-icon';
 export * from './sign-up';
+export * from './subscribe-icon';
 export * from './timer-icon';
+export * from './unsubscribe-icon';

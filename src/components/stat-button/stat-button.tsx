@@ -7,9 +7,10 @@ type StatButtonProps = {
     quantity: number;
     icon: React.ReactElement;
     size: string | Record<string, string>;
+    testId?: string;
 };
 
-export const StatButton: React.FC<StatButtonProps> = ({ quantity, icon, size }) => (
+export const StatButton: React.FC<StatButtonProps> = ({ quantity, icon, size, testId }) => (
     <Button
         leftIcon={icon}
         color={COLORS_LIME[600]}
@@ -20,6 +21,7 @@ export const StatButton: React.FC<StatButtonProps> = ({ quantity, icon, size }) 
             borderColor: 'white',
         }}
         iconSpacing={1.5}
+        data-test-id={testId}
     >
         {quantity}
     </Button>

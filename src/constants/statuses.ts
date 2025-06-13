@@ -5,6 +5,7 @@ export const RESPONSE_STATUS = {
     BAD_REQUEST: 400,
     UNAUTHORIZED: 401,
     FORBIDDEN: 403,
+    NOT_FOUND: 404,
     CONFLICT: 409,
     SERVER_ERROR: 500,
 };
@@ -12,7 +13,7 @@ export const RESPONSE_STATUS = {
 export const ALERT_ERROR_TEXT: ToastStatus = {
     status: 'error',
     title: 'Ошибка сервера',
-    description: 'Попробуйте поискать снова попозже',
+    description: 'Попробуйте немного позже.',
 };
 export const LIKE_RECIPE_ERROR: ToastStatus = {
     status: 'error',

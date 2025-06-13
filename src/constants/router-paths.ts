@@ -6,6 +6,8 @@ export const ROUTER_PATHS = {
     verification: '/verification',
     juiciestPage: '/the-juiciest',
     newRecipe: '/new-recipe',
+    blogs: '/blogs',
+    blogggerProfile: '/blogs/:bloggerId',
     category: ':category',
     subcategory: ':category/:subcategory',
     editRecipe: '/edit-recipe/:category/:subcategory/:id',
@@ -15,3 +17,4 @@ export const ROUTER_PATHS = {
 };
 
 export const EDIT_ITEM_PATH = '/edit-recipe';
+export const ANCHOR_NOTES = '#notes';

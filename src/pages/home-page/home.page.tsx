@@ -15,6 +15,7 @@ import { Endpoints } from '~/query/constants/paths';
 import { useGetRecipesInfiniteQuery } from '~/query/services/recipe';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { setAllergenDisabled } from '~/store/slices/allergens-slice';
+import { selectApp } from '~/store/slices/app-slice';
 import { clearFilters, selectFilter, selectIsFiltered } from '~/store/slices/filters-slice';
 import { selectRecipes, setFilteredRecipes } from '~/store/slices/recipe-slice';
 import { clearSearchInputValue, selectSearchInput } from '~/store/slices/search-input-slice';
@@ -29,6 +30,7 @@ export const HomePage: React.FC = () => {
     const { filteredRecipes } = useAppSelector(selectRecipes);
     const { ...filters } = useAppSelector(selectFilter);
     const { searchInputValue } = useAppSelector(selectSearchInput);
+    const { isLoading } = useAppSelector(selectApp);
 
     const dispatch = useAppDispatch();
 
@@ -37,7 +39,7 @@ export const HomePage: React.FC = () => {
         [filters, searchInputValue],
     );
 
-    const { isLoading, isFetching, data, fetchNextPage } = useGetRecipesInfiniteQuery(
+    const { isFetching, data, fetchNextPage } = useGetRecipesInfiniteQuery(
         { endpoint: Endpoints.RECIPE, ...queryParams },
         { skip: !isFiltered },
     );

@@ -1,5 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import React, { memo, useEffect, useMemo, useState } from 'react';
+import { Navigate } from 'react-router';
 
 import { CardsWrapper } from '~/components/cards-wrapper';
 import { FoodCard } from '~/components/food-card';
@@ -10,6 +11,7 @@ import { RelevantSection } from '~/components/relevant-section';
 import { getQueryParams } from '~/components/search-panel/helpers/get-query-params';
 import { PAGE_TITLES } from '~/constants/page-titles';
 import { JUICIEST_QUERY_PARAMS } from '~/constants/query-params';
+import { ROUTER_PATHS } from '~/constants/router-paths';
 import { Endpoints } from '~/query/constants/paths';
 import { useGetRecipesInfiniteQuery } from '~/query/services/recipe';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
@@ -32,7 +34,7 @@ export const JuiciestPage: React.FC = memo(() => {
         [filters, searchInputValue],
     );
 
-    const { isFetching, data, fetchNextPage } = useGetRecipesInfiniteQuery({
+    const { isFetching, data, fetchNextPage, error } = useGetRecipesInfiniteQuery({
         endpoint: Endpoints.RECIPE,
         ...queryParams,
         ...JUICIEST_QUERY_PARAMS,
@@ -58,6 +60,10 @@ export const JuiciestPage: React.FC = memo(() => {
             setIsLoadMoreActive(false);
         }
     }, [currentRecipes, data]);
+
+    if (error) {
+        return <Navigate to={ROUTER_PATHS.homePage} />;
+    }
 
     return (
         <Box>

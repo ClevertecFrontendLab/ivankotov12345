@@ -1,19 +1,17 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router';
+import { Navigate, useLocation } from 'react-router';
 
-import { ALERT_ERROR_TEXT } from '~/constants/statuses';
+import { ROUTER_PATHS } from '~/constants/router-paths';
 import { useAppDispatch } from '~/store/hooks';
-import { setToastData, setToastIsOpen } from '~/store/slices/app-slice';
+import { setToastIsOpen } from '~/store/slices/app-slice';
+import { clearSelectedRecipeTitle } from '~/store/slices/selected-recipe-slice';
 
 export const RecipeErrorBoundary = () => {
-    const navigate = useNavigate();
+    const { state } = useLocation();
+
     const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        dispatch(setToastIsOpen(true));
-        dispatch(setToastData(ALERT_ERROR_TEXT));
-        navigate(-1);
-    }, [navigate, dispatch]);
+    dispatch(clearSelectedRecipeTitle());
+    dispatch(setToastIsOpen(true));
 
-    return null;
+    return <Navigate to={state?.from ?? ROUTER_PATHS.homePage} />;
 };

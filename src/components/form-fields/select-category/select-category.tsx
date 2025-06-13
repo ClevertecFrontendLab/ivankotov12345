@@ -15,7 +15,7 @@ import { Control, FieldPath, useController } from 'react-hook-form';
 import { FilterTag } from '~/components/filter-tag';
 import { PLACEHOLDERS } from '~/constants/placeholders';
 import { COLORS, COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
-import { SELECT_SIZES } from '~/constants/styles/sizes';
+import { SELECT_SIZES, SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { RecipeSchema } from '~/constants/validation-schemas/recipe';
@@ -27,6 +27,7 @@ type SelectCategoryProps = {
 };
 
 const CATEGORY_FIELD_NAME: FieldPath<RecipeSchema> = 'categoriesIds';
+const MAX_VISIBLE_TAGS = 2;
 
 export const SelectCategory: React.FC<SelectCategoryProps> = ({ control }) => {
     const subCategories = useAppSelector(selectSubCategories);
@@ -51,8 +52,8 @@ export const SelectCategory: React.FC<SelectCategoryProps> = ({ control }) => {
         .filter((category) => field.value?.includes(category._id))
         .map((category) => category.title);
 
-    const visibleTags = selectedCategories.slice(0, 2);
-    const restTagsCount = selectedCategories.length - 2;
+    const visibleTags = selectedCategories.slice(0, MAX_VISIBLE_TAGS);
+    const restTagsCount = selectedCategories.length - MAX_VISIBLE_TAGS;
 
     return (
         <Menu closeOnSelect={false} matchWidth isOpen={isOpen}>
@@ -61,12 +62,13 @@ export const SelectCategory: React.FC<SelectCategoryProps> = ({ control }) => {
                 rightIcon={isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
                 variant={STYLE_VARIANTS.menuButton}
                 maxW={SELECT_SIZES.maxW}
+                height={SIZES.auto}
                 borderColor={error ? COLORS.red : COLORS_BLACK_ALPHA[200]}
                 onClick={onToggle}
                 data-test-id={DATA_TEST_ID.recipeCategories}
             >
                 {selectedCategories.length > 0 ? (
-                    <Flex>
+                    <Flex w={SIZES.full} flexWrap='wrap'>
                         <Box overflow='hidden'>
                             {visibleTags.map((tag) => (
                                 <FilterTag key={tag} item={tag} />

@@ -23,7 +23,11 @@ export const StepCard: React.FC<RecipeStep & { background: string }> = ({
                 src={getFullImagePath(image)}
                 alt={description}
                 w={{ base: STEP_CARD_IMAGE_SIZES.base, lg: STEP_CARD_IMAGE_SIZES.lg }}
-                h={{ base: 'imageHeight.md', lg: 'auto' }}
+                h={{
+                    base: STEP_CARD_IMAGE_SIZES.heightImageBase,
+                    lg: STEP_CARD_IMAGE_SIZES.heightImageMd,
+                }}
+                objectFit='cover'
             />
         )}
 
