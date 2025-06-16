@@ -13,9 +13,3 @@ export type CardData = Pick<
     index?: number;
     recommendedBy?: Omit<UserData, 'email'>;
 };
-
-export type BlogCardData = {
-    id: number;
-    user: UserData;
-    message: string;
-};

@@ -7,6 +7,7 @@ export const ROUTER_PATHS = {
     juiciestPage: '/the-juiciest',
     newRecipe: '/new-recipe',
     blogs: '/blogs',
+    userProfile: '/profile',
     blogggerProfile: '/blogs/:bloggerId',
     category: ':category',
     subcategory: ':category/:subcategory',

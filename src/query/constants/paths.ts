@@ -21,6 +21,8 @@ export enum Endpoints {
     BLOGGERS = 'bloggers',
     TOGGLE_SUBSCRIPTION = 'users/toggle-subscription',
     BLOGGER_RECIPES = 'recipe/user',
+
+    CURRENT_USER = 'users/me',
 }
 
 export const ACCESS_TOKEN = 'Authentication-Access';

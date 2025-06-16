@@ -42,7 +42,11 @@ const fetchBaseQueryWithRefresh: BaseQueryFn<
     await mutex.waitForUnlock();
     let result = await baseQuery(args, api, extraOptions);
 
-    if (result.error && result.error.status === RESPONSE_STATUS.FORBIDDEN) {
+    if (
+        result.error &&
+        result.error.status === RESPONSE_STATUS.FORBIDDEN &&
+        api.endpoint !== 'refreshToken'
+    ) {
         if (!mutex.isLocked()) {
             const release = await mutex.acquire();
 

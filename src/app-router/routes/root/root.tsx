@@ -12,6 +12,7 @@ import { CreateRecipePage } from '~/pages/create-recipe-page';
 import { HomePage } from '~/pages/home-page';
 import { JuiciestPage } from '~/pages/juiciest-page';
 import { RecipePage } from '~/pages/recipe-page';
+import { UserProfilePage } from '~/pages/user-profile-page';
 
 import { notFoundPage } from '../not-found';
 
@@ -47,6 +48,10 @@ export const rootPage: RouteObject = {
         {
             path: ROUTER_PATHS.blogggerProfile,
             element: <BloggerProfilePage />,
+        },
+        {
+            path: ROUTER_PATHS.userProfile,
+            element: <UserProfilePage />,
         },
         {
             path: ROUTER_PATHS.subcategory,

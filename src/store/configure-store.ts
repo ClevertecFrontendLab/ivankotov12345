@@ -14,6 +14,7 @@ import { filtersReducer, filtersSlice } from './slices/filters-slice';
 import { recipeReducer, recipeSlice } from './slices/recipe-slice';
 import { searchInputReducer, searchInputSlice } from './slices/search-input-slice';
 import { selectedRecipeReducer, selectedRecipeSlice } from './slices/selected-recipe-slice';
+import { userReducer, userSlice } from './slices/user-slice';
 
 const isProduction = false;
 const rootReducer = combineReducers({
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
     [searchInputSlice.name]: searchInputReducer,
     [categorySlice.name]: categoryReducer,
     [blogsSlice.name]: blogsReducer,
+    [userSlice.name]: userReducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
 });
 

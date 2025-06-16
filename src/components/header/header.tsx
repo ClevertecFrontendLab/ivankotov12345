@@ -1,10 +1,11 @@
-import { Flex, HStack, Image, Spacer, Stack, useMediaQuery } from '@chakra-ui/react';
+import { Button, Flex, HStack, Image, Spacer, Stack, useMediaQuery } from '@chakra-ui/react';
 import { NavLink } from 'react-router';
 
 import avatar from '~/assets/img/avatar.jpg';
 import { ROUTER_PATHS } from '~/constants/router-paths';
 import { COLORS, COLORS_LIME } from '~/constants/styles/colors';
 import { SIZES } from '~/constants/styles/sizes';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { usePathItems } from '~/hooks/use-path-items';
 import { useAppSelector } from '~/store/hooks';
@@ -49,13 +50,15 @@ export const Header: React.FC = () => {
             <Spacer />
 
             {!isTablet && (
-                <User
-                    avatar={avatar}
-                    firstName='Екатерина'
-                    lastName='Константинопольская'
-                    login='bake_and_pie'
-                    withoutTestId={true}
-                />
+                <Button as={NavLink} to={ROUTER_PATHS.userProfile} variant={STYLE_VARIANTS.none}>
+                    <User
+                        avatar={avatar}
+                        firstName='Екатерина'
+                        lastName='Константинопольская'
+                        login='bake_and_pie'
+                        withoutTestId={true}
+                    />
+                </Button>
             )}
 
             <HStack display={{ base: 'flex', lg: 'none' }}>

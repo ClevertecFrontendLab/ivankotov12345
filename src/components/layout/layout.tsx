@@ -11,6 +11,7 @@ import { DATA_TEST_ID } from '~/constants/test-id';
 import { getLocalStorageItem } from '~/helpers/storage';
 import { ACCESS_TOKEN_STORAGE_KEY } from '~/query/constants/storage-keys';
 import { useGetCategoriesQuery } from '~/query/services/category';
+import { useGetCurrentUserQuery } from '~/query/services/user';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectApp, setUserId } from '~/store/slices/app-slice';
 
@@ -34,6 +35,7 @@ export const Layout = () => {
     const { isResponseStatusOpen } = useAppSelector(selectApp);
 
     const { isLoading: isCategoriesLoading } = useGetCategoriesQuery(undefined);
+    const { isLoading: isUserLoading } = useGetCurrentUserQuery();
 
     const isNewRecipePage =
         pathname.includes(EDIT_ITEM_PATH) || pathname.includes(ROUTER_PATHS.newRecipe);
@@ -46,7 +48,7 @@ export const Layout = () => {
         }
     }, [token, dispatch]);
 
-    if (isCategoriesLoading) {
+    if (isCategoriesLoading || isUserLoading) {
         return <Loader isLoading />;
     }
 
