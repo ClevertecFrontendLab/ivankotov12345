@@ -1,5 +1,5 @@
-import { setCurrentUser } from '~/store/slices/user-slice';
-import { UserData } from '~/types/user';
+import { setCurrentUser, setCurrentUserStatistic } from '~/store/slices/user-slice';
+import { UserData, UserStatistics } from '~/types/user';
 
 import { Endpoints } from '../constants/paths';
 import { apiSlice } from '../create-api';
@@ -7,7 +7,7 @@ import { apiSlice } from '../create-api';
 export const userApi = apiSlice.injectEndpoints({
     endpoints: (build) => ({
         getCurrentUser: build.query<UserData, void>({
-            query: () => ({ url: Endpoints.CURRENT_USER }),
+            query: () => ({ url: Endpoints.CURRENT_USER, method: 'GET' }),
             async onQueryStarted(_, { dispatch, queryFulfilled }) {
                 try {
                     const { data } = await queryFulfilled;
@@ -17,7 +17,19 @@ export const userApi = apiSlice.injectEndpoints({
                 }
             },
         }),
+
+        getUserStatistic: build.query<UserStatistics, void>({
+            query: () => ({ url: Endpoints.USER_STATISTICS, method: 'GET' }),
+            async onQueryStarted(_, { dispatch, queryFulfilled }) {
+                try {
+                    const { data } = await queryFulfilled;
+                    dispatch(setCurrentUserStatistic(data));
+                } catch {
+                    dispatch(setCurrentUserStatistic());
+                }
+            },
+        }),
     }),
 });
 
-export const { useGetCurrentUserQuery } = userApi;
+export const { useGetCurrentUserQuery, useGetUserStatisticQuery } = userApi;

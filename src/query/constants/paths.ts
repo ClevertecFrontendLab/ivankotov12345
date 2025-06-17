@@ -23,6 +23,7 @@ export enum Endpoints {
     BLOGGER_RECIPES = 'recipe/user',
 
     CURRENT_USER = 'users/me',
+    USER_STATISTICS = 'statistic',
 }
 
 export const ACCESS_TOKEN = 'Authentication-Access';

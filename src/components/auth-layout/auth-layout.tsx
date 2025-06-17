@@ -11,7 +11,7 @@ import {
     VStack,
 } from '@chakra-ui/react';
 import { useMemo } from 'react';
-import { Navigate, NavLink, Outlet, useLocation } from 'react-router';
+import { NavLink, Outlet, useLocation } from 'react-router';
 
 import authBackground from '~/assets/img/auth-background.jpg';
 import pan from '~/assets/svg/pan.svg';
@@ -20,7 +20,6 @@ import { ROUTER_PATHS } from '~/constants/router-paths';
 import { COLORS, COLORS_LIME } from '~/constants/styles/colors';
 import { AUTH_SIZES, SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
-import { useCheckAuthQuery } from '~/query/services/auth';
 import { useAppSelector } from '~/store/hooks';
 import { selectApp } from '~/store/slices/app-slice';
 
@@ -37,16 +36,6 @@ export const AuthLayout: React.FC = () => {
         () => tabs.findIndex((tabItem) => tabItem === pathname),
         [pathname],
     );
-
-    const { isLoading: isCheckAuthLoading, isSuccess } = useCheckAuthQuery();
-
-    if (isCheckAuthLoading) {
-        return <Loader isLoading={true} />;
-    }
-
-    if (isSuccess) {
-        return <Navigate to={ROUTER_PATHS.homePage} replace />;
-    }
 
     return (
         <Box background={COLORS.bgAuth}>
