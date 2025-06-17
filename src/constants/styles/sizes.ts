@@ -56,3 +56,5 @@ export const SIZES_NUMBER_INPUT = {
     widthWithStepper: '90px',
     widthWithoutStepper: '80px',
 };
+
+export const BASE_TITLE_FONT_SIZE = '1.1rem';

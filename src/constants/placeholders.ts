@@ -20,4 +20,5 @@ export const PLACEHOLDERS = {
     measureUnit: 'Единица измерения',
     step: 'Шаг',
     ingredientMeasure: '300',
+    maxNoteLength: 'максимально 160 символов',
 };

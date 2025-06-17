@@ -3,6 +3,7 @@ import { RecipeType } from './recipe';
 export type BloggerNotes = {
     date: string;
     text: string;
+    _id?: string;
 };
 
 export type BloggerType = {

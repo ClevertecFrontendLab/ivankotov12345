@@ -1,3 +1,4 @@
+import { BloggerNotes } from './blogger';
 import { RecipeType } from './recipe';
 
 type StatisticItem = {
@@ -12,6 +13,7 @@ export type UserData = {
     firstName: string;
     lastName: string;
     recipesIds: string[];
+    notes: BloggerNotes[];
     drafts: Partial<RecipeType>[];
     subscriptions: string[];
     subscribers: string[];

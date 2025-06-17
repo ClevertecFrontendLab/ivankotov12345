@@ -1,5 +1,6 @@
 import {
     Avatar,
+    Badge,
     Box,
     Button,
     ButtonGroup,
@@ -21,6 +22,7 @@ import { memo } from 'react';
 import { NavLink, useLocation } from 'react-router';
 
 import fallback from '~/assets/fallback.png';
+import { FOOD_CARD_TYPES } from '~/constants/food-card-types';
 import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
 import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
@@ -38,8 +40,19 @@ import { CardBadge } from '../card-badge';
 import { FavoriteIcon, LikeIcon } from '../icons';
 import { StatButton } from '../stat-button';
 
-export const FoodCard: React.FC<CardData> = memo(
-    ({ _id, image, title, description, bookmarks, likes, categoriesIds, recommendedBy, index }) => {
+export const FoodCard: React.FC<Partial<CardData>> = memo(
+    ({
+        _id,
+        image,
+        title,
+        description,
+        bookmarks,
+        likes,
+        categoriesIds,
+        recommendedBy,
+        index,
+        cardType = FOOD_CARD_TYPES.regular,
+    }) => {
         const { searchInputValue } = useAppSelector(selectSearchInput);
         const { categories, subCategories } = useAppSelector(selectCategory);
 
@@ -47,7 +60,7 @@ export const FoodCard: React.FC<CardData> = memo(
 
         const [bookmarkRecipe] = useBookmarkRecipeMutation();
 
-        const onBookmarkRecipeClick = () => bookmarkRecipe(_id);
+        const onBookmarkRecipeClick = () => _id && bookmarkRecipe(_id);
 
         const cardCategories = getCardCategories(categories, subCategories, categoriesIds);
 
@@ -61,7 +74,7 @@ export const FoodCard: React.FC<CardData> = memo(
                 data-test-id={`${DATA_TEST_ID.foodCard}-${index}`}
             >
                 <Image
-                    src={getFullImagePath(image)}
+                    src={image && getFullImagePath(image)}
                     alt={title}
                     maxW={{ base: 'carouselItem.sm', lg: 'carouselItem.xl' }}
                     minH='imageHeight.md'
@@ -115,19 +128,30 @@ export const FoodCard: React.FC<CardData> = memo(
 
                             <Spacer display={{ base: 'none', lg: 'flex' }} />
 
-                            {bookmarks > 0 && (
-                                <StatButton
-                                    quantity={bookmarks}
-                                    icon={<LikeIcon />}
-                                    size={{ base: 'xs', lg: 'sm' }}
-                                />
-                            )}
-                            {likes > 0 && (
-                                <StatButton
-                                    quantity={likes}
-                                    icon={<FavoriteIcon />}
-                                    size={{ base: 'xs', lg: 'sm' }}
-                                />
+                            {cardType === FOOD_CARD_TYPES.draft ? (
+                                <Badge
+                                    py={0.5}
+                                    px={{ base: 1, lg: 2 }}
+                                    textTransform='capitalize'
+                                    fontSize='sm'
+                                    fontWeight='normal'
+                                >
+                                    Черновик
+                                </Badge>
+                            ) : (
+                                <>
+                                    <StatButton
+                                        quantity={bookmarks}
+                                        icon={<LikeIcon />}
+                                        size={{ base: 'xs', lg: 'sm' }}
+                                    />
+
+                                    <StatButton
+                                        quantity={likes}
+                                        icon={<FavoriteIcon />}
+                                        size={{ base: 'xs', lg: 'sm' }}
+                                    />
+                                </>
                             )}
                         </Flex>
                     </CardHeader>
@@ -139,7 +163,7 @@ export const FoodCard: React.FC<CardData> = memo(
                                     query={searchInputValue}
                                     styles={{ color: COLORS_LIME[600] }}
                                 >
-                                    {title}
+                                    {title || ''}
                                 </Highlight>
                             </Heading>
                             <Text
@@ -147,35 +171,56 @@ export const FoodCard: React.FC<CardData> = memo(
                                 fontSize='sm'
                                 display={{ base: 'none', lg: '-webkit-box' }}
                             >
-                                {description}
+                                {description || '...'}
                             </Text>
                         </Box>
                     </CardBody>
 
-                    <CardFooter p={0} display='block' w={SIZES.full}>
-                        <ButtonGroup w={SIZES.full} justifyContent='flex-end'>
-                            <Button
-                                variant={STYLE_VARIANTS.outline}
-                                leftIcon={<LikeIcon />}
-                                size={{ base: 'xs', lg: 'sm' }}
-                                borderColor={COLORS_BLACK_ALPHA[600]}
-                                iconSpacing={{ base: 0, lg: 0.5 }}
-                                onClick={onBookmarkRecipeClick}
-                            >
-                                <Text display={{ base: 'none', lg: 'inline' }}>Сохранить</Text>
-                            </Button>
+                    <CardFooter
+                        p={0}
+                        display={cardType === FOOD_CARD_TYPES.regular ? 'block' : 'flex'}
+                        justifyContent='end'
+                        w={SIZES.full}
+                    >
+                        {cardType === FOOD_CARD_TYPES.regular && (
+                            <ButtonGroup w={SIZES.full} justifyContent='flex-end'>
+                                <Button
+                                    variant={STYLE_VARIANTS.outline}
+                                    leftIcon={<LikeIcon />}
+                                    size={{ base: 'xs', lg: 'sm' }}
+                                    borderColor={COLORS_BLACK_ALPHA[600]}
+                                    iconSpacing={{ base: 0, lg: 0.5 }}
+                                    onClick={onBookmarkRecipeClick}
+                                >
+                                    <Text display={{ base: 'none', lg: 'inline' }}>Сохранить</Text>
+                                </Button>
 
+                                <Button
+                                    as={NavLink}
+                                    to={recipePath}
+                                    state={{ from: pathname }}
+                                    size={{ base: 'xs', lg: 'sm' }}
+                                    variant={STYLE_VARIANTS.black}
+                                    data-test-id={`${DATA_TEST_ID.cardLink}-${index}`}
+                                >
+                                    Готовить
+                                </Button>
+                            </ButtonGroup>
+                        )}
+
+                        {(cardType === FOOD_CARD_TYPES.draft ||
+                            cardType === FOOD_CARD_TYPES.userRecipe) && (
                             <Button
-                                as={NavLink}
-                                to={recipePath}
-                                state={{ from: pathname }}
+                                variant={
+                                    cardType === FOOD_CARD_TYPES.draft
+                                        ? STYLE_VARIANTS.black
+                                        : STYLE_VARIANTS.outline
+                                }
                                 size={{ base: 'xs', lg: 'sm' }}
-                                variant={STYLE_VARIANTS.black}
-                                data-test-id={`${DATA_TEST_ID.cardLink}-${index}`}
                             >
-                                Готовить
+                                Редактировать
                             </Button>
-                        </ButtonGroup>
+                        )}
                     </CardFooter>
                 </VStack>
             </Card>

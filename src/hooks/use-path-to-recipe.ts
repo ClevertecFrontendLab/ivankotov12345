@@ -3,14 +3,14 @@ import { NavMenuItem, Subcategory } from '~/types/nav-menu';
 
 import { usePathItems } from './use-path-items';
 
-type PathType = Pick<CardData, '_id' | 'categoriesIds'> & {
+type PathType = Partial<Pick<CardData, '_id' | 'categoriesIds'>> & {
     subCategories: Subcategory[];
     categories: NavMenuItem[];
 };
 
 export const useRecipePath = ({ _id, categoriesIds, subCategories, categories }: PathType) => {
     const { secondItemPath, thirdItemPath, currId } = usePathItems();
-    const firstSubcategoryItem = subCategories.filter(({ _id }) => categoriesIds.includes(_id))[0];
+    const firstSubcategoryItem = subCategories.filter(({ _id }) => categoriesIds?.includes(_id))[0];
 
     const firstSubCategoryRootId = firstSubcategoryItem?.rootCategoryId;
 

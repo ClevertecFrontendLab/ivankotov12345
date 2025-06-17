@@ -8,11 +8,7 @@ import {
 import { Mutex } from 'async-mutex';
 
 import { RESPONSE_STATUS } from '~/constants/statuses';
-import {
-    getLocalStorageItem,
-    removeLocalStorageItem,
-    setLocalStorageItem,
-} from '~/helpers/storage';
+import { getLocalStorageItem, setLocalStorageItem } from '~/helpers/storage';
 
 import { ACCESS_TOKEN, BASE_URL, Endpoints } from './constants/paths';
 import { ACCESS_TOKEN_STORAGE_KEY } from './constants/storage-keys';
@@ -40,46 +36,42 @@ const fetchBaseQueryWithRefresh: BaseQueryFn<
     { response?: Response }
 > = async (args, api, extraOptions) => {
     await mutex.waitForUnlock();
-    let result = await baseQuery(args, api, extraOptions);
+
+    const result = await baseQuery(args, api, extraOptions);
 
     if (
-        result.error &&
-        result.error.status === RESPONSE_STATUS.FORBIDDEN &&
-        api.endpoint !== 'refreshToken'
+        !(result.error && result.error.status === RESPONSE_STATUS.FORBIDDEN) ||
+        api.endpoint === 'refreshToken'
     ) {
-        if (!mutex.isLocked()) {
-            const release = await mutex.acquire();
+        return result;
+    }
 
-            try {
-                const refreshResult = await baseQuery(Endpoints.REFRESH_TOKEN, api, extraOptions);
+    if (!mutex.isLocked()) {
+        const release = await mutex.acquire();
 
-                if (refreshResult.error) {
-                    removeLocalStorageItem(ACCESS_TOKEN_STORAGE_KEY);
-                    return result;
-                }
+        try {
+            const refreshResult = await baseQuery(
+                {
+                    url: Endpoints.REFRESH_TOKEN,
+                    method: 'GET',
+                    credentials: 'include',
+                },
+                api,
+                extraOptions,
+            );
 
-                const token = refreshResult.meta?.response?.headers.get(ACCESS_TOKEN);
-                if (token) {
-                    setLocalStorageItem(ACCESS_TOKEN_STORAGE_KEY, token);
-                } else {
-                    removeLocalStorageItem(ACCESS_TOKEN_STORAGE_KEY);
-                    return result;
-                }
-            } catch {
-                removeLocalStorageItem(ACCESS_TOKEN_STORAGE_KEY);
-                return result;
-            } finally {
-                release();
+            const token = refreshResult.meta?.response?.headers.get(ACCESS_TOKEN);
+
+            if (token) {
+                setLocalStorageItem(ACCESS_TOKEN_STORAGE_KEY, token);
             }
-
-            result = await baseQuery(args, api, extraOptions);
-        } else {
-            await mutex.waitForUnlock();
-            result = await baseQuery(args, api, extraOptions);
+        } finally {
+            release();
         }
     }
 
-    return result;
+    await mutex.waitForUnlock();
+    return baseQuery(args, api, extraOptions);
 };
 
 export const apiSlice = createApi({

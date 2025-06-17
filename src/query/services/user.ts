@@ -1,4 +1,6 @@
+import { NoteSchema } from '~/constants/validation-schemas/note';
 import { setCurrentUser, setCurrentUserStatistic } from '~/store/slices/user-slice';
+import { BloggerNotes } from '~/types/blogger';
 import { UserData, UserStatistics } from '~/types/user';
 
 import { Endpoints } from '../constants/paths';
@@ -29,7 +31,11 @@ export const userApi = apiSlice.injectEndpoints({
                 }
             },
         }),
+
+        createNote: build.mutation<BloggerNotes, NoteSchema>({
+            query: (body) => ({ url: Endpoints.CREATE_NOTE, method: 'POST', body }),
+        }),
     }),
 });
 
-export const { useGetCurrentUserQuery, useGetUserStatisticQuery } = userApi;
+export const { useGetCurrentUserQuery, useGetUserStatisticQuery, useCreateNoteMutation } = userApi;
