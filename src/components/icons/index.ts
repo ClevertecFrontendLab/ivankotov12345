@@ -1,5 +1,6 @@
 export * from './arrow-icon';
 export * from './burger';
+export * from './delete';
 export * from './favorite';
 export * from './home';
 export * from './image-icon';

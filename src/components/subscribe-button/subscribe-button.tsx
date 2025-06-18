@@ -31,7 +31,7 @@ export const SubscribeButton: React.FC<Partial<SubscribeButtonProps>> = ({
         setIsLoading?.(true);
 
         try {
-            await toggleSubscription({ fromUserId: userId, toUserId: bloggerId }).unwrap();
+            await toggleSubscription({ fromUserId: userId, toUserId: bloggerId });
         } finally {
             setIsLoading?.(false);
         }

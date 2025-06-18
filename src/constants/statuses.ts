@@ -34,6 +34,12 @@ export const AUTH_SERVER_ERROR: ToastStatus = {
     description: 'Попробуйте немного позже',
 };
 
+export const USER_ERROR: ToastStatus = {
+    status: 'error',
+    title: 'Ошибка сервера',
+    description: 'Попробуйте позже.',
+};
+
 export const VERIFIES_SUCCESS: ToastStatus = {
     status: 'success',
     title: 'Верификация прошла успешно',
@@ -117,8 +123,15 @@ export const CREATE_NOTE_STATUS: Record<number, ToastStatus> = {
         title: 'Заметка опубликована',
     },
     [RESPONSE_STATUS.SERVER_ERROR]: {
-        status: 'error',
-        title: 'Ошибка сервера',
-        description: 'Попробуйте позже.',
+        ...USER_ERROR,
+    },
+};
+export const DELETE_NOTE_STATUS: Record<number, ToastStatus> = {
+    [RESPONSE_STATUS.OK]: {
+        status: 'success',
+        title: 'Заметка удалена',
+    },
+    [RESPONSE_STATUS.SERVER_ERROR]: {
+        ...USER_ERROR,
     },
 };

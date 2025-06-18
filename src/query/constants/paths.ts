@@ -24,7 +24,7 @@ export enum Endpoints {
 
     CURRENT_USER = 'users/me',
     USER_STATISTICS = 'statistic',
-    CREATE_NOTE = 'users/me/note',
+    NOTE = 'users/me/note',
 }
 
 export const ACCESS_TOKEN = 'Authentication-Access';

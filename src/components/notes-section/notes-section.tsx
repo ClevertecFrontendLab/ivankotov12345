@@ -71,7 +71,9 @@ export const NotesSection: React.FC<NotesSectionProps> = ({
                 {notes.map((note, index) => (
                     <NoteCard
                         {...note}
+                        key={note._id}
                         display={!collapsed && index >= initialNotes ? 'none' : 'block'}
+                        isUserNotes={isUserNotes}
                     />
                 ))}
             </SimpleGrid>
