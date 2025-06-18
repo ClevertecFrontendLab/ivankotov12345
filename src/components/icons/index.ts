@@ -4,6 +4,7 @@ export * from './favorite';
 export * from './home';
 export * from './image-icon';
 export * from './like';
+export * from './pen';
 export * from './people';
 export * from './plus-icon';
 export * from './sign-up';

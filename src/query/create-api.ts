@@ -12,7 +12,7 @@ import { getLocalStorageItem, setLocalStorageItem } from '~/helpers/storage';
 
 import { ACCESS_TOKEN, BASE_URL, Endpoints } from './constants/paths';
 import { ACCESS_TOKEN_STORAGE_KEY } from './constants/storage-keys';
-import { BLOGGERS_TAG, RECIPE_TAG } from './constants/tags';
+import { BLOGGERS_TAG, RECIPE_TAG, USER_TAG } from './constants/tags';
 
 const mutex = new Mutex();
 
@@ -77,6 +77,6 @@ const fetchBaseQueryWithRefresh: BaseQueryFn<
 export const apiSlice = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQueryWithRefresh,
-    tagTypes: [RECIPE_TAG, BLOGGERS_TAG],
+    tagTypes: [RECIPE_TAG, BLOGGERS_TAG, USER_TAG],
     endpoints: () => ({}),
 });

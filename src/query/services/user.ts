@@ -1,9 +1,11 @@
+import { CREATE_NOTE_STATUS, RESPONSE_STATUS } from '~/constants/statuses';
 import { NoteSchema } from '~/constants/validation-schemas/note';
 import { setCurrentUser, setCurrentUserStatistic } from '~/store/slices/user-slice';
 import { BloggerNotes } from '~/types/blogger';
 import { UserData, UserStatistics } from '~/types/user';
 
 import { Endpoints } from '../constants/paths';
+import { USER_TAG } from '../constants/tags';
 import { apiSlice } from '../create-api';
 
 export const userApi = apiSlice.injectEndpoints({
@@ -18,6 +20,7 @@ export const userApi = apiSlice.injectEndpoints({
                     dispatch(setCurrentUser());
                 }
             },
+            providesTags: [USER_TAG],
         }),
 
         getUserStatistic: build.query<UserStatistics, void>({
@@ -34,6 +37,11 @@ export const userApi = apiSlice.injectEndpoints({
 
         createNote: build.mutation<BloggerNotes, NoteSchema>({
             query: (body) => ({ url: Endpoints.CREATE_NOTE, method: 'POST', body }),
+            transformErrorResponse: (response) => ({
+                ...response,
+                ...CREATE_NOTE_STATUS[RESPONSE_STATUS.SERVER_ERROR],
+            }),
+            invalidatesTags: [USER_TAG],
         }),
     }),
 });

@@ -6,13 +6,15 @@ import { BORDERS } from '~/constants/styles/styles';
 import { formatDate } from '~/helpers/format-date';
 import { BloggerNotes } from '~/types/blogger';
 
-export const NoteCard: React.FC<BloggerNotes> = ({ date, text }) => (
+type NoteCardProps = BloggerNotes & { display: 'none' | 'block' };
+
+export const NoteCard: React.FC<NoteCardProps> = ({ date, text, display }) => (
     <Card
         p={6}
         border={BORDERS.solid}
         borderColor={COLORS_BLACK_ALPHA[200]}
         borderRadius='lg'
-        //display={!collapsed && index >= initialNotes ? 'none' : 'block'}
+        display={display}
     >
         <Flex direction='column' gap={4}>
             <Text color={COLORS_LIME[600]} fontSize='sm'>

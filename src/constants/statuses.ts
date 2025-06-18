@@ -2,6 +2,7 @@ import { ToastStatus } from '~/types/toast-status';
 
 export const RESPONSE_STATUS = {
     SUCCESS: 200,
+    OK: 201,
     BAD_REQUEST: 400,
     UNAUTHORIZED: 401,
     FORBIDDEN: 403,
@@ -107,5 +108,17 @@ export const LOAD_IMAGE_STATUS: Record<number, ToastStatus> = {
         status: 'error',
         title: 'Ошибка сервера',
         description: 'Попробуйте сохранить фото позже.',
+    },
+};
+
+export const CREATE_NOTE_STATUS: Record<number, ToastStatus> = {
+    [RESPONSE_STATUS.OK]: {
+        status: 'success',
+        title: 'Заметка опубликована',
+    },
+    [RESPONSE_STATUS.SERVER_ERROR]: {
+        status: 'error',
+        title: 'Ошибка сервера',
+        description: 'Попробуйте позже.',
     },
 };

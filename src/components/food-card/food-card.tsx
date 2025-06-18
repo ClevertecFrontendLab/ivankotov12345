@@ -23,9 +23,10 @@ import { NavLink, useLocation } from 'react-router';
 
 import fallback from '~/assets/fallback.png';
 import { FOOD_CARD_TYPES } from '~/constants/food-card-types';
-import { COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
+import { COLORS, COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
 import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
+import { BORDERS } from '~/constants/styles/styles';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { getCardCategories } from '~/helpers/get-card-categories';
 import { getFullImagePath } from '~/helpers/get-full-image-path';
@@ -208,13 +209,18 @@ export const FoodCard: React.FC<Partial<CardData>> = memo(
                             </ButtonGroup>
                         )}
 
-                        {(cardType === FOOD_CARD_TYPES.draft ||
-                            cardType === FOOD_CARD_TYPES.userRecipe) && (
+                        {cardType !== FOOD_CARD_TYPES.regular && (
                             <Button
                                 variant={
                                     cardType === FOOD_CARD_TYPES.draft
                                         ? STYLE_VARIANTS.black
-                                        : STYLE_VARIANTS.outline
+                                        : STYLE_VARIANTS.none
+                                }
+                                border={BORDERS.solid}
+                                borderColor={
+                                    cardType === FOOD_CARD_TYPES.draft
+                                        ? COLORS.black
+                                        : COLORS_BLACK_ALPHA[600]
                                 }
                                 size={{ base: 'xs', lg: 'sm' }}
                             >

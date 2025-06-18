@@ -1,7 +1,10 @@
-import { Avatar, Box, Flex, Heading, Text } from '@chakra-ui/react';
+import { SettingsIcon } from '@chakra-ui/icons';
+import { Avatar, Box, Flex, Heading, IconButton, Text, VStack } from '@chakra-ui/react';
 
 import { LikeIcon, PeopleIcon } from '~/components/icons';
 import { StatButton } from '~/components/stat-button';
+import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
+import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { getFullName } from '~/helpers/get-full-name';
 import { getTotalStatistic } from '~/helpers/get-total-stats';
 import { useAppSelector } from '~/store/hooks';
@@ -16,12 +19,12 @@ export const UserInfo: React.FC<UserData> = ({ firstName, lastName, login }) => 
     const totalStatistic = currentUserStatistic && getTotalStatistic(currentUserStatistic);
 
     return (
-        <Flex>
+        <Flex mb={6} py={4} gap={6} position='relative'>
             <Avatar name={fullName} size={{ base: 'xl', lg: '2xl' }} />
 
-            <Flex flexDir='column'>
-                <Heading>{fullName}</Heading>
-                <Text>{`@${login}`}</Text>
+            <VStack alignItems='start' justifyContent='space-between'>
+                <Heading fontSize={{ base: '2xl', lg: '5xl' }}>{fullName}</Heading>
+                <Text fontSize='sm' color={COLORS_BLACK_ALPHA[700]}>{`@${login}`}</Text>
 
                 <Box>
                     {totalStatistic && totalStatistic.likes > 0 && (
@@ -36,7 +39,16 @@ export const UserInfo: React.FC<UserData> = ({ firstName, lastName, login }) => 
                         />
                     )}
                 </Box>
-            </Flex>
+
+                <IconButton
+                    aria-label='settings'
+                    icon={<SettingsIcon fontSize='2xl' />}
+                    variant={STYLE_VARIANTS.none}
+                    position='absolute'
+                    right={0}
+                    size='lg'
+                />
+            </VStack>
         </Flex>
     );
 };

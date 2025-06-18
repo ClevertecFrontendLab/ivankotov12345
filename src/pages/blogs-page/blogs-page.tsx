@@ -16,7 +16,7 @@ import { useGetBloggersQuery } from '~/query/services/blogs';
 import { useAppSelector } from '~/store/hooks';
 import { selectUserId } from '~/store/slices/app-slice';
 
-import { BASE_LIMIT, BUTTON_TEXT, LIMIT_ALL } from './constants';
+import { BASE_LIMIT, BASE_LIMIT_MOBILE, BUTTON_TEXT, LIMIT_ALL } from './constants';
 
 export const BlogsPage: React.FC = () => {
     const [limit, setLimit] = useState<string | number>(BASE_LIMIT);
@@ -37,7 +37,9 @@ export const BlogsPage: React.FC = () => {
     const anyBlogger = data?.others ?? [];
 
     const displayedAnyBloggers =
-        limit === BASE_LIMIT && !isLargeScreen ? anyBlogger.slice(0, 8) : anyBlogger;
+        limit === BASE_LIMIT && !isLargeScreen
+            ? anyBlogger.slice(0, BASE_LIMIT_MOBILE)
+            : anyBlogger;
 
     if (isLoading) {
         return <Loader isLoading={true} />;

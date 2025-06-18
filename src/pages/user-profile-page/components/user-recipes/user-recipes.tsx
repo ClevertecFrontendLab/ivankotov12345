@@ -24,7 +24,7 @@ export const UserRecipes: React.FC<UserRecipesProps> = ({ drafts, recipes }) => 
 
     const onLoadMoreClick = () => setCollapsed(true);
     return (
-        <Box>
+        <Box mb={10}>
             <UserRecipesTitle recipesCount={recipes.length} draftsCount={drafts.length} />
 
             <CardsWrapper>

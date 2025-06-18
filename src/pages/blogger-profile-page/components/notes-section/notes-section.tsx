@@ -22,6 +22,8 @@ const BUTTON_TEXT = {
     hide: 'Свернуть',
 };
 
+// TODO: перейти на общий компонент, когда появятся тестайди
+
 export const NotesSection: React.FC<{ bloggerNotes: BloggerNotes[] }> = ({ bloggerNotes }) => {
     const [collapsed, setCollapsed] = useState(false);
 
