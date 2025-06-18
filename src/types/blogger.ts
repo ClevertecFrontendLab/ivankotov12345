@@ -51,6 +51,7 @@ export type BloggerInfoResponse = {
 
 export type BloggerActivityInfo = {
     notes: BloggerNotes[];
+    myBookmarks: RecipeType[];
     recipes: RecipeType[];
     totalBookmarks: number;
     totalSubscribers: number;

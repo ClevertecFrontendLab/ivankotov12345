@@ -38,7 +38,7 @@ import { selectSearchInput } from '~/store/slices/search-input-slice';
 import { CardData } from '~/types/card-data';
 
 import { CardBadge } from '../card-badge';
-import { FavoriteIcon, LikeIcon } from '../icons';
+import { FavoriteIcon, LikeIcon, RemoveBookmarkIcon } from '../icons';
 import { StatButton } from '../stat-button';
 
 export const FoodCard: React.FC<Partial<CardData>> = memo(
@@ -61,7 +61,10 @@ export const FoodCard: React.FC<Partial<CardData>> = memo(
 
         const [bookmarkRecipe] = useBookmarkRecipeMutation();
 
-        const onBookmarkRecipeClick = () => _id && bookmarkRecipe(_id);
+        const onBookmarkRecipeClick = async () => {
+            if (!_id) return;
+            await bookmarkRecipe(_id);
+        };
 
         const cardCategories = getCardCategories(categories, subCategories, categoriesIds);
 
@@ -209,7 +212,8 @@ export const FoodCard: React.FC<Partial<CardData>> = memo(
                             </ButtonGroup>
                         )}
 
-                        {cardType !== FOOD_CARD_TYPES.regular && (
+                        {(cardType === FOOD_CARD_TYPES.draft ||
+                            cardType === FOOD_CARD_TYPES.userRecipe) && (
                             <Button
                                 variant={
                                     cardType === FOOD_CARD_TYPES.draft
@@ -225,6 +229,19 @@ export const FoodCard: React.FC<Partial<CardData>> = memo(
                                 size={{ base: 'xs', lg: 'sm' }}
                             >
                                 Редактировать
+                            </Button>
+                        )}
+
+                        {cardType === FOOD_CARD_TYPES.bookmark && (
+                            <Button
+                                variant={STYLE_VARIANTS.none}
+                                leftIcon={<RemoveBookmarkIcon />}
+                                onClick={onBookmarkRecipeClick}
+                                border={BORDERS.solid}
+                                borderColor={COLORS_BLACK_ALPHA[600]}
+                                size={{ base: 'xs', lg: 'sm' }}
+                            >
+                                Убрать из сохраненных
                             </Button>
                         )}
                     </CardFooter>

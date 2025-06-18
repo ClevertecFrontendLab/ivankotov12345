@@ -5,6 +5,7 @@ import { useGetBloggerActivityQuery } from '~/query/services/blogs';
 import { useAppSelector } from '~/store/hooks';
 import { selectCurrentUser } from '~/store/slices/user-slice';
 
+import { UserBookmarks } from './components/user-bookmarks';
 import { UserInfo } from './components/user-info';
 import { UserNotesDrawer } from './components/user-notes-drawer';
 import { UserRecipes } from './components/user-recipes';
@@ -26,6 +27,7 @@ export const UserProfilePage: React.FC = () => {
 
             <NotesSection notes={currentUser?.notes ?? []} isUserNotes={true} onOpen={onOpen} />
             <UserNotesDrawer isOpen={isOpen} onClose={onClose} />
+            <UserBookmarks bookmarks={currentUserActivitiesData?.myBookmarks ?? []} />
         </Box>
     );
 };

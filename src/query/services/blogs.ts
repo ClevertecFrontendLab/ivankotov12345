@@ -7,7 +7,7 @@ import {
 import { BloggerByIdParams, BloggersParams } from '~/types/request-params';
 
 import { Endpoints } from '../constants/paths';
-import { BLOGGERS_TAG } from '../constants/tags';
+import { ACTIVITIES_TAG, BLOGGERS_TAG } from '../constants/tags';
 import { apiSlice } from '../create-api';
 
 export const blogsApi = apiSlice.injectEndpoints({
@@ -36,6 +36,7 @@ export const blogsApi = apiSlice.injectEndpoints({
         }),
         getBloggerActivity: build.query<BloggerActivityInfo, string | undefined>({
             query: (id) => ({ url: `${Endpoints.BLOGGER_RECIPES}/${id}` }),
+            providesTags: () => [{ type: ACTIVITIES_TAG, id: 'LIST' }],
         }),
     }),
 });

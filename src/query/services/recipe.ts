@@ -8,7 +8,7 @@ import { MetaParams, RecipeListResponse, RecipeType } from '~/types/recipe';
 import { RecipeInfiniteParams, RecipeParams } from '~/types/request-params';
 
 import { Endpoints } from '../constants/paths';
-import { RECIPE_TAG } from '../constants/tags';
+import { ACTIVITIES_TAG, RECIPE_TAG } from '../constants/tags';
 import { apiSlice } from '../create-api';
 
 export const recipeApi = apiSlice.injectEndpoints({
@@ -42,6 +42,7 @@ export const recipeApi = apiSlice.injectEndpoints({
             transformErrorResponse: (response) => ({ ...response, ...ALERT_ERROR_TEXT }),
             providesTags: () => [{ type: RECIPE_TAG, id: 'LIST' }],
         }),
+
         getRecipesByCategory: build.query<RecipeListResponse, RecipeParams>({
             query: (params) => {
                 const { id, ...queryParams } = params;
@@ -50,6 +51,7 @@ export const recipeApi = apiSlice.injectEndpoints({
             transformErrorResponse: (response) => ({ ...response, ...ALERT_ERROR_TEXT }),
             providesTags: [RECIPE_TAG],
         }),
+
         getRecipe: build.query<RecipeType, string>({
             query: (id) => ({ url: `${Endpoints.RECIPE}/${id}` }),
             transformResponse: (response: RecipeType) => {
@@ -77,6 +79,7 @@ export const recipeApi = apiSlice.injectEndpoints({
             },
             providesTags: [RECIPE_TAG],
         }),
+
         likeRecipe: build.mutation<string, string>({
             query: (id) => ({ url: `${Endpoints.RECIPE}/${id}/${Endpoints.LIKE}`, method: 'POST' }),
             invalidatesTags: (_result, _error, id) => [
@@ -85,6 +88,7 @@ export const recipeApi = apiSlice.injectEndpoints({
             ],
             transformErrorResponse: (response) => ({ ...response, ...LIKE_RECIPE_ERROR }),
         }),
+
         bookmarkRecipe: build.mutation<string, string>({
             query: (id) => ({
                 url: `${Endpoints.RECIPE}/${id}/${Endpoints.BOOKMARK}`,
@@ -93,6 +97,7 @@ export const recipeApi = apiSlice.injectEndpoints({
             invalidatesTags: (_result, _error, id) => [
                 { type: RECIPE_TAG, id },
                 { type: RECIPE_TAG, id: 'LIST' },
+                { type: ACTIVITIES_TAG, id: 'LIST' },
             ],
             transformErrorResponse: (response) => ({ ...response, ...LIKE_RECIPE_ERROR }),
         }),

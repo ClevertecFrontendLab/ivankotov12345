@@ -20,7 +20,7 @@ export const userApi = apiSlice.injectEndpoints({
                     dispatch(setCurrentUser());
                 }
             },
-            providesTags: [USER_TAG],
+            providesTags: () => [USER_TAG],
         }),
 
         getUserStatistic: build.query<UserStatistics, void>({

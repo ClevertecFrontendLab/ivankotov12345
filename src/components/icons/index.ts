@@ -8,6 +8,7 @@ export * from './like';
 export * from './pen';
 export * from './people';
 export * from './plus-icon';
+export * from './remove-bookmark';
 export * from './sign-up';
 export * from './subscribe-icon';
 export * from './timer-icon';
