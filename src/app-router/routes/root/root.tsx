@@ -54,6 +54,10 @@ export const rootPage: RouteObject = {
             element: <UserProfilePage />,
         },
         {
+            path: ROUTER_PATHS.editDraft,
+            element: <CreateRecipePage />,
+        },
+        {
             path: ROUTER_PATHS.subcategory,
             children: [
                 {

@@ -4,9 +4,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useNavigate, useParams } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router';
 
-import { ROUTER_PATHS } from '~/constants/router-paths';
+import { EDIT_DRAFT_ITEM_PATH, ROUTER_PATHS } from '~/constants/router-paths';
 import { CREATE_DRAFT_STATUS, CREATE_RECIPE_STATUS, RESPONSE_STATUS } from '~/constants/statuses';
 import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
 import { SIZES } from '~/constants/styles/sizes';
@@ -23,6 +23,7 @@ import { useGetRecipeQuery } from '~/query/services/recipe';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { setToastData, setToastIsOpen } from '~/store/slices/app-slice';
 import { selectCategories, selectSubCategories } from '~/store/slices/category-slice';
+import { selectCurrentUser } from '~/store/slices/user-slice';
 import { ToastStatus } from '~/types/toast-status';
 
 import { DEFAULT_RECIPE_FORM_VALUES } from './constants';
@@ -56,9 +57,16 @@ export const RecipeForm: React.FC = () => {
 
     const categories = useAppSelector(selectCategories);
     const subCategories = useAppSelector(selectSubCategories);
+    const currentUser = useAppSelector(selectCurrentUser);
 
     const { id } = useParams();
-    const { data: recipeData } = useGetRecipeQuery(id ?? skipToken);
+    const { pathname } = useLocation();
+
+    const isDraft = pathname.includes(EDIT_DRAFT_ITEM_PATH);
+
+    const { data: recipeData } = useGetRecipeQuery(id && !isDraft ? id : skipToken);
+
+    const draftData = currentUser?.drafts.find(({ _id }) => _id === id);
 
     const [createRecipe, { isSuccess: isSuccessCreateRecipe }] = useCreateRecipeMutation();
     const [updateRecipe, { isSuccess: isSuccessUpdateRecipe }] = useUpdateRecipeMutation();
@@ -111,7 +119,10 @@ export const RecipeForm: React.FC = () => {
         if (recipeData) {
             setDefaultFormValues(recipeData, reset);
         }
-    }, [recipeData, reset]);
+        if (draftData) {
+            setDefaultFormValues(draftData, reset);
+        }
+    }, [recipeData, draftData, reset]);
 
     useEffect(() => {
         if (

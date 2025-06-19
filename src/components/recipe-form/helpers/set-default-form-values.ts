@@ -3,7 +3,10 @@ import { UseFormReset } from 'react-hook-form';
 import { RecipeSchema } from '~/constants/validation-schemas/recipe';
 import { RecipeType } from '~/types/recipe';
 
-export const setDefaultFormValues = (recipe: RecipeType, reset: UseFormReset<RecipeSchema>) => {
+export const setDefaultFormValues = (
+    recipe: Partial<RecipeType>,
+    reset: UseFormReset<RecipeSchema>,
+) => {
     reset({
         categoriesIds: recipe.categoriesIds,
         title: recipe.title,
@@ -11,7 +14,7 @@ export const setDefaultFormValues = (recipe: RecipeType, reset: UseFormReset<Rec
         portions: recipe.portions,
         time: recipe.time,
         image: recipe.image,
-        ingredients: recipe.ingredients.map(({ title, count, measureUnit }) => ({
+        ingredients: recipe.ingredients?.map(({ title, count, measureUnit }) => ({
             title: title,
             count: +count,
             measureUnit: measureUnit,

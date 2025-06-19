@@ -23,6 +23,7 @@ import { NavLink, useLocation } from 'react-router';
 
 import fallback from '~/assets/fallback.png';
 import { FOOD_CARD_TYPES } from '~/constants/food-card-types';
+import { EDIT_DRAFT_ITEM_PATH, EDIT_ITEM_PATH } from '~/constants/router-paths';
 import { COLORS, COLORS_BLACK_ALPHA, COLORS_LIME } from '~/constants/styles/colors';
 import { SIZES } from '~/constants/styles/sizes';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
@@ -215,6 +216,12 @@ export const FoodCard: React.FC<Partial<CardData>> = memo(
                         {(cardType === FOOD_CARD_TYPES.draft ||
                             cardType === FOOD_CARD_TYPES.userRecipe) && (
                             <Button
+                                as={NavLink}
+                                to={
+                                    cardType === FOOD_CARD_TYPES.userRecipe
+                                        ? `${EDIT_ITEM_PATH}${recipePath}`
+                                        : `${EDIT_DRAFT_ITEM_PATH}/${_id}`
+                                }
                                 variant={
                                     cardType === FOOD_CARD_TYPES.draft
                                         ? STYLE_VARIANTS.black

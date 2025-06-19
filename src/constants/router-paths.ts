@@ -15,7 +15,9 @@ export const ROUTER_PATHS = {
     recipe: ':id',
     anyRoute: '*',
     notFound: '/not-found',
+    editDraft: '/edit-draft/:id',
 };
 
 export const EDIT_ITEM_PATH = '/edit-recipe';
+export const EDIT_DRAFT_ITEM_PATH = '/edit-draft';
 export const ANCHOR_NOTES = '#notes';
