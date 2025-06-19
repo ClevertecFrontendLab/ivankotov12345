@@ -5,7 +5,7 @@ import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { BORDERS } from '~/constants/styles/styles';
 import { DATA_TEST_ID } from '~/constants/test-id';
 
-export const ModalWrapper: React.FC<ModalProps & { testId: string }> = ({
+export const ModalWrapper: React.FC<ModalProps & { testId?: string }> = ({
     children,
     isOpen,
     onClose,

@@ -17,6 +17,7 @@ export type UserData = {
     drafts: Partial<RecipeType>[];
     subscriptions: string[];
     subscribers: string[];
+    photoLink?: string;
 };
 
 export type UserStatistics = {
