@@ -1,8 +1,10 @@
 import { SettingsIcon } from '@chakra-ui/icons';
 import { Avatar, Box, Flex, Heading, IconButton, Text, VStack } from '@chakra-ui/react';
+import { NavLink } from 'react-router';
 
 import { LikeIcon, PeopleIcon } from '~/components/icons';
 import { StatButton } from '~/components/stat-button';
+import { ROUTER_PATHS } from '~/constants/router-paths';
 import { COLORS_BLACK_ALPHA } from '~/constants/styles/colors';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
 import { getFullName } from '~/helpers/get-full-name';
@@ -41,6 +43,8 @@ export const UserInfo: React.FC<UserData> = ({ firstName, lastName, login }) => 
                 </Box>
 
                 <IconButton
+                    as={NavLink}
+                    to={ROUTER_PATHS.profileSetings}
                     aria-label='settings'
                     icon={<SettingsIcon fontSize='2xl' />}
                     variant={STYLE_VARIANTS.none}

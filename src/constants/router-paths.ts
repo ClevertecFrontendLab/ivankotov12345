@@ -16,6 +16,7 @@ export const ROUTER_PATHS = {
     anyRoute: '*',
     notFound: '/not-found',
     editDraft: '/edit-draft/:id',
+    profileSetings: '/profile/settings',
 };
 
 export const EDIT_ITEM_PATH = '/edit-recipe';

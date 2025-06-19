@@ -11,6 +11,7 @@ import { CategoryPage } from '~/pages/category-page';
 import { CreateRecipePage } from '~/pages/create-recipe-page';
 import { HomePage } from '~/pages/home-page';
 import { JuiciestPage } from '~/pages/juiciest-page';
+import { ProfileSettingsPage } from '~/pages/profile-settings-page';
 import { RecipePage } from '~/pages/recipe-page';
 import { UserProfilePage } from '~/pages/user-profile-page';
 
@@ -56,6 +57,10 @@ export const rootPage: RouteObject = {
         {
             path: ROUTER_PATHS.editDraft,
             element: <CreateRecipePage />,
+        },
+        {
+            path: ROUTER_PATHS.profileSetings,
+            element: <ProfileSettingsPage />,
         },
         {
             path: ROUTER_PATHS.subcategory,
