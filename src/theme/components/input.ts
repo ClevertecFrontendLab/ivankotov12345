@@ -42,6 +42,9 @@ const authInput = definePartsStyle({
             border: '1px solid',
             borderColor: 'red.500',
         },
+        _disabled: {
+            border: 'none',
+        },
     },
 });
 

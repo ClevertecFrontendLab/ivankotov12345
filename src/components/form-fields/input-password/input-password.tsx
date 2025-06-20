@@ -59,7 +59,9 @@ export const InputPassword: React.FC<InputPasswordProps> = ({
                 </InputRightElement>
             </InputGroup>
 
-            <FormHelperText mt={1}>{hint}</FormHelperText>
+            <FormHelperText mt={1} textAlign='start' fontSize='xs'>
+                {hint}
+            </FormHelperText>
             <FormErrorMessage position='absolute' bottom={INPUT_ERROR_POSITION}>
                 {error}
             </FormErrorMessage>

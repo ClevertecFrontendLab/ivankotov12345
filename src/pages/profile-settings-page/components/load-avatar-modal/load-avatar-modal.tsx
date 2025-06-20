@@ -1,4 +1,4 @@
-import { Box, Button, Heading } from '@chakra-ui/react';
+import { Box, Button, Heading, ModalProps } from '@chakra-ui/react';
 import { useState } from 'react';
 import Cropper, { Area } from 'react-easy-crop';
 
@@ -10,9 +10,7 @@ import { useLoadAvatarMutation } from '~/query/services/load-image';
 import { CROP_SIZE, cropperStyles } from './constants';
 import { getCroppedImage } from './helpers/get-cropped-image';
 
-type LoadAvatarModalProps = {
-    isOpen: boolean;
-    onClose: () => void;
+type LoadAvatarModalProps = Pick<ModalProps, 'isOpen' | 'onClose'> & {
     selectedImageUrl: string | null;
     selectedImageFileName: string | null;
 };

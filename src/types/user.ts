@@ -20,6 +20,8 @@ export type UserData = {
     photoLink?: string;
 };
 
+export type UpdateUserInfo = Pick<UserData, 'firstName' | 'lastName'>;
+
 export type UserStatistics = {
     likes: StatisticItem[];
     bookmarks: StatisticItem[];

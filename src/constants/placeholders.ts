@@ -13,6 +13,8 @@ export const PLACEHOLDERS = {
     email: 'e-mail',
     loginShort: 'Логин',
     passwordShort: 'Пароль',
+    oldPassword: 'Старый пароль',
+    newPassword: 'Новый пароль',
     repeatPassword: 'Повторите пароль',
     recipeTitle: 'Название рецепта',
     recipeDescription: 'Краткое описание рецепта',

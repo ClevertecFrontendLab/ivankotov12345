@@ -12,6 +12,7 @@ import { useCallback, useEffect } from 'react';
 import { ALERT_ERROR_TEXT } from '~/constants/statuses';
 import { COLORS } from '~/constants/styles/colors';
 import { STYLE_VARIANTS } from '~/constants/styles/style-variants';
+import { Z_INDEX } from '~/constants/styles/z-index';
 import { DATA_TEST_ID } from '~/constants/test-id';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectApp, setToastData, setToastIsOpen } from '~/store/slices/app-slice';
@@ -58,6 +59,7 @@ export const AlertError: React.FC = () => {
             left='50%'
             transform='translateX(-50%)'
             bottom={{ base: INDENT_BOTTOM.sm, lg: INDENT_BOTTOM.lg }}
+            zIndex={Z_INDEX.toast}
         >
             <Alert
                 variant={STYLE_VARIANTS.solid}

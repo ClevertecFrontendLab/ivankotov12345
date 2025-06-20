@@ -1,6 +1,7 @@
 export const Z_INDEX = {
     hide: 'hide',
     base: 'base',
+    toast: 'toast',
     carousel: 2,
     layout: 12,
     backdrop: 10,

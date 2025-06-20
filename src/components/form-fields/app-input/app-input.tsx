@@ -14,6 +14,7 @@ export const AppInput: React.FC<AppInputProps> = ({
     setValue,
     hint,
     error,
+    disabled = false,
 }) => (
     <FormControl isInvalid={isInvalid}>
         {label && <FormLabel mb={1}>{label}</FormLabel>}
@@ -23,6 +24,7 @@ export const AppInput: React.FC<AppInputProps> = ({
             variant={variant}
             data-test-id={testId}
             onBlur={trimOnBlur(register.name, setValue)}
+            disabled={disabled}
         />
         <FormHelperText mt={1}>{hint}</FormHelperText>
         <FormErrorMessage position='absolute' bottom={INPUT_ERROR_POSITION}>

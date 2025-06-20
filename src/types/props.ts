@@ -18,9 +18,10 @@ export type AppInputProps = {
     isInvalid: boolean;
     placeholder: string;
     register: UseFormRegisterReturn;
-    testId: string;
     variant: string;
     setValue: SetFieldValue<FieldValues>;
+    disabled?: boolean;
+    testId?: string;
     label?: string;
     hint?: string;
     error?: string;

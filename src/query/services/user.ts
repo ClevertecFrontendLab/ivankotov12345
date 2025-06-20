@@ -1,8 +1,16 @@
-import { CREATE_NOTE_STATUS, DELETE_NOTE_STATUS, RESPONSE_STATUS } from '~/constants/statuses';
+import {
+    CREATE_NOTE_STATUS,
+    DELETE_NOTE_STATUS,
+    RESPONSE_STATUS,
+    UPDATE_INFO_STATUS,
+    UPDATE_PASSWORD_STATUS,
+} from '~/constants/statuses';
 import { NoteSchema } from '~/constants/validation-schemas/note';
+import { UpdatePasswordSchema } from '~/constants/validation-schemas/update-user-data';
 import { setCurrentUser, setCurrentUserStatistic } from '~/store/slices/user-slice';
 import { BloggerNotes } from '~/types/blogger';
-import { UserData, UserStatistics } from '~/types/user';
+import { ResponseData } from '~/types/response';
+import { UpdateUserInfo, UserData, UserStatistics } from '~/types/user';
 
 import { Endpoints } from '../constants/paths';
 import { USER_TAG } from '../constants/tags';
@@ -52,6 +60,27 @@ export const userApi = apiSlice.injectEndpoints({
             }),
             invalidatesTags: [USER_TAG],
         }),
+
+        updateInfo: build.mutation<void, UpdateUserInfo>({
+            query: (body) => ({ url: Endpoints.UPDATE_INFO, method: 'PATCH', body }),
+            transformErrorResponse: (response) => ({
+                ...response,
+                ...UPDATE_INFO_STATUS[RESPONSE_STATUS.SERVER_ERROR],
+            }),
+            invalidatesTags: [USER_TAG],
+        }),
+
+        updatePassword: build.mutation<void, Omit<UpdatePasswordSchema, 'confirmNewPassword'>>({
+            query: (body) => ({ url: Endpoints.UPDATE_PASSWORD, method: 'PATCH', body }),
+            transformErrorResponse: (response) => {
+                const currentResponse = response.data as ResponseData;
+                if (response.status === RESPONSE_STATUS.SERVER_ERROR) {
+                    return { ...response, ...UPDATE_PASSWORD_STATUS[RESPONSE_STATUS.SERVER_ERROR] };
+                } else {
+                    return { ...response, title: 'Ошибка', description: currentResponse.message };
+                }
+            },
+        }),
     }),
 });
 
@@ -60,4 +89,6 @@ export const {
     useGetUserStatisticQuery,
     useCreateNoteMutation,
     useDeleteNoteMutation,
+    useUpdateInfoMutation,
+    useUpdatePasswordMutation,
 } = userApi;

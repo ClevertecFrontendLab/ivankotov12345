@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { emailSchema } from './e-mail';
 import { VALIDATION_ERRORS } from './validation-error-messages';
 
-const userNameValidation = z
+export const userNameValidation = z
     .string()
     .min(1, { message: VALIDATION_ERRORS.nameEmpty })
     .regex(/^[А-Яа-яЁё]/, { message: VALIDATION_ERRORS.firstLetterError })

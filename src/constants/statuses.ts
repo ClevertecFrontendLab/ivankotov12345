@@ -135,3 +135,25 @@ export const DELETE_NOTE_STATUS: Record<number, ToastStatus> = {
         ...USER_ERROR,
     },
 };
+
+export const UPDATE_INFO_STATUS: Record<number, ToastStatus> = {
+    [RESPONSE_STATUS.SUCCESS]: {
+        status: 'success',
+        title: 'Изменения сохранены',
+    },
+    [RESPONSE_STATUS.SERVER_ERROR]: {
+        ...USER_ERROR,
+    },
+};
+
+export const UPDATE_PASSWORD_STATUS: Record<number, ToastStatus> = {
+    [RESPONSE_STATUS.SUCCESS]: {
+        status: 'success',
+        title: 'Пароль успешно изменен',
+    },
+    [RESPONSE_STATUS.SERVER_ERROR]: {
+        ...USER_ERROR,
+    },
+};
+
+export const PASSWORDS_ARE_EQUAL = 'Новый и старый пароль совпадают';
